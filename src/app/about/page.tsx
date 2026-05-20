@@ -1,5 +1,6 @@
 ﻿import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, BookOpen, Users, Award } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ const personJsonLd = {
   url: 'https://destiny-solver-blog.vercel.app/about',
   jobTitle: '八字命理師',
   description: '香港八字命理研究者與諮詢師，融合東方命理與現代心理學，用命理幫助人認識真實的自己。',
+  image: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
   email: 'michaelchan.gezi@gmail.com',
   sameAs: [
     'https://www.threads.com/@destiny.solver',
@@ -46,8 +48,14 @@ export default function AboutPage() {
       {/* Bio */}
       <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12">
         <div className="flex items-start gap-6 mb-6">
-          <div className="w-16 h-16 bg-[#C9A84C]/20 border border-[#C9A84C]/30 rounded-full flex items-center justify-center flex-shrink-0">
-            <span className="text-[#C9A84C] text-2xl font-black">陳</span>
+          <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#C9A84C]/40 flex-shrink-0">
+            <Image
+              src="/images/avatar.png"
+              alt="命運解決師｜陳卓賢"
+              width={96}
+              height={96}
+              className="object-cover w-full h-full"
+            />
           </div>
           <div>
             <h2 className="text-white text-2xl font-bold">陳卓賢</h2>

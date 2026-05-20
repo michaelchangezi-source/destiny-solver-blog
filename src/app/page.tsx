@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, BookOpen, Calendar, MessageCircle } from 'lucide-react'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
 import ArticleCard from '@/components/blog/ArticleCard'
@@ -24,9 +25,20 @@ export default function HomePage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Text */}
           <div>
-            <p className="text-[#C9A84C] text-sm font-semibold tracking-[0.3em] uppercase mb-6">
-              命運解決師 · Destiny Solver
-            </p>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full overflow-hidden border border-[#C9A84C]/40 flex-shrink-0">
+                <Image
+                  src="/images/avatar.png"
+                  alt="命運解決師｜陳卓賢"
+                  width={48}
+                  height={48}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <p className="text-[#C9A84C] text-sm font-semibold tracking-[0.3em] uppercase">
+                命運解決師 · Destiny Solver
+              </p>
+            </div>
             <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
               用命理<br />
               <span className="text-[#C9A84C]">讀懂你</span><br />

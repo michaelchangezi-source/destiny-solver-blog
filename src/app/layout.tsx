@@ -48,6 +48,7 @@ const websiteJsonLd = {
   author: {
     '@type': 'Person',
     name: '陳卓賢',
+    image: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
     url: 'https://destiny-solver-blog.vercel.app/about',
     sameAs: [
       'https://www.threads.com/@destiny.solver',
