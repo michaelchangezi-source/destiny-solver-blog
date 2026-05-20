@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, BookOpen, Users, Award } from 'lucide-react'
 
@@ -12,7 +12,7 @@ const personJsonLd = {
   '@type': 'Person',
   name: '陳卓賢',
   alternateName: '命運解決師',
-  url: 'https://destinysolver.com/about',
+  url: 'https://destiny-solver-blog.vercel.app/about',
   jobTitle: '八字命理師',
   description: '香港八字命理研究者與諮詢師，融合東方命理與現代心理學，用命理幫助人認識真實的自己。',
   email: 'michaelchan.gezi@gmail.com',
@@ -23,7 +23,7 @@ const personJsonLd = {
   knowsAbout: ['八字命理', '五行哲學', '十神', '大運流年', '吠陀占星', '中國傳統命理'],
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://destinysolver.com/about',
+    '@id': 'https://destiny-solver-blog.vercel.app/about',
   },
 }
 

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { Noto_Sans_TC } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
@@ -19,12 +19,12 @@ export const metadata: Metadata = {
   description:
     '用命理讀懂你這個人：不是預測命運，是認識自己。香港八字命理師陳卓賢，深度解析八字、十神、大運流年，讓命理成為你的自我認識工具。',
   keywords: ['八字命理', '八字', '十神', '大運流年', '命理', '香港命理師', '自我認識'],
-  authors: [{ name: '陳卓賢', url: 'https://destinysolver.com' }],
+  authors: [{ name: '陳卓賢', url: 'https://destiny-solver-blog.vercel.app' }],
   creator: '陳卓賢',
   openGraph: {
     type: 'website',
     locale: 'zh_TW',
-    url: 'https://destinysolver.com',
+    url: 'https://destiny-solver-blog.vercel.app',
     siteName: '命運解決師',
     title: '命運解決師｜八字命理深度解析',
     description: '用命理讀懂你這個人：不是預測命運，是認識自己。',
@@ -42,13 +42,13 @@ const websiteJsonLd = {
   '@type': 'WebSite',
   name: '命運解決師',
   alternateName: 'Destiny Solver',
-  url: 'https://destinysolver.com',
+  url: 'https://destiny-solver-blog.vercel.app',
   description: '用命理讀懂你這個人：不是預測命運，是認識自己。香港八字命理師陳卓賢的命理知識平台。',
   inLanguage: 'zh-TW',
   author: {
     '@type': 'Person',
     name: '陳卓賢',
-    url: 'https://destinysolver.com/about',
+    url: 'https://destiny-solver-blog.vercel.app/about',
     sameAs: [
       'https://www.threads.com/@destiny.solver',
       'https://www.instagram.com/destiny.solver',
@@ -58,7 +58,7 @@ const websiteJsonLd = {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: 'https://destinysolver.com/articles?q={search_term_string}',
+      urlTemplate: 'https://destiny-solver-blog.vercel.app/articles?q={search_term_string}',
     },
     'query-input': 'required name=search_term_string',
   },

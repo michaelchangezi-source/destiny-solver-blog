@@ -55,25 +55,25 @@ export default async function ArticlePage({ params }: Props) {
     headline: article.title,
     description: article.excerpt,
     image: article.coverImage
-      ? [`https://destinysolver.com${article.coverImage}`]
-      : ['https://destinysolver.com/images/og-default.png'],
+      ? [`https://destiny-solver-blog.vercel.app${article.coverImage}`]
+      : ['https://destiny-solver-blog.vercel.app/images/og-default.png'],
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
-    url: `https://destinysolver.com/articles/${article.slug}`,
+    url: `https://destiny-solver-blog.vercel.app/articles/${article.slug}`,
     inLanguage: 'zh-TW',
     author: {
       '@type': 'Person',
       name: '陳卓賢',
-      url: 'https://destinysolver.com/about',
+      url: 'https://destiny-solver-blog.vercel.app/about',
     },
     publisher: {
       '@type': 'Person',
       name: '陳卓賢',
-      url: 'https://destinysolver.com',
+      url: 'https://destiny-solver-blog.vercel.app',
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://destinysolver.com/articles/${article.slug}`,
+      '@id': `https://destiny-solver-blog.vercel.app/articles/${article.slug}`,
     },
     keywords: article.tags.join(', '),
     articleSection: article.category,

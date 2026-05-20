@@ -1,7 +1,7 @@
-import type { MetadataRoute } from 'next'
+﻿import type { MetadataRoute } from 'next'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
 
-const BASE_URL = 'https://destinysolver.com'
+const BASE_URL = 'https://destiny-solver-blog.vercel.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles()
