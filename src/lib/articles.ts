@@ -6,13 +6,28 @@ import type { Article, ArticleMeta } from '@/types'
 
 const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles')
 
-// 支援 .md（原有）和 .mdoc（Keystatic 新增）兩種格式
+// 從檔名提取 ASCII-only slug（例如 "topic-01-十天干..." → "topic-01"）
+// 確保 URL 不含中文字符，避免靜態路由 404
+function extractSlug(filename: string): string {
+  const basename = filename.replace(/\.(md|mdoc)$/, '')
+  const match = basename.match(/^(topic-\d+)/)
+  return match ? match[1] : basename
+}
+
+// 支援 .md 和 .mdoc 兩種格式，並以 slug 前綴匹配檔案
 function findArticleFile(slug: string): string | null {
+  if (!fs.existsSync(ARTICLES_DIR)) return null
+  const files = fs.readdirSync(ARTICLES_DIR)
+  // 嘗試完全匹配（topic-01.md）
   for (const ext of ['.md', '.mdoc']) {
-    const p = path.join(ARTICLES_DIR, `${slug}${ext}`)
-    if (fs.existsSync(p)) return p
+    const exact = path.join(ARTICLES_DIR, `${slug}${ext}`)
+    if (fs.existsSync(exact)) return exact
   }
-  return null
+  // 嘗試前綴匹配（topic-01-中文標題.md）
+  const match = files.find(
+    (f) => (f.endsWith('.md') || f.endsWith('.mdoc')) && extractSlug(f) === slug
+  )
+  return match ? path.join(ARTICLES_DIR, match) : null
 }
 
 export function getArticleSlugs(): string[] {
@@ -20,7 +35,7 @@ export function getArticleSlugs(): string[] {
   return fs
     .readdirSync(ARTICLES_DIR)
     .filter((file) => file.endsWith('.md') || file.endsWith('.mdoc'))
-    .map((file) => file.replace(/\.(md|mdoc)$/, ''))
+    .map((file) => extractSlug(file))
 }
 
 export function getArticleBySlug(slug: string): Article | null {

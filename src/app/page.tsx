@@ -56,7 +56,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 gap-4">
             {[
               { icon: BookOpen, value: `${articles.length}+`, label: '深度文章' },
-              { icon: Calendar, value: '7年+', label: '命理研究' },
+              { icon: Calendar, value: '15年+', label: '命理研究' },
               { icon: MessageCircle, value: '3.5K+', label: 'Threads 追蹤' },
               { icon: ArrowRight, value: '免費', label: '開放閱讀' },
             ].map((stat) => (
