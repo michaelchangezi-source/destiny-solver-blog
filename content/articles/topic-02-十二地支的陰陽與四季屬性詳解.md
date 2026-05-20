@@ -4,7 +4,7 @@ slug: "topic-02-十二地支的陰陽與四季屬性詳解"
 excerpt: "主題 2：十二地支的陰陽與四季屬性詳解 地支的實相哲學：從四季輪迴洞悉妳的命運底盤 如果說十天干是我們頭頂上的「宇宙思想」，決定了妳的性格底色與精神氣質；那麼十二地支，就是我們腳踏的「地球實相」，它們是承載生命事件的容器、是定義人生節奏的時..."
 category: "八字基礎"
 tags: ["八字", "命理", "八字基礎"]
-coverImage: "/images/covers/topic-02.png"
+coverImage: "/images/covers/topic-02.jpg"
 publishedAt: "2024-01-08T00:00:00Z"
 order: 2
 isPaid: false

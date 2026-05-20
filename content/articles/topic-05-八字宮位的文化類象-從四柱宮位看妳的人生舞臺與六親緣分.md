@@ -4,7 +4,7 @@ slug: "topic-05-八字宮位的文化類象-從四柱宮位看妳的人生舞臺
 excerpt: "從四柱宮位讀懂妳的人生劇本：解鎖八字宮位的文化類象與六親緣分 在八字命理的宇宙中，十天干與十二地支構建了生命中的「能量」，十神則是賦予這股能量的「角色」。然而，要讓這些角色在對的時間、對的地點，做出影響人生的重大決策，我們必須掌握八字的「宮..."
 category: "干支詳解"
 tags: ["八字", "命理", "干支詳解"]
-coverImage: "/images/covers/topic-05.png"
+coverImage: "/images/covers/topic-05.jpg"
 publishedAt: "2024-01-29T00:00:00Z"
 order: 5
 isPaid: false

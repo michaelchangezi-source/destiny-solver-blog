@@ -4,7 +4,7 @@ slug: "topic-31-干支的虛實原理與應用-判斷力量大小與事件真實
 excerpt: "虛實論：從天干虛浮到地支實根的能量判斷 虛實（Xū Shí，Emptiness and Reality）原理是八字進階論命的核心，尤其在判斷事件的發生力度、財官的實際容量，以及十神心性的體現程度時，具有決定性作用。它主要透過考察天干（虛）與..."
 category: "事業財運"
 tags: ["八字", "命理", "事業財運"]
-coverImage: "/images/covers/topic-31.png"
+coverImage: "/images/covers/topic-31.jpg"
 publishedAt: "2024-07-29T00:00:00Z"
 order: 31
 isPaid: false

@@ -4,7 +4,7 @@ slug: "topic-18-體用與賓主原則-八字論命的結構框架與財官歸屬
 excerpt: "賓主原則與體用：界定主權範圍與資源獲取機制 在八字命理的實戰應用中，特別是盲派體系，賓主原則（Bīn Zhǔ Yuánzé，Guest-Host Principle）是將八字結構從抽象的五行生剋，轉化為具體的人生事件和成就的基石。 賓（客）..."
 category: "干支詳解"
 tags: ["八字", "命理", "干支詳解"]
-coverImage: "/images/covers/topic-18.png"
+coverImage: "/images/covers/topic-18.jpg"
 publishedAt: "2024-04-29T00:00:00Z"
 order: 18
 isPaid: false

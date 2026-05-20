@@ -4,7 +4,7 @@ slug: "topic-03-十神組合的文化類象-從十神看個人的人生追求與
 excerpt: "解鎖人生角色卡：十神組合如何編寫妳的內在價值觀與成功路徑 若說天干地支是構成命盤的「基礎元素」，那麼十神，則是賦予這些元素生命的「社會角色與心理機制」。它們是我們潛意識中對世界做出反應的模式，是定義我們「人生追求」與「價值體系」的關鍵。僅僅..."
 category: "八字基礎"
 tags: ["八字", "命理", "八字基礎"]
-coverImage: "/images/covers/topic-03.png"
+coverImage: "/images/covers/topic-03.jpg"
 publishedAt: "2024-01-15T00:00:00Z"
 order: 3
 isPaid: false

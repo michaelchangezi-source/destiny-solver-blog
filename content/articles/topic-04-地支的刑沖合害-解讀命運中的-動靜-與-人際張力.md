@@ -4,7 +4,7 @@ slug: "topic-04-地支的刑沖合害-解讀命運中的-動靜-與-人際張力
 excerpt: "地支的刑沖合害：解讀命運中的「動靜」與「人際張力」 地支的刑沖合害：解讀命運的潛規則 在八字命理的精密體系中，天干主宰著外在的表現與精神層次，而地支則負責掌管實質的環境、人生的進程與內在的事件。地支之間的相互作用——刑、沖、合、害，遠比天干..."
 category: "干支詳解"
 tags: ["八字", "命理", "干支詳解"]
-coverImage: "/images/covers/topic-04.png"
+coverImage: "/images/covers/topic-04.jpg"
 publishedAt: "2024-01-22T00:00:00Z"
 order: 4
 isPaid: false

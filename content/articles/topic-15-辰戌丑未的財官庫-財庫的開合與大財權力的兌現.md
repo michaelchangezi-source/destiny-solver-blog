@@ -4,7 +4,7 @@ slug: "topic-15-辰戌丑未的財官庫-財庫的開合與大財權力的兌現
 excerpt: "辰戌丑未：解讀命運中的寶庫與成就大業的關鍵機制 在十二地支中，辰（Chén）、戌（Xū）、丑（Chǒu）、未（Wèi）被稱為四庫（Sì Kù）或四墓（Sì Mù）。這四個土支不只代表四季的交替、土地，在命理深層次中，它們是「儲藏」與「積累」..."
 category: "干支詳解"
 tags: ["八字", "命理", "干支詳解"]
-coverImage: "/images/covers/topic-15.png"
+coverImage: "/images/covers/topic-15.jpg"
 publishedAt: "2024-04-08T00:00:00Z"
 order: 15
 isPaid: false

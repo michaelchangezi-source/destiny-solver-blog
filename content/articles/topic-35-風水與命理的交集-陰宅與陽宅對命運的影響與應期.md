@@ -4,7 +4,7 @@ slug: "topic-35-風水與命理的交集-陰宅與陽宅對命運的影響與應
 excerpt: "風水與命理的交集：八字判斷陰陽宅應期與吉凶 八字命理學是研究時間規律（天道）的學問，而風水學是研究空間規律（地道）的學問。命理師普遍認為，「命為體，運為用，風水為應期與增減器」。命局決定了人生的高度，而風水則決定了命局能量的發揮程度和應事時..."
 category: "健康命理"
 tags: ["八字", "命理", "健康命理"]
-coverImage: "/images/covers/topic-35.png"
+coverImage: "/images/covers/topic-35.jpg"
 publishedAt: "2024-08-26T00:00:00Z"
 order: 35
 isPaid: false

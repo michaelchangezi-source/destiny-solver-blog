@@ -4,7 +4,7 @@ slug: "topic-01-十天干的文化類象-快速掌握其代表意義"
 excerpt: "洞察人生劇本：解讀十天干的文化類象與你的命運密碼 許多人初次接觸八字命理，常被五行生剋制化的複雜理論搞得暈頭轉向。然而，要真正掌握命運的脈絡，我們不必急著跳進深奧的格局分析，得先從這門學問最基礎，卻也是最核心的「語言」開始——那就是十天干。..."
 category: "八字基礎"
 tags: ["八字", "命理", "八字基礎"]
-coverImage: "/images/covers/topic-01.png"
+coverImage: "/images/covers/topic-01.jpg"
 publishedAt: "2024-01-01T00:00:00Z"
 order: 1
 isPaid: false

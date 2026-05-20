@@ -4,7 +4,7 @@ slug: "topic-11-應期與應事-如何鎖定事件發生的精準時間點"
 excerpt: "從靜態到動態：八字應期與應事的精準鎖定法 在八字命理中，應期（Yìng Qī），即事件應驗的精準時間點，是所有理論學習的最終試金石。命局、大運與流年，共同構建了一個「生命劇本」，但這個劇本何時「開演」、事件何時「應驗」在命主身上，則必須仰賴..."
 category: "十神應用"
 tags: ["八字", "命理", "十神應用"]
-coverImage: "/images/covers/topic-11.png"
+coverImage: "/images/covers/topic-11.jpg"
 publishedAt: "2024-03-11T00:00:00Z"
 order: 11
 isPaid: false

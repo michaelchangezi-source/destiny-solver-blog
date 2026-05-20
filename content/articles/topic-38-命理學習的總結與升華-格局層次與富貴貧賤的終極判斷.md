@@ -4,7 +4,7 @@ slug: "topic-38-命理學習的總結與升華-格局層次與富貴貧賤的終
 excerpt: "格局層次與富貴貧賤的終極判斷：命理學習的總綱 八字論命的最終目的，是判斷命主在社會上的成就層次（貴賤）和財富容量（貧富）。這需要將所有單項技術（格局、喜忌、體用、虛實）進行系統化的綜合判斷。 一、富貴貧賤的根本劃分 格局層次決定了人生的四個..."
 category: "實戰斷命"
 tags: ["八字", "命理", "實戰斷命"]
-coverImage: "/images/covers/topic-38.png"
+coverImage: "/images/covers/topic-38.jpg"
 publishedAt: "2024-09-16T00:00:00Z"
 order: 38
 isPaid: false

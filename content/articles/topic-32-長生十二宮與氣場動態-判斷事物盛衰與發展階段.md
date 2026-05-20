@@ -4,7 +4,7 @@ slug: "topic-32-長生十二宮與氣場動態-判斷事物盛衰與發展階段
 excerpt: "長生十二宮：判斷五行氣場動態與十神生命週期的法則 長生十二宮（The Twelve Stages of Life Cycle）是八字命理學中用來衡量天干五行在十二地支中能量強弱與動態趨勢的一套精密體系。它將任何一個事物（由天干代表）從出生（..."
 category: "健康命理"
 tags: ["八字", "命理", "健康命理"]
-coverImage: "/images/covers/topic-32.png"
+coverImage: "/images/covers/topic-32.jpg"
 publishedAt: "2024-08-05T00:00:00Z"
 order: 32
 isPaid: false

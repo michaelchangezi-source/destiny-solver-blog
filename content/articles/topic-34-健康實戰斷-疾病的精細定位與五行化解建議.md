@@ -4,7 +4,7 @@ slug: "topic-34-健康實戰斷-疾病的精細定位與五行化解建議"
 excerpt: "健康實戰斷：疾病的精細定位與五行化解建議 八字論健康，是以五行生剋制化為基礎，將命局中失衡的五行視為病神，而將能夠調節失衡的五行視為藥神。精確的健康預測不僅要求判斷疾病的性質（臟腑），更要求定位其在身體的具體部位（干支類象）以及發病的時間（..."
 category: "健康命理"
 tags: ["八字", "命理", "健康命理"]
-coverImage: "/images/covers/topic-34.png"
+coverImage: "/images/covers/topic-34.jpg"
 publishedAt: "2024-08-19T00:00:00Z"
 order: 34
 isPaid: false

@@ -4,7 +4,7 @@ slug: "topic-36-實戰取象的終極藝術-一物多象與多象定一象的綜
 excerpt: "實戰取象的終極藝術：一物多象與多象定一象的綜合法則 取象是將八字中抽象的五行、十神、干支符號，轉化為人、事、物等具體語言的過程。一個八字斷事的準確度與生動性，完全取決於命理師對「象」的捕捉能力。 一、一物多象（The Principle o..."
 category: "風水地理"
 tags: ["八字", "命理", "風水地理"]
-coverImage: "/images/covers/topic-36.png"
+coverImage: "/images/covers/topic-36.jpg"
 publishedAt: "2024-09-02T00:00:00Z"
 order: 36
 isPaid: false

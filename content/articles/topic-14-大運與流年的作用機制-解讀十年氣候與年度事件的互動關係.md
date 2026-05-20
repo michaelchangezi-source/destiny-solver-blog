@@ -4,7 +4,7 @@ slug: "topic-14-大運與流年的作用機制-解讀十年氣候與年度事件
 excerpt: "命運的總指揮與執行者：大運與流年的層次與作用原理 在八字命理學的動態預測體系中，命局（Mìng Jú）是靜態的生命藍圖，而大運（Dàyù）與流年（Liúnián）則是推動這張藍圖實現的兩股最主要力量。 大運與流年並非同級別的能量，它們在人生..."
 category: "干支詳解"
 tags: ["八字", "命理", "干支詳解"]
-coverImage: "/images/covers/topic-14.png"
+coverImage: "/images/covers/topic-14.jpg"
 publishedAt: "2024-04-01T00:00:00Z"
 order: 14
 isPaid: false

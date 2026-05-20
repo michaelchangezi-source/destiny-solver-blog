@@ -4,7 +4,7 @@ slug: "topic-29-財富與事業判斷-財庫-祿神與事業應期法則"
 excerpt: "財官論：從財星的虛實到祿神的實用主義 在八字命理學中，財富（Money）與事業（Career/Status）的論斷是一個綜合體系，它必須結合財星、官星（或殺星）、財庫、祿神，以及它們與日主和宮位的作用關係，來判斷命主致富的模式、事業的規模與..."
 category: "感情格局"
 tags: ["八字", "命理", "感情格局"]
-coverImage: "/images/covers/topic-29.png"
+coverImage: "/images/covers/topic-29.jpg"
 publishedAt: "2024-07-15T00:00:00Z"
 order: 29
 isPaid: false

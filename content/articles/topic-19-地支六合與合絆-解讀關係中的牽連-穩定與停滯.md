@@ -4,7 +4,7 @@ slug: "topic-19-地支六合與合絆-解讀關係中的牽連-穩定與停滯"
 excerpt: "地支六合的辯證法：從穩定的承諾到貪合忘沖的停滯 地支六合（Dìzhī Liù Hé）是八字地支間最基本、最和諧的組合關係，共有六組：子丑合土、寅亥合木、卯戌合火、辰酉合金、巳申合水（或合化）、午未合土（或合化）。 與三合、三會（主題 16）..."
 category: "干支詳解"
 tags: ["八字", "命理", "干支詳解"]
-coverImage: "/images/covers/topic-19.png"
+coverImage: "/images/covers/topic-19.jpg"
 publishedAt: "2024-05-06T00:00:00Z"
 order: 19
 isPaid: false

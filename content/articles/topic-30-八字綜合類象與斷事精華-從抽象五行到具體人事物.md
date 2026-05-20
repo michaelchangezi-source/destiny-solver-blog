@@ -4,7 +4,7 @@ slug: "topic-30-八字綜合類象與斷事精華-從抽象五行到具體人事
 excerpt: "類象法門：五行、十神、宮位與神煞的立體取象 類象是八字預測學的靈魂，指的是將八字中的符號（五行、十神、干支、神煞）轉化為現實世界中的人、事、物、環境、性格與吉凶結果的技術。一個高明的命理師，其準驗度高低，主要取決於其類象的豐富性、邏輯性與層..."
 category: "事業財運"
 tags: ["八字", "命理", "事業財運"]
-coverImage: "/images/covers/topic-30.png"
+coverImage: "/images/covers/topic-30.jpg"
 publishedAt: "2024-07-22T00:00:00Z"
 order: 30
 isPaid: false

@@ -4,7 +4,7 @@ slug: "topic-07-掌握命運的時序-從大運流年的作用看見人生劇本
 excerpt: "掌握命運的時序：從大運流年的作用看見人生劇本的起承轉合 許多人在談論命理時，總習慣將八字視為一紙靜態的生命藍圖。事實上，它更像是一部多層次的動態劇本。而判斷人生運勢的精髓，從來不在於「靜觀」命局本身，而在於「動察」命局、大運與流年之間持續不..."
 category: "干支詳解"
 tags: ["八字", "命理", "干支詳解"]
-coverImage: "/images/covers/topic-07.png"
+coverImage: "/images/covers/topic-07.jpg"
 publishedAt: "2024-02-12T00:00:00Z"
 order: 7
 isPaid: false

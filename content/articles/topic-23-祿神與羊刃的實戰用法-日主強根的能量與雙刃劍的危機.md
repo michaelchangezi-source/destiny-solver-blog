@@ -4,7 +4,7 @@ slug: "topic-23-祿神與羊刃的實戰用法-日主強根的能量與雙刃劍
 excerpt: "祿刃實戰：日主的根基、承載力與風險管理 在八字命理中，判斷日主（體）的能量與承載力，地支中的祿神（Lù Shén）與羊刃（Yáng Rèn）是兩個最關鍵的指標。它們是日主在十二長生運中力量達到頂峰或極致的狀態，直接決定了命主的根基、心性和生..."
 category: "十神應用"
 tags: ["八字", "命理", "十神應用"]
-coverImage: "/images/covers/topic-23.png"
+coverImage: "/images/covers/topic-23.jpg"
 publishedAt: "2024-06-03T00:00:00Z"
 order: 23
 isPaid: false

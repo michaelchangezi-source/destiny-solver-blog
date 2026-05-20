@@ -4,7 +4,7 @@ slug: "topic-27-五行與十神疾病-健康-傷災與生死應期的判斷"
 excerpt: "主題 27：五行與十神疾病：健康、傷災與生死應期的判斷 第一種風格：專業型文章 (疾病論斷：從五行失衡到病神藥神的精準取象) 疾病論斷：從五行失衡到病神藥神的精準取象 八字命理學中的健康與疾病論斷，是一個將五行、十神、宮位與作用關係（刑沖合..."
 category: "十神應用"
 tags: ["八字", "命理", "十神應用"]
-coverImage: "/images/covers/topic-27.png"
+coverImage: "/images/covers/topic-27.jpg"
 publishedAt: "2024-07-01T00:00:00Z"
 order: 27
 isPaid: false

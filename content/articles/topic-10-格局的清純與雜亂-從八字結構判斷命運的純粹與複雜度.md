@@ -4,7 +4,7 @@ slug: "topic-10-格局的清純與雜亂-從八字結構判斷命運的純粹與
 excerpt: "從格局的清純與雜亂，洞悉妳命運的聚焦力與人生挑戰的複雜度 八字命理中，「格局」是衡量一個人生命層次、社會地位與人生目標聚焦程度的最高準則。所謂的格局，並非單指傳統子平法中正官、正財、食神等十神所立之格，更深層次而言，它是指命局中所有干支結構..."
 category: "十神應用"
 tags: ["八字", "命理", "十神應用"]
-coverImage: "/images/covers/topic-10.png"
+coverImage: "/images/covers/topic-10.jpg"
 publishedAt: "2024-03-04T00:00:00Z"
 order: 10
 isPaid: false
