@@ -116,6 +116,40 @@ export default function HomePage() {
         </section>
       )}
 
+      {/* ── Follow on Threads ── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+        <div className="relative overflow-hidden bg-[#0A0A20] border border-white/10 rounded-3xl p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-8">
+          {/* Decorative glyph */}
+          <div className="absolute right-8 top-1/2 -translate-y-1/2 text-[140px] font-black text-white/3 leading-none select-none pointer-events-none">
+            緣
+          </div>
+          <div className="relative">
+            <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.25em] uppercase mb-2">
+              最新動態 · Follow Me
+            </p>
+            <h2 className="text-white text-2xl sm:text-3xl font-black mb-3">
+              追蹤 Threads，<br className="sm:hidden" />掌握最新命理洞見
+            </h2>
+            <p className="text-white/50 text-sm leading-relaxed max-w-sm">
+              文章以外，我每日在 Threads 分享八字斷語、流年觀察與命理小知識。
+              想看最新內容，歡迎追蹤。
+            </p>
+          </div>
+          <a
+            href="https://www.threads.com/@destiny.solver"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative flex-shrink-0 flex items-center gap-3 bg-white hover:bg-white/90 text-[#0F0F2D] font-bold px-7 py-4 rounded-full transition-colors text-base shadow-lg"
+          >
+            {/* Threads logo SVG */}
+            <svg width="20" height="20" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M141.537 88.988C140.71 88.5771 139.87 88.1787 139.019 87.793C137.537 59.1956 122.081 43.4156 97.594 43.2598C97.4701 43.2591 97.3468 43.2591 97.2234 43.2591C82.8746 43.2591 70.5896 49.3477 63.1259 60.285L75.8284 69.2416C81.3741 61.2494 89.9544 59.1946 97.2351 59.1946C97.3252 59.1946 97.4153 59.1949 97.5051 59.1953C107.687 59.2594 115.381 62.2922 120.36 68.3138C123.996 72.6591 126.398 78.6046 127.523 86.0643C118.978 84.6065 109.683 84.1765 99.7348 84.7556C76.2866 86.0996 61.4284 99.2776 62.3635 118.166C62.8379 127.752 67.7461 135.965 76.1609 141.242C83.2459 145.74 92.4173 147.929 101.956 147.417C114.613 146.733 124.591 141.886 131.546 132.027C136.818 124.474 140.084 114.754 141.408 102.595C147.317 106.065 151.756 110.87 154.186 116.893C158.379 127.156 158.605 144.057 146.066 156.573C135.085 167.534 121.866 172.289 101.944 172.434C79.9319 172.265 63.2893 165.356 52.4748 151.91C42.3175 139.31 37.0661 120.892 36.886 97.0456C37.0661 73.1984 42.3175 54.7801 52.4748 42.1804C63.2893 28.7342 79.9319 21.8251 101.944 21.6562C124.097 21.8261 141.001 28.7636 151.993 42.2574C157.423 49.0198 161.491 57.6641 164.114 67.8806L179.405 63.9202C176.236 51.2179 171.199 40.3721 164.332 31.5025C150.35 13.5371 129.886 4.28417 101.994 4.0625C74.1747 4.28217 53.8811 13.5528 40.1217 31.4781C27.8765 47.5732 21.5978 70.3204 21.3867 97.0256V97.1049C21.5978 123.81 27.8765 146.558 40.1217 162.652C53.8811 180.578 74.1747 189.848 101.994 190.068C126.848 189.869 143.578 183.458 157.039 170.024C174.212 152.885 173.665 130.963 168.142 117.219C164.196 107.398 156.43 99.2921 141.537 88.988ZM100.866 131.489C90.4394 132.056 79.5971 127.437 79.0771 117.685C78.693 110.348 84.0511 102.178 100.819 101.218C102.872 101.099 104.888 101.04 106.87 101.04C113.137 101.04 118.989 101.639 124.311 102.808C122.476 124.647 112.161 130.895 100.866 131.489Z" fill="currentColor"/>
+            </svg>
+            @destiny.solver
+          </a>
+        </div>
+      </section>
+
       {/* ── CTA Consultation ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="bg-gradient-to-br from-[#C9A84C]/20 to-[#C9A84C]/5 border border-[#C9A84C]/30 rounded-3xl p-10 text-center">
