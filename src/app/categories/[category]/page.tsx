@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { getArticlesByCategory, getAllCategories } from '@/lib/articles'
+import { CATEGORY_SLUGS, SLUG_TO_CATEGORY } from '@/types'
 import ArticleCard from '@/components/blog/ArticleCard'
 
 interface Props {
@@ -11,22 +12,24 @@ interface Props {
 
 export async function generateStaticParams() {
   const categories = getAllCategories()
-  return categories.map((category) => ({ category: encodeURIComponent(category) }))
+  return categories.map((category) => ({
+    category: CATEGORY_SLUGS[category] ?? category,
+  }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params
-  const decoded = decodeURIComponent(category)
+  const name = SLUG_TO_CATEGORY[category] ?? category
   return {
-    title: decoded,
-    description: `所有關於「${decoded}」的八字命理深度文章。`,
+    title: name,
+    description: `所有關於「${name}」的八字命理深度文章。`,
   }
 }
 
 export default async function CategoryPage({ params }: Props) {
   const { category } = await params
-  const decoded = decodeURIComponent(category)
-  const articles = getArticlesByCategory(decoded)
+  const name = SLUG_TO_CATEGORY[category] ?? category
+  const articles = getArticlesByCategory(name)
 
   if (articles.length === 0) notFound()
 
@@ -41,7 +44,7 @@ export default async function CategoryPage({ params }: Props) {
 
       <div className="mb-10">
         <p className="text-[#C9A84C] text-sm font-semibold tracking-widest mb-3">分類</p>
-        <h1 className="text-white text-4xl font-black mb-3">{decoded}</h1>
+        <h1 className="text-white text-4xl font-black mb-3">{name}</h1>
         <p className="text-white/40">共 {articles.length} 篇文章</p>
       </div>
 

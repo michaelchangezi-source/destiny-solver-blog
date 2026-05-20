@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CATEGORY_COLORS } from '@/types'
+import { CATEGORY_COLORS, CATEGORY_SLUGS } from '@/types'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -18,7 +18,7 @@ export default function CategoryBadge({ category, linkable = false, size = 'md' 
 
   if (linkable) {
     return (
-      <Link href={`/categories/${encodeURIComponent(category)}`} className={cls}>
+      <Link href={`/categories/${CATEGORY_SLUGS[category] ?? category}`} className={cls}>
         {category}
       </Link>
     )

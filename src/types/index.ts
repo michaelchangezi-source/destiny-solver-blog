@@ -37,6 +37,25 @@ export type Category =
   | '健康命理'
   | '風水地理'
 
+// 中文分類 → ASCII slug（用於 URL，避免中文字符造成 404）
+export const CATEGORY_SLUGS: Record<string, string> = {
+  '八字基礎': 'basics',
+  '干支詳解': 'ganzhi',
+  '十神應用': 'shishen',
+  '命盤格局': 'patterns',
+  '實戰斷命': 'readings',
+  '大運流年': 'dayun',
+  '感情格局': 'relationships',
+  '事業財運': 'career',
+  '健康命理': 'health',
+  '風水地理': 'fengshui',
+}
+
+// ASCII slug → 中文分類（用於頁面顯示）
+export const SLUG_TO_CATEGORY: Record<string, string> = Object.fromEntries(
+  Object.entries(CATEGORY_SLUGS).map(([name, slug]) => [slug, name])
+)
+
 export const CATEGORY_COLORS: Record<string, string> = {
   '八字基礎': 'bg-indigo-100 text-indigo-800',
   '干支詳解': 'bg-amber-100 text-amber-800',

@@ -1,5 +1,6 @@
 ﻿import type { MetadataRoute } from 'next'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
+import { CATEGORY_SLUGS } from '@/types'
 
 const BASE_URL = 'https://destiny-solver-blog.vercel.app'
 
@@ -15,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   const categoryUrls = categories.map((cat) => ({
-    url: `${BASE_URL}/categories/${encodeURIComponent(cat)}`,
+    url: `${BASE_URL}/categories/${CATEGORY_SLUGS[cat] ?? cat}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.6,

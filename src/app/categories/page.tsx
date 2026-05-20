@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
-import { CATEGORY_COLORS } from '@/types'
+import { CATEGORY_COLORS, CATEGORY_SLUGS } from '@/types'
 
 export const metadata: Metadata = {
   title: '文章分類',
@@ -33,7 +33,7 @@ export default function CategoriesPage() {
           {stats.map((cat) => (
             <Link
               key={cat.name}
-              href={`/categories/${encodeURIComponent(cat.name)}`}
+              href={`/categories/${CATEGORY_SLUGS[cat.name] ?? cat.name}`}
               className="group bg-white/5 hover:bg-white/8 border border-white/10 hover:border-[#C9A84C]/40 rounded-2xl p-6 transition-all"
             >
               <div className="flex items-center justify-between mb-3">
