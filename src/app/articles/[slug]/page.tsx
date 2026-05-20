@@ -14,47 +14,73 @@ import remarkHtml from 'remark-html'
 
 const BASE_URL = 'https://destiny-solver-blog.vercel.app'
 
-/** 從 Markdown 子標題自動提取 Q&A 配對，供 FAQPage Schema 使用 */
+/** 清除 Markdown 行內格式，還原為純文字 */
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '$1')   // 粗體
+    .replace(/\*(.*?)\*/g, '$1')        // 斜體
+    .replace(/`(.*?)`/g, '$1')          // 行內程式碼
+    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // 連結
+    .replace(/~~(.*?)~~/g, '$1')        // 刪除線
+    .trim()
+}
+
+/**
+ * 從 Markdown 子標題自動提取 Q&A 配對
+ * 同時供 FAQPage Schema（JSON-LD）與頁面可見 FAQ 區塊使用
+ * 策略：取 ###～###### 層級標題為問題，緊跟的段落文字為答案
+ */
 function extractFaqPairs(markdown: string): Array<{ question: string; answer: string }> {
   const faqs: Array<{ question: string; answer: string }> = []
   const lines = markdown.split('\n')
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
-    // 只取 ###、####、##### 層級（小節標題）
     const headingMatch = line.match(/^#{3,6}\s+(.+)$/)
     if (!headingMatch) continue
 
-    // 清除中文序號（一、二、）和數字序號（1. 2.）
+    // 清除中文序號（一、二、）、數字序號（1. 2.）、多餘 # 符號
     let question = headingMatch[1]
-      .replace(/^[一二三四五六七八九十百]+[、．.]\s*/, '')
+      .replace(/^[一二三四五六七八九十百千]+[、．.]\s*/, '')
       .replace(/^\d+[、．.]\s*/, '')
       .replace(/##+\s*/, '')
+      .replace(/\*\*/g, '')  // 移除粗體標記
       .trim()
 
+    // 太短或只剩標點符號的跳過
+    if (question.length < 5) continue
+
+    // 補上問號
     if (!question.endsWith('？') && !question.endsWith('?')) {
       question += '？'
     }
 
-    // 收集緊跟的段落文字作為答案（跳過表格和空行）
+    // 收集緊跟的段落文字作為答案
+    // 包含普通段落與 markdown 列表項（- 開頭），跳過表格行（| 開頭）
     let answer = ''
     let j = i + 1
     while (j < lines.length && !lines[j].match(/^#{2,6}\s/)) {
-      const t = lines[j].trim()
-      if (t && !t.startsWith('|') && !t.startsWith('-') && !t.startsWith('#')) {
+      const raw = lines[j].trim()
+      if (!raw || raw.startsWith('|') || raw.startsWith('#')) {
+        j++
+        continue
+      }
+      // 列表項去除前綴「- 」或「* 」
+      const t = stripMarkdown(raw.replace(/^[-*]\s+/, ''))
+      if (t) {
         answer += t + ' '
-        if (answer.length > 280) break
+        if (answer.length > 320) break
       }
       j++
     }
 
     answer = answer.trim().replace(/\s+/g, ' ')
-    if (question.length > 4 && answer.length > 20) {
-      faqs.push({ question, answer: answer.slice(0, 350) })
+    if (answer.length > 20) {
+      faqs.push({ question, answer: answer.slice(0, 420) })
     }
   }
 
-  return faqs.slice(0, 5) // 每篇最多 5 個 FAQ
+  return faqs.slice(0, 6) // 每篇最多 6 個 FAQ
 }
 
 interface Props {
@@ -231,6 +257,49 @@ export default async function ArticlePage({ params }: Props) {
             </span>
           ))}
         </div>
+      )}
+
+      {/* FAQ Section — visible Q&A aligned with FAQPage Schema */}
+      {faqPairs.length > 0 && (
+        <section aria-label="本文重點解答" className="mt-12 pt-10 border-t border-white/10">
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-7">
+            <span className="w-1 h-7 rounded-full bg-[#C9A84C] shrink-0" aria-hidden="true" />
+            <h2 className="text-white text-xl font-bold">本文重點解答</h2>
+            <span className="text-white/25 text-sm font-normal tracking-wide">FAQ</span>
+          </div>
+
+          {/* Q&A Cards */}
+          <div className="space-y-3">
+            {faqPairs.map(({ question, answer }, idx) => (
+              <div
+                key={idx}
+                className="rounded-xl border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.05] transition-colors duration-200 p-5"
+              >
+                {/* Question */}
+                <p className="flex items-start gap-3 mb-3">
+                  <span
+                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#C9A84C]/20 text-[#C9A84C] text-[10px] font-black flex items-center justify-center leading-none select-none"
+                    aria-label="問題"
+                  >
+                    Q
+                  </span>
+                  <span className="text-white font-semibold text-sm leading-snug">{question}</span>
+                </p>
+                {/* Answer */}
+                <p className="flex items-start gap-3">
+                  <span
+                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-white/[0.06] text-white/30 text-[10px] font-bold flex items-center justify-center leading-none select-none"
+                    aria-label="答案"
+                  >
+                    A
+                  </span>
+                  <span className="text-white/60 text-sm leading-relaxed">{answer}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       )}
 
       {/* Consultation CTA */}
