@@ -7,9 +7,33 @@ export const metadata: Metadata = {
   description: '香港八字命理師陳卓賢，融合東方命理與現代心理學，用命理幫助你認識真實的自己。',
 }
 
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: '陳卓賢',
+  alternateName: '命運解決師',
+  url: 'https://destinysolver.com/about',
+  jobTitle: '八字命理師',
+  description: '香港八字命理研究者與諮詢師，融合東方命理與現代心理學，用命理幫助人認識真實的自己。',
+  email: 'michaelchan.gezi@gmail.com',
+  sameAs: [
+    'https://www.threads.com/@destiny.solver',
+    'https://www.instagram.com/destiny.solver',
+  ],
+  knowsAbout: ['八字命理', '五行哲學', '十神', '大運流年', '吠陀占星', '中國傳統命理'],
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': 'https://destinysolver.com/about',
+  },
+}
+
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       {/* Header */}
       <div className="mb-16 text-center">
         <p className="text-[#C9A84C] text-sm font-semibold tracking-widest mb-4">ABOUT</p>

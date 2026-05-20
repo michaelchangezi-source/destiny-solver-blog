@@ -49,8 +49,42 @@ export default async function ArticlePage({ params }: Props) {
   const related = getRelatedArticles(slug, article.category, 3)
   const categoryColor = CATEGORY_COLORS[article.category] ?? 'bg-gray-100 text-gray-800'
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.excerpt,
+    image: article.coverImage
+      ? [`https://destinysolver.com${article.coverImage}`]
+      : ['https://destinysolver.com/images/og-default.png'],
+    datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    url: `https://destinysolver.com/articles/${article.slug}`,
+    inLanguage: 'zh-TW',
+    author: {
+      '@type': 'Person',
+      name: '陳卓賢',
+      url: 'https://destinysolver.com/about',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: '陳卓賢',
+      url: 'https://destinysolver.com',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://destinysolver.com/articles/${article.slug}`,
+    },
+    keywords: article.tags.join(', '),
+    articleSection: article.category,
+  }
+
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* Back */}
       <Link
         href="/articles"

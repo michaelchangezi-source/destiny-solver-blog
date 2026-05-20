@@ -37,9 +37,42 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: '命運解決師',
+  alternateName: 'Destiny Solver',
+  url: 'https://destinysolver.com',
+  description: '用命理讀懂你這個人：不是預測命運，是認識自己。香港八字命理師陳卓賢的命理知識平台。',
+  inLanguage: 'zh-TW',
+  author: {
+    '@type': 'Person',
+    name: '陳卓賢',
+    url: 'https://destinysolver.com/about',
+    sameAs: [
+      'https://www.threads.com/@destiny.solver',
+      'https://www.instagram.com/destiny.solver',
+    ],
+  },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: 'https://destinysolver.com/articles?q={search_term_string}',
+    },
+    'query-input': 'required name=search_term_string',
+  },
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-TW" className={notoSansTC.variable}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+      </head>
       <body className="bg-[#0F0F2D] font-sans antialiased min-h-screen">
         <Header />
         <main className="pt-16">{children}</main>
