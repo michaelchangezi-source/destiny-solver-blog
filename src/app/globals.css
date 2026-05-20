@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background: #0F0F2D;
+  --foreground: #ffffff;
+  --gold: #C9A84C;
+  --font-sans: var(--font-noto), 'Noto Sans TC', sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-noto), 'Noto Sans TC', sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0F0F2D; }
+::-webkit-scrollbar-thumb { background: #C9A84C44; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #C9A84C88; }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Selection */
+::selection { background: #C9A84C33; color: #fff; }
+
+/* Prose overrides for article body */
+.prose { --tw-prose-body: rgba(255,255,255,0.75); }
