@@ -2,15 +2,60 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, Clock, Calendar, Tag } from 'lucide-react'
+import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from 'lucide-react'
 import { getArticleBySlug, getArticleSlugs, getRelatedArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/utils'
-import { CATEGORY_COLORS } from '@/types'
+import { CATEGORY_COLORS, CATEGORY_SLUGS } from '@/types'
 import ArticleBody from '@/components/blog/ArticleBody'
 import ArticleCard from '@/components/blog/ArticleCard'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
+
+const BASE_URL = 'https://destiny-solver-blog.vercel.app'
+
+/** 從 Markdown 子標題自動提取 Q&A 配對，供 FAQPage Schema 使用 */
+function extractFaqPairs(markdown: string): Array<{ question: string; answer: string }> {
+  const faqs: Array<{ question: string; answer: string }> = []
+  const lines = markdown.split('\n')
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    // 只取 ###、####、##### 層級（小節標題）
+    const headingMatch = line.match(/^#{3,6}\s+(.+)$/)
+    if (!headingMatch) continue
+
+    // 清除中文序號（一、二、）和數字序號（1. 2.）
+    let question = headingMatch[1]
+      .replace(/^[一二三四五六七八九十百]+[、．.]\s*/, '')
+      .replace(/^\d+[、．.]\s*/, '')
+      .replace(/##+\s*/, '')
+      .trim()
+
+    if (!question.endsWith('？') && !question.endsWith('?')) {
+      question += '？'
+    }
+
+    // 收集緊跟的段落文字作為答案（跳過表格和空行）
+    let answer = ''
+    let j = i + 1
+    while (j < lines.length && !lines[j].match(/^#{2,6}\s/)) {
+      const t = lines[j].trim()
+      if (t && !t.startsWith('|') && !t.startsWith('-') && !t.startsWith('#')) {
+        answer += t + ' '
+        if (answer.length > 280) break
+      }
+      j++
+    }
+
+    answer = answer.trim().replace(/\s+/g, ' ')
+    if (question.length > 4 && answer.length > 20) {
+      faqs.push({ question, answer: answer.slice(0, 350) })
+    }
+  }
+
+  return faqs.slice(0, 5) // 每篇最多 5 個 FAQ
+}
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -48,6 +93,36 @@ export default async function ArticlePage({ params }: Props) {
   const html = await markdownToHtml(article.content)
   const related = getRelatedArticles(slug, article.category, 3)
   const categoryColor = CATEGORY_COLORS[article.category] ?? 'bg-gray-100 text-gray-800'
+  const faqPairs = extractFaqPairs(article.content)
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: BASE_URL },
+      { '@type': 'ListItem', position: 2, name: '文章', item: `${BASE_URL}/articles` },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.category,
+        item: `${BASE_URL}/categories/${CATEGORY_SLUGS[article.category] ?? article.category}`,
+      },
+      { '@type': 'ListItem', position: 4, name: article.title, item: `${BASE_URL}/articles/${article.slug}` },
+    ],
+  }
+
+  const faqJsonLd =
+    faqPairs.length > 0
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqPairs.map(({ question, answer }) => ({
+            '@type': 'Question',
+            name: question,
+            acceptedAnswer: { '@type': 'Answer', text: answer },
+          })),
+        }
+      : null
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
@@ -85,13 +160,32 @@ export default async function ArticlePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      {/* Back */}
-      <Link
-        href="/articles"
-        className="inline-flex items-center gap-2 text-white/40 hover:text-[#C9A84C] text-sm mb-8 transition-colors"
-      >
-        <ArrowLeft size={16} /> 返回文章列表
-      </Link>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
+
+      {/* Breadcrumb */}
+      <nav aria-label="breadcrumb" className="flex items-center gap-1 text-xs text-white/35 mb-6 flex-wrap">
+        <Link href="/" className="hover:text-[#C9A84C] transition-colors">首頁</Link>
+        <ChevronRight size={12} />
+        <Link href="/articles" className="hover:text-[#C9A84C] transition-colors">文章</Link>
+        <ChevronRight size={12} />
+        <Link
+          href={`/categories/${CATEGORY_SLUGS[article.category] ?? article.category}`}
+          className="hover:text-[#C9A84C] transition-colors"
+        >
+          {article.category}
+        </Link>
+        <ChevronRight size={12} />
+        <span className="text-white/55 truncate max-w-[180px] sm:max-w-xs">{article.title}</span>
+      </nav>
 
       {/* Cover */}
       {article.coverImage && (
