@@ -6,17 +6,26 @@ import type { Article, ArticleMeta } from '@/types'
 
 const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles')
 
+// 支援 .md（原有）和 .mdoc（Keystatic 新增）兩種格式
+function findArticleFile(slug: string): string | null {
+  for (const ext of ['.md', '.mdoc']) {
+    const p = path.join(ARTICLES_DIR, `${slug}${ext}`)
+    if (fs.existsSync(p)) return p
+  }
+  return null
+}
+
 export function getArticleSlugs(): string[] {
   if (!fs.existsSync(ARTICLES_DIR)) return []
   return fs
     .readdirSync(ARTICLES_DIR)
-    .filter((file) => file.endsWith('.md'))
-    .map((file) => file.replace(/\.md$/, ''))
+    .filter((file) => file.endsWith('.md') || file.endsWith('.mdoc'))
+    .map((file) => file.replace(/\.(md|mdoc)$/, ''))
 }
 
 export function getArticleBySlug(slug: string): Article | null {
-  const filePath = path.join(ARTICLES_DIR, `${slug}.md`)
-  if (!fs.existsSync(filePath)) return null
+  const filePath = findArticleFile(slug)
+  if (!filePath) return null
 
   const raw = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(raw)
