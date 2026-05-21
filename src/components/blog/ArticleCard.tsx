@@ -24,23 +24,22 @@ export default function ArticleCard({ article, featured = false, index }: Props)
     return (
       <Link href={`/articles/${article.slug}`} className="group block">
         <div className="relative rounded-md overflow-hidden bg-white/5 border border-white/10 hover:border-[#C9A84C]/50 transition-all duration-300 hover:-translate-y-0.5">
-          {/* Glyph cover */}
+          {/* Visual cover: sequence number as hero, glyph as watermark */}
           <div className="relative h-48 w-full bg-[#0A0A20] flex items-center justify-center overflow-hidden">
-            <span className="absolute text-[120px] font-black text-white/5 leading-none select-none pointer-events-none">
+            {/* Faint glyph watermark */}
+            <span className="absolute text-[140px] font-black text-white/[0.04] leading-none select-none pointer-events-none">
               {glyph}
             </span>
-            <span className="relative text-[72px] font-black text-[#C9A84C]/80 leading-none select-none">
-              {glyph}
+            {/* Primary visual: sequence number */}
+            <span className="relative font-serif text-[80px] font-black text-[#C9A84C]/80 leading-none select-none tracking-tight">
+              {seq || glyph}
             </span>
-            {seq && (
-              <span className="absolute top-3 left-4 text-white/25 text-xs font-mono tracking-widest">
-                {seq}
-              </span>
-            )}
-            <span className="absolute bottom-3 right-4 text-white/20 text-xs tracking-widest">
+            {/* Category label bottom-right */}
+            <span className="absolute bottom-3 right-4 text-white/20 text-[11px] tracking-widest">
               {article.category}
             </span>
           </div>
+
           <div className="p-5">
             <h3 className="text-white font-bold text-base leading-snug mb-2 group-hover:text-[#C9A84C] transition-colors line-clamp-2">
               {article.title}
@@ -64,16 +63,17 @@ export default function ArticleCard({ article, featured = false, index }: Props)
       href={`/articles/${article.slug}`}
       className="group flex gap-4 py-5 border-b border-white/8 hover:border-white/20 transition-colors"
     >
-      {/* Small glyph block */}
-      <div className="w-16 h-16 flex-shrink-0 rounded bg-[#0A0A20] border border-white/10 flex items-center justify-center overflow-hidden">
-        <span className="text-3xl font-black text-[#C9A84C]/70 leading-none select-none">
+      {/* Small block: number as primary, glyph as faint watermark */}
+      <div className="w-16 h-16 flex-shrink-0 rounded bg-[#0A0A20] border border-white/10 flex items-center justify-center overflow-hidden relative">
+        <span className="absolute text-[48px] font-black text-white/[0.05] leading-none select-none pointer-events-none">
           {glyph}
         </span>
+        <span className="relative font-serif text-xl font-black text-[#C9A84C]/80 leading-none select-none">
+          {seq || glyph}
+        </span>
       </div>
+
       <div className="flex-1 min-w-0">
-        {seq && (
-          <span className="text-white/25 text-[11px] font-mono tracking-widest">{seq}</span>
-        )}
         <h3 className="text-white/90 font-semibold text-sm leading-snug group-hover:text-[#C9A84C] transition-colors line-clamp-2 mb-1">
           {article.title}
         </h3>

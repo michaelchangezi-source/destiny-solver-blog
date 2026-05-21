@@ -59,49 +59,82 @@ export default function HomePage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[300px] font-black text-white leading-none opacity-[0.025] md:opacity-[0.04]">乾</div>
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-24">
-          <div className="max-w-2xl">
-            <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.35em] uppercase mb-6">
-              命運解決師 · Destiny Solver · @destiny.solver
-            </p>
-            <h1 className="font-serif text-white text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
-              用命理<br />
-              <span className="text-[#C9A84C]">讀懂你</span><br />
-              這個人
-            </h1>
-            <p className="text-white/55 text-lg leading-relaxed mb-10 max-w-lg">
-              不是預測命運，是認識自己。透過八字命理的框架，看見你的能量結構、人生格局與時勢流動。
-            </p>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-24 w-full">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 xl:gap-24">
 
-            {/* Inline stats */}
-            <div className="flex flex-wrap items-center gap-8 mb-10 text-white/40 text-sm">
-              <div>
-                <span className="text-white font-black text-2xl mr-1.5">{articles.length}+</span>深度文章
+            {/* ── Left: Text ── */}
+            <div className="flex-1">
+              {/* Eyebrow — mobile shows small avatar inline */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-11 h-11 rounded-full overflow-hidden ring-1 ring-[#C9A84C]/25 flex-shrink-0 lg:hidden">
+                  <img src="/images/avatar.png" alt="陳卓賢" className="w-full h-full object-cover" />
+                </div>
+                <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.35em] uppercase">
+                  命運解決師 · Destiny Solver · @destiny.solver
+                </p>
               </div>
-              <div className="w-px h-5 bg-white/15" />
-              <div>
-                <span className="text-white font-black text-2xl mr-1.5">3.5K+</span>Threads 追蹤者
+
+              <h1 className="font-serif text-white text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
+                用命理<br />
+                <span className="text-[#C9A84C]">讀懂你</span><br />
+                這個人
+              </h1>
+              <p className="text-white/55 text-lg leading-relaxed mb-10 max-w-lg">
+                不是預測命運，是認識自己。透過八字命理的框架，看見你的能量結構、人生格局與時勢流動。
+              </p>
+
+              {/* Inline stats */}
+              <div className="flex flex-wrap items-center gap-8 mb-10 text-white/40 text-sm">
+                <div>
+                  <span className="text-white font-black text-2xl mr-1.5">{articles.length}+</span>深度文章
+                </div>
+                <div className="w-px h-5 bg-white/15" />
+                <div>
+                  <span className="text-white font-black text-2xl mr-1.5">3.5K+</span>Threads 追蹤者
+                </div>
+                <div className="w-px h-5 bg-white/15" />
+                <div>
+                  <span className="text-white font-black text-2xl mr-1.5">免費</span>開放閱讀
+                </div>
               </div>
-              <div className="w-px h-5 bg-white/15" />
-              <div>
-                <span className="text-white font-black text-2xl mr-1.5">免費</span>開放閱讀
+
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/categories"
+                  className="flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold px-7 py-3.5 rounded transition-colors"
+                >
+                  從這裡開始 <ArrowRight size={18} />
+                </Link>
+                <Link
+                  href="/consultation"
+                  className="flex items-center gap-2 border border-white/20 hover:border-[#C9A84C]/60 text-white/70 hover:text-white font-medium px-7 py-3.5 rounded transition-colors"
+                >
+                  預約諮詢
+                </Link>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/categories"
-                className="flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold px-7 py-3.5 rounded transition-colors"
-              >
-                從這裡開始 <ArrowRight size={18} />
-              </Link>
-              <Link
-                href="/consultation"
-                className="flex items-center gap-2 border border-white/20 hover:border-[#C9A84C]/60 text-white/70 hover:text-white font-medium px-7 py-3.5 rounded transition-colors"
-              >
-                預約諮詢
-              </Link>
+            {/* ── Right: Avatar (desktop only) ── */}
+            <div className="hidden lg:flex flex-shrink-0 items-center justify-center">
+              <div className="relative">
+                {/* Ambient glow */}
+                <div className="absolute -inset-8 rounded-full bg-[#C9A84C]/[0.07] blur-3xl pointer-events-none" />
+                {/* Avatar */}
+                <div className="relative w-64 h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden ring-1 ring-[#C9A84C]/25">
+                  <img
+                    src="/images/avatar.png"
+                    alt="陳卓賢 @destiny.solver"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* Name tag */}
+                <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#0A0A20] border border-white/10 rounded px-4 py-2 whitespace-nowrap">
+                  <p className="text-white text-xs font-semibold text-center">陳卓賢</p>
+                  <p className="text-[#C9A84C] text-[10px] text-center tracking-wider">@destiny.solver</p>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -177,6 +210,34 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── Threads ── */}
+      <section className="border-y border-white/8 py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-8 text-center sm:text-left">
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <div className="w-10 h-10 rounded-full overflow-hidden ring-1 ring-[#C9A84C]/30">
+                <img src="/images/avatar.png" alt="@destiny.solver" className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p className="text-white text-sm font-semibold">@destiny.solver</p>
+                <p className="text-white/35 text-xs">Threads · 3.5K 追蹤者</p>
+              </div>
+            </div>
+            <p className="text-white/40 text-sm flex-1">
+              每日分享命理洞察、實案分析與五行思考——在 Threads 跟蹤最新動態。
+            </p>
+            <a
+              href="https://www.threads.com/@destiny.solver"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 border border-white/20 hover:border-[#C9A84C]/50 text-white/55 hover:text-[#C9A84C] text-sm px-5 py-2.5 rounded transition-colors whitespace-nowrap"
+            >
+              在 Threads 跟蹤
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* ── CTA Consultation ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
