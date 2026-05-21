@@ -1,7 +1,6 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowRight, BookOpen, Users, Award } from 'lucide-react'
+import { ArrowRight, BookOpen, Users, Award, MessageCircle, Mail } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: '關於我',
@@ -36,108 +35,156 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
-      {/* Header */}
-      <div className="mb-16 text-center">
-        <p className="text-[#C9A84C] text-sm font-semibold tracking-widest mb-4">ABOUT</p>
-        <h1 className="text-white text-4xl sm:text-5xl font-black mb-6">關於我</h1>
-        <p className="text-white/50 text-lg max-w-2xl mx-auto leading-relaxed">
+
+      {/* ── Header ── */}
+      <div className="mb-16">
+        <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.35em] uppercase mb-4">ABOUT</p>
+        <h1 className="font-serif text-white text-4xl sm:text-5xl font-black mb-6 leading-tight">
+          關於<br />
+          <span className="text-[#C9A84C]">陳卓賢</span>
+        </h1>
+        <p className="text-white/45 text-lg leading-relaxed max-w-xl">
           命理不是算命，是一套關於人的深度語言。
         </p>
       </div>
 
-      {/* Bio */}
-      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12">
-        <div className="flex items-start gap-6 mb-6">
-          <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#C9A84C]/40 flex-shrink-0">
-            <Image
-              src="/images/avatar.png"
-              alt="命運解決師｜陳卓賢"
-              width={96}
-              height={96}
-              className="object-cover w-full h-full"
-            />
-          </div>
-          <div>
-            <h2 className="text-white text-2xl font-bold">陳卓賢</h2>
-            <p className="text-[#C9A84C] text-sm tracking-wider">命運解決師 · @destiny.solver</p>
-          </div>
+      {/* ── Identity block ── */}
+      <div className="border border-white/10 rounded-md p-8 mb-12 relative overflow-hidden">
+        <div className="absolute right-6 bottom-0 text-[150px] font-black text-[#C9A84C]/[0.04] leading-none select-none pointer-events-none">
+          命
         </div>
-        <div className="space-y-4 text-white/65 leading-relaxed">
-          <p>
-            我是陳卓賢，香港的八字命理研究者與諮詢師。我的核心信念是：
-            <strong className="text-white">命理是認識自己的工具，而非預測命運的水晶球。</strong>
-          </p>
-          <p>
-            多年來，我深入研究八字、吠陀占星與五行哲學，將東方古典智慧與現代心理學框架結合，
-            幫助學員和客戶看見自身的能量結構、格局層次，以及如何在人生不同的時間節點做出更好的決策。
-          </p>
-          <p>
-            我相信，真正的命理諮詢應該讓你離開時比來時更清晰、更有力量——而不是更焦慮、更依賴。
-          </p>
+        <div className="relative">
+          <div className="mb-6">
+            <h2 className="text-white text-2xl font-bold mb-1">陳卓賢</h2>
+            <p className="text-[#C9A84C] text-sm tracking-wider">命運解決師 · @destiny.solver · 香港</p>
+          </div>
+          <div className="space-y-4 text-white/60 leading-relaxed text-[15px]">
+            <p>
+              我是陳卓賢，香港的八字命理研究者與諮詢師。我的核心信念是：
+              <strong className="text-white/85"> 命理是認識自己的工具，而非預測命運的水晶球。</strong>
+            </p>
+            <p>
+              多年來，我深入研究八字、吠陀占星與五行哲學，將東方古典智慧與現代心理學框架結合，
+              幫助學員和客戶看見自身的能量結構、格局層次，以及如何在人生不同的時間節點做出更好的決策。
+            </p>
+            <p>
+              我相信，真正的命理諮詢應該讓你離開時比來時更清晰、更有力量——而不是更焦慮、更依賴。
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Highlights */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+      {/* ── Core belief quote ── */}
+      <div className="mb-14">
+        <blockquote className="border-l-2 border-[#C9A84C] pl-6 py-2">
+          <p className="font-serif text-white/80 italic text-xl sm:text-2xl leading-relaxed">
+            「命理告訴你你是誰，<br className="sm:hidden" />不是你會怎樣。」
+          </p>
+        </blockquote>
+      </div>
+
+      {/* ── Highlights ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-14">
         {[
           {
             icon: BookOpen,
-            title: '系統教學',
-            desc: '38+ 篇深度文章，從十天干地支到大運流年，系統建立你的八字框架',
-          },
-          {
-            icon: Award,
-            title: '媒體認可',
-            desc: '曾獲媒體報導，並在多個平台進行命理講座與 AI 教育分享',
+            value: '38+',
+            title: '深度文章',
+            desc: '從十天干地支到大運流年，系統建立你的八字框架',
           },
           {
             icon: Users,
-            title: '社群陪伴',
-            desc: '在 Threads 建立 3,500+ 人的命理社群，每日分享命理洞察',
+            value: '3.5K+',
+            title: 'Threads 社群',
+            desc: '每日在 Threads 分享命理洞察，與讀者即時互動',
+          },
+          {
+            icon: Award,
+            value: '多次',
+            title: '媒體報導',
+            desc: '曾獲媒體採訪，並在多個平台進行命理與 AI 教育分享',
           },
         ].map((item) => (
-          <div key={item.title} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:border-[#C9A84C]/30 transition-colors">
-            <item.icon className="mx-auto mb-3 text-[#C9A84C]" size={28} />
-            <h3 className="text-white font-bold mb-2">{item.title}</h3>
-            <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
+          <div
+            key={item.title}
+            className="bg-[#0A0A20] border border-white/8 rounded-md p-6 text-center"
+          >
+            <item.icon className="mx-auto mb-3 text-[#C9A84C]" size={24} />
+            <p className="text-white font-black text-2xl mb-1">{item.value}</p>
+            <p className="text-white/70 font-semibold text-sm mb-2">{item.title}</p>
+            <p className="text-white/40 text-xs leading-relaxed">{item.desc}</p>
           </div>
         ))}
       </div>
 
-      {/* Philosophy */}
-      <div className="mb-16">
-        <h2 className="text-white text-2xl font-bold mb-6">我的命理哲學</h2>
-        <div className="space-y-6 text-white/65 leading-relaxed">
-          <blockquote className="border-l-4 border-[#C9A84C] pl-6 bg-white/5 py-4 pr-4 rounded-r-xl">
-            <p className="text-white/80 italic text-lg">
-              「命理告訴你你是誰，不是你會怎樣。」
-            </p>
-          </blockquote>
-          <p>
-            八字命理的核心，是五行的能量結構分析。每個人的出生時刻，記錄了一組獨特的天干地支組合，
-            構成了你的能量藍圖——你的優勢、盲點、與人互動的模式，以及在不同時間節點的機遇與挑戰。
-          </p>
-          <p>
-            我的教學方式著重「類象思維」：不背公式，而是學會用五行的象去理解人事物，
-            讓命理成為一套可以活用的思維系統。
-          </p>
+      {/* ── Philosophy ── */}
+      <div className="mb-14">
+        <h2 className="font-serif text-white text-2xl font-bold mb-8">命理哲學</h2>
+        <div className="space-y-6">
+          {[
+            {
+              title: '命理是地形圖，不是命令書',
+              body: '八字告訴你的能量結構——你的優勢、盲點、與人互動的模式，以及在不同時間節點的機遇與挑戰。但怎麼走，永遠是你自己決定的。',
+            },
+            {
+              title: '類象思維，而非死記公式',
+              body: '我的教學方式著重「類象思維」：不背公式，而是學會用五行的象去理解人事物，讓命理成為一套可以活用的思維系統。',
+            },
+            {
+              title: '清醒的認識，比模糊的安慰更有價值',
+              body: '真正的命理諮詢應該讓你離開時更清晰、更有力量。我不會用模稜兩可的說法讓你感覺良好——我希望你帶著具體的視角和行動方向回去。',
+            },
+          ].map((p) => (
+            <div key={p.title} className="border-l border-white/10 pl-6">
+              <h3 className="text-white font-semibold mb-2">{p.title}</h3>
+              <p className="text-white/50 text-sm leading-relaxed">{p.body}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* CTA */}
-      <div className="text-center bg-gradient-to-br from-[#C9A84C]/15 to-transparent border border-[#C9A84C]/25 rounded-3xl p-10">
-        <h2 className="text-white text-2xl font-bold mb-3">想開始認識自己的命盤？</h2>
-        <p className="text-white/50 mb-6">從免費文章開始，或直接預約一對一深度解讀。</p>
+      {/* ── Connect ── */}
+      <div className="mb-14">
+        <h2 className="font-serif text-white text-2xl font-bold mb-6">聯絡方式</h2>
+        <div className="flex flex-wrap gap-4">
+          <a
+            href="https://www.threads.com/@destiny.solver"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 border border-white/15 hover:border-[#C9A84C]/50 text-white/55 hover:text-[#C9A84C] px-5 py-3 rounded text-sm transition-colors"
+          >
+            <MessageCircle size={16} />
+            Threads @destiny.solver
+          </a>
+          <a
+            href="mailto:michaelchan.gezi@gmail.com"
+            className="flex items-center gap-2 border border-white/15 hover:border-[#C9A84C]/50 text-white/55 hover:text-[#C9A84C] px-5 py-3 rounded text-sm transition-colors"
+          >
+            <Mail size={16} />
+            michaelchan.gezi@gmail.com
+          </a>
+        </div>
+      </div>
+
+      {/* ── CTA ── */}
+      <div className="border border-[#C9A84C]/20 rounded-sm p-8 sm:p-10 text-center relative overflow-hidden">
+        <div className="absolute right-4 bottom-0 text-[120px] font-black text-[#C9A84C]/[0.04] leading-none select-none pointer-events-none">
+          解
+        </div>
+        <h2 className="font-serif text-white text-2xl font-bold mb-3">想開始認識自己的命盤？</h2>
+        <p className="text-white/45 mb-6 text-sm leading-relaxed">
+          從免費深度文章開始，或直接預約一對一命盤解讀。
+        </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/articles"
-            className="flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold px-6 py-3 rounded-full transition-colors"
+            className="flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold px-6 py-3 rounded transition-colors text-sm"
           >
-            開始閱讀 <ArrowRight size={16} />
+            開始閱讀 <ArrowRight size={15} />
           </Link>
           <Link
             href="/consultation"
-            className="flex items-center gap-2 border border-white/20 hover:border-[#C9A84C]/60 text-white/80 font-medium px-6 py-3 rounded-full transition-colors"
+            className="flex items-center gap-2 border border-white/15 hover:border-[#C9A84C]/50 text-white/60 hover:text-white font-medium px-6 py-3 rounded transition-colors text-sm"
           >
             預約諮詢
           </Link>
