@@ -212,26 +212,33 @@ export default function HomePage() {
       )}
 
       {/* ── Threads ── */}
-      <section className="border-y border-white/8 py-8">
+      <section className="border-y border-[#C9A84C]/20 bg-[#C9A84C]/[0.04] py-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-8 text-center sm:text-left">
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <div className="w-10 h-10 rounded-full overflow-hidden ring-1 ring-[#C9A84C]/30">
-                <img src="/images/avatar.png" alt="@destiny.solver" className="w-full h-full object-cover" />
-              </div>
-              <div>
-                <p className="text-white text-sm font-semibold">@destiny.solver</p>
-                <p className="text-white/35 text-xs">Threads · 3.5K 追蹤者</p>
-              </div>
+          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
+            {/* Avatar */}
+            <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-[#C9A84C]/40 flex-shrink-0">
+              <img src="/images/avatar.png" alt="@destiny.solver" className="w-full h-full object-cover" />
             </div>
-            <p className="text-white/40 text-sm flex-1">
-              每日分享命理洞察、實案分析與五行思考——在 Threads 跟蹤最新動態。
-            </p>
+            {/* Text */}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 justify-center sm:justify-start mb-2 flex-wrap">
+                <p className="text-white font-bold text-base">陳卓賢</p>
+                <span className="text-white/30">·</span>
+                <p className="text-[#C9A84C] font-semibold text-sm">@destiny.solver</p>
+                <span className="text-white/40 text-[11px] border border-white/15 px-2 py-0.5 rounded-full">
+                  3.5K 追蹤者
+                </span>
+              </div>
+              <p className="text-white/60 text-sm leading-relaxed max-w-lg">
+                每日分享命理洞察、實案分析與五行思考。在 Threads 了解最新動態。
+              </p>
+            </div>
+            {/* CTA */}
             <a
               href="https://www.threads.com/@destiny.solver"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 border border-white/20 hover:border-[#C9A84C]/50 text-white/55 hover:text-[#C9A84C] text-sm px-5 py-2.5 rounded transition-colors whitespace-nowrap"
+              className="flex-shrink-0 bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold text-sm px-7 py-3.5 rounded transition-colors whitespace-nowrap"
             >
               在 Threads 跟蹤
             </a>
