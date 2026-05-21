@@ -6,9 +6,8 @@ import { Menu, X } from 'lucide-react'
 
 const NAV_LINKS = [
   { href: '/articles', label: '所有文章' },
-  { href: '/categories', label: '文章分類' },
+  { href: '/categories', label: '學習路徑' },
   { href: '/about', label: '關於我' },
-  { href: '/consultation', label: '預約諮詢' },
 ]
 
 export default function Header() {

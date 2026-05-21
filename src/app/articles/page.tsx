@@ -16,17 +16,16 @@ export default function ArticlesPage() {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
       {/* Header */}
       <div className="mb-12">
-        <p className="text-[#C9A84C] text-sm font-semibold tracking-widest mb-3">ARTICLES</p>
-        <h1 className="text-white text-4xl font-black mb-4">所有文章</h1>
-        <p className="text-white/50 text-lg">
-          共 {articles.length} 篇深度命理文章，從基礎到進階，系統學習八字命理。
+        <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.35em] uppercase mb-3">ARTICLES</p>
+        <h1 className="font-serif text-white text-4xl font-black mb-4">所有文章</h1>
+        <p className="text-white/45 text-lg">
+          共 {articles.length} 篇深度命理文章，從基礎到進階系統學習。
         </p>
       </div>
 
       {/* Category filter */}
       {categories.length > 0 && (
-        <div className="flex flex-wrap gap-3 mb-10">
-          <span className="text-white/40 text-sm self-center">分類：</span>
+        <div className="flex flex-wrap gap-2 mb-10">
           {categories.map((cat) => (
             <CategoryBadge key={cat} category={cat} linkable />
           ))}
@@ -39,9 +38,9 @@ export default function ArticlesPage() {
           <p className="text-lg">文章準備中，敬請期待。</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.map((article) => (
-            <ArticleCard key={article.slug} article={article} featured />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {articles.map((article, i) => (
+            <ArticleCard key={article.slug} article={article} featured index={i} />
           ))}
         </div>
       )}

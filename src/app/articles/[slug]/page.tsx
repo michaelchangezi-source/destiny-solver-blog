@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from 'lucide-react'
 import { getArticleBySlug, getArticleSlugs, getRelatedArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/utils'
-import { CATEGORY_COLORS, CATEGORY_SLUGS } from '@/types'
+import { CATEGORY_SLUGS } from '@/types'
 import ArticleBody from '@/components/blog/ArticleBody'
 import ArticleCard from '@/components/blog/ArticleCard'
 import { remark } from 'remark'
@@ -118,7 +117,6 @@ export default async function ArticlePage({ params }: Props) {
 
   const html = await markdownToHtml(article.content)
   const related = getRelatedArticles(slug, article.category, 3)
-  const categoryColor = CATEGORY_COLORS[article.category] ?? 'bg-gray-100 text-gray-800'
   const faqPairs = extractFaqPairs(article.content)
 
   const breadcrumbJsonLd = {
@@ -213,17 +211,23 @@ export default async function ArticlePage({ params }: Props) {
         <span className="text-white/55 truncate max-w-[180px] sm:max-w-xs">{article.title}</span>
       </nav>
 
-      {/* Cover */}
-      {article.coverImage && (
-        <div className="relative w-full h-64 sm:h-80 rounded-2xl overflow-hidden mb-8">
-          <Image src={article.coverImage} alt={article.title} fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F2D]/80 to-transparent" />
-        </div>
-      )}
+      {/* Cover — glyph banner */}
+      {(() => {
+        const glyph = ({ '八字基礎':'甲','干支詳解':'子','十神應用':'祿','命盤格局':'局','實戰斷命':'斷','大運流年':'運','感情格局':'情','事業財運':'財','健康命理':'壽','風水地理':'風' } as Record<string,string>)[article.category] ?? '命'
+        const seq = article.slug.match(/^topic-(\d+)/)?.[1]?.padStart(2,'0')
+        return (
+          <div className="relative w-full h-40 sm:h-52 rounded-md overflow-hidden mb-8 bg-[#0A0A20] border border-white/8 flex items-center justify-center">
+            <span className="absolute text-[200px] font-black text-white/[0.03] leading-none select-none">{glyph}</span>
+            <span className="text-[100px] sm:text-[130px] font-black text-[#C9A84C]/70 leading-none select-none">{glyph}</span>
+            {seq && <span className="absolute top-4 left-5 text-white/20 text-xs font-mono tracking-widest">{seq}</span>}
+            <span className="absolute bottom-4 right-5 text-white/20 text-xs tracking-wider">{article.category}</span>
+          </div>
+        )
+      })()}
 
       {/* Meta */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
-        <span className={`text-sm font-semibold px-3 py-1 rounded-full ${categoryColor}`}>
+        <span className="text-xs px-2.5 py-1 rounded border border-white/15 text-white/55">
           {article.category}
         </span>
         <span className="flex items-center gap-1 text-white/40 text-sm">

@@ -1,5 +1,5 @@
 ﻿import type { Metadata } from 'next'
-import { Noto_Sans_TC } from 'next/font/google'
+import { Noto_Sans_TC, Noto_Serif_TC } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -9,6 +9,13 @@ const notoSansTC = Noto_Sans_TC({
   subsets: ['latin'],
   weight: ['400', '500', '700', '900'],
   variable: '--font-noto',
+  display: 'swap',
+})
+
+const notoSerifTC = Noto_Serif_TC({
+  subsets: ['latin'],
+  weight: ['400', '700', '900'],
+  variable: '--font-noto-serif',
   display: 'swap',
 })
 
@@ -68,7 +75,7 @@ const websiteJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-TW" className={notoSansTC.variable}>
+    <html lang="zh-TW" className={`${notoSansTC.variable} ${notoSerifTC.variable}`}>
       <head>
         <script
           type="application/ld+json"

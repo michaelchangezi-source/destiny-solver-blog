@@ -5,14 +5,19 @@
   --background: #0F0F2D;
   --foreground: #ffffff;
   --gold: #C9A84C;
+  --cinnabar: #B83232;
   --font-sans: var(--font-noto), 'Noto Sans TC', sans-serif;
+  --font-serif: var(--font-noto-serif), 'Noto Serif TC', serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-noto), 'Noto Sans TC', sans-serif;
+  --font-serif: var(--font-noto-serif), 'Noto Serif TC', serif;
 }
+
+.font-serif { font-family: var(--font-serif); }
 
 body {
   background: var(--background);

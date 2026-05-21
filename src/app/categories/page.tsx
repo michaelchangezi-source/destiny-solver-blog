@@ -1,52 +1,94 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
-import { CATEGORY_COLORS, CATEGORY_SLUGS } from '@/types'
+import { CATEGORY_SLUGS, CATEGORY_GLYPHS, CATEGORY_ORDER } from '@/types'
 
 export const metadata: Metadata = {
-  title: '文章分類',
-  description: '按主題瀏覽八字命理文章：干支、十神、大運流年、感情事業等。',
+  title: '學習路徑',
+  description: '從零開始系統學習八字命理：天干地支→十神體系→格局判斷→大運流年，循序漸進。',
+}
+
+const CATEGORY_DESC: Record<string, string> = {
+  '八字基礎': '十天干、十二地支的陰陽五行與文化類象，理解八字的基本字母表。',
+  '干支詳解': '刑、沖、合、害——地支之間的動態關係，決定命局的張力與變化。',
+  '十神應用': '比劫、食傷、財星、官殺、印綬，命理的語言骨架與人事類象。',
+  '命盤格局': '命局結構的清純與複雜度，決定人生模式的層次與格局高低。',
+  '實戰斷命': '從命局到現實的橋接——如何在具體情境中做出精準判斷。',
+  '大運流年': '人生時序的運作機制：十年大運與年度流年的交互作用。',
+  '感情格局': '從命盤看感情模式、緣分深淺與關係中的能量動態。',
+  '事業財運': '事業方向、財星結構與創業或打工時機的命理解析。',
+  '健康命理': '五行與臟腑的對應，從命局看體質傾向與健康警示。',
+  '風水地理': '空間能量與人的命局如何產生互動，場域選擇的命理依據。',
 }
 
 export default function CategoriesPage() {
   const articles = getAllArticles()
   const categories = getAllCategories()
 
-  const stats = categories.map((cat) => ({
+  // Sort by CATEGORY_ORDER
+  const sorted = CATEGORY_ORDER.filter((c) => categories.includes(c))
+  const others = categories.filter((c) => !CATEGORY_ORDER.includes(c))
+  const allCats = [...sorted, ...others]
+
+  const stats = allCats.map((cat) => ({
     name: cat,
     count: articles.filter((a) => a.category === cat).length,
-    color: CATEGORY_COLORS[cat] ?? 'bg-gray-100 text-gray-800',
+    glyph: CATEGORY_GLYPHS[cat] ?? '命',
+    desc: CATEGORY_DESC[cat] ?? '',
+    idx: CATEGORY_ORDER.indexOf(cat),
   }))
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-      <div className="mb-12">
-        <p className="text-[#C9A84C] text-sm font-semibold tracking-widest mb-3">CATEGORIES</p>
-        <h1 className="text-white text-4xl font-black mb-4">文章分類</h1>
-        <p className="text-white/50">按主題選擇你感興趣的命理方向</p>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
+      {/* Header */}
+      <div className="mb-14">
+        <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.35em] uppercase mb-3">LEARNING PATH</p>
+        <h1 className="font-serif text-white text-4xl sm:text-5xl font-black mb-4">系統學習路徑</h1>
+        <p className="text-white/45 text-lg max-w-xl leading-relaxed">
+          八字命理不是碎片化的知識點，而是一套完整的思維體系。選擇你的起點，開始系統學習。
+        </p>
       </div>
 
       {stats.length === 0 ? (
         <p className="text-white/30 text-center py-20">文章準備中，敬請期待。</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {stats.map((cat) => (
-            <Link
-              key={cat.name}
-              href={`/categories/${CATEGORY_SLUGS[cat.name] ?? cat.name}`}
-              className="group bg-white/5 hover:bg-white/8 border border-white/10 hover:border-[#C9A84C]/40 rounded-2xl p-6 transition-all"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className={`text-sm font-semibold px-3 py-1 rounded-full ${cat.color}`}>
-                  {cat.name}
+          {stats.map((cat) => {
+            const num = cat.idx >= 0 ? String(cat.idx + 1).padStart(2, '0') : null
+            return (
+              <Link
+                key={cat.name}
+                href={`/categories/${CATEGORY_SLUGS[cat.name] ?? cat.name}`}
+                className="group relative bg-[#0A0A20] border border-white/8 hover:border-[#C9A84C]/50 rounded-md p-6 transition-all overflow-hidden"
+              >
+                {/* Background glyph */}
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[80px] font-black text-white/3 group-hover:text-[#C9A84C]/5 leading-none select-none pointer-events-none transition-colors">
+                  {cat.glyph}
                 </span>
-                <span className="text-white/30 text-sm">{cat.count} 篇</span>
-              </div>
-              <p className="text-white/50 text-sm group-hover:text-white/70 transition-colors">
-                瀏覽所有「{cat.name}」文章 →
-              </p>
-            </Link>
-          ))}
+
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-3">
+                    {num && (
+                      <span className="font-mono text-[#C9A84C]/50 text-xs">{num}</span>
+                    )}
+                    <span className="text-white font-bold text-base group-hover:text-[#C9A84C] transition-colors">
+                      {cat.name}
+                    </span>
+                    <span className="ml-auto text-white/25 text-xs">{cat.count} 篇</span>
+                  </div>
+                  {cat.desc && (
+                    <p className="text-white/40 text-sm leading-relaxed group-hover:text-white/55 transition-colors">
+                      {cat.desc}
+                    </p>
+                  )}
+                  <div className="flex items-center gap-1 mt-4 text-[#C9A84C]/0 group-hover:text-[#C9A84C]/60 transition-colors text-xs">
+                    開始閱讀 <ArrowRight size={12} />
+                  </div>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       )}
     </div>

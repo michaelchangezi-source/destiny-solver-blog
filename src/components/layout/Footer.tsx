@@ -23,7 +23,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {[
                 { href: '/articles', label: '所有文章' },
-                { href: '/categories', label: '文章分類' },
+                { href: '/categories', label: '學習路徑' },
                 { href: '/about', label: '關於我' },
                 { href: '/consultation', label: '預約諮詢' },
               ].map((link) => (
