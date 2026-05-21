@@ -3,6 +3,7 @@ import { Noto_Sans_TC } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { Analytics } from '@vercel/analytics/next'
 
 const notoSansTC = Noto_Sans_TC({
   subsets: ['latin'],
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main className="pt-16">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
