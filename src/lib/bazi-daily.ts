@@ -82,7 +82,25 @@ const BRANCH_HAI: Record<string, string> = {
   申: '亥', 亥: '申', 酉: '戌', 戌: '酉',
 }
 
-// ── 五行計分（三柱六字） ──────────────────────────────────
+// ── 地支藏干（主氣/中氣/餘氣） ───────────────────────────
+// 格式：[天干, 權重]，主氣1.0 / 中氣0.6 / 餘氣0.3
+
+const BRANCH_HIDDEN: Record<string, [string, number][]> = {
+  子: [['癸', 1.0]],
+  丑: [['己', 1.0], ['癸', 0.6], ['辛', 0.3]],
+  寅: [['甲', 1.0], ['丙', 0.6], ['戊', 0.3]],
+  卯: [['乙', 1.0]],
+  辰: [['戊', 1.0], ['乙', 0.6], ['癸', 0.3]],
+  巳: [['丙', 1.0], ['戊', 0.6], ['庚', 0.3]],
+  午: [['丁', 1.0], ['己', 0.6]],
+  未: [['己', 1.0], ['丁', 0.6], ['乙', 0.3]],
+  申: [['庚', 1.0], ['壬', 0.6], ['戊', 0.3]],
+  酉: [['辛', 1.0]],
+  戌: [['戊', 1.0], ['辛', 0.6], ['丁', 0.3]],
+  亥: [['壬', 1.0], ['甲', 0.6]],
+}
+
+// ── 五行計分（三柱六字，含藏干與有根判斷） ───────────────
 
 function scoreElements(
   yearPillar: Pillar,
@@ -90,12 +108,34 @@ function scoreElements(
   dayPillar: Pillar
 ): Record<Element, number> {
   const score: Record<Element, number> = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 }
-  // 天干權重 1，地支權重 1.2（地支藏干更豐富）
   const pillars = [yearPillar, monthPillar, dayPillar]
-  for (const p of pillars) {
-    score[STEM_ELEMENT[p.stem]] += 1
-    score[BRANCH_ELEMENT[p.branch]] += 1.2
+  const branches = pillars.map(p => p.branch)
+
+  // 先統計所有支中藏干的元素（用於判斷天干是否有根）
+  const branchElements = new Set<string>()
+  for (const branch of branches) {
+    for (const [hiddenStem] of BRANCH_HIDDEN[branch] ?? []) {
+      branchElements.add(hiddenStem)
+    }
   }
+
+  // 天干計分：有根（其同類出現在任何支的藏干中）= 1.0，無根 = 0.3
+  for (const p of pillars) {
+    const stemEl = STEM_ELEMENT[p.stem]
+    // 判斷有根：藏干中有同五行的天干
+    const hasRoot = Array.from(branchElements).some(
+      s => STEM_ELEMENT[s] === stemEl
+    )
+    score[stemEl] += hasRoot ? 1.0 : 0.3
+  }
+
+  // 地支藏干計分
+  for (const branch of branches) {
+    for (const [hiddenStem, weight] of BRANCH_HIDDEN[branch] ?? []) {
+      score[STEM_ELEMENT[hiddenStem]] += weight
+    }
+  }
+
   return score
 }
 
@@ -104,10 +144,11 @@ function getDominantElements(score: Record<Element, number>): Element[] {
     .sort((a, b) => b[1] - a[1])
   const top = sorted[0][1]
   const second = sorted[1][1]
-  // 若第一強比第二強多 1.5 分以上，只有一個主導
-  if (top - second >= 1.5) return [sorted[0][0]]
-  // 否則取前兩名
-  return [sorted[0][0], sorted[1][0]]
+  // 若第一強比第二強多 2 分，視為單獨主導
+  if (top - second >= 2.0) return [sorted[0][0]]
+  // 否則取前兩名（但第二名需達到第一名的 60% 才算真正雙主導）
+  if (second >= top * 0.6) return [sorted[0][0], sorted[1][0]]
+  return [sorted[0][0]]
 }
 
 // ── 雙元素關係判斷 ───────────────────────────────────────
