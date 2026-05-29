@@ -1,8 +1,12 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
+import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
+import type { Element } from '@/lib/bazi-daily'
 import ArticleCard from '@/components/blog/ArticleCard'
 import CategoryBadge from '@/components/ui/CategoryBadge'
+
+export const revalidate = 3600
 
 const LEARNING_STAGES = [
   {
@@ -45,14 +49,18 @@ const LEARNING_STAGES = [
 export default function HomePage() {
   const articles = getAllArticles()
   const startHere = articles.slice(0, 3)
-  const latest = articles.slice(3, 9)
   const categories = getAllCategories()
+
+  // 當日能量
+  const [today] = analyzeDays(1)
+  const mainColor = ELEMENT_COLOR[today.dominantElements[0]]
+  const hasChong = today.interactions.some(i => i.type === '沖')
+  const hasHe = today.interactions.some(i => i.type === '合')
 
   return (
     <>
       {/* ── Hero ── */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden">
-        {/* Background watermarks */}
         <div className="absolute inset-0 pointer-events-none select-none">
           <div className="absolute top-10 left-10 text-[200px] font-black text-white leading-none opacity-[0.04] md:opacity-[0.07]">甲</div>
           <div className="absolute bottom-20 right-16 text-[160px] font-black text-[#C9A84C] leading-none opacity-[0.04] md:opacity-[0.06]">命</div>
@@ -62,9 +70,8 @@ export default function HomePage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-24 w-full">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 xl:gap-24">
 
-            {/* ── Left: Text ── */}
+            {/* Left: Text */}
             <div className="flex-1">
-              {/* Eyebrow — mobile shows small avatar inline */}
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-11 h-11 rounded-full overflow-hidden ring-1 ring-[#C9A84C]/25 flex-shrink-0 lg:hidden">
                   <img src="/images/avatar.png" alt="陳卓賢" className="w-full h-full object-cover" />
@@ -83,7 +90,6 @@ export default function HomePage() {
                 不是預測命運，是認識自己。透過八字命理的框架，看見你的能量結構、人生格局與時勢流動。
               </p>
 
-              {/* Inline stats */}
               <div className="flex flex-wrap items-center gap-8 mb-10 text-white/40 text-sm">
                 <div>
                   <span className="text-white font-black text-2xl mr-1.5">{articles.length}+</span>深度文章
@@ -114,20 +120,13 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ── Right: Avatar (desktop only) ── */}
+            {/* Right: Avatar (desktop) */}
             <div className="hidden lg:flex flex-shrink-0 items-center justify-center">
               <div className="relative">
-                {/* Ambient glow */}
                 <div className="absolute -inset-8 rounded-full bg-[#C9A84C]/[0.07] blur-3xl pointer-events-none" />
-                {/* Avatar */}
                 <div className="relative w-64 h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden ring-1 ring-[#C9A84C]/25">
-                  <img
-                    src="/images/avatar.png"
-                    alt="陳卓賢 @destiny.solver"
-                    className="w-full h-full object-cover"
-                  />
+                  <img src="/images/avatar.png" alt="陳卓賢 @destiny.solver" className="w-full h-full object-cover" />
                 </div>
-                {/* Name tag */}
                 <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#0A0A20] border border-white/10 rounded px-4 py-2 whitespace-nowrap">
                   <p className="text-white text-xs font-semibold text-center">陳卓賢</p>
                   <p className="text-[#C9A84C] text-[10px] text-center tracking-wider">@destiny.solver</p>
@@ -139,8 +138,111 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── 當日能量 ── */}
+      <section className="border-y border-white/8 py-10" style={{ background: `${mainColor}06` }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
+
+            {/* 日柱 + 基本信息 */}
+            <div className="flex items-center gap-5 flex-shrink-0">
+              {/* 日柱字 */}
+              <div
+                className="flex flex-col items-center justify-center w-16 h-20 rounded border flex-shrink-0"
+                style={{ borderColor: `${mainColor}50`, background: `${mainColor}12` }}
+              >
+                <span className="font-serif font-black text-4xl leading-none" style={{ color: mainColor }}>
+                  {today.dayPillar.stem}
+                </span>
+                <span className="font-serif font-bold text-3xl leading-none text-white/75">
+                  {today.dayPillar.branch}
+                </span>
+              </div>
+
+              {/* 標題區 */}
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[10px] font-semibold tracking-[0.3em] text-white/35 uppercase">TODAY</span>
+                  <span className="text-white/20 text-xs">·</span>
+                  <span className="text-white/35 text-[11px]">{today.dateLabel} {today.weekday}</span>
+                </div>
+                <p className="font-serif text-white font-black text-xl leading-snug" style={{ color: mainColor }}>
+                  {today.energyTitle}
+                </p>
+                <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                  {/* 三柱小標 */}
+                  {[
+                    { label: '年', pillar: today.yearPillar },
+                    { label: '月', pillar: today.monthPillar },
+                    { label: '日', pillar: today.dayPillar },
+                  ].map(({ label, pillar }) => (
+                    <span key={label} className="text-[11px] text-white/40">
+                      {label}
+                      <span className="font-semibold ml-0.5" style={{ color: ELEMENT_COLOR[pillar.element] }}>
+                        {pillar.stem}{pillar.branch}
+                      </span>
+                    </span>
+                  ))}
+                  {hasChong && (
+                    <span className="text-[10px] border rounded-full px-1.5 py-0.5 text-[#E06B50] border-[#E06B50]/30">沖</span>
+                  )}
+                  {hasHe && (
+                    <span className="text-[10px] border rounded-full px-1.5 py-0.5 text-[#5CAD7A] border-[#5CAD7A]/30">合</span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* 分隔線（桌面） */}
+            <div className="hidden lg:block w-px h-20 bg-white/10 flex-shrink-0" />
+
+            {/* 宜 */}
+            <div className="flex-1">
+              <p className="text-[#5CAD7A] text-[10px] font-semibold tracking-widest mb-2">今日宜</p>
+              <div className="flex flex-wrap gap-2">
+                {today.yi.slice(0, 5).map((y, i) => (
+                  <span
+                    key={i}
+                    className="text-xs text-white/65 border border-white/10 rounded-full px-3 py-1"
+                  >
+                    {y.item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* 不宜 */}
+            <div className="flex-1 lg:max-w-[220px]">
+              <p className="text-[#E06B50] text-[10px] font-semibold tracking-widest mb-2">今日不宜</p>
+              <div className="flex flex-wrap gap-2">
+                {today.buYi.slice(0, 3).map((b, i) => (
+                  <span
+                    key={i}
+                    className="text-xs text-white/50 border border-white/8 rounded-full px-3 py-1"
+                  >
+                    {b.item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA */}
+            <Link
+              href="/daily"
+              className="flex-shrink-0 flex items-center gap-2 border font-semibold text-sm px-5 py-3 rounded transition-colors hover:text-white whitespace-nowrap"
+              style={{
+                borderColor: `${mainColor}50`,
+                color: mainColor,
+              }}
+            >
+              完整分析 <ArrowRight size={15} />
+            </Link>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── Learning Path ── */}
-      <section className="bg-white/3 border-y border-white/8 py-14">
+      <section className="bg-white/3 border-b border-white/8 py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -199,27 +301,13 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── Latest Articles ── */}
-      {latest.length > 0 && (
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-          <h2 className="font-serif text-white text-2xl font-bold mb-8">最新文章</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
-            {latest.map((article, i) => (
-              <ArticleCard key={article.slug} article={article} index={i} />
-            ))}
-          </div>
-        </section>
-      )}
-
       {/* ── Threads ── */}
       <section className="border-y border-[#C9A84C]/20 bg-[#C9A84C]/[0.04] py-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
-            {/* Avatar */}
             <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-[#C9A84C]/40 flex-shrink-0">
               <img src="/images/avatar.png" alt="@destiny.solver" className="w-full h-full object-cover" />
             </div>
-            {/* Text */}
             <div className="flex-1">
               <div className="flex items-center gap-2 justify-center sm:justify-start mb-2 flex-wrap">
                 <p className="text-white font-bold text-base">陳卓賢</p>
@@ -233,7 +321,6 @@ export default function HomePage() {
                 每日分享命理洞察、實案分析與五行思考。在 Threads 了解最新動態。
               </p>
             </div>
-            {/* CTA */}
             <a
               href="https://www.threads.com/@destiny.solver"
               target="_blank"
