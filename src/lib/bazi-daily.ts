@@ -100,6 +100,10 @@ const BRANCH_HIDDEN: Record<string, [string, number][]> = {
   亥: [['壬', 1.0], ['甲', 0.6]],
 }
 
+// ── 三柱權重 ─────────────────────────────────────────────
+// 日柱是主角，月柱為季節背景，年柱為遠景大環境
+const PILLAR_WEIGHT = { year: 0.25, month: 0.5, day: 1.0 }
+
 // ── 五行計分（三柱六字，含藏干與有根判斷） ───────────────
 
 function scoreElements(
@@ -108,31 +112,30 @@ function scoreElements(
   dayPillar: Pillar
 ): Record<Element, number> {
   const score: Record<Element, number> = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 }
-  const pillars = [yearPillar, monthPillar, dayPillar]
-  const branches = pillars.map(p => p.branch)
 
-  // 先統計所有支中藏干的元素（用於判斷天干是否有根）
-  const branchElements = new Set<string>()
-  for (const branch of branches) {
-    for (const [hiddenStem] of BRANCH_HIDDEN[branch] ?? []) {
-      branchElements.add(hiddenStem)
+  const weightedPillars = [
+    { pillar: yearPillar,  weight: PILLAR_WEIGHT.year  },
+    { pillar: monthPillar, weight: PILLAR_WEIGHT.month },
+    { pillar: dayPillar,   weight: PILLAR_WEIGHT.day   },
+  ]
+
+  // 根的判斷仍用全部三支的藏干（根是客觀存在，不受權重影響）
+  const allBranchStems = new Set<string>()
+  for (const { pillar } of weightedPillars) {
+    for (const [hs] of BRANCH_HIDDEN[pillar.branch] ?? []) {
+      allBranchStems.add(hs)
     }
   }
 
-  // 天干計分：有根（其同類出現在任何支的藏干中）= 1.0，無根 = 0.3
-  for (const p of pillars) {
-    const stemEl = STEM_ELEMENT[p.stem]
-    // 判斷有根：藏干中有同五行的天干
-    const hasRoot = Array.from(branchElements).some(
-      s => STEM_ELEMENT[s] === stemEl
-    )
-    score[stemEl] += hasRoot ? 1.0 : 0.3
-  }
+  for (const { pillar, weight } of weightedPillars) {
+    // 天干：有根 × 1.0，無根 × 0.3，再乘柱權重
+    const stemEl = STEM_ELEMENT[pillar.stem]
+    const hasRoot = [...allBranchStems].some(s => STEM_ELEMENT[s] === stemEl)
+    score[stemEl] += (hasRoot ? 1.0 : 0.3) * weight
 
-  // 地支藏干計分
-  for (const branch of branches) {
-    for (const [hiddenStem, weight] of BRANCH_HIDDEN[branch] ?? []) {
-      score[STEM_ELEMENT[hiddenStem]] += weight
+    // 地支藏干：藏干本身權重 × 柱權重
+    for (const [hs, hsWeight] of BRANCH_HIDDEN[pillar.branch] ?? []) {
+      score[STEM_ELEMENT[hs]] += hsWeight * weight
     }
   }
 
@@ -144,10 +147,8 @@ function getDominantElements(score: Record<Element, number>): Element[] {
     .sort((a, b) => b[1] - a[1])
   const top = sorted[0][1]
   const second = sorted[1][1]
-  // 若第一強比第二強多 2 分，視為單獨主導
-  if (top - second >= 2.0) return [sorted[0][0]]
-  // 否則取前兩名（但第二名需達到第一名的 60% 才算真正雙主導）
-  if (second >= top * 0.6) return [sorted[0][0], sorted[1][0]]
+  // 第二名達到第一名 65% 才構成雙主導
+  if (second >= top * 0.65) return [sorted[0][0], sorted[1][0]]
   return [sorted[0][0]]
 }
 
