@@ -90,6 +90,7 @@ export default function BaziCalculator() {
   const [form, setForm] = useState({ year: '', month: '1', day: '', hour: '-1', gender: 'F' })
   const [result, setResult] = useState<BaziResult | null>(null)
   const [error, setError] = useState('')
+  const [copied, setCopied] = useState(false)
 
   const currentYear = new Date().getFullYear()
 
@@ -108,6 +109,64 @@ export default function BaziCalculator() {
       setError('計算出錯，請確認日期是否存在')
     }
   }, [form, currentYear])
+
+  const handleCopy = useCallback(() => {
+    if (!result) return
+    const y = form.year, m = form.month, d = form.day
+    const genderLabel = form.gender === 'F' ? '女命' : '男命'
+    const hourLabel = parseInt(form.hour) >= 0
+      ? HOUR_OPTIONS.find(o => o.value === parseInt(form.hour))?.label.split(' ')[0] ?? ''
+      : '（時辰不確定）'
+
+    const pillarLine = (p: typeof result.year, label: string, isDay: boolean) => {
+      const tg = isDay ? '日主' : (p.tenGod ?? '')
+      const hidden = p.hiddenStems.map(h => `${h.char}${h.tenGod}(${h.tier})`).join(' ')
+      return `${label}　${p.stemChar}${p.branchChar}　${tg}　│　藏干：${hidden}`
+    }
+
+    const pillarLines = [
+      pillarLine(result.year,  '年柱', false),
+      pillarLine(result.month, '月柱', false),
+      pillarLine(result.day,   '日柱', true),
+      ...(result.hour ? [pillarLine(result.hour, '時柱', false)] : []),
+    ].join('\n')
+
+    const _age = parseInt(form.year) ? currentYear - parseInt(form.year) : -1
+    const yunLine = result.daYuns.map((dy) => {
+      const cur = _age >= dy.startAge && _age < dy.startAge + 10
+      return `${cur ? '▶' : ''}${dy.stemChar}${dy.branchChar} ${dy.startAge}歲`
+    }).join(' → ')
+
+    const startInfo = result.startAge !== null
+      ? `（${result.startAge} 歲起運，${parseInt(form.year) + Math.round(result.startAge)} 年）`
+      : ''
+
+    const text = [
+      `【八字命盤】`,
+      `出生：${y}年${m}月${d}日 ${hourLabel}　${genderLabel}`,
+      ``,
+      `── 四柱 ──`,
+      pillarLines,
+      ``,
+      `── 大運 ${startInfo}──`,
+      yunLine,
+      ``,
+      `由 destiny.solver 八字速算工具生成`,
+      `https://destiny-solver-blog.vercel.app/bazi`,
+    ].join('\n')
+
+    const doConfirm = () => { setCopied(true); setTimeout(() => setCopied(false), 2000) }
+    navigator.clipboard.writeText(text).then(doConfirm).catch(() => {
+      // fallback for sandboxed environments
+      const el = document.createElement('textarea')
+      el.value = text
+      el.style.cssText = 'position:fixed;opacity:0;pointer-events:none'
+      document.body.appendChild(el)
+      el.focus(); el.select()
+      try { document.execCommand('copy'); doConfirm() } catch {}
+      document.body.removeChild(el)
+    })
+  }, [result, form, currentYear])
 
   const birthYear  = parseInt(form.year) || 0
   const currentAge = birthYear ? currentYear - birthYear : -1
@@ -237,6 +296,20 @@ export default function BaziCalculator() {
               ))}
             </div>
           </section>
+
+          {/* 複製按鈕 */}
+          <div className="flex justify-center">
+            <button
+              onClick={handleCopy}
+              className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
+                copied
+                  ? 'border-green-500/60 text-green-400 bg-green-500/10'
+                  : 'border-[#C9A84C]/40 text-[#C9A84C] hover:bg-[#C9A84C]/10'
+              }`}
+            >
+              {copied ? '✓ 已複製命盤' : '複製命盤文字'}
+            </button>
+          </div>
 
           {/* CTA */}
           <div className="rounded-2xl border border-[#C9A84C]/20 bg-[#C9A84C]/[0.04] p-6 text-center space-y-3">
