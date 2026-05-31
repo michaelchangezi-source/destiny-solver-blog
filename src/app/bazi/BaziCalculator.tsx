@@ -118,7 +118,7 @@ export default function BaziCalculator() {
       ? HOUR_OPTIONS.find(o => o.value === parseInt(form.hour))?.label.split(' ')[0] ?? ''
       : '（時辰不確定）'
 
-    const pillarLine = (p: typeof result.year, label: string, isDay: boolean) => {
+    const pillarLine = (p: Pillar, label: string, isDay: boolean) => {
       const tg = isDay ? '日主' : (p.tenGod ?? '')
       const hidden = p.hiddenStems.map(h => `${h.char}${h.tenGod}(${h.tier})`).join(' ')
       return `${label}　${p.stemChar}${p.branchChar}　${tg}　│　藏干：${hidden}`
