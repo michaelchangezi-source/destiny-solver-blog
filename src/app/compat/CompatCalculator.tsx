@@ -264,7 +264,7 @@ export default function CompatCalculator() {
                       return (
                         <div key={idx}
                           className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm flex-wrap ${item.isDay ? 'ring-1' : ''}`}
-                          style={{background: st.bg, border: `1px solid ${st.border}`, ringColor: col}}>
+                          style={{background: st.bg, border: `1px solid ${st.border}`}}>
                           <span className="font-serif font-bold" style={{color: st.text}}>{item.aLabel.split(' ')[1]}</span>
                           <span className="text-white/25 text-xs">{item.aLabel.split(' ')[0]}</span>
                           <span className="text-white/30">×</span>
