@@ -1,0 +1,24 @@
+import type { Metadata } from 'next'
+import CompatCalculator from './CompatCalculator'
+
+export const metadata: Metadata = {
+  title: '命盤合盤｜干支互動分析',
+  description: '輸入兩人出生資料，即時分析雙方四柱的天干五合、地支六合、六沖、六害等干支互動關係。destiny.solver 免費合盤工具。',
+}
+
+export default function CompatPage() {
+  return (
+    <main className="pt-24 pb-20 px-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-10 space-y-3">
+          <p className="text-[#C9A84C]/60 text-[10px] tracking-[0.3em] uppercase">Free Tool</p>
+          <h1 className="text-3xl sm:text-4xl font-serif font-black text-[#C9A84C] tracking-wider">
+            命盤合盤
+          </h1>
+          <p className="text-white/45 text-sm">輸入兩人生日，即時分析干支互動關係</p>
+        </div>
+        <CompatCalculator />
+      </div>
+    </main>
+  )
+}
