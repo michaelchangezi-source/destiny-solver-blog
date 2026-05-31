@@ -3,7 +3,6 @@ import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
 import type { Element } from '@/lib/bazi-daily'
-import ArticleCard from '@/components/blog/ArticleCard'
 import CategoryBadge from '@/components/ui/CategoryBadge'
 
 export const revalidate = 3600
@@ -48,7 +47,6 @@ const LEARNING_STAGES = [
 
 export default function HomePage() {
   const articles = getAllArticles()
-  const startHere = articles.slice(0, 3)
   const categories = getAllCategories()
 
   // 當日能量
@@ -271,22 +269,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── From Here ── */}
-      {startHere.length > 0 && (
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-serif text-white text-2xl font-bold">從這裡開始</h2>
-            <Link href="/articles" className="text-white/40 hover:text-[#C9A84C] text-sm flex items-center gap-1 transition-colors">
-              全部文章 <ArrowRight size={13} />
-            </Link>
+      {/* ── Bazi Calculator CTA ── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <Link href="/bazi" className="group block border border-[#C9A84C]/25 hover:border-[#C9A84C]/60 rounded-sm p-10 sm:p-14 relative overflow-hidden transition-colors">
+          <div className="absolute right-8 bottom-0 text-[200px] font-black text-[#C9A84C] opacity-[0.04] leading-none select-none pointer-events-none font-serif">命</div>
+          <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
+            <ArrowRight size={20} className="text-[#C9A84C]" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {startHere.map((article, i) => (
-              <ArticleCard key={article.slug} article={article} featured index={i} />
-            ))}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-8">
+            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 border border-[#C9A84C]/40 rounded flex flex-col items-center justify-center bg-[#C9A84C]/[0.06]">
+              <span className="font-serif font-black text-4xl sm:text-5xl text-[#C9A84C] leading-none">八</span>
+              <span className="text-[#C9A84C]/60 text-[10px] tracking-widest mt-1">字</span>
+            </div>
+            <div className="flex-1">
+              <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.35em] uppercase mb-2">Free Tool</p>
+              <h2 className="font-serif text-white text-2xl sm:text-3xl font-black mb-3 group-hover:text-[#C9A84C] transition-colors">
+                免費八字排盤
+              </h2>
+              <p className="text-white/50 text-sm leading-relaxed max-w-lg">
+                輸入出生年月日時，即時排出四柱命盤、十神及十個大運。讀懂你的命局結構，是認識自己的第一步。
+              </p>
+            </div>
           </div>
-        </section>
-      )}
+        </Link>
+      </section>
 
       {/* ── Categories strip ── */}
       {categories.length > 0 && (

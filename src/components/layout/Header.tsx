@@ -8,7 +8,6 @@ const NAV_LINKS = [
   { href: '/daily', label: '每日能量' },
   { href: '/bazi', label: '八字排盤' },
   { href: '/compat', label: '命盤合盤' },
-  { href: '/articles', label: '所有文章' },
   { href: '/categories', label: '學習路徑' },
   { href: '/about', label: '關於我' },
 ]

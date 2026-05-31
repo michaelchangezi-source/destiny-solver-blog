@@ -22,7 +22,6 @@ export default function Footer() {
             <h4 className="text-white/80 text-sm font-semibold mb-4 tracking-wide">快速連結</h4>
             <ul className="space-y-2">
               {[
-                { href: '/articles', label: '所有文章' },
                 { href: '/categories', label: '學習路徑' },
                 { href: '/about', label: '關於我' },
                 { href: '/consultation', label: '預約諮詢' },

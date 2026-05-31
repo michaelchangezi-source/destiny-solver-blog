@@ -177,7 +177,7 @@ export default function AboutPage() {
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link
-            href="/articles"
+            href="/categories"
             className="flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold px-6 py-3 rounded transition-colors text-sm"
           >
             開始閱讀 <ArrowRight size={15} />
