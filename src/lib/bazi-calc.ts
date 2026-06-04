@@ -100,9 +100,12 @@ export function calculate(
   year: number, month: number, day: number,
   hourBranch: number, gender: 'M' | 'F',
 ): BaziResult {
-  // 年柱
-  const yStem   = ((year - 4) % 10 + 10) % 10
-  const yBranch = ((year - 4) % 12 + 12) % 12
+  // 年柱（以立春為界：立春前出生，年柱沿用前一年干支）
+  // 立春交節近似 JIE_APPROX[0] = [2,4]，與月柱、起運使用同一套節氣基準
+  const [LICHUN_M, LICHUN_D] = JIE_APPROX[0]
+  const solarYear = (month < LICHUN_M || (month === LICHUN_M && day < LICHUN_D)) ? year - 1 : year
+  const yStem   = ((solarYear - 4) % 10 + 10) % 10
+  const yBranch = ((solarYear - 4) % 12 + 12) % 12
 
   // 月柱
   const jieOrder = [2,3,4,5,6,7,8,9,10,11,12,1]
