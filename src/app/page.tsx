@@ -58,11 +58,11 @@ export default function HomePage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="ink-section relative -mt-16 pt-16 min-h-[88vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[88vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 pointer-events-none select-none">
-          <div className="drift-slow absolute top-10 left-10 font-serif text-[200px] font-black text-white leading-none opacity-[0.04] md:opacity-[0.06]">甲</div>
-          <div className="drift absolute bottom-20 right-16 font-serif text-[160px] font-black text-[#CC5C3F] leading-none opacity-[0.05] md:opacity-[0.08]">命</div>
-          <div className="drift-slower absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[300px] font-black text-white leading-none opacity-[0.025] md:opacity-[0.035]">乾</div>
+          <div className="drift-slow absolute top-10 left-10 font-serif text-[200px] font-black text-[#2B241C] leading-none opacity-[0.04] md:opacity-[0.06]">甲</div>
+          <div className="drift absolute bottom-20 right-16 font-serif text-[160px] font-black text-[#B23E26] leading-none opacity-[0.05] md:opacity-[0.08]">命</div>
+          <div className="drift-slower absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[300px] font-black text-[#2B241C] leading-none opacity-[0.025] md:opacity-[0.035]">乾</div>
         </div>
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-24 w-full">
@@ -71,47 +71,47 @@ export default function HomePage() {
             {/* Left: Text */}
             <div className="flex-1 hero-in">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-11 h-11 rounded-full overflow-hidden ring-1 ring-[#CC5C3F]/25 flex-shrink-0 lg:hidden">
+                <div className="w-11 h-11 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25 flex-shrink-0 lg:hidden">
                   <img src="/images/avatar.png" alt="陳卓賢" className="w-full h-full object-cover" />
                 </div>
-                <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.35em] uppercase">
+                <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase">
                   命運解決師 · Destiny Solver · @destiny.solver
                 </p>
               </div>
 
-              <h1 className="font-serif text-white text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
+              <h1 className="font-serif text-[#2B241C] text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
                 用命理<br />
-                <span className="text-[#CC5C3F]">讀懂你</span><br />
+                <span className="text-[#B23E26]">讀懂你</span><br />
                 這個人
               </h1>
-              <p className="text-white/65 text-lg leading-relaxed mb-10 max-w-lg">
+              <p className="text-[#5A5247] text-lg leading-relaxed mb-10 max-w-lg">
                 不是預測命運，是認識自己。透過八字命理的框架，看見你的能量結構、人生格局與時勢流動。
               </p>
 
-              <div className="flex flex-wrap items-center gap-8 mb-10 text-white/40 text-sm">
+              <div className="flex flex-wrap items-center gap-8 mb-10 text-[#8A8071] text-sm">
                 <div>
-                  <span className="text-white font-black text-2xl mr-1.5">{articles.length}+</span>深度文章
+                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">{articles.length}+</span>深度文章
                 </div>
-                <div className="w-px h-5 bg-white/15" />
+                <div className="w-px h-5 bg-[#2B241C]/10" />
                 <div>
-                  <span className="text-white font-black text-2xl mr-1.5">3.5K+</span>Threads 追蹤者
+                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">3.5K+</span>Threads 追蹤者
                 </div>
-                <div className="w-px h-5 bg-white/15" />
+                <div className="w-px h-5 bg-[#2B241C]/10" />
                 <div>
-                  <span className="text-white font-black text-2xl mr-1.5">免費</span>開放閱讀
+                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">免費</span>開放閱讀
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/categories"
-                  className="flex items-center gap-2 bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-7 py-3.5 rounded transition-colors"
+                  className="flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-7 py-3.5 rounded transition-colors"
                 >
                   從這裡開始 <ArrowRight size={18} />
                 </Link>
                 <Link
                   href="/consultation"
-                  className="flex items-center gap-2 border border-white/20 hover:border-[#CC5C3F]/60 text-white/70 hover:text-white font-medium px-7 py-3.5 rounded transition-colors"
+                  className="flex items-center gap-2 border border-[#2B241C]/20 hover:border-[#B23E26]/60 text-[#5A5247] hover:text-[#2B241C] font-medium px-7 py-3.5 rounded transition-colors"
                 >
                   預約諮詢
                 </Link>
@@ -121,13 +121,13 @@ export default function HomePage() {
             {/* Right: Avatar (desktop) */}
             <div className="hidden lg:flex flex-shrink-0 items-center justify-center hero-in-2">
               <div className="relative">
-                <div className="absolute -inset-8 rounded-full bg-[#CC5C3F]/[0.07] blur-3xl pointer-events-none" />
-                <div className="relative w-64 h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden ring-1 ring-[#CC5C3F]/25">
+                <div className="absolute -inset-8 rounded-full bg-[#B23E26]/[0.07] blur-3xl pointer-events-none" />
+                <div className="relative w-64 h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25">
                   <img src="/images/avatar.png" alt="陳卓賢 @destiny.solver" className="w-full h-full object-cover" />
                 </div>
-                <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#1E1A15] border border-white/10 rounded px-4 py-2 whitespace-nowrap">
-                  <p className="text-white text-xs font-semibold text-center">陳卓賢</p>
-                  <p className="text-[#CC5C3F] text-[10px] text-center tracking-wider">@destiny.solver</p>
+                <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#FBF7EE] border border-[#2B241C]/10 rounded px-4 py-2 whitespace-nowrap">
+                  <p className="text-[#2B241C] text-xs font-semibold text-center">陳卓賢</p>
+                  <p className="text-[#B23E26] text-[10px] text-center tracking-wider">@destiny.solver</p>
                 </div>
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function HomePage() {
       </section>
 
       {/* ── 當日能量 ── */}
-      <section className="ink-section reveal py-12">
+      <section className="reveal border-y border-[#2B241C]/10 py-12" style={{ background: `${mainColor}0C` }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
 
@@ -145,13 +145,13 @@ export default function HomePage() {
             <div className="flex items-center gap-5 flex-shrink-0">
               {/* 日柱字：印章式 */}
               <div
-                className="seal-frame flex flex-col items-center justify-center w-20 h-24 flex-shrink-0"
+                className="seal-frame-paper flex flex-col items-center justify-center w-20 h-24 flex-shrink-0"
                 style={{ background: `${mainColor}10` }}
               >
                 <span className="font-serif font-black text-5xl leading-none" style={{ color: mainColor }}>
                   {today.dayPillar.stem}
                 </span>
-                <span className="font-serif font-bold text-4xl leading-none text-white/80">
+                <span className="font-serif font-bold text-4xl leading-none text-[#3A332A]">
                   {today.dayPillar.branch}
                 </span>
               </div>
@@ -159,9 +159,9 @@ export default function HomePage() {
               {/* 標題區 */}
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[10px] font-semibold tracking-[0.3em] text-white/35 uppercase">TODAY</span>
-                  <span className="text-white/20 text-xs">·</span>
-                  <span className="text-white/35 text-[11px]">{today.dateLabel} {today.weekday}</span>
+                  <span className="text-[10px] font-semibold tracking-[0.3em] text-[#8A8071] uppercase">TODAY</span>
+                  <span className="text-[#9C9282] text-xs">·</span>
+                  <span className="text-[#8A8071] text-[11px]">{today.dateLabel} {today.weekday}</span>
                 </div>
                 <p className="font-serif font-black text-2xl leading-snug" style={{ color: mainColor }}>
                   {today.energyTitle}
@@ -173,7 +173,7 @@ export default function HomePage() {
                     { label: '月', pillar: today.monthPillar },
                     { label: '日', pillar: today.dayPillar },
                   ].map(({ label, pillar }) => (
-                    <span key={label} className="text-[11px] text-white/40">
+                    <span key={label} className="text-[11px] text-[#8A8071]">
                       {label}
                       <span className="font-semibold ml-0.5" style={{ color: ELEMENT_COLOR[pillar.element] }}>
                         {pillar.stem}{pillar.branch}
@@ -181,26 +181,26 @@ export default function HomePage() {
                     </span>
                   ))}
                   {hasChong && (
-                    <span className="text-[10px] border rounded-full px-1.5 py-0.5 text-[#E06B50] border-[#E06B50]/30">沖</span>
+                    <span className="text-[10px] border rounded-full px-1.5 py-0.5 text-[#C24A2E] border-[#C24A2E]/30">沖</span>
                   )}
                   {hasHe && (
-                    <span className="text-[10px] border rounded-full px-1.5 py-0.5 text-[#5CAD7A] border-[#5CAD7A]/30">合</span>
+                    <span className="text-[10px] border rounded-full px-1.5 py-0.5 text-[#2E7D52] border-[#2E7D52]/30">合</span>
                   )}
                 </div>
               </div>
             </div>
 
             {/* 分隔線（桌面） */}
-            <div className="hidden lg:block w-px h-20 bg-white/10 flex-shrink-0" />
+            <div className="hidden lg:block w-px h-20 bg-[#2B241C]/[0.07] flex-shrink-0" />
 
             {/* 宜 */}
             <div className="flex-1">
-              <p className="text-[#5CAD7A] text-[10px] font-semibold tracking-widest mb-2">今日宜</p>
+              <p className="text-[#2E7D52] text-[10px] font-semibold tracking-widest mb-2">今日宜</p>
               <div className="flex flex-wrap gap-2">
                 {today.yi.slice(0, 5).map((y, i) => (
                   <span
                     key={i}
-                    className="text-xs text-white/65 border border-white/10 rounded-full px-3 py-1"
+                    className="text-xs text-[#5A5247] border border-[#2B241C]/10 rounded-full px-3 py-1"
                   >
                     {y.item}
                   </span>
@@ -210,12 +210,12 @@ export default function HomePage() {
 
             {/* 不宜 */}
             <div className="flex-1 lg:max-w-[220px]">
-              <p className="text-[#E06B50] text-[10px] font-semibold tracking-widest mb-2">今日不宜</p>
+              <p className="text-[#C24A2E] text-[10px] font-semibold tracking-widest mb-2">今日不宜</p>
               <div className="flex flex-wrap gap-2">
                 {today.buYi.slice(0, 3).map((b, i) => (
                   <span
                     key={i}
-                    className="text-xs text-white/50 border border-white/10 rounded-full px-3 py-1"
+                    className="text-xs text-[#6B6155] border border-[#2B241C]/10 rounded-full px-3 py-1"
                   >
                     {b.item}
                   </span>
@@ -226,7 +226,7 @@ export default function HomePage() {
             {/* CTA */}
             <Link
               href="/daily"
-              className="flex-shrink-0 flex items-center gap-2 border font-semibold text-sm px-5 py-3 rounded transition-colors hover:text-white whitespace-nowrap"
+              className="flex-shrink-0 flex items-center gap-2 border font-semibold text-sm px-5 py-3 rounded transition-colors hover:text-[#2B241C] whitespace-nowrap"
               style={{
                 borderColor: `${mainColor}50`,
                 color: mainColor,

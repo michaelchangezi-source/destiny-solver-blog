@@ -25,7 +25,7 @@ const HOUR_OPTIONS = [
 ]
 
 const TYPE_COLOR: Record<InteractionType, string> = {
-  '天干五合': '#CC5C3F',
+  '天干五合': '#B23E26',
   '地支六合': '#5da832',
   '地支三合': '#4a9fd4',
   '地支六沖': '#e05c2a',
@@ -53,47 +53,47 @@ function PersonInput({ label, form, onChange }: {
     onChange({ ...form, [k]: e.target.value })
 
   return (
-    <div className="flex-1 rounded-xl border border-white/10 bg-white/[0.02] p-4 space-y-3">
-      <p className="text-[11px] text-[#CC5C3F] tracking-[0.2em] font-medium">{label}</p>
+    <div className="flex-1 rounded-xl border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-3">
+      <p className="text-[11px] text-[#B23E26] tracking-[0.2em] font-medium">{label}</p>
 
       <input
         type="text" placeholder="暱稱（選填）"
         value={form.name} onChange={set('name')}
-        className="w-full bg-white/5 border border-white/10 text-white rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors placeholder:text-white/20"
+        className="w-full bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors placeholder:text-[#9C9282]"
       />
 
       <div className="flex flex-wrap gap-2">
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] text-white/35 tracking-widest">年份</label>
+          <label className="text-[9px] text-[#8A8071] tracking-widest">年份</label>
           <input
             type="number" placeholder="例：1990"
             value={form.year} onChange={set('year')}
-            className="w-24 bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors"
+            className="w-24 bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors"
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] text-white/35 tracking-widest">月</label>
+          <label className="text-[9px] text-[#8A8071] tracking-widest">月</label>
           <select value={form.month} onChange={set('month')}
-            className="bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors">
+            className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors">
             {Array.from({length:12},(_,i) => (
-              <option key={i+1} value={i+1} className="bg-[#161310]">{i+1}月</option>
+              <option key={i+1} value={i+1} className="bg-[#F4EEE1]">{i+1}月</option>
             ))}
           </select>
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] text-white/35 tracking-widest">日</label>
+          <label className="text-[9px] text-[#8A8071] tracking-widest">日</label>
           <input
             type="number" placeholder="1-31"
             value={form.day} onChange={set('day')}
-            className="w-16 bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors"
+            className="w-16 bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors"
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] text-white/35 tracking-widest">時辰</label>
+          <label className="text-[9px] text-[#8A8071] tracking-widest">時辰</label>
           <select value={form.hour} onChange={set('hour')}
-            className="bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors">
+            className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors">
             {HOUR_OPTIONS.map(o => (
-              <option key={o.value} value={o.value} className="bg-[#161310]">{o.label}</option>
+              <option key={o.value} value={o.value} className="bg-[#F4EEE1]">{o.label}</option>
             ))}
           </select>
         </div>
@@ -105,8 +105,8 @@ function PersonInput({ label, form, onChange }: {
             onClick={() => onChange({...form, gender: g})}
             className={`px-3 py-1 rounded-lg text-xs border transition-colors ${
               form.gender===g
-                ? 'bg-[#CC5C3F] border-[#CC5C3F] text-[#F7F1E5] font-bold'
-                : 'bg-white/5 border-white/10 text-white/50 hover:border-[#CC5C3F]/40'
+                ? 'bg-[#B23E26] border-[#B23E26] text-[#F7F1E5] font-bold'
+                : 'bg-[#2B241C]/[0.05] border-[#2B241C]/10 text-[#6B6155] hover:border-[#B23E26]/40'
             }`}>
             {g==='F'?'女':'男'}
           </button>
@@ -125,13 +125,13 @@ function MiniPillars({ result, name }: { result: BaziResult; name: string }) {
   ]
   return (
     <div className="space-y-1.5">
-      {name && <p className="text-[10px] text-white/40 tracking-widest">{name}</p>}
+      {name && <p className="text-[10px] text-[#8A8071] tracking-widest">{name}</p>}
       <div className="flex gap-2">
         {pillars.map(({p, lbl}) => (
           <div key={lbl} className={`flex flex-col items-center gap-0.5 rounded-lg border px-2.5 py-2 ${
-            lbl==='日' ? 'border-[#CC5C3F]/50 bg-[#CC5C3F]/[0.06]' : 'border-white/10 bg-white/[0.02]'
+            lbl==='日' ? 'border-[#B23E26]/50 bg-[#B23E26]/[0.06]' : 'border-[#2B241C]/10 bg-[#FBF7EE]/[0.02]'
           }`}>
-            <span className="text-[9px] text-white/30 tracking-widest">{lbl}</span>
+            <span className="text-[9px] text-[#8A8071] tracking-widest">{lbl}</span>
             <span className="text-xl font-black font-serif leading-none" style={{color: stemColor(p.stem)}}>{p.stemChar}</span>
             <span className="text-base font-bold font-serif leading-none" style={{color: branchColor(p.branch), opacity:0.85}}>{p.branchChar}</span>
           </div>
@@ -185,7 +185,7 @@ export default function CompatCalculator() {
       {/* 輸入區 */}
       <div className="flex flex-col sm:flex-row gap-3">
         <PersonInput label="甲 方" form={formA} onChange={setFormA} />
-        <div className="flex items-center justify-center text-[#CC5C3F]/40 text-2xl font-serif select-none sm:py-4">
+        <div className="flex items-center justify-center text-[#B23E26]/40 text-2xl font-serif select-none sm:py-4">
           ×
         </div>
         <PersonInput label="乙 方" form={formB} onChange={setFormB} />
@@ -195,7 +195,7 @@ export default function CompatCalculator() {
 
       <div className="flex justify-center">
         <button onClick={handleCalc}
-          className="bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-8 py-2.5 rounded-full text-sm transition-colors">
+          className="bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-8 py-2.5 rounded-full text-sm transition-colors">
           立即合盤
         </button>
       </div>
@@ -204,8 +204,8 @@ export default function CompatCalculator() {
       {compat && resultA && resultB && (
         <>
           {/* 雙方四柱 */}
-          <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 space-y-4">
-            <h2 className="text-[10px] text-[#CC5C3F] tracking-[0.25em]">雙 方 命 盤</h2>
+          <div className="rounded-xl border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-4">
+            <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em]">雙 方 命 盤</h2>
             <div className="flex flex-col sm:flex-row gap-4">
               <MiniPillars result={resultA} name={formA.name || '甲方'} />
               <MiniPillars result={resultB} name={formB.name || '乙方'} />
@@ -223,24 +223,24 @@ export default function CompatCalculator() {
                 style={{color: SENTIMENT_STYLE[compat.dayBranchSentiment].text}}>
                 日 支 關 係
               </span>
-              <span className="text-[10px] text-white/30">（最直接反映兩人相處模式）</span>
+              <span className="text-[10px] text-[#8A8071]">（最直接反映兩人相處模式）</span>
             </div>
-            <p className="text-sm text-white/80 font-medium">
+            <p className="text-sm text-[#3A332A] font-medium">
               <span className="font-serif text-base" style={{color: branchColor(resultA.day.branch)}}>
                 {resultA.day.branchChar}
               </span>
-              <span className="text-white/30 mx-2">vs</span>
+              <span className="text-[#8A8071] mx-2">vs</span>
               <span className="font-serif text-base" style={{color: branchColor(resultB.day.branch)}}>
                 {resultB.day.branchChar}
               </span>
-              <span className="ml-3 text-white/70 text-sm">{compat.dayBranchNote}</span>
+              <span className="ml-3 text-[#5A5247] text-sm">{compat.dayBranchNote}</span>
             </p>
           </div>
 
           {/* 互動總覽 */}
-          <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 space-y-4">
+          <div className="rounded-xl border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-[10px] text-[#CC5C3F] tracking-[0.25em]">干 支 互 動</h2>
+              <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em]">干 支 互 動</h2>
               <div className="flex gap-3 text-[10px]">
                 <span className="text-[#7fc850]">合 {compat.positiveCount}</span>
                 <span className="text-[#f07050]">沖害破 {compat.tensionCount}</span>
@@ -248,7 +248,7 @@ export default function CompatCalculator() {
             </div>
 
             {compat.interactions.length === 0 ? (
-              <p className="text-white/35 text-sm text-center py-4">
+              <p className="text-[#8A8071] text-sm text-center py-4">
                 雙方命盤無明顯干支互動，緣分平穩，宜深入觀察整體五行
               </p>
             ) : (
@@ -266,10 +266,10 @@ export default function CompatCalculator() {
                           className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm flex-wrap ${item.isDay ? 'ring-1' : ''}`}
                           style={{background: st.bg, border: `1px solid ${st.border}`}}>
                           <span className="font-serif font-bold" style={{color: st.text}}>{item.aLabel.split(' ')[1]}</span>
-                          <span className="text-white/25 text-xs">{item.aLabel.split(' ')[0]}</span>
-                          <span className="text-white/30">×</span>
+                          <span className="text-[#9C9282] text-xs">{item.aLabel.split(' ')[0]}</span>
+                          <span className="text-[#8A8071]">×</span>
                           <span className="font-serif font-bold" style={{color: st.text}}>{item.bLabel.split(' ')[1]}</span>
-                          <span className="text-white/25 text-xs">{item.bLabel.split(' ')[0]}</span>
+                          <span className="text-[#9C9282] text-xs">{item.bLabel.split(' ')[0]}</span>
                           <span className="ml-auto text-xs" style={{color: st.text}}>→ {item.detail}</span>
                           {item.isDay && (
                             <span className="text-[9px] px-1.5 py-0.5 rounded" style={{color: col, background: `${col}20`, border: `1px solid ${col}40`}}>
@@ -286,12 +286,12 @@ export default function CompatCalculator() {
           </div>
 
           {/* CTA */}
-          <div className="rounded-2xl border border-[#CC5C3F]/20 bg-[#CC5C3F]/[0.04] p-6 text-center space-y-3">
-            <p className="text-white/55 text-sm">
+          <div className="rounded-2xl border border-[#B23E26]/20 bg-[#B23E26]/[0.04] p-6 text-center space-y-3">
+            <p className="text-[#6B6155] text-sm">
               合盤只是第一步，真正的緣分深度需要結合各自格局、大運才能判斷
             </p>
             <a href="/consultation"
-              className="inline-block bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors">
+              className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors">
               預約深度合盤分析
             </a>
           </div>

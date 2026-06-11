@@ -8,14 +8,14 @@ export const metadata: Metadata = {
 
 export default function CompatPage() {
   return (
-    <main className="ink-section -mt-16 pt-40 pb-20 px-4">
+    <main className="pt-24 pb-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10 space-y-3">
-          <p className="text-[#CC5C3F]/60 text-[10px] tracking-[0.3em] uppercase">Free Tool</p>
-          <h1 className="text-3xl sm:text-4xl font-serif font-black text-[#CC5C3F] tracking-wider">
+          <p className="text-[#B23E26]/60 text-[10px] tracking-[0.3em] uppercase">Free Tool</p>
+          <h1 className="text-3xl sm:text-4xl font-serif font-black text-[#B23E26] tracking-wider">
             命盤合盤
           </h1>
-          <p className="text-white/45 text-sm">輸入兩人生日，即時分析干支互動關係</p>
+          <p className="text-[#6B6155] text-sm">輸入兩人生日，即時分析干支互動關係</p>
         </div>
         <CompatCalculator />
       </div>

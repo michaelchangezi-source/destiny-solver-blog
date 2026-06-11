@@ -26,9 +26,9 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
 
   return (
     <div className={`flex flex-col items-center gap-2 rounded-xl border p-3 sm:p-4 ${
-      isDay ? 'border-[#CC5C3F]/60 bg-[#CC5C3F]/[0.06]' : 'border-white/10 bg-white/[0.02]'
+      isDay ? 'border-[#B23E26]/60 bg-[#B23E26]/[0.06]' : 'border-[#2B241C]/10 bg-[#FBF7EE]/[0.02]'
     }`}>
-      <p className="text-white/35 text-[9px] tracking-[0.2em]">{label}</p>
+      <p className="text-[#8A8071] text-[9px] tracking-[0.2em]">{label}</p>
 
       {/* 天干 */}
       <div className="flex flex-col items-center gap-1">
@@ -38,7 +38,7 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
         <span
           className="text-[10px] px-2 py-0.5 rounded border"
           style={isDay
-            ? { color: '#CC5C3F', borderColor: '#CC5C3F50', background: '#CC5C3F12' }
+            ? { color: '#B23E26', borderColor: '#B23E2650', background: '#B23E2612' }
             : { color: sc, borderColor: `${sc}50`, background: `${sc}12` }
           }
         >
@@ -52,14 +52,14 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
       </span>
 
       {/* 藏干 */}
-      <div className="w-full mt-1 pt-2 border-t border-white/[0.06] space-y-1 min-h-[3rem]">
+      <div className="w-full mt-1 pt-2 border-t border-[#2B241C]/30/[0.06] space-y-1 min-h-[3rem]">
         {pillar.hiddenStems.map((hs, i) => (
           <div key={i} className="flex items-center justify-between gap-1">
             <span className="text-sm font-bold font-serif" style={{ color: stemColor(hs.stemIdx) }}>
               {hs.char}
             </span>
-            <span className="text-[10px] text-white/45">{hs.tenGod}</span>
-            <span className="text-[9px] text-white/25">{hs.tier}</span>
+            <span className="text-[10px] text-[#6B6155]">{hs.tenGod}</span>
+            <span className="text-[9px] text-[#9C9282]">{hs.tier}</span>
           </div>
         ))}
       </div>
@@ -70,7 +70,7 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
 function DaYunCard({ dy, isCurrent }: { dy: DaYun; isCurrent: boolean }) {
   return (
     <div className={`flex flex-col items-center gap-1 rounded-lg border p-2 ${
-      isCurrent ? 'border-[#CC5C3F]/60 bg-[#CC5C3F]/[0.07]' : 'border-white/10 bg-white/[0.02]'
+      isCurrent ? 'border-[#B23E26]/60 bg-[#B23E26]/[0.07]' : 'border-[#2B241C]/10 bg-[#FBF7EE]/[0.02]'
     }`}>
       <span className="text-xl font-black font-serif leading-none" style={{ color: stemColor(dy.stem) }}>
         {dy.stemChar}
@@ -79,8 +79,8 @@ function DaYunCard({ dy, isCurrent }: { dy: DaYun; isCurrent: boolean }) {
         {dy.branchChar}
       </span>
       <div className="mt-0.5 text-center">
-        <p className="text-[11px] text-[#CC5C3F] font-medium">{dy.startAge}歲</p>
-        <p className="text-[9px] text-white/35">{dy.startYear}</p>
+        <p className="text-[11px] text-[#B23E26] font-medium">{dy.startAge}歲</p>
+        <p className="text-[9px] text-[#8A8071]">{dy.startYear}</p>
       </div>
     </div>
   )
@@ -181,58 +181,58 @@ export default function BaziCalculator() {
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       {/* 表單 */}
-      <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6 space-y-5">
+      <div className="rounded-2xl border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-5 sm:p-6 space-y-5">
         <div className="flex flex-wrap gap-3 items-end">
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#CC5C3F] tracking-widest">出生年份</label>
+            <label className="text-[10px] text-[#B23E26] tracking-widest">出生年份</label>
             <input
               type="number" placeholder="例：1990"
               value={form.year}
               onChange={e => setForm(f => ({ ...f, year: e.target.value }))}
               onKeyDown={e => e.key === 'Enter' && handleCalculate()}
-              className="w-28 bg-white/5 border border-white/15 text-white rounded-lg px-3 py-2 text-sm outline-none focus:border-[#CC5C3F]/60 transition-colors"
+              className="w-28 bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#CC5C3F] tracking-widest">月</label>
+            <label className="text-[10px] text-[#B23E26] tracking-widest">月</label>
             <select
               value={form.month}
               onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
-              className="bg-white/5 border border-white/15 text-white rounded-lg px-3 py-2 text-sm outline-none focus:border-[#CC5C3F]/60 transition-colors"
+              className="bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
             >
               {Array.from({ length: 12 }, (_, i) => (
-                <option key={i+1} value={i+1} className="bg-[#161310]">{i+1} 月</option>
+                <option key={i+1} value={i+1} className="bg-[#F4EEE1]">{i+1} 月</option>
               ))}
             </select>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#CC5C3F] tracking-widest">日</label>
+            <label className="text-[10px] text-[#B23E26] tracking-widest">日</label>
             <input
               type="number" placeholder="1-31"
               value={form.day}
               onChange={e => setForm(f => ({ ...f, day: e.target.value }))}
               onKeyDown={e => e.key === 'Enter' && handleCalculate()}
-              className="w-20 bg-white/5 border border-white/15 text-white rounded-lg px-3 py-2 text-sm outline-none focus:border-[#CC5C3F]/60 transition-colors"
+              className="w-20 bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#CC5C3F] tracking-widest">出生時辰</label>
+            <label className="text-[10px] text-[#B23E26] tracking-widest">出生時辰</label>
             <select
               value={form.hour}
               onChange={e => setForm(f => ({ ...f, hour: e.target.value }))}
-              className="bg-white/5 border border-white/15 text-white rounded-lg px-3 py-2 text-sm outline-none focus:border-[#CC5C3F]/60 transition-colors"
+              className="bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
             >
               {HOUR_OPTIONS.map(opt => (
-                <option key={opt.value} value={opt.value} className="bg-[#161310]">{opt.label}</option>
+                <option key={opt.value} value={opt.value} className="bg-[#F4EEE1]">{opt.label}</option>
               ))}
             </select>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#CC5C3F] tracking-widest">性別</label>
+            <label className="text-[10px] text-[#B23E26] tracking-widest">性別</label>
             <div className="flex gap-2">
               {(['F', 'M'] as const).map(g => (
                 <button
@@ -240,8 +240,8 @@ export default function BaziCalculator() {
                   onClick={() => setForm(f => ({ ...f, gender: g }))}
                   className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
                     form.gender === g
-                      ? 'bg-[#CC5C3F] border-[#CC5C3F] text-[#F7F1E5] font-bold'
-                      : 'bg-white/5 border-white/15 text-white/60 hover:border-[#CC5C3F]/50'
+                      ? 'bg-[#B23E26] border-[#B23E26] text-[#F7F1E5] font-bold'
+                      : 'bg-[#2B241C]/[0.05] border-[#2B241C]/15 text-[#5A5247] hover:border-[#B23E26]/50'
                   }`}
                 >
                   {g === 'F' ? '女' : '男'}
@@ -256,11 +256,11 @@ export default function BaziCalculator() {
         <div className="flex items-center gap-4">
           <button
             onClick={handleCalculate}
-            className="bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-7 py-2.5 rounded-full text-sm transition-colors"
+            className="bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-7 py-2.5 rounded-full text-sm transition-colors"
           >
             立即排盤
           </button>
-          <p className="text-[10px] text-white/25">⚠ 生於節氣前後 2 天者建議人工核對月柱</p>
+          <p className="text-[10px] text-[#9C9282]">⚠ 生於節氣前後 2 天者建議人工核對月柱</p>
         </div>
       </div>
 
@@ -269,7 +269,7 @@ export default function BaziCalculator() {
         <>
           {/* 四柱 */}
           <section>
-            <h2 className="text-[10px] text-[#CC5C3F] tracking-[0.25em] mb-4">四 柱 命 盤</h2>
+            <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-4">四 柱 命 盤</h2>
             <div className={`grid gap-3 ${result.hour ? 'grid-cols-4' : 'grid-cols-3'}`}>
               {pillars.map(({ pillar, label, isDay }) => (
                 <PillarCard key={label} pillar={pillar} label={label} isDay={isDay} />
@@ -280,9 +280,9 @@ export default function BaziCalculator() {
           {/* 大運 */}
           <section>
             <div className="flex items-baseline gap-3 mb-4">
-              <h2 className="text-[10px] text-[#CC5C3F] tracking-[0.25em]">大 運</h2>
+              <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em]">大 運</h2>
               {result.startAge !== null && (
-                <span className="text-[11px] text-white/35">
+                <span className="text-[11px] text-[#8A8071]">
                   {result.startAge} 歲起運（{birthYear + Math.round(result.startAge)} 年）
                 </span>
               )}
@@ -304,7 +304,7 @@ export default function BaziCalculator() {
               className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
                 copied
                   ? 'border-green-500/60 text-green-400 bg-green-500/10'
-                  : 'border-[#CC5C3F]/40 text-[#CC5C3F] hover:bg-[#CC5C3F]/10'
+                  : 'border-[#B23E26]/40 text-[#B23E26] hover:bg-[#B23E26]/10'
               }`}
             >
               {copied ? '✓ 已複製命盤' : '複製命盤文字'}
@@ -312,11 +312,11 @@ export default function BaziCalculator() {
           </div>
 
           {/* CTA */}
-          <div className="rounded-2xl border border-[#CC5C3F]/20 bg-[#CC5C3F]/[0.04] p-6 text-center space-y-3">
-            <p className="text-white/55 text-sm">想深入了解命盤的格局與能量流向？</p>
+          <div className="rounded-2xl border border-[#B23E26]/20 bg-[#B23E26]/[0.04] p-6 text-center space-y-3">
+            <p className="text-[#6B6155] text-sm">想深入了解命盤的格局與能量流向？</p>
             <a
               href="/consultation"
-              className="inline-block bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors"
+              className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors"
             >
               預約深度命盤分析
             </a>
