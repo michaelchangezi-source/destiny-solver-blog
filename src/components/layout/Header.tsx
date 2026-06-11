@@ -16,14 +16,14 @@ export default function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#161310]/95 backdrop-blur-sm border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#F4EEE1]/95 backdrop-blur-sm border-b border-[#2B241C]/10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="text-[#CC5C3F] text-2xl font-bold tracking-wider">命</span>
+          <span className="text-[#B23E26] text-2xl font-bold tracking-wider">命</span>
           <div className="leading-tight">
-            <p className="text-white text-sm font-semibold tracking-widest">命運解決師</p>
-            <p className="text-white/40 text-[10px] tracking-widest uppercase">Destiny Solver</p>
+            <p className="text-[#2B241C] text-sm font-semibold tracking-widest">命運解決師</p>
+            <p className="text-[#8A8071] text-[10px] tracking-widest uppercase">Destiny Solver</p>
           </div>
         </Link>
 
@@ -33,14 +33,14 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-white/70 hover:text-[#CC5C3F] text-sm tracking-wide transition-colors duration-200"
+              className="text-[#5A5247] hover:text-[#B23E26] text-sm tracking-wide transition-colors duration-200"
             >
               {link.label}
             </Link>
           ))}
           <Link
             href="/consultation"
-            className="bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] text-sm font-semibold px-4 py-2 rounded transition-colors duration-200"
+            className="bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] text-sm font-semibold px-4 py-2 rounded transition-colors duration-200"
           >
             立即諮詢
           </Link>
@@ -48,7 +48,7 @@ export default function Header() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-white/80 hover:text-white"
+          className="md:hidden text-[#3A332A] hover:text-[#2B241C]"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -58,13 +58,13 @@ export default function Header() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-[#161310] border-t border-white/10 px-4 py-6 flex flex-col gap-4">
+        <div className="md:hidden bg-[#F4EEE1] border-t border-[#2B241C]/10 px-4 py-6 flex flex-col gap-4">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="text-white/70 hover:text-[#CC5C3F] text-base tracking-wide transition-colors"
+              className="text-[#5A5247] hover:text-[#B23E26] text-base tracking-wide transition-colors"
             >
               {link.label}
             </Link>
@@ -72,7 +72,7 @@ export default function Header() {
           <Link
             href="/consultation"
             onClick={() => setOpen(false)}
-            className="bg-[#CC5C3F] text-[#F7F1E5] text-sm font-semibold px-4 py-3 rounded text-center mt-2"
+            className="bg-[#B23E26] text-[#F7F1E5] text-sm font-semibold px-4 py-3 rounded text-center mt-2"
           >
             立即諮詢
           </Link>

@@ -38,30 +38,30 @@ export default function AboutPage() {
 
       {/* ── Header ── */}
       <div className="mb-16">
-        <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.35em] uppercase mb-4">ABOUT</p>
-        <h1 className="font-serif text-white text-4xl sm:text-5xl font-black mb-6 leading-tight">
+        <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase mb-4">ABOUT</p>
+        <h1 className="font-serif text-[#2B241C] text-4xl sm:text-5xl font-black mb-6 leading-tight">
           關於<br />
-          <span className="text-[#CC5C3F]">陳卓賢</span>
+          <span className="text-[#B23E26]">陳卓賢</span>
         </h1>
-        <p className="text-white/45 text-lg leading-relaxed max-w-xl">
+        <p className="text-[#6B6155] text-lg leading-relaxed max-w-xl">
           命理不是算命，是一套關於人的深度語言。
         </p>
       </div>
 
       {/* ── Identity block ── */}
-      <div className="border border-white/10 rounded-md p-8 mb-12 relative overflow-hidden">
-        <div className="absolute right-6 bottom-0 text-[150px] font-black text-[#CC5C3F]/[0.04] leading-none select-none pointer-events-none">
+      <div className="border border-[#2B241C]/10 rounded-md p-8 mb-12 relative overflow-hidden">
+        <div className="absolute right-6 bottom-0 text-[150px] font-black text-[#B23E26]/[0.04] leading-none select-none pointer-events-none">
           命
         </div>
         <div className="relative">
           <div className="mb-6">
-            <h2 className="text-white text-2xl font-bold mb-1">陳卓賢</h2>
-            <p className="text-[#CC5C3F] text-sm tracking-wider">命運解決師 · @destiny.solver · 香港</p>
+            <h2 className="text-[#2B241C] text-2xl font-bold mb-1">陳卓賢</h2>
+            <p className="text-[#B23E26] text-sm tracking-wider">命運解決師 · @destiny.solver · 香港</p>
           </div>
-          <div className="space-y-4 text-white/60 leading-relaxed text-[15px]">
+          <div className="space-y-4 text-[#5A5247] leading-relaxed text-[15px]">
             <p>
               我是陳卓賢，香港的八字命理研究者與諮詢師。我的核心信念是：
-              <strong className="text-white/85"> 命理是認識自己的工具，而非預測命運的水晶球。</strong>
+              <strong className="text-[#3A332A]"> 命理是認識自己的工具，而非預測命運的水晶球。</strong>
             </p>
             <p>
               多年來，我深入研究八字、吠陀占星與五行哲學，將東方古典智慧與現代心理學框架結合，
@@ -76,8 +76,8 @@ export default function AboutPage() {
 
       {/* ── Core belief quote ── */}
       <div className="mb-14">
-        <blockquote className="border-l-2 border-[#CC5C3F] pl-6 py-2">
-          <p className="font-serif text-white/80 italic text-xl sm:text-2xl leading-relaxed">
+        <blockquote className="border-l-2 border-[#B23E26] pl-6 py-2">
+          <p className="font-serif text-[#3A332A] italic text-xl sm:text-2xl leading-relaxed">
             「命理告訴你你是誰，<br className="sm:hidden" />不是你會怎樣。」
           </p>
         </blockquote>
@@ -107,19 +107,19 @@ export default function AboutPage() {
         ].map((item) => (
           <div
             key={item.title}
-            className="bg-[#1E1A15] border border-white/8 rounded-md p-6 text-center"
+            className="bg-[#FBF7EE] border border-[#2B241C]/10 rounded-md p-6 text-center"
           >
-            <item.icon className="mx-auto mb-3 text-[#CC5C3F]" size={24} />
-            <p className="text-white font-black text-2xl mb-1">{item.value}</p>
-            <p className="text-white/70 font-semibold text-sm mb-2">{item.title}</p>
-            <p className="text-white/40 text-xs leading-relaxed">{item.desc}</p>
+            <item.icon className="mx-auto mb-3 text-[#B23E26]" size={24} />
+            <p className="text-[#2B241C] font-black text-2xl mb-1">{item.value}</p>
+            <p className="text-[#5A5247] font-semibold text-sm mb-2">{item.title}</p>
+            <p className="text-[#8A8071] text-xs leading-relaxed">{item.desc}</p>
           </div>
         ))}
       </div>
 
       {/* ── Philosophy ── */}
       <div className="mb-14">
-        <h2 className="font-serif text-white text-2xl font-bold mb-8">命理哲學</h2>
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-8">命理哲學</h2>
         <div className="space-y-6">
           {[
             {
@@ -135,9 +135,9 @@ export default function AboutPage() {
               body: '真正的命理諮詢應該讓你離開時更清晰、更有力量。我不會用模稜兩可的說法讓你感覺良好——我希望你帶著具體的視角和行動方向回去。',
             },
           ].map((p) => (
-            <div key={p.title} className="border-l border-white/10 pl-6">
-              <h3 className="text-white font-semibold mb-2">{p.title}</h3>
-              <p className="text-white/50 text-sm leading-relaxed">{p.body}</p>
+            <div key={p.title} className="border-l border-[#2B241C]/10 pl-6">
+              <h3 className="text-[#2B241C] font-semibold mb-2">{p.title}</h3>
+              <p className="text-[#6B6155] text-sm leading-relaxed">{p.body}</p>
             </div>
           ))}
         </div>
@@ -145,20 +145,20 @@ export default function AboutPage() {
 
       {/* ── Connect ── */}
       <div className="mb-14">
-        <h2 className="font-serif text-white text-2xl font-bold mb-6">聯絡方式</h2>
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-6">聯絡方式</h2>
         <div className="flex flex-wrap gap-4">
           <a
             href="https://www.threads.com/@destiny.solver"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 border border-white/15 hover:border-[#CC5C3F]/50 text-white/55 hover:text-[#CC5C3F] px-5 py-3 rounded text-sm transition-colors"
+            className="flex items-center gap-2 border border-[#2B241C]/15 hover:border-[#B23E26]/50 text-[#6B6155] hover:text-[#B23E26] px-5 py-3 rounded text-sm transition-colors"
           >
             <MessageCircle size={16} />
             Threads @destiny.solver
           </a>
           <a
             href="mailto:michaelchan.gezi@gmail.com"
-            className="flex items-center gap-2 border border-white/15 hover:border-[#CC5C3F]/50 text-white/55 hover:text-[#CC5C3F] px-5 py-3 rounded text-sm transition-colors"
+            className="flex items-center gap-2 border border-[#2B241C]/15 hover:border-[#B23E26]/50 text-[#6B6155] hover:text-[#B23E26] px-5 py-3 rounded text-sm transition-colors"
           >
             <Mail size={16} />
             michaelchan.gezi@gmail.com
@@ -167,24 +167,24 @@ export default function AboutPage() {
       </div>
 
       {/* ── CTA ── */}
-      <div className="border border-[#CC5C3F]/20 rounded-sm p-8 sm:p-10 text-center relative overflow-hidden">
-        <div className="absolute right-4 bottom-0 text-[120px] font-black text-[#CC5C3F]/[0.04] leading-none select-none pointer-events-none">
+      <div className="border border-[#B23E26]/20 rounded-sm p-8 sm:p-10 text-center relative overflow-hidden">
+        <div className="absolute right-4 bottom-0 text-[120px] font-black text-[#B23E26]/[0.04] leading-none select-none pointer-events-none">
           解
         </div>
-        <h2 className="font-serif text-white text-2xl font-bold mb-3">想開始認識自己的命盤？</h2>
-        <p className="text-white/45 mb-6 text-sm leading-relaxed">
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-3">想開始認識自己的命盤？</h2>
+        <p className="text-[#6B6155] mb-6 text-sm leading-relaxed">
           從免費深度文章開始，或直接預約一對一命盤解讀。
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/categories"
-            className="flex items-center gap-2 bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-colors text-sm"
+            className="flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-colors text-sm"
           >
             開始閱讀 <ArrowRight size={15} />
           </Link>
           <Link
             href="/consultation"
-            className="flex items-center gap-2 border border-white/15 hover:border-[#CC5C3F]/50 text-white/60 hover:text-white font-medium px-6 py-3 rounded transition-colors text-sm"
+            className="flex items-center gap-2 border border-[#2B241C]/15 hover:border-[#B23E26]/50 text-[#5A5247] hover:text-[#2B241C] font-medium px-6 py-3 rounded transition-colors text-sm"
           >
             預約諮詢
           </Link>

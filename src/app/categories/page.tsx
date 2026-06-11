@@ -43,15 +43,15 @@ export default function CategoriesPage() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
       {/* Header */}
       <div className="mb-14">
-        <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.35em] uppercase mb-3">LEARNING PATH</p>
-        <h1 className="font-serif text-white text-4xl sm:text-5xl font-black mb-4">系統學習路徑</h1>
-        <p className="text-white/45 text-lg max-w-xl leading-relaxed">
+        <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase mb-3">LEARNING PATH</p>
+        <h1 className="font-serif text-[#2B241C] text-4xl sm:text-5xl font-black mb-4">系統學習路徑</h1>
+        <p className="text-[#6B6155] text-lg max-w-xl leading-relaxed">
           八字命理不是碎片化的知識點，而是一套完整的思維體系。選擇你的起點，開始系統學習。
         </p>
       </div>
 
       {stats.length === 0 ? (
-        <p className="text-white/30 text-center py-20">文章準備中，敬請期待。</p>
+        <p className="text-[#8A8071] text-center py-20">文章準備中，敬請期待。</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {stats.map((cat) => {
@@ -60,29 +60,29 @@ export default function CategoriesPage() {
               <Link
                 key={cat.name}
                 href={`/categories/${CATEGORY_SLUGS[cat.name] ?? cat.name}`}
-                className="group relative bg-[#1E1A15] border border-white/8 hover:border-[#CC5C3F]/50 rounded-md p-6 transition-all overflow-hidden"
+                className="group relative bg-[#FBF7EE] border border-[#2B241C]/10 hover:border-[#B23E26]/50 rounded-md p-6 transition-all overflow-hidden"
               >
                 {/* Background glyph */}
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[80px] font-black text-white/3 group-hover:text-[#CC5C3F]/5 leading-none select-none pointer-events-none transition-colors">
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[80px] font-black text-[#2B241C]/5 group-hover:text-[#B23E26]/5 leading-none select-none pointer-events-none transition-colors">
                   {cat.glyph}
                 </span>
 
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-3">
                     {num && (
-                      <span className="font-mono text-[#CC5C3F]/50 text-xs">{num}</span>
+                      <span className="font-mono text-[#B23E26]/50 text-xs">{num}</span>
                     )}
-                    <span className="text-white font-bold text-base group-hover:text-[#CC5C3F] transition-colors">
+                    <span className="text-[#2B241C] font-bold text-base group-hover:text-[#B23E26] transition-colors">
                       {cat.name}
                     </span>
-                    <span className="ml-auto text-white/25 text-xs">{cat.count} 篇</span>
+                    <span className="ml-auto text-[#9C9282] text-xs">{cat.count} 篇</span>
                   </div>
                   {cat.desc && (
-                    <p className="text-white/40 text-sm leading-relaxed group-hover:text-white/55 transition-colors">
+                    <p className="text-[#8A8071] text-sm leading-relaxed group-hover:text-[#6B6155] transition-colors">
                       {cat.desc}
                     </p>
                   )}
-                  <div className="flex items-center gap-1 mt-4 text-[#CC5C3F]/0 group-hover:text-[#CC5C3F]/60 transition-colors text-xs">
+                  <div className="flex items-center gap-1 mt-4 text-[#B23E26]/0 group-hover:text-[#B23E26]/60 transition-colors text-xs">
                     開始閱讀 <ArrowRight size={12} />
                   </div>
                 </div>

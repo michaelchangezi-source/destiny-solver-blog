@@ -264,7 +264,7 @@ export default function DailyPage() {
   const week = days.slice(1)
 
   return (
-    <>
+    <div className="ink-section -mt-16 pt-28 pb-1">
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-6">
         <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.35em] uppercase mb-2">DAILY ENERGY</p>
         <h1 className="font-serif text-white text-4xl font-black mb-3">日運能量</h1>
@@ -288,6 +288,6 @@ export default function DailyPage() {
           ))}
         </div>
       </section>
-    </>
+    </div>
   )
 }

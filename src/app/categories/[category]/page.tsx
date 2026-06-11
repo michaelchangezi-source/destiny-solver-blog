@@ -37,15 +37,15 @@ export default async function CategoryPage({ params }: Props) {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
       <Link
         href="/categories"
-        className="inline-flex items-center gap-2 text-white/40 hover:text-[#CC5C3F] text-sm mb-8 transition-colors"
+        className="inline-flex items-center gap-2 text-[#8A8071] hover:text-[#B23E26] text-sm mb-8 transition-colors"
       >
         <ArrowLeft size={16} /> 返回分類列表
       </Link>
 
       <div className="mb-10">
-        <p className="text-[#CC5C3F] text-sm font-semibold tracking-widest mb-3">分類</p>
-        <h1 className="text-white text-4xl font-black mb-3">{name}</h1>
-        <p className="text-white/40">共 {articles.length} 篇文章</p>
+        <p className="text-[#B23E26] text-sm font-semibold tracking-widest mb-3">分類</p>
+        <h1 className="text-[#2B241C] text-4xl font-black mb-3">{name}</h1>
+        <p className="text-[#8A8071]">共 {articles.length} 篇文章</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function CompatPage() {
   return (
-    <main className="pt-24 pb-20 px-4">
+    <main className="ink-section -mt-16 pt-40 pb-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10 space-y-3">
           <p className="text-[#CC5C3F]/60 text-[10px] tracking-[0.3em] uppercase">Free Tool</p>

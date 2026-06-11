@@ -196,19 +196,19 @@ export default async function ArticlePage({ params }: Props) {
       )}
 
       {/* Breadcrumb */}
-      <nav aria-label="breadcrumb" className="flex items-center gap-1 text-xs text-white/35 mb-6 flex-wrap">
-        <Link href="/" className="hover:text-[#CC5C3F] transition-colors">首頁</Link>
+      <nav aria-label="breadcrumb" className="flex items-center gap-1 text-xs text-[#8A8071] mb-6 flex-wrap">
+        <Link href="/" className="hover:text-[#B23E26] transition-colors">首頁</Link>
         <ChevronRight size={12} />
-        <Link href="/articles" className="hover:text-[#CC5C3F] transition-colors">文章</Link>
+        <Link href="/articles" className="hover:text-[#B23E26] transition-colors">文章</Link>
         <ChevronRight size={12} />
         <Link
           href={`/categories/${CATEGORY_SLUGS[article.category] ?? article.category}`}
-          className="hover:text-[#CC5C3F] transition-colors"
+          className="hover:text-[#B23E26] transition-colors"
         >
           {article.category}
         </Link>
         <ChevronRight size={12} />
-        <span className="text-white/55 truncate max-w-[180px] sm:max-w-xs">{article.title}</span>
+        <span className="text-[#6B6155] truncate max-w-[180px] sm:max-w-xs">{article.title}</span>
       </nav>
 
       {/* Cover — glyph banner */}
@@ -216,34 +216,34 @@ export default async function ArticlePage({ params }: Props) {
         const glyph = ({ '八字基礎':'甲','干支詳解':'子','十神應用':'祿','命盤格局':'局','實戰斷命':'斷','大運流年':'運','感情格局':'情','事業財運':'財','健康命理':'壽','風水地理':'風' } as Record<string,string>)[article.category] ?? '命'
         const seq = article.slug.match(/^topic-(\d+)/)?.[1]?.padStart(2,'0')
         return (
-          <div className="relative w-full h-40 sm:h-52 rounded-md overflow-hidden mb-8 bg-[#1E1A15] border border-white/8 flex items-center justify-center">
-            <span className="absolute text-[200px] font-black text-white/[0.03] leading-none select-none">{glyph}</span>
-            <span className="text-[100px] sm:text-[130px] font-black text-[#CC5C3F]/70 leading-none select-none">{glyph}</span>
-            {seq && <span className="absolute top-4 left-5 text-white/20 text-xs font-mono tracking-widest">{seq}</span>}
-            <span className="absolute bottom-4 right-5 text-white/20 text-xs tracking-wider">{article.category}</span>
+          <div className="relative w-full h-40 sm:h-52 rounded-md overflow-hidden mb-8 bg-[#FBF7EE] border border-[#2B241C]/10 flex items-center justify-center">
+            <span className="absolute text-[200px] font-black text-[#2B241C]/[0.03] leading-none select-none">{glyph}</span>
+            <span className="text-[100px] sm:text-[130px] font-black text-[#B23E26]/70 leading-none select-none">{glyph}</span>
+            {seq && <span className="absolute top-4 left-5 text-[#9C9282] text-xs font-mono tracking-widest">{seq}</span>}
+            <span className="absolute bottom-4 right-5 text-[#9C9282] text-xs tracking-wider">{article.category}</span>
           </div>
         )
       })()}
 
       {/* Meta */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
-        <span className="text-xs px-2.5 py-1 rounded border border-white/15 text-white/55">
+        <span className="text-xs px-2.5 py-1 rounded border border-[#2B241C]/15 text-[#6B6155]">
           {article.category}
         </span>
-        <span className="flex items-center gap-1 text-white/40 text-sm">
+        <span className="flex items-center gap-1 text-[#8A8071] text-sm">
           <Clock size={13} /> {article.readingTime}
         </span>
-        <span className="flex items-center gap-1 text-white/40 text-sm">
+        <span className="flex items-center gap-1 text-[#8A8071] text-sm">
           <Calendar size={13} /> {formatDate(article.publishedAt)}
         </span>
       </div>
 
       {/* Title */}
-      <h1 className="text-white text-3xl sm:text-4xl font-black leading-tight mb-4">
+      <h1 className="text-[#2B241C] text-3xl sm:text-4xl font-black leading-tight mb-4">
         {article.title}
       </h1>
       {article.excerpt && (
-        <p className="text-white/50 text-lg leading-relaxed mb-8 pb-8 border-b border-white/10">
+        <p className="text-[#6B6155] text-lg leading-relaxed mb-8 pb-8 border-b border-[#2B241C]/10">
           {article.excerpt}
         </p>
       )}
@@ -253,10 +253,10 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* Tags */}
       {article.tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-10 pt-8 border-t border-white/10">
-          <Tag size={14} className="text-white/30 self-center" />
+        <div className="flex flex-wrap gap-2 mt-10 pt-8 border-t border-[#2B241C]/10">
+          <Tag size={14} className="text-[#8A8071] self-center" />
           {article.tags.map((tag) => (
-            <span key={tag} className="text-xs text-white/40 bg-white/5 px-3 py-1 rounded-full">
+            <span key={tag} className="text-xs text-[#8A8071] bg-[#2B241C]/[0.05] px-3 py-1 rounded-full">
               #{tag}
             </span>
           ))}
@@ -265,12 +265,12 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* FAQ Section — visible Q&A aligned with FAQPage Schema */}
       {faqPairs.length > 0 && (
-        <section aria-label="本文重點解答" className="mt-12 pt-10 border-t border-white/10">
+        <section aria-label="本文重點解答" className="mt-12 pt-10 border-t border-[#2B241C]/10">
           {/* Header */}
           <div className="flex items-center gap-3 mb-7">
-            <span className="w-1 h-7 rounded-full bg-[#CC5C3F] shrink-0" aria-hidden="true" />
-            <h2 className="text-white text-xl font-bold">本文重點解答</h2>
-            <span className="text-white/25 text-sm font-normal tracking-wide">FAQ</span>
+            <span className="w-1 h-7 rounded-full bg-[#B23E26] shrink-0" aria-hidden="true" />
+            <h2 className="text-[#2B241C] text-xl font-bold">本文重點解答</h2>
+            <span className="text-[#9C9282] text-sm font-normal tracking-wide">FAQ</span>
           </div>
 
           {/* Q&A Cards */}
@@ -278,27 +278,27 @@ export default async function ArticlePage({ params }: Props) {
             {faqPairs.map(({ question, answer }, idx) => (
               <div
                 key={idx}
-                className="rounded-xl border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.05] transition-colors duration-200 p-5"
+                className="rounded-xl border border-[#2B241C]/30/[0.08] bg-[#FBF7EE]/[0.03] hover:bg-[#FBF7EE]/[0.05] transition-colors duration-200 p-5"
               >
                 {/* Question */}
                 <p className="flex items-start gap-3 mb-3">
                   <span
-                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#CC5C3F]/20 text-[#CC5C3F] text-[10px] font-black flex items-center justify-center leading-none select-none"
+                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#B23E26]/20 text-[#B23E26] text-[10px] font-black flex items-center justify-center leading-none select-none"
                     aria-label="問題"
                   >
                     Q
                   </span>
-                  <span className="text-white font-semibold text-sm leading-snug">{question}</span>
+                  <span className="text-[#2B241C] font-semibold text-sm leading-snug">{question}</span>
                 </p>
                 {/* Answer */}
                 <p className="flex items-start gap-3">
                   <span
-                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-white/[0.06] text-white/30 text-[10px] font-bold flex items-center justify-center leading-none select-none"
+                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#FBF7EE]/[0.06] text-[#8A8071] text-[10px] font-bold flex items-center justify-center leading-none select-none"
                     aria-label="答案"
                   >
                     A
                   </span>
-                  <span className="text-white/60 text-sm leading-relaxed">{answer}</span>
+                  <span className="text-[#5A5247] text-sm leading-relaxed">{answer}</span>
                 </p>
               </div>
             ))}
@@ -307,12 +307,12 @@ export default async function ArticlePage({ params }: Props) {
       )}
 
       {/* Consultation CTA */}
-      <div className="mt-12 bg-gradient-to-br from-[#CC5C3F]/15 to-transparent border border-[#CC5C3F]/25 rounded-2xl p-6 text-center">
-        <p className="text-white font-bold mb-2">想深入了解你的命盤？</p>
-        <p className="text-white/50 text-sm mb-4">預約一對一命理諮詢，解讀你的八字格局與人生時機。</p>
+      <div className="mt-12 bg-gradient-to-br from-[#B23E26]/15 to-transparent border border-[#B23E26]/25 rounded-2xl p-6 text-center">
+        <p className="text-[#2B241C] font-bold mb-2">想深入了解你的命盤？</p>
+        <p className="text-[#6B6155] text-sm mb-4">預約一對一命理諮詢，解讀你的八字格局與人生時機。</p>
         <Link
           href="/consultation"
-          className="inline-block bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-6 py-3 rounded-full transition-colors text-sm"
+          className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded-full transition-colors text-sm"
         >
           預約諮詢
         </Link>
@@ -321,7 +321,7 @@ export default async function ArticlePage({ params }: Props) {
       {/* Related */}
       {related.length > 0 && (
         <div className="mt-16">
-          <h2 className="text-white text-xl font-bold mb-6">相關文章</h2>
+          <h2 className="text-[#2B241C] text-xl font-bold mb-6">相關文章</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {related.map((a) => (
               <ArticleCard key={a.slug} article={a} featured />

@@ -58,7 +58,7 @@ export default function HomePage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative min-h-[88vh] flex items-center overflow-hidden">
+      <section className="ink-section relative -mt-16 pt-16 min-h-[88vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 pointer-events-none select-none">
           <div className="drift-slow absolute top-10 left-10 font-serif text-[200px] font-black text-white leading-none opacity-[0.04] md:opacity-[0.06]">甲</div>
           <div className="drift absolute bottom-20 right-16 font-serif text-[160px] font-black text-[#CC5C3F] leading-none opacity-[0.05] md:opacity-[0.08]">命</div>
@@ -137,7 +137,7 @@ export default function HomePage() {
       </section>
 
       {/* ── 當日能量 ── */}
-      <section className="reveal border-y border-white/8 py-12" style={{ background: `${mainColor}08` }}>
+      <section className="ink-section reveal py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
 
@@ -163,7 +163,7 @@ export default function HomePage() {
                   <span className="text-white/20 text-xs">·</span>
                   <span className="text-white/35 text-[11px]">{today.dateLabel} {today.weekday}</span>
                 </div>
-                <p className="font-serif text-white font-black text-2xl leading-snug" style={{ color: mainColor }}>
+                <p className="font-serif font-black text-2xl leading-snug" style={{ color: mainColor }}>
                   {today.energyTitle}
                 </p>
                 <div className="flex items-center gap-2 mt-1.5 flex-wrap">
@@ -215,7 +215,7 @@ export default function HomePage() {
                 {today.buYi.slice(0, 3).map((b, i) => (
                   <span
                     key={i}
-                    className="text-xs text-white/50 border border-white/8 rounded-full px-3 py-1"
+                    className="text-xs text-white/50 border border-white/10 rounded-full px-3 py-1"
                   >
                     {b.item}
                   </span>
@@ -240,14 +240,14 @@ export default function HomePage() {
       </section>
 
       {/* ── Learning Path ── */}
-      <section className="reveal bg-white/3 border-b border-white/8 py-14">
+      <section className="reveal bg-[#2B241C]/[0.04] border-b border-[#2B241C]/10 py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <p className="text-[#CC5C3F] text-xs font-semibold tracking-widest mb-1">LEARNING PATH</p>
-              <h2 className="font-serif text-white text-2xl font-bold">系統學習路徑</h2>
+              <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LEARNING PATH</p>
+              <h2 className="font-serif text-[#2B241C] text-2xl font-bold">系統學習路徑</h2>
             </div>
-            <Link href="/categories" className="text-white/40 hover:text-[#CC5C3F] text-sm transition-colors flex items-center gap-1">
+            <Link href="/categories" className="text-[#8A8071] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-1">
               全部分類 <ArrowRight size={13} />
             </Link>
           </div>
@@ -256,13 +256,13 @@ export default function HomePage() {
               <Link
                 key={stage.no}
                 href={`/categories/${stage.slug}`}
-                className="group bg-[#1E1A15] border border-white/8 hover:border-[#CC5C3F]/40 hover:-translate-y-0.5 rounded p-5 transition-all duration-300"
+                className="group bg-[#FBF7EE] border border-[#2B241C]/10 hover:border-[#B23E26]/40 hover:-translate-y-0.5 rounded p-5 transition-all duration-300"
               >
-                <p className="text-white/30 group-hover:text-[#CC5C3F]/70 font-mono text-xs mb-3 transition-colors">{stage.no}</p>
-                <h3 className="text-white font-bold text-sm mb-2 group-hover:text-[#CC5C3F] transition-colors leading-snug">
+                <p className="text-[#8A8071] group-hover:text-[#B23E26]/70 font-mono text-xs mb-3 transition-colors">{stage.no}</p>
+                <h3 className="text-[#2B241C] font-bold text-sm mb-2 group-hover:text-[#B23E26] transition-colors leading-snug">
                   {stage.title}
                 </h3>
-                <p className="text-white/45 text-xs leading-relaxed">{stage.desc}</p>
+                <p className="text-[#6B6155] text-xs leading-relaxed">{stage.desc}</p>
               </Link>
             ))}
           </div>
@@ -271,22 +271,22 @@ export default function HomePage() {
 
       {/* ── Bazi Calculator CTA ── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <Link href="/bazi" className="group block border border-[#CC5C3F]/25 hover:border-[#CC5C3F]/60 rounded p-10 sm:p-14 relative overflow-hidden transition-colors">
-          <div className="absolute right-8 bottom-0 text-[200px] font-black text-[#CC5C3F] opacity-[0.04] leading-none select-none pointer-events-none font-serif">命</div>
+        <Link href="/bazi" className="group block border border-[#B23E26]/25 hover:border-[#B23E26]/60 rounded p-10 sm:p-14 relative overflow-hidden transition-colors">
+          <div className="absolute right-8 bottom-0 text-[200px] font-black text-[#B23E26] opacity-[0.04] leading-none select-none pointer-events-none font-serif">命</div>
           <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
-            <ArrowRight size={20} className="text-[#CC5C3F]" />
+            <ArrowRight size={20} className="text-[#B23E26]" />
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-8">
-            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 border border-[#CC5C3F]/40 rounded flex flex-col items-center justify-center bg-[#CC5C3F]/[0.06]">
-              <span className="font-serif font-black text-4xl sm:text-5xl text-[#CC5C3F] leading-none">八</span>
-              <span className="text-[#CC5C3F]/60 text-[10px] tracking-widest mt-1">字</span>
+            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 border border-[#B23E26]/40 rounded flex flex-col items-center justify-center bg-[#B23E26]/[0.06]">
+              <span className="font-serif font-black text-4xl sm:text-5xl text-[#B23E26] leading-none">八</span>
+              <span className="text-[#B23E26]/60 text-[10px] tracking-widest mt-1">字</span>
             </div>
             <div className="flex-1">
-              <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.35em] uppercase mb-2">Free Tool</p>
-              <h2 className="font-serif text-white text-2xl sm:text-3xl font-black mb-3 group-hover:text-[#CC5C3F] transition-colors">
+              <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase mb-2">Free Tool</p>
+              <h2 className="font-serif text-[#2B241C] text-2xl sm:text-3xl font-black mb-3 group-hover:text-[#B23E26] transition-colors">
                 免費八字排盤
               </h2>
-              <p className="text-white/60 text-sm leading-relaxed max-w-lg">
+              <p className="text-[#5A5247] text-sm leading-relaxed max-w-lg">
                 輸入出生年月日時，即時排出四柱命盤、十神及十個大運。讀懂你的命局結構，是認識自己的第一步。
               </p>
             </div>
@@ -296,7 +296,7 @@ export default function HomePage() {
 
       {/* ── Categories strip ── */}
       {categories.length > 0 && (
-        <section className="reveal border-y border-white/8 py-10">
+        <section className="reveal border-y border-[#2B241C]/10 py-10">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="flex flex-wrap gap-2 justify-center">
               {categories.map((cat) => (
@@ -308,22 +308,22 @@ export default function HomePage() {
       )}
 
       {/* ── Threads ── */}
-      <section className="reveal border-y border-[#CC5C3F]/20 bg-[#CC5C3F]/[0.04] py-10">
+      <section className="reveal border-y border-[#B23E26]/20 bg-[#B23E26]/[0.04] py-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
-            <div className="seal-frame w-16 h-16 flex items-center justify-center flex-shrink-0 bg-[#CC5C3F]/[0.08]">
-              <span className="font-serif font-black text-3xl text-[#CC5C3F] leading-none">解</span>
+            <div className="seal-frame-paper w-16 h-16 flex items-center justify-center flex-shrink-0 bg-[#B23E26]/[0.08]">
+              <span className="font-serif font-black text-3xl text-[#B23E26] leading-none">解</span>
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 justify-center sm:justify-start mb-2 flex-wrap">
-                <p className="text-white font-bold text-base">陳卓賢</p>
-                <span className="text-white/30">·</span>
-                <p className="text-[#CC5C3F] font-semibold text-sm">@destiny.solver</p>
-                <span className="text-white/40 text-[11px] border border-white/15 px-2 py-0.5 rounded-full">
+                <p className="text-[#2B241C] font-bold text-base">陳卓賢</p>
+                <span className="text-[#8A8071]">·</span>
+                <p className="text-[#B23E26] font-semibold text-sm">@destiny.solver</p>
+                <span className="text-[#8A8071] text-[11px] border border-[#2B241C]/15 px-2 py-0.5 rounded-full">
                   3.5K 追蹤者
                 </span>
               </div>
-              <p className="text-white/60 text-sm leading-relaxed max-w-lg">
+              <p className="text-[#5A5247] text-sm leading-relaxed max-w-lg">
                 每日分享命理洞察、實案分析與五行思考。在 Threads 了解最新動態。
               </p>
             </div>
@@ -331,7 +331,7 @@ export default function HomePage() {
               href="https://www.threads.com/@destiny.solver"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold text-sm px-7 py-3.5 rounded transition-colors whitespace-nowrap"
+              className="flex-shrink-0 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold text-sm px-7 py-3.5 rounded transition-colors whitespace-nowrap"
             >
               在 Threads 跟蹤
             </a>
@@ -341,20 +341,20 @@ export default function HomePage() {
 
       {/* ── CTA Consultation ── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="border border-[#CC5C3F]/25 rounded p-10 sm:p-14 text-center relative overflow-hidden">
-          <div className="absolute right-8 bottom-0 font-serif text-[180px] font-black text-[#CC5C3F] opacity-[0.04] leading-none select-none pointer-events-none">
+        <div className="border border-[#B23E26]/25 rounded p-10 sm:p-14 text-center relative overflow-hidden">
+          <div className="absolute right-8 bottom-0 font-serif text-[180px] font-black text-[#B23E26] opacity-[0.04] leading-none select-none pointer-events-none">
             命
           </div>
-          <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.3em] uppercase mb-4">一對一命理諮詢</p>
-          <h2 className="font-serif text-white text-3xl sm:text-4xl font-black mb-4">
+          <p className="text-[#B23E26] text-xs font-semibold tracking-[0.3em] uppercase mb-4">一對一命理諮詢</p>
+          <h2 className="font-serif text-[#2B241C] text-3xl sm:text-4xl font-black mb-4">
             準備好認識<br className="sm:hidden" />真實的自己了嗎？
           </h2>
-          <p className="text-white/60 max-w-lg mx-auto mb-8 leading-relaxed text-sm">
+          <p className="text-[#5A5247] max-w-lg mx-auto mb-8 leading-relaxed text-sm">
             深度八字命理分析，解讀你的能量結構、格局層次與人生時機。讓命理成為你的決策工具，而非焦慮的來源。
           </p>
           <Link
             href="/consultation"
-            className="inline-flex items-center gap-2 bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-8 py-4 rounded transition-colors"
+            className="inline-flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-8 py-4 rounded transition-colors"
           >
             了解諮詢服務 <ArrowRight size={18} />
           </Link>

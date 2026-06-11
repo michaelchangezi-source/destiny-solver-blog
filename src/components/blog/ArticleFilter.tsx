@@ -30,15 +30,15 @@ export default function ArticleFilter({ articles, categories }: Props) {
   return (
     <>
       {/* Tab switcher */}
-      <div className="flex items-center gap-1 mb-8 border-b border-white/8 pb-4">
+      <div className="flex items-center gap-1 mb-8 border-b border-[#2B241C]/10 pb-4">
         {tabs.map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-1.5 rounded text-sm font-medium transition-colors ${
               tab === t
-                ? 'bg-[#CC5C3F] text-[#F7F1E5]'
-                : 'text-white/45 hover:text-white/70'
+                ? 'bg-[#B23E26] text-[#F7F1E5]'
+                : 'text-[#6B6155] hover:text-[#5A5247]'
             }`}
           >
             {t}
@@ -49,7 +49,7 @@ export default function ArticleFilter({ articles, categories }: Props) {
             )}
           </button>
         ))}
-        <span className="ml-auto text-white/25 text-xs">{filtered.length} 篇</span>
+        <span className="ml-auto text-[#9C9282] text-xs">{filtered.length} 篇</span>
       </div>
 
       {/* Category chips — only shown in 全部 tab */}
@@ -63,7 +63,7 @@ export default function ArticleFilter({ articles, categories }: Props) {
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <div className="text-center py-20 text-white/30">暫無文章</div>
+        <div className="text-center py-20 text-[#8A8071]">暫無文章</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((article, i) => (

@@ -19,13 +19,13 @@ export default function CategoryBadge({
 
   const cls =
     size === 'sm'
-      ? 'inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded border border-white/15 text-white/55 hover:text-[#CC5C3F] hover:border-[#CC5C3F]/40 transition-colors'
-      : 'inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded border border-white/15 text-white/55 hover:text-[#CC5C3F] hover:border-[#CC5C3F]/40 transition-colors'
+      ? 'inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded border border-[#2B241C]/15 text-[#6B6155] hover:text-[#B23E26] hover:border-[#B23E26]/40 transition-colors'
+      : 'inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded border border-[#2B241C]/15 text-[#6B6155] hover:text-[#B23E26] hover:border-[#B23E26]/40 transition-colors'
 
   const content = (
     <>
       {showNumber && num && (
-        <span className="font-mono text-[#CC5C3F]/60">{num}</span>
+        <span className="font-mono text-[#B23E26]/60">{num}</span>
       )}
       <span>{category}</span>
     </>

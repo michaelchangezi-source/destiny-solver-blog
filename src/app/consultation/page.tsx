@@ -93,16 +93,16 @@ export default function ConsultationPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
       {/* Header */}
       <div className="text-center mb-16">
-        <p className="text-[#CC5C3F] text-sm font-semibold tracking-widest mb-4">CONSULTATION</p>
-        <h1 className="text-white text-4xl sm:text-5xl font-black mb-6">一對一命理諮詢</h1>
-        <p className="text-white/50 text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-[#B23E26] text-sm font-semibold tracking-widest mb-4">CONSULTATION</p>
+        <h1 className="text-[#2B241C] text-4xl sm:text-5xl font-black mb-6">一對一命理諮詢</h1>
+        <p className="text-[#6B6155] text-lg max-w-2xl mx-auto leading-relaxed">
           深度解讀你的八字格局，讓命理成為你人生決策的羅盤。
         </p>
       </div>
 
       {/* What you get */}
-      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-10">
-        <h2 className="text-white text-xl font-bold mb-6">諮詢內容包括</h2>
+      <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-3xl p-8 mb-10">
+        <h2 className="text-[#2B241C] text-xl font-bold mb-6">諮詢內容包括</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
             '八字本命格局完整分析',
@@ -113,8 +113,8 @@ export default function ConsultationPage() {
             '未來 1-3 年關鍵時間節點',
           ].map((item) => (
             <div key={item} className="flex items-center gap-3">
-              <CheckCircle size={16} className="text-[#CC5C3F] flex-shrink-0" />
-              <span className="text-white/70 text-sm">{item}</span>
+              <CheckCircle size={16} className="text-[#B23E26] flex-shrink-0" />
+              <span className="text-[#5A5247] text-sm">{item}</span>
             </div>
           ))}
         </div>
@@ -122,7 +122,7 @@ export default function ConsultationPage() {
 
       {/* Process */}
       <div className="mb-10">
-        <h2 className="text-white text-xl font-bold mb-6">預約流程</h2>
+        <h2 className="text-[#2B241C] text-xl font-bold mb-6">預約流程</h2>
         <div className="space-y-4">
           {[
             { step: '01', title: '發送訊息', desc: '透過 Threads / IG 私訊或 Email 聯絡，說明你希望諮詢的方向' },
@@ -131,10 +131,10 @@ export default function ConsultationPage() {
             { step: '04', title: '開始解讀', desc: '透過 Threads / IG 私訊、Email 或 WhatsApp 進行深度命盤解讀' },
           ].map((item) => (
             <div key={item.step} className="flex gap-5 items-start">
-              <span className="text-[#CC5C3F] text-2xl font-black w-10 flex-shrink-0">{item.step}</span>
+              <span className="text-[#B23E26] text-2xl font-black w-10 flex-shrink-0">{item.step}</span>
               <div>
-                <h3 className="text-white font-semibold mb-1">{item.title}</h3>
-                <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-[#2B241C] font-semibold mb-1">{item.title}</h3>
+                <p className="text-[#6B6155] text-sm leading-relaxed">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -147,14 +147,14 @@ export default function ConsultationPage() {
           href="https://www.threads.com/@destiny.solver"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold py-4 px-6 rounded-2xl transition-colors"
+          className="flex items-center justify-center gap-3 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold py-4 px-6 rounded-2xl transition-colors"
         >
           <MessageCircle size={20} />
           Threads 私訊預約
         </a>
         <a
           href="mailto:michaelchan.gezi@gmail.com?subject=命理諮詢預約"
-          className="flex items-center justify-center gap-3 border border-[#CC5C3F]/40 hover:border-[#CC5C3F] text-white font-bold py-4 px-6 rounded-2xl transition-colors"
+          className="flex items-center justify-center gap-3 border border-[#B23E26]/40 hover:border-[#B23E26] text-[#2B241C] font-bold py-4 px-6 rounded-2xl transition-colors"
         >
           <Mail size={20} />
           Email 聯絡
@@ -163,29 +163,29 @@ export default function ConsultationPage() {
 
       {/* Will / Won't accept */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-          <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-            <CheckCircle size={18} className="text-[#CC5C3F]" />
+        <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-2xl p-6">
+          <h3 className="text-[#2B241C] font-bold mb-4 flex items-center gap-2">
+            <CheckCircle size={18} className="text-[#B23E26]" />
             適合諮詢的情況
           </h3>
           <ul className="space-y-3">
             {willAccept.map((item) => (
-              <li key={item} className="flex items-start gap-2 text-white/60 text-sm leading-relaxed">
-                <span className="text-[#CC5C3F] mt-0.5 flex-shrink-0">·</span>
+              <li key={item} className="flex items-start gap-2 text-[#5A5247] text-sm leading-relaxed">
+                <span className="text-[#B23E26] mt-0.5 flex-shrink-0">·</span>
                 {item}
               </li>
             ))}
           </ul>
         </div>
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-          <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-            <XCircle size={18} className="text-white/40" />
+        <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-2xl p-6">
+          <h3 className="text-[#2B241C] font-bold mb-4 flex items-center gap-2">
+            <XCircle size={18} className="text-[#8A8071]" />
             我不接的諮詢
           </h3>
           <ul className="space-y-3">
             {wontAccept.map((item) => (
-              <li key={item} className="flex items-start gap-2 text-white/60 text-sm leading-relaxed">
-                <span className="text-white/30 mt-0.5 flex-shrink-0">·</span>
+              <li key={item} className="flex items-start gap-2 text-[#5A5247] text-sm leading-relaxed">
+                <span className="text-[#8A8071] mt-0.5 flex-shrink-0">·</span>
                 {item}
               </li>
             ))}
@@ -195,18 +195,18 @@ export default function ConsultationPage() {
 
       {/* Testimonials */}
       <div className="mb-16">
-        <h2 className="text-white text-xl font-bold mb-8 flex items-center gap-2">
-          <Star size={18} className="text-[#CC5C3F]" />
+        <h2 className="text-[#2B241C] text-xl font-bold mb-8 flex items-center gap-2">
+          <Star size={18} className="text-[#B23E26]" />
           客戶見證
         </h2>
         <div className="space-y-6">
           {testimonials.map((t) => (
-            <div key={t.id} className="bg-white/5 border border-white/10 rounded-2xl p-6">
-              <p className="text-[#CC5C3F] text-xs font-semibold tracking-widest mb-3">見證 {t.id}</p>
-              <p className="text-white/80 font-semibold mb-4">{t.name}</p>
+            <div key={t.id} className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-2xl p-6">
+              <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-3">見證 {t.id}</p>
+              <p className="text-[#3A332A] font-semibold mb-4">{t.name}</p>
               <div className="space-y-3">
                 {t.content.split('\n\n').map((para, i) => (
-                  <p key={i} className="text-white/55 text-sm leading-relaxed">
+                  <p key={i} className="text-[#6B6155] text-sm leading-relaxed">
                     {para}
                   </p>
                 ))}
@@ -218,24 +218,24 @@ export default function ConsultationPage() {
 
       {/* FAQ */}
       <div className="mb-16">
-        <h2 className="text-white text-xl font-bold mb-8">常見問題</h2>
+        <h2 className="text-[#2B241C] text-xl font-bold mb-8">常見問題</h2>
         <div className="space-y-4">
           {faq.map((item, i) => (
-            <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6">
-              <p className="text-[#CC5C3F] text-xs font-semibold tracking-widest mb-2">Q{i + 1}</p>
-              <h3 className="text-white font-semibold mb-3">{item.q}</h3>
-              <p className="text-white/55 text-sm leading-relaxed">{item.a}</p>
+            <div key={i} className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-2xl p-6">
+              <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-2">Q{i + 1}</p>
+              <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
+              <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Notes */}
-      <div className="bg-white/3 border border-white/10 rounded-2xl p-6">
-        <h3 className="text-white/70 font-semibold mb-3 flex items-center gap-2">
-          <Clock size={16} className="text-[#CC5C3F]" /> 注意事項
+      <div className="bg-[#2B241C]/[0.04] border border-[#2B241C]/10 rounded-2xl p-6">
+        <h3 className="text-[#5A5247] font-semibold mb-3 flex items-center gap-2">
+          <Clock size={16} className="text-[#B23E26]" /> 注意事項
         </h3>
-        <ul className="space-y-2 text-white/40 text-sm">
+        <ul className="space-y-2 text-[#8A8071] text-sm">
           <li>· 請提前準備正確的出生時間（以時柱計算為主）</li>
           <li>· 如出生時間不確定，需提供時間範圍，誤差不可多於 2 小時</li>
           <li>· 諮詢以廣東話或普通話進行</li>

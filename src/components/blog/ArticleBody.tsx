@@ -6,19 +6,19 @@ export default function ArticleBody({ html }: Props) {
   return (
     <div
       className="prose prose-invert prose-lg max-w-none
-        prose-headings:text-white prose-headings:font-bold
-        prose-h1:text-3xl prose-h2:text-2xl prose-h2:border-b prose-h2:border-white/10 prose-h2:pb-2
-        prose-h3:text-xl prose-h3:text-[#CC5C3F]
-        prose-p:text-white/75 prose-p:leading-relaxed
-        prose-a:text-[#CC5C3F] prose-a:no-underline hover:prose-a:underline
-        prose-strong:text-white
-        prose-blockquote:border-l-[#CC5C3F] prose-blockquote:text-white/60 prose-blockquote:bg-white/5 prose-blockquote:rounded-r-lg prose-blockquote:py-1
-        prose-li:text-white/75
+        prose-headings:text-[#2B241C] prose-headings:font-bold
+        prose-h1:text-3xl prose-h2:text-2xl prose-h2:border-b prose-h2:border-[#2B241C]/10 prose-h2:pb-2
+        prose-h3:text-xl prose-h3:text-[#B23E26]
+        prose-p:text-[#3A332A] prose-p:leading-relaxed
+        prose-a:text-[#B23E26] prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-[#2B241C]
+        prose-blockquote:border-l-[#B23E26] prose-blockquote:text-[#5A5247] prose-blockquote:bg-[#2B241C]/[0.05] prose-blockquote:rounded-r-lg prose-blockquote:py-1
+        prose-li:text-[#3A332A]
         prose-ul:list-disc prose-ol:list-decimal
-        prose-hr:border-white/10
-        prose-table:text-white/80
-        prose-th:text-white prose-th:bg-white/10
-        prose-td:border-white/10"
+        prose-hr:border-[#2B241C]/10
+        prose-table:text-[#3A332A]
+        prose-th:text-[#2B241C] prose-th:bg-[#2B241C]/[0.07]
+        prose-td:border-[#2B241C]/10"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   )
