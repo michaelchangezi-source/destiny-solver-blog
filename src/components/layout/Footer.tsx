@@ -2,13 +2,13 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0A0A20] border-t border-white/10 py-12 mt-20">
+    <footer className="bg-[#1E1A15] border-t border-white/10 py-12 mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-[#C9A84C] text-2xl font-bold">命</span>
+              <span className="text-[#CC5C3F] text-2xl font-bold">命</span>
               <span className="text-white font-semibold tracking-widest">命運解決師</span>
             </div>
             <p className="text-white/50 text-sm leading-relaxed">
@@ -29,7 +29,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/50 hover:text-[#C9A84C] text-sm transition-colors"
+                    className="text-white/50 hover:text-[#CC5C3F] text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -47,7 +47,7 @@ export default function Footer() {
                   href="https://www.threads.com/@destiny.solver"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/50 hover:text-[#C9A84C] text-sm transition-colors flex items-center gap-2"
+                  className="text-white/50 hover:text-[#CC5C3F] text-sm transition-colors flex items-center gap-2"
                 >
                   <span>Threads @destiny.solver</span>
                 </a>
@@ -55,7 +55,7 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:michaelchan.gezi@gmail.com"
-                  className="text-white/50 hover:text-[#C9A84C] text-sm transition-colors"
+                  className="text-white/50 hover:text-[#CC5C3F] text-sm transition-colors"
                 >
                   michaelchan.gezi@gmail.com
                 </a>

@@ -2,10 +2,11 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: #0F0F2D;
-  --foreground: #ffffff;
-  --gold: #C9A84C;
-  --cinnabar: #B83232;
+  --background: #161310;
+  --surface: #1E1A15;
+  --foreground: #F2EDE3;
+  --cinnabar: #CC5C3F;
+  --cinnabar-deep: #B04A30;
   --font-sans: var(--font-noto), 'Noto Sans TC', sans-serif;
   --font-serif: var(--font-noto-serif), 'Noto Serif TC', serif;
 }
@@ -20,22 +21,83 @@
 .font-serif { font-family: var(--font-serif); }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(204, 92, 63, 0.07), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 110%, rgba(204, 92, 63, 0.04), transparent 60%),
+    var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
 }
 
+/* 宣紙噪點紋理 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main, header, footer { position: relative; z-index: 1; }
+
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0F0F2D; }
-::-webkit-scrollbar-thumb { background: #C9A84C44; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #C9A84C88; }
+::-webkit-scrollbar-track { background: #161310; }
+::-webkit-scrollbar-thumb { background: #CC5C3F44; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #CC5C3F88; }
 
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
 
-/* Selection */
-::selection { background: #C9A84C33; color: #fff; }
+/* Selection：朱批 */
+::selection { background: #CC5C3F40; color: #fff; }
 
 /* Prose overrides for article body */
-.prose { --tw-prose-body: rgba(255,255,255,0.75); }
+.prose { --tw-prose-body: rgba(242, 237, 227, 0.78); }
+
+/* ── 動效 ── */
+
+/* 浮水印大字：呼吸式飄移 */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(0, -14px); }
+}
+.drift { animation: drift 9s ease-in-out infinite; }
+.drift-slow { animation: drift 14s ease-in-out infinite; animation-delay: -4s; }
+.drift-slower { animation: drift 18s ease-in-out infinite; animation-delay: -9s; }
+
+/* Scroll 進場：fade-up（支援 scroll-driven animation 嘅瀏覽器先生效） */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: fade-up 0.8s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+}
+
+/* Hero 入場 */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-in { animation: hero-in 0.9s ease-out both; }
+.hero-in-2 { animation: hero-in 0.9s ease-out 0.15s both; }
+.hero-in-3 { animation: hero-in 0.9s ease-out 0.3s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .drift, .drift-slow, .drift-slower, .reveal,
+  .hero-in, .hero-in-2, .hero-in-3 { animation: none; }
+}
+
+/* 印章框：日柱／裝飾用 */
+.seal-frame {
+  border: 2px solid #CC5C3F;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(204, 92, 63, 0.25), 0 0 24px rgba(204, 92, 63, 0.12);
+}

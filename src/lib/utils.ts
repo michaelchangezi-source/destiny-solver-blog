@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { format, parseISO } from 'date-fns'
-import { zhTW } from 'date-fns/locale'
+import { zhTW } from 'date-fns/locale/zh-TW'
 
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs)

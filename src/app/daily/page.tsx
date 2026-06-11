@@ -75,7 +75,7 @@ function InteractionTag({ type }: { type: '合' | '沖' | '刑' | '害' }) {
   const styles = {
     合: 'bg-[#5CAD7A]/15 text-[#5CAD7A] border-[#5CAD7A]/30',
     沖: 'bg-[#E06B50]/15 text-[#E06B50] border-[#E06B50]/30',
-    刑: 'bg-[#C9A84C]/15 text-[#C9A84C] border-[#C9A84C]/30',
+    刑: 'bg-[#CC5C3F]/15 text-[#CC5C3F] border-[#CC5C3F]/30',
     害: 'bg-[#8BBCD4]/15 text-[#8BBCD4] border-[#8BBCD4]/30',
   }
   return (
@@ -147,7 +147,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
       {/* 干支互動 */}
       {day.interactions.length > 0 && (
         <div className="px-6 py-5 border-b border-white/8">
-          <p className="text-[#C9A84C] text-xs font-semibold tracking-widest mb-3">干支互動</p>
+          <p className="text-[#CC5C3F] text-xs font-semibold tracking-widest mb-3">干支互動</p>
           <div className="space-y-3">
             {day.interactions.map((ix, i) => (
               <div key={i} className="flex gap-3">
@@ -198,7 +198,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
 
       {/* 三柱綜合 */}
       <div className="px-6 py-5 border-t border-white/8 bg-white/[0.02]">
-        <p className="text-[#C9A84C] text-xs font-semibold tracking-widest mb-2">三柱綜合</p>
+        <p className="text-[#CC5C3F] text-xs font-semibold tracking-widest mb-2">三柱綜合</p>
         <p className="text-white/55 text-sm leading-relaxed">{day.summary}</p>
       </div>
     </div>
@@ -266,7 +266,7 @@ export default function DailyPage() {
   return (
     <>
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-6">
-        <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.35em] uppercase mb-2">DAILY ENERGY</p>
+        <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.35em] uppercase mb-2">DAILY ENERGY</p>
         <h1 className="font-serif text-white text-4xl font-black mb-3">日運能量</h1>
         <p className="text-white/45 text-sm max-w-2xl leading-relaxed">
           根據流年、流月、流日三柱六字五行強弱計分，分析每日大環境的能量格局，提供宜忌參考。此分析為大環境通用，非個人命盤，所有人適用。
@@ -279,7 +279,7 @@ export default function DailyPage() {
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
         <div className="flex items-center gap-3 mb-5">
-          <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.3em] uppercase">未來一週</p>
+          <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.3em] uppercase">未來一週</p>
           <div className="flex-1 h-px bg-white/8" />
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">

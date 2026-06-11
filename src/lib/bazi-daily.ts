@@ -675,7 +675,7 @@ export function analyzeDays(count = 8): DayAnalysis[] {
 export const ELEMENT_COLOR: Record<Element, string> = {
   木: '#5CAD7A',
   火: '#E06B50',
-  土: '#C9A84C',
+  土: '#CC5C3F',
   金: '#8BBCD4',
   水: '#6B8FD4',
 }

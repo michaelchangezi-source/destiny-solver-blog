@@ -37,7 +37,7 @@ export default function ArticleFilter({ articles, categories }: Props) {
             onClick={() => setTab(t)}
             className={`px-4 py-1.5 rounded text-sm font-medium transition-colors ${
               tab === t
-                ? 'bg-[#C9A84C] text-[#0F0F2D]'
+                ? 'bg-[#CC5C3F] text-[#F7F1E5]'
                 : 'text-white/45 hover:text-white/70'
             }`}
           >

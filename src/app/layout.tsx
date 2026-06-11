@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { Noto_Sans_TC, Noto_Serif_TC } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
@@ -82,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body className="bg-[#0F0F2D] font-sans antialiased min-h-screen">
+      <body className="bg-[#161310] font-sans antialiased min-h-screen">
         <Header />
         <main className="pt-16">{children}</main>
         <Footer />

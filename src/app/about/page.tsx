@@ -38,10 +38,10 @@ export default function AboutPage() {
 
       {/* ── Header ── */}
       <div className="mb-16">
-        <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.35em] uppercase mb-4">ABOUT</p>
+        <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.35em] uppercase mb-4">ABOUT</p>
         <h1 className="font-serif text-white text-4xl sm:text-5xl font-black mb-6 leading-tight">
           關於<br />
-          <span className="text-[#C9A84C]">陳卓賢</span>
+          <span className="text-[#CC5C3F]">陳卓賢</span>
         </h1>
         <p className="text-white/45 text-lg leading-relaxed max-w-xl">
           命理不是算命，是一套關於人的深度語言。
@@ -50,13 +50,13 @@ export default function AboutPage() {
 
       {/* ── Identity block ── */}
       <div className="border border-white/10 rounded-md p-8 mb-12 relative overflow-hidden">
-        <div className="absolute right-6 bottom-0 text-[150px] font-black text-[#C9A84C]/[0.04] leading-none select-none pointer-events-none">
+        <div className="absolute right-6 bottom-0 text-[150px] font-black text-[#CC5C3F]/[0.04] leading-none select-none pointer-events-none">
           命
         </div>
         <div className="relative">
           <div className="mb-6">
             <h2 className="text-white text-2xl font-bold mb-1">陳卓賢</h2>
-            <p className="text-[#C9A84C] text-sm tracking-wider">命運解決師 · @destiny.solver · 香港</p>
+            <p className="text-[#CC5C3F] text-sm tracking-wider">命運解決師 · @destiny.solver · 香港</p>
           </div>
           <div className="space-y-4 text-white/60 leading-relaxed text-[15px]">
             <p>
@@ -76,7 +76,7 @@ export default function AboutPage() {
 
       {/* ── Core belief quote ── */}
       <div className="mb-14">
-        <blockquote className="border-l-2 border-[#C9A84C] pl-6 py-2">
+        <blockquote className="border-l-2 border-[#CC5C3F] pl-6 py-2">
           <p className="font-serif text-white/80 italic text-xl sm:text-2xl leading-relaxed">
             「命理告訴你你是誰，<br className="sm:hidden" />不是你會怎樣。」
           </p>
@@ -107,9 +107,9 @@ export default function AboutPage() {
         ].map((item) => (
           <div
             key={item.title}
-            className="bg-[#0A0A20] border border-white/8 rounded-md p-6 text-center"
+            className="bg-[#1E1A15] border border-white/8 rounded-md p-6 text-center"
           >
-            <item.icon className="mx-auto mb-3 text-[#C9A84C]" size={24} />
+            <item.icon className="mx-auto mb-3 text-[#CC5C3F]" size={24} />
             <p className="text-white font-black text-2xl mb-1">{item.value}</p>
             <p className="text-white/70 font-semibold text-sm mb-2">{item.title}</p>
             <p className="text-white/40 text-xs leading-relaxed">{item.desc}</p>
@@ -151,14 +151,14 @@ export default function AboutPage() {
             href="https://www.threads.com/@destiny.solver"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 border border-white/15 hover:border-[#C9A84C]/50 text-white/55 hover:text-[#C9A84C] px-5 py-3 rounded text-sm transition-colors"
+            className="flex items-center gap-2 border border-white/15 hover:border-[#CC5C3F]/50 text-white/55 hover:text-[#CC5C3F] px-5 py-3 rounded text-sm transition-colors"
           >
             <MessageCircle size={16} />
             Threads @destiny.solver
           </a>
           <a
             href="mailto:michaelchan.gezi@gmail.com"
-            className="flex items-center gap-2 border border-white/15 hover:border-[#C9A84C]/50 text-white/55 hover:text-[#C9A84C] px-5 py-3 rounded text-sm transition-colors"
+            className="flex items-center gap-2 border border-white/15 hover:border-[#CC5C3F]/50 text-white/55 hover:text-[#CC5C3F] px-5 py-3 rounded text-sm transition-colors"
           >
             <Mail size={16} />
             michaelchan.gezi@gmail.com
@@ -167,8 +167,8 @@ export default function AboutPage() {
       </div>
 
       {/* ── CTA ── */}
-      <div className="border border-[#C9A84C]/20 rounded-sm p-8 sm:p-10 text-center relative overflow-hidden">
-        <div className="absolute right-4 bottom-0 text-[120px] font-black text-[#C9A84C]/[0.04] leading-none select-none pointer-events-none">
+      <div className="border border-[#CC5C3F]/20 rounded-sm p-8 sm:p-10 text-center relative overflow-hidden">
+        <div className="absolute right-4 bottom-0 text-[120px] font-black text-[#CC5C3F]/[0.04] leading-none select-none pointer-events-none">
           解
         </div>
         <h2 className="font-serif text-white text-2xl font-bold mb-3">想開始認識自己的命盤？</h2>
@@ -178,13 +178,13 @@ export default function AboutPage() {
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/categories"
-            className="flex items-center gap-2 bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold px-6 py-3 rounded transition-colors text-sm"
+            className="flex items-center gap-2 bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-colors text-sm"
           >
             開始閱讀 <ArrowRight size={15} />
           </Link>
           <Link
             href="/consultation"
-            className="flex items-center gap-2 border border-white/15 hover:border-[#C9A84C]/50 text-white/60 hover:text-white font-medium px-6 py-3 rounded transition-colors text-sm"
+            className="flex items-center gap-2 border border-white/15 hover:border-[#CC5C3F]/50 text-white/60 hover:text-white font-medium px-6 py-3 rounded transition-colors text-sm"
           >
             預約諮詢
           </Link>

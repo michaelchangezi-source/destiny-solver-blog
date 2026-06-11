@@ -43,7 +43,7 @@ export default function CategoriesPage() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
       {/* Header */}
       <div className="mb-14">
-        <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.35em] uppercase mb-3">LEARNING PATH</p>
+        <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.35em] uppercase mb-3">LEARNING PATH</p>
         <h1 className="font-serif text-white text-4xl sm:text-5xl font-black mb-4">系統學習路徑</h1>
         <p className="text-white/45 text-lg max-w-xl leading-relaxed">
           八字命理不是碎片化的知識點，而是一套完整的思維體系。選擇你的起點，開始系統學習。
@@ -60,19 +60,19 @@ export default function CategoriesPage() {
               <Link
                 key={cat.name}
                 href={`/categories/${CATEGORY_SLUGS[cat.name] ?? cat.name}`}
-                className="group relative bg-[#0A0A20] border border-white/8 hover:border-[#C9A84C]/50 rounded-md p-6 transition-all overflow-hidden"
+                className="group relative bg-[#1E1A15] border border-white/8 hover:border-[#CC5C3F]/50 rounded-md p-6 transition-all overflow-hidden"
               >
                 {/* Background glyph */}
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[80px] font-black text-white/3 group-hover:text-[#C9A84C]/5 leading-none select-none pointer-events-none transition-colors">
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[80px] font-black text-white/3 group-hover:text-[#CC5C3F]/5 leading-none select-none pointer-events-none transition-colors">
                   {cat.glyph}
                 </span>
 
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-3">
                     {num && (
-                      <span className="font-mono text-[#C9A84C]/50 text-xs">{num}</span>
+                      <span className="font-mono text-[#CC5C3F]/50 text-xs">{num}</span>
                     )}
-                    <span className="text-white font-bold text-base group-hover:text-[#C9A84C] transition-colors">
+                    <span className="text-white font-bold text-base group-hover:text-[#CC5C3F] transition-colors">
                       {cat.name}
                     </span>
                     <span className="ml-auto text-white/25 text-xs">{cat.count} 篇</span>
@@ -82,7 +82,7 @@ export default function CategoriesPage() {
                       {cat.desc}
                     </p>
                   )}
-                  <div className="flex items-center gap-1 mt-4 text-[#C9A84C]/0 group-hover:text-[#C9A84C]/60 transition-colors text-xs">
+                  <div className="flex items-center gap-1 mt-4 text-[#CC5C3F]/0 group-hover:text-[#CC5C3F]/60 transition-colors text-xs">
                     開始閱讀 <ArrowRight size={12} />
                   </div>
                 </div>

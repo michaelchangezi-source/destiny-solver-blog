@@ -25,7 +25,7 @@ const HOUR_OPTIONS = [
 ]
 
 const TYPE_COLOR: Record<InteractionType, string> = {
-  '天干五合': '#C9A84C',
+  '天干五合': '#CC5C3F',
   '地支六合': '#5da832',
   '地支三合': '#4a9fd4',
   '地支六沖': '#e05c2a',
@@ -54,12 +54,12 @@ function PersonInput({ label, form, onChange }: {
 
   return (
     <div className="flex-1 rounded-xl border border-white/10 bg-white/[0.02] p-4 space-y-3">
-      <p className="text-[11px] text-[#C9A84C] tracking-[0.2em] font-medium">{label}</p>
+      <p className="text-[11px] text-[#CC5C3F] tracking-[0.2em] font-medium">{label}</p>
 
       <input
         type="text" placeholder="暱稱（選填）"
         value={form.name} onChange={set('name')}
-        className="w-full bg-white/5 border border-white/10 text-white rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#C9A84C]/50 transition-colors placeholder:text-white/20"
+        className="w-full bg-white/5 border border-white/10 text-white rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors placeholder:text-white/20"
       />
 
       <div className="flex flex-wrap gap-2">
@@ -68,15 +68,15 @@ function PersonInput({ label, form, onChange }: {
           <input
             type="number" placeholder="例：1990"
             value={form.year} onChange={set('year')}
-            className="w-24 bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#C9A84C]/50 transition-colors"
+            className="w-24 bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors"
           />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-[9px] text-white/35 tracking-widest">月</label>
           <select value={form.month} onChange={set('month')}
-            className="bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#C9A84C]/50 transition-colors">
+            className="bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors">
             {Array.from({length:12},(_,i) => (
-              <option key={i+1} value={i+1} className="bg-[#0F0F2D]">{i+1}月</option>
+              <option key={i+1} value={i+1} className="bg-[#161310]">{i+1}月</option>
             ))}
           </select>
         </div>
@@ -85,15 +85,15 @@ function PersonInput({ label, form, onChange }: {
           <input
             type="number" placeholder="1-31"
             value={form.day} onChange={set('day')}
-            className="w-16 bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#C9A84C]/50 transition-colors"
+            className="w-16 bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors"
           />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-[9px] text-white/35 tracking-widest">時辰</label>
           <select value={form.hour} onChange={set('hour')}
-            className="bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#C9A84C]/50 transition-colors">
+            className="bg-white/5 border border-white/10 text-white rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#CC5C3F]/50 transition-colors">
             {HOUR_OPTIONS.map(o => (
-              <option key={o.value} value={o.value} className="bg-[#0F0F2D]">{o.label}</option>
+              <option key={o.value} value={o.value} className="bg-[#161310]">{o.label}</option>
             ))}
           </select>
         </div>
@@ -105,8 +105,8 @@ function PersonInput({ label, form, onChange }: {
             onClick={() => onChange({...form, gender: g})}
             className={`px-3 py-1 rounded-lg text-xs border transition-colors ${
               form.gender===g
-                ? 'bg-[#C9A84C] border-[#C9A84C] text-[#0F0F2D] font-bold'
-                : 'bg-white/5 border-white/10 text-white/50 hover:border-[#C9A84C]/40'
+                ? 'bg-[#CC5C3F] border-[#CC5C3F] text-[#F7F1E5] font-bold'
+                : 'bg-white/5 border-white/10 text-white/50 hover:border-[#CC5C3F]/40'
             }`}>
             {g==='F'?'女':'男'}
           </button>
@@ -129,7 +129,7 @@ function MiniPillars({ result, name }: { result: BaziResult; name: string }) {
       <div className="flex gap-2">
         {pillars.map(({p, lbl}) => (
           <div key={lbl} className={`flex flex-col items-center gap-0.5 rounded-lg border px-2.5 py-2 ${
-            lbl==='日' ? 'border-[#C9A84C]/50 bg-[#C9A84C]/[0.06]' : 'border-white/10 bg-white/[0.02]'
+            lbl==='日' ? 'border-[#CC5C3F]/50 bg-[#CC5C3F]/[0.06]' : 'border-white/10 bg-white/[0.02]'
           }`}>
             <span className="text-[9px] text-white/30 tracking-widest">{lbl}</span>
             <span className="text-xl font-black font-serif leading-none" style={{color: stemColor(p.stem)}}>{p.stemChar}</span>
@@ -185,7 +185,7 @@ export default function CompatCalculator() {
       {/* 輸入區 */}
       <div className="flex flex-col sm:flex-row gap-3">
         <PersonInput label="甲 方" form={formA} onChange={setFormA} />
-        <div className="flex items-center justify-center text-[#C9A84C]/40 text-2xl font-serif select-none sm:py-4">
+        <div className="flex items-center justify-center text-[#CC5C3F]/40 text-2xl font-serif select-none sm:py-4">
           ×
         </div>
         <PersonInput label="乙 方" form={formB} onChange={setFormB} />
@@ -195,7 +195,7 @@ export default function CompatCalculator() {
 
       <div className="flex justify-center">
         <button onClick={handleCalc}
-          className="bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold px-8 py-2.5 rounded-full text-sm transition-colors">
+          className="bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-8 py-2.5 rounded-full text-sm transition-colors">
           立即合盤
         </button>
       </div>
@@ -205,7 +205,7 @@ export default function CompatCalculator() {
         <>
           {/* 雙方四柱 */}
           <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 space-y-4">
-            <h2 className="text-[10px] text-[#C9A84C] tracking-[0.25em]">雙 方 命 盤</h2>
+            <h2 className="text-[10px] text-[#CC5C3F] tracking-[0.25em]">雙 方 命 盤</h2>
             <div className="flex flex-col sm:flex-row gap-4">
               <MiniPillars result={resultA} name={formA.name || '甲方'} />
               <MiniPillars result={resultB} name={formB.name || '乙方'} />
@@ -240,7 +240,7 @@ export default function CompatCalculator() {
           {/* 互動總覽 */}
           <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-[10px] text-[#C9A84C] tracking-[0.25em]">干 支 互 動</h2>
+              <h2 className="text-[10px] text-[#CC5C3F] tracking-[0.25em]">干 支 互 動</h2>
               <div className="flex gap-3 text-[10px]">
                 <span className="text-[#7fc850]">合 {compat.positiveCount}</span>
                 <span className="text-[#f07050]">沖害破 {compat.tensionCount}</span>
@@ -286,12 +286,12 @@ export default function CompatCalculator() {
           </div>
 
           {/* CTA */}
-          <div className="rounded-2xl border border-[#C9A84C]/20 bg-[#C9A84C]/[0.04] p-6 text-center space-y-3">
+          <div className="rounded-2xl border border-[#CC5C3F]/20 bg-[#CC5C3F]/[0.04] p-6 text-center space-y-3">
             <p className="text-white/55 text-sm">
               合盤只是第一步，真正的緣分深度需要結合各自格局、大運才能判斷
             </p>
             <a href="/consultation"
-              className="inline-block bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold px-8 py-3 rounded-full text-sm transition-colors">
+              className="inline-block bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors">
               預約深度合盤分析
             </a>
           </div>

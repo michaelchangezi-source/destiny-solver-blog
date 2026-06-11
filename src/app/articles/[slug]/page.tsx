@@ -197,13 +197,13 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* Breadcrumb */}
       <nav aria-label="breadcrumb" className="flex items-center gap-1 text-xs text-white/35 mb-6 flex-wrap">
-        <Link href="/" className="hover:text-[#C9A84C] transition-colors">首頁</Link>
+        <Link href="/" className="hover:text-[#CC5C3F] transition-colors">首頁</Link>
         <ChevronRight size={12} />
-        <Link href="/articles" className="hover:text-[#C9A84C] transition-colors">文章</Link>
+        <Link href="/articles" className="hover:text-[#CC5C3F] transition-colors">文章</Link>
         <ChevronRight size={12} />
         <Link
           href={`/categories/${CATEGORY_SLUGS[article.category] ?? article.category}`}
-          className="hover:text-[#C9A84C] transition-colors"
+          className="hover:text-[#CC5C3F] transition-colors"
         >
           {article.category}
         </Link>
@@ -216,9 +216,9 @@ export default async function ArticlePage({ params }: Props) {
         const glyph = ({ '八字基礎':'甲','干支詳解':'子','十神應用':'祿','命盤格局':'局','實戰斷命':'斷','大運流年':'運','感情格局':'情','事業財運':'財','健康命理':'壽','風水地理':'風' } as Record<string,string>)[article.category] ?? '命'
         const seq = article.slug.match(/^topic-(\d+)/)?.[1]?.padStart(2,'0')
         return (
-          <div className="relative w-full h-40 sm:h-52 rounded-md overflow-hidden mb-8 bg-[#0A0A20] border border-white/8 flex items-center justify-center">
+          <div className="relative w-full h-40 sm:h-52 rounded-md overflow-hidden mb-8 bg-[#1E1A15] border border-white/8 flex items-center justify-center">
             <span className="absolute text-[200px] font-black text-white/[0.03] leading-none select-none">{glyph}</span>
-            <span className="text-[100px] sm:text-[130px] font-black text-[#C9A84C]/70 leading-none select-none">{glyph}</span>
+            <span className="text-[100px] sm:text-[130px] font-black text-[#CC5C3F]/70 leading-none select-none">{glyph}</span>
             {seq && <span className="absolute top-4 left-5 text-white/20 text-xs font-mono tracking-widest">{seq}</span>}
             <span className="absolute bottom-4 right-5 text-white/20 text-xs tracking-wider">{article.category}</span>
           </div>
@@ -268,7 +268,7 @@ export default async function ArticlePage({ params }: Props) {
         <section aria-label="本文重點解答" className="mt-12 pt-10 border-t border-white/10">
           {/* Header */}
           <div className="flex items-center gap-3 mb-7">
-            <span className="w-1 h-7 rounded-full bg-[#C9A84C] shrink-0" aria-hidden="true" />
+            <span className="w-1 h-7 rounded-full bg-[#CC5C3F] shrink-0" aria-hidden="true" />
             <h2 className="text-white text-xl font-bold">本文重點解答</h2>
             <span className="text-white/25 text-sm font-normal tracking-wide">FAQ</span>
           </div>
@@ -283,7 +283,7 @@ export default async function ArticlePage({ params }: Props) {
                 {/* Question */}
                 <p className="flex items-start gap-3 mb-3">
                   <span
-                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#C9A84C]/20 text-[#C9A84C] text-[10px] font-black flex items-center justify-center leading-none select-none"
+                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#CC5C3F]/20 text-[#CC5C3F] text-[10px] font-black flex items-center justify-center leading-none select-none"
                     aria-label="問題"
                   >
                     Q
@@ -307,12 +307,12 @@ export default async function ArticlePage({ params }: Props) {
       )}
 
       {/* Consultation CTA */}
-      <div className="mt-12 bg-gradient-to-br from-[#C9A84C]/15 to-transparent border border-[#C9A84C]/25 rounded-2xl p-6 text-center">
+      <div className="mt-12 bg-gradient-to-br from-[#CC5C3F]/15 to-transparent border border-[#CC5C3F]/25 rounded-2xl p-6 text-center">
         <p className="text-white font-bold mb-2">想深入了解你的命盤？</p>
         <p className="text-white/50 text-sm mb-4">預約一對一命理諮詢，解讀你的八字格局與人生時機。</p>
         <Link
           href="/consultation"
-          className="inline-block bg-[#C9A84C] hover:bg-[#B8963B] text-[#0F0F2D] font-bold px-6 py-3 rounded-full transition-colors text-sm"
+          className="inline-block bg-[#CC5C3F] hover:bg-[#B04A30] text-[#F7F1E5] font-bold px-6 py-3 rounded-full transition-colors text-sm"
         >
           預約諮詢
         </Link>
