@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { MessageCircle, Mail, CheckCircle, Clock, Star, XCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -101,7 +101,7 @@ export default function ConsultationPage() {
       </div>
 
       {/* What you get */}
-      <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-3xl p-8 mb-10">
+      <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-8 mb-10">
         <h2 className="text-[#2B241C] text-xl font-bold mb-6">諮詢內容包括</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
@@ -147,14 +147,14 @@ export default function ConsultationPage() {
           href="https://www.threads.com/@destiny.solver"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold py-4 px-6 rounded-2xl transition-colors"
+          className="flex items-center justify-center gap-3 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold py-4 px-6 rounded transition-colors"
         >
           <MessageCircle size={20} />
           Threads 私訊預約
         </a>
         <a
           href="mailto:michaelchan.gezi@gmail.com?subject=命理諮詢預約"
-          className="flex items-center justify-center gap-3 border border-[#B23E26]/40 hover:border-[#B23E26] text-[#2B241C] font-bold py-4 px-6 rounded-2xl transition-colors"
+          className="flex items-center justify-center gap-3 border border-[#B23E26]/40 hover:border-[#B23E26] text-[#2B241C] font-bold py-4 px-6 rounded transition-colors"
         >
           <Mail size={20} />
           Email 聯絡
@@ -163,7 +163,7 @@ export default function ConsultationPage() {
 
       {/* Will / Won't accept */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
-        <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-2xl p-6">
+        <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-6">
           <h3 className="text-[#2B241C] font-bold mb-4 flex items-center gap-2">
             <CheckCircle size={18} className="text-[#B23E26]" />
             適合諮詢的情況
@@ -177,7 +177,7 @@ export default function ConsultationPage() {
             ))}
           </ul>
         </div>
-        <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-2xl p-6">
+        <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-6">
           <h3 className="text-[#2B241C] font-bold mb-4 flex items-center gap-2">
             <XCircle size={18} className="text-[#8A8071]" />
             我不接的諮詢
@@ -201,7 +201,7 @@ export default function ConsultationPage() {
         </h2>
         <div className="space-y-6">
           {testimonials.map((t) => (
-            <div key={t.id} className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-2xl p-6">
+            <div key={t.id} className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-6">
               <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-3">見證 {t.id}</p>
               <p className="text-[#3A332A] font-semibold mb-4">{t.name}</p>
               <div className="space-y-3">
@@ -221,7 +221,7 @@ export default function ConsultationPage() {
         <h2 className="text-[#2B241C] text-xl font-bold mb-8">常見問題</h2>
         <div className="space-y-4">
           {faq.map((item, i) => (
-            <div key={i} className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded-2xl p-6">
+            <div key={i} className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-6">
               <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-2">Q{i + 1}</p>
               <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
               <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
@@ -231,7 +231,7 @@ export default function ConsultationPage() {
       </div>
 
       {/* Notes */}
-      <div className="bg-[#2B241C]/[0.04] border border-[#2B241C]/10 rounded-2xl p-6">
+      <div className="bg-[#2B241C]/[0.04] border border-[#2B241C]/10 rounded p-6">
         <h3 className="text-[#5A5247] font-semibold mb-3 flex items-center gap-2">
           <Clock size={16} className="text-[#B23E26]" /> 注意事項
         </h3>
@@ -245,3 +245,4 @@ export default function ConsultationPage() {
     </div>
   )
 }
+

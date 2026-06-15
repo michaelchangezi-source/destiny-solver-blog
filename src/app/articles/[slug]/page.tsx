@@ -278,7 +278,7 @@ export default async function ArticlePage({ params }: Props) {
             {faqPairs.map(({ question, answer }, idx) => (
               <div
                 key={idx}
-                className="rounded-xl border border-[#2B241C]/30/[0.08] bg-[#FBF7EE]/[0.03] hover:bg-[#FBF7EE]/[0.05] transition-colors duration-200 p-5"
+                className="rounded border border-[#2B241C]/10 bg-[#FBF7EE]/[0.03] hover:bg-[#FBF7EE]/[0.05] transition-colors duration-200 p-5"
               >
                 {/* Question */}
                 <p className="flex items-start gap-3 mb-3">
@@ -307,12 +307,12 @@ export default async function ArticlePage({ params }: Props) {
       )}
 
       {/* Consultation CTA */}
-      <div className="mt-12 bg-gradient-to-br from-[#B23E26]/15 to-transparent border border-[#B23E26]/25 rounded-2xl p-6 text-center">
+      <div className="mt-12 bg-gradient-to-br from-[#B23E26]/15 to-transparent border border-[#B23E26]/25 rounded p-6 text-center">
         <p className="text-[#2B241C] font-bold mb-2">想深入了解你的命盤？</p>
         <p className="text-[#6B6155] text-sm mb-4">預約一對一命理諮詢，解讀你的八字格局與人生時機。</p>
         <Link
           href="/consultation"
-          className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded-full transition-colors text-sm"
+          className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-colors text-sm"
         >
           預約諮詢
         </Link>
