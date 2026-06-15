@@ -60,7 +60,7 @@ export default function AboutPage() {
           </div>
           <div className="space-y-4 text-[#5A5247] leading-relaxed text-[15px]">
             <p>
-              我是陳卓賢，香港的八字命理研究者與諮詢師。我的核心信念是：
+              香港的八字命理研究者與諮詢師。我的核心信念是：
               <strong className="text-[#3A332A]"> 命理是認識自己的工具，而非預測命運的水晶球。</strong>
             </p>
             <p>
