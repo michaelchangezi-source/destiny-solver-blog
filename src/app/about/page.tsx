@@ -94,9 +94,9 @@ export default function AboutPage() {
           },
           {
             icon: Users,
-            value: '3.5K+',
-            title: 'Threads 社群',
-            desc: '每日在 Threads 分享命理洞察，與讀者即時互動',
+            value: '100萬+',
+            title: 'Threads 月瀏覽量',
+            desc: '每日在 Threads 分享命理洞察，每月逾百萬次瀏覽',
           },
           {
             icon: Award,

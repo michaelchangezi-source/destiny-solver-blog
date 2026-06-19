@@ -94,7 +94,7 @@ export default function HomePage() {
                 </div>
                 <div className="w-px h-5 bg-[#2B241C]/10" />
                 <div>
-                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">3.5K+</span>Threads 追蹤者
+                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">100萬+</span>每月 Threads 瀏覽量
                 </div>
                 <div className="w-px h-5 bg-[#2B241C]/10" />
                 <div>
@@ -320,7 +320,7 @@ export default function HomePage() {
                 <span className="text-[#8A8071]">·</span>
                 <p className="text-[#B23E26] font-semibold text-sm">@destiny.solver</p>
                 <span className="text-[#8A8071] text-[11px] border border-[#2B241C]/15 px-2 py-0.5 rounded-full">
-                  3.5K 追蹤者
+                  月瀏覽 100萬+
                 </span>
               </div>
               <p className="text-[#5A5247] text-sm leading-relaxed max-w-lg">
