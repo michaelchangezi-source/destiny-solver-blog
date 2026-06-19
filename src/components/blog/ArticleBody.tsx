@@ -6,10 +6,10 @@ export default function ArticleBody({ html }: Props) {
   return (
     <div
       className="prose prose-lg max-w-none
-        prose-headings:text-[#2B241C] prose-headings:font-bold
-        prose-h1:text-3xl prose-h2:text-2xl prose-h2:border-b prose-h2:border-[#2B241C]/10 prose-h2:pb-2
-        prose-h3:text-xl prose-h3:text-[#B23E26]
-        prose-p:text-[#3A332A] prose-p:leading-relaxed
+        prose-headings:text-[#2B241C] prose-headings:font-bold prose-headings:tracking-tight
+        prose-h1:text-3xl prose-h2:text-2xl prose-h2:border-b prose-h2:border-[#2B241C]/10 prose-h2:pb-2 prose-h2:mt-12 prose-h2:mb-5
+        prose-h3:text-xl prose-h3:text-[#B23E26] prose-h3:mt-9 prose-h3:mb-3
+        prose-p:text-[#3A332A] prose-p:leading-[1.9] prose-p:my-5
         prose-a:text-[#B23E26] prose-a:no-underline hover:prose-a:underline
         prose-strong:text-[#2B241C]
         prose-blockquote:border-l-[#B23E26] prose-blockquote:text-[#5A5247] prose-blockquote:bg-[#2B241C]/[0.05] prose-blockquote:rounded-r-lg prose-blockquote:py-1

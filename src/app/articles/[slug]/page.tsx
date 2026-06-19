@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
+import { Clock, Calendar, Tag, ChevronRight } from 'lucide-react'
 import { getArticleBySlug, getArticleSlugs, getRelatedArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/utils'
 import { CATEGORY_SLUGS } from '@/types'
@@ -216,10 +217,16 @@ export default async function ArticlePage({ params }: Props) {
         const hasRealCover = article.slug.startsWith('post-') && !!article.coverImage && !article.coverImage.includes('default')
         if (hasRealCover) {
           return (
-            <div className="relative w-full aspect-[2/1] rounded-md overflow-hidden mb-8 bg-[#0a0a0a] border border-[#2B241C]/10">
+            <div className="relative w-full aspect-[2/1] rounded-md overflow-hidden mb-8 bg-[#1E1A15] border border-[#2B241C]/10">
               {/* aspect-[2/1] 對齊 IG 封面的中央文字安全區，object-center 確保不切字 */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover object-center" />
+              <Image
+                src={article.coverImage}
+                alt={article.title}
+                fill
+                priority
+                sizes="(max-width: 896px) 100vw, 896px"
+                className="object-cover object-center"
+              />
             </div>
           )
         }
@@ -322,7 +329,7 @@ export default async function ArticlePage({ params }: Props) {
         <p className="text-[#6B6155] text-sm mb-4">預約一對一命理諮詢，解讀你的八字格局與人生時機。</p>
         <Link
           href="/consultation"
-          className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-colors text-sm"
+          className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97] text-sm"
         >
           預約諮詢
         </Link>

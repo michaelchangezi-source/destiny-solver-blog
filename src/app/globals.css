@@ -92,9 +92,46 @@ html { scroll-behavior: smooth; }
 .hero-in-2 { animation: hero-in 0.9s ease-out 0.15s both; }
 .hero-in-3 { animation: hero-in 0.9s ease-out 0.3s both; }
 
+/* 卡片網格：逐張級聯進場 */
+@supports (animation-timeline: view()) {
+  .reveal-stagger > * {
+    animation: fade-up 0.7s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 38%;
+  }
+  .reveal-stagger > *:nth-child(2) { animation-range: entry 4% entry 42%; }
+  .reveal-stagger > *:nth-child(3) { animation-range: entry 8% entry 46%; }
+  .reveal-stagger > *:nth-child(4) { animation-range: entry 11% entry 49%; }
+  .reveal-stagger > *:nth-child(5) { animation-range: entry 14% entry 52%; }
+  .reveal-stagger > *:nth-child(n+6) { animation-range: entry 16% entry 54%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .drift, .drift-slow, .drift-slower, .reveal,
-  .hero-in, .hero-in-2, .hero-in-3 { animation: none; }
+  .hero-in, .hero-in-2, .hero-in-3,
+  .reveal-stagger > * { animation: none; }
+}
+
+/* ── 可達性：鍵盤聚焦環（朱批） ── */
+:where(a, button, [role="button"], input, textarea, select):focus-visible {
+  outline: 2px solid rgba(178, 62, 38, 0.6);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ── 標題平衡換行免孤字；段落收尾免寡行 ── */
+h1, h2, h3 { text-wrap: balance; }
+.prose p, .prose li { text-wrap: pretty; }
+
+/* ── 正文首段朱批大字（drop cap） ── */
+.prose > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: 3.1rem;
+  line-height: 0.82;
+  color: var(--cinnabar);
+  margin: 0.35rem 0.6rem 0 0;
 }
 
 /* 印章框：日柱／裝飾用 */

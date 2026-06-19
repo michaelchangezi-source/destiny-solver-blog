@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 
@@ -15,6 +16,9 @@ const NAV_LINKS = [
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+  const isActive = (href: string) =>
+    pathname === href || (href !== '/' && pathname.startsWith(href))
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#F4EEE1]/95 backdrop-blur-sm border-b border-[#2B241C]/10">
@@ -30,18 +34,27 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-[#5A5247] hover:text-[#B23E26] text-sm tracking-wide transition-colors duration-200"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const active = isActive(link.href)
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? 'page' : undefined}
+                className={`relative text-sm tracking-wide transition-colors duration-200 ${
+                  active ? 'text-[#B23E26]' : 'text-[#5A5247] hover:text-[#B23E26]'
+                }`}
+              >
+                {link.label}
+                {active && (
+                  <span className="absolute left-1/2 -translate-x-1/2 -bottom-2 h-0.5 w-4 rounded-full bg-[#B23E26]" />
+                )}
+              </Link>
+            )
+          })}
           <Link
             href="/consultation"
-            className="bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] text-sm font-semibold px-4 py-2 rounded transition-colors duration-200"
+            className="bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] text-sm font-semibold px-4 py-2 rounded transition-all duration-200 active:scale-[0.97]"
           >
             立即諮詢
           </Link>
@@ -60,16 +73,24 @@ export default function Header() {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden bg-[#F4EEE1] border-t border-[#2B241C]/10 px-4 py-6 flex flex-col gap-4">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="text-[#5A5247] hover:text-[#B23E26] text-base tracking-wide transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const active = isActive(link.href)
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                aria-current={active ? 'page' : undefined}
+                className={`text-base tracking-wide transition-colors ${
+                  active
+                    ? 'text-[#B23E26] font-semibold'
+                    : 'text-[#5A5247] hover:text-[#B23E26]'
+                }`}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
           <Link
             href="/consultation"
             onClick={() => setOpen(false)}

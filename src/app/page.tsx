@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
@@ -73,8 +74,8 @@ export default function HomePage() {
             {/* Left: Text */}
             <div className="flex-1 hero-in">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-11 h-11 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25 flex-shrink-0 lg:hidden">
-                  <img src="/images/avatar.png" alt="陳卓賢" className="w-full h-full object-cover" />
+                <div className="relative w-11 h-11 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25 flex-shrink-0 lg:hidden">
+                  <Image src="/images/avatar.png" alt="陳卓賢" fill sizes="44px" className="object-cover" />
                 </div>
                 <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase">
                   命運解決師 · Destiny Solver · @destiny.solver
@@ -107,13 +108,13 @@ export default function HomePage() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/categories"
-                  className="flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-7 py-3.5 rounded transition-colors"
+                  className="flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-7 py-3.5 rounded transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97]"
                 >
                   從這裡開始 <ArrowRight size={18} />
                 </Link>
                 <Link
                   href="/consultation"
-                  className="flex items-center gap-2 border border-[#2B241C]/20 hover:border-[#B23E26]/60 text-[#5A5247] hover:text-[#2B241C] font-medium px-7 py-3.5 rounded transition-colors"
+                  className="flex items-center gap-2 border border-[#2B241C]/20 hover:border-[#B23E26]/60 text-[#5A5247] hover:text-[#2B241C] font-medium px-7 py-3.5 rounded transition-all active:scale-[0.97]"
                 >
                   預約諮詢
                 </Link>
@@ -125,7 +126,7 @@ export default function HomePage() {
               <div className="relative">
                 <div className="absolute -inset-8 rounded-full bg-[#B23E26]/[0.07] blur-3xl pointer-events-none" />
                 <div className="relative w-64 h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25">
-                  <img src="/images/avatar.png" alt="陳卓賢 @destiny.solver" className="w-full h-full object-cover" />
+                  <Image src="/images/avatar.png" alt="陳卓賢 @destiny.solver" fill priority sizes="(max-width: 1280px) 256px, 288px" className="object-cover" />
                 </div>
                 <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 bg-[#FBF7EE] border border-[#2B241C]/10 rounded px-4 py-2 whitespace-nowrap">
                   <p className="text-[#2B241C] text-xs font-semibold text-center">陳卓賢</p>
@@ -228,7 +229,7 @@ export default function HomePage() {
             {/* CTA */}
             <Link
               href="/daily"
-              className="flex-shrink-0 flex items-center gap-2 border font-semibold text-sm px-5 py-3 rounded transition-colors hover:text-[#2B241C] whitespace-nowrap"
+              className="flex-shrink-0 flex items-center gap-2 border font-semibold text-sm px-5 py-3 rounded transition-all hover:text-[#2B241C] active:scale-[0.97] whitespace-nowrap"
               style={{
                 borderColor: `${mainColor}50`,
                 color: mainColor,
@@ -243,8 +244,8 @@ export default function HomePage() {
 
       {/* ── 最新文章 ── */}
       {latestArticles.length > 0 && (
-        <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-          <div className="flex items-end justify-between mb-8">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+          <div className="reveal flex items-end justify-between mb-8">
             <div>
               <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LATEST</p>
               <h2 className="font-serif text-[#2B241C] text-2xl font-bold">最新文章</h2>
@@ -253,7 +254,7 @@ export default function HomePage() {
               全部最新 <ArrowRight size={13} />
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {latestArticles.map((article) => (
               <LatestCard key={article.slug} article={article} />
             ))}
@@ -262,9 +263,9 @@ export default function HomePage() {
       )}
 
       {/* ── Learning Path ── */}
-      <section className="reveal bg-[#2B241C]/[0.04] border-b border-[#2B241C]/10 py-14">
+      <section className="bg-[#2B241C]/[0.04] border-b border-[#2B241C]/10 py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between mb-8">
+          <div className="reveal flex items-center justify-between mb-8">
             <div>
               <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LEARNING PATH</p>
               <h2 className="font-serif text-[#2B241C] text-2xl font-bold">系統學習路徑</h2>
@@ -273,14 +274,14 @@ export default function HomePage() {
               全部分類 <ArrowRight size={13} />
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             {LEARNING_STAGES.map((stage) => (
               <Link
                 key={stage.no}
                 href={`/categories/${stage.slug}`}
-                className="group bg-[#FBF7EE] border border-[#2B241C]/10 hover:border-[#B23E26]/40 hover:-translate-y-0.5 rounded p-5 transition-all duration-300"
+                className="group relative bg-[#FBF7EE] border border-[#2B241C]/10 hover:border-[#B23E26]/40 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-16px_rgba(178,62,38,0.3)] rounded p-5 transition-all duration-300"
               >
-                <p className="text-[#8A8071] group-hover:text-[#B23E26]/70 font-mono text-xs mb-3 transition-colors">{stage.no}</p>
+                <p className="font-serif text-2xl font-black text-[#B23E26]/25 group-hover:text-[#B23E26]/55 leading-none mb-3 transition-colors">{stage.no}</p>
                 <h3 className="text-[#2B241C] font-bold text-sm mb-2 group-hover:text-[#B23E26] transition-colors leading-snug">
                   {stage.title}
                 </h3>
@@ -293,7 +294,7 @@ export default function HomePage() {
 
       {/* ── Bazi Calculator CTA ── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <Link href="/bazi" className="group block border border-[#B23E26]/25 hover:border-[#B23E26]/60 rounded p-10 sm:p-14 relative overflow-hidden transition-colors">
+        <Link href="/bazi" className="group block border border-[#B23E26]/25 hover:border-[#B23E26]/60 rounded p-10 sm:p-14 relative overflow-hidden transition-all hover:shadow-[0_18px_40px_-22px_rgba(178,62,38,0.35)]">
           <div className="absolute right-8 bottom-0 text-[200px] font-black text-[#B23E26] opacity-[0.04] leading-none select-none pointer-events-none font-serif">命</div>
           <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
             <ArrowRight size={20} className="text-[#B23E26]" />
@@ -353,7 +354,7 @@ export default function HomePage() {
               href="https://www.threads.com/@destiny.solver"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold text-sm px-7 py-3.5 rounded transition-colors whitespace-nowrap"
+              className="flex-shrink-0 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold text-sm px-7 py-3.5 rounded transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97] whitespace-nowrap"
             >
               在 Threads 跟蹤
             </a>
@@ -376,7 +377,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/consultation"
-            className="inline-flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-8 py-4 rounded transition-colors"
+            className="inline-flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-8 py-4 rounded transition-all hover:shadow-[0_12px_28px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97]"
           >
             了解諮詢服務 <ArrowRight size={18} />
           </Link>

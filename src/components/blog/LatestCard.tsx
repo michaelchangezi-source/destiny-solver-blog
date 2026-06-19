@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Clock } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import type { ArticleMeta } from '@/types'
@@ -7,15 +8,15 @@ import type { ArticleMeta } from '@/types'
 export default function LatestCard({ article }: { article: ArticleMeta }) {
   return (
     <Link href={`/articles/${article.slug}`} className="group block">
-      <div className="rounded-md overflow-hidden bg-[#FBF7EE] border border-[#2B241C]/10 hover:border-[#B23E26]/50 transition-all duration-300 hover:-translate-y-0.5">
-        <div className="relative aspect-[2/1] w-full overflow-hidden bg-[#0a0a0a]">
+      <div className="rounded-md overflow-hidden bg-[#FBF7EE] border border-[#2B241C]/10 hover:border-[#B23E26]/50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-14px_rgba(178,62,38,0.25)]">
+        <div className="relative aspect-[2/1] w-full overflow-hidden bg-[#1E1A15]">
           {/* aspect-[2/1] 對齊 IG 封面中央安全區，不切字 */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={article.coverImage}
             alt={article.title}
-            loading="lazy"
-            className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
           />
           <span className="absolute bottom-2 right-3 text-[11px] tracking-widest text-[#F7F1E5] bg-[#2B241C]/55 px-2 py-0.5 rounded backdrop-blur-sm">
             {article.category}
