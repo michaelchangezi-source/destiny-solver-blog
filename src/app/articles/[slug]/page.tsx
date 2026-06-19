@@ -216,9 +216,10 @@ export default async function ArticlePage({ params }: Props) {
         const hasRealCover = article.slug.startsWith('post-') && !!article.coverImage && !article.coverImage.includes('default')
         if (hasRealCover) {
           return (
-            <div className="relative w-full h-56 sm:h-80 rounded-md overflow-hidden mb-8 bg-[#FBF7EE] border border-[#2B241C]/10">
+            <div className="relative w-full aspect-[2/1] rounded-md overflow-hidden mb-8 bg-[#0a0a0a] border border-[#2B241C]/10">
+              {/* aspect-[2/1] 對齊 IG 封面的中央文字安全區，object-center 確保不切字 */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover" />
+              <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover object-center" />
             </div>
           )
         }

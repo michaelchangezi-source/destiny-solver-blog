@@ -8,13 +8,14 @@ export default function LatestCard({ article }: { article: ArticleMeta }) {
   return (
     <Link href={`/articles/${article.slug}`} className="group block">
       <div className="rounded-md overflow-hidden bg-[#FBF7EE] border border-[#2B241C]/10 hover:border-[#B23E26]/50 transition-all duration-300 hover:-translate-y-0.5">
-        <div className="relative h-52 w-full overflow-hidden bg-[#2B241C]/[0.05]">
+        <div className="relative aspect-[2/1] w-full overflow-hidden bg-[#0a0a0a]">
+          {/* aspect-[2/1] 對齊 IG 封面中央安全區，不切字 */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={article.coverImage}
             alt={article.title}
             loading="lazy"
-            className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+            className="w-full h-full object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
           />
           <span className="absolute bottom-2 right-3 text-[11px] tracking-widest text-[#F7F1E5] bg-[#2B241C]/55 px-2 py-0.5 rounded backdrop-blur-sm">
             {article.category}
