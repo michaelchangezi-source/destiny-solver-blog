@@ -39,6 +39,11 @@ ARTICLES_DIR = WEBSITE_ROOT / "content" / "articles"
 COVERS_DIR = WEBSITE_ROOT / "public" / "images" / "covers"
 DEFAULT_STAGING = Path("C:/Users/micha/destiny-solver-web-staging")
 
+# IndexNow：出文後即時通知搜尋引擎（Bing/Yandex 等，間接惠及部分 AI 搜尋）。
+# 金鑰驗證檔須長期存在於 public/{KEY}.txt 並已部署上線。
+SITE_URL = "https://destiny-solver-blog.vercel.app"
+INDEXNOW_KEY = "89a823e9a77b875b3fea063c5a24ff64"
+
 INVALID_FILENAME = re.compile(r'[\\/:*?"<>|\r\n]+')
 
 
@@ -146,12 +151,37 @@ def build_article(entry: dict, seq: int, date_str: str) -> Path:
     out_path = ARTICLES_DIR / f"{slug}-{safe_title(title)}.md"
     out_path.write_text(frontmatter + body + "\n", encoding="utf-8")
     print(f"  [{seq:02d}] {slug}  {title}  ({category})")
-    return out_path
+    return out_path, slug
 
 
 def git(args, check=True):
     return subprocess.run(["git", "-C", str(WEBSITE_ROOT), *args],
                           check=check, capture_output=True, text=True)
+
+
+def ping_indexnow(slugs):
+    """提交新文章網址至 IndexNow，即時通知搜尋引擎收錄。失敗只警告不中斷。"""
+    if not slugs:
+        return
+    url_list = [f"{SITE_URL}/articles/{s}" for s in slugs]
+    payload = {
+        "host": SITE_URL.replace("https://", ""),
+        "key": INDEXNOW_KEY,
+        "keyLocation": f"{SITE_URL}/{INDEXNOW_KEY}.txt",
+        "urlList": url_list,
+    }
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        "https://api.indexnow.org/IndexNow",
+        data=data,
+        headers={"Content-Type": "application/json; charset=utf-8"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            print(f"IndexNow 已通知 {len(url_list)} 條網址（HTTP {r.status}）。")
+    except Exception as e:
+        print(f"[!] IndexNow 通知失敗（不影響發佈）：{e}")
 
 
 def main():
@@ -173,11 +203,13 @@ def main():
 
     today = datetime.now().strftime("%Y-%m-%d")
     print(f"同步 {len(entries)} 篇最新文章至網站…")
-    written = []
+    written, slugs = [], []
     for i, entry in enumerate(entries, start=1):
         date_str = entry.get("date", today)
         try:
-            written.append(build_article(entry, i, date_str))
+            path, slug = build_article(entry, i, date_str)
+            written.append(path)
+            slugs.append(slug)
         except Exception as e:
             print(f"  [!] 第 {i} 篇失敗：{e}")
 
@@ -202,6 +234,9 @@ def main():
         print(push.stderr)
         sys.exit(1)
     print(f"已 push origin main，Vercel 將自動部署。commit：{msg}")
+
+    # 通知 IndexNow（即時收錄；URL 短暫未部署完不影響，搜尋引擎稍後才實際爬取）
+    ping_indexnow(slugs)
 
     # 封存已處理的 manifest，避免下週重複
     archive = staging / f"manifest_done_{today}.json"
