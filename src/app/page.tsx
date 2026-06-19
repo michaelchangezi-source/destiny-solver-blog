@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { getAllArticles, getAllCategories } from '@/lib/articles'
+import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
 import type { Element } from '@/lib/bazi-daily'
 import CategoryBadge from '@/components/ui/CategoryBadge'
+import LatestCard from '@/components/blog/LatestCard'
 
 export const revalidate = 3600
 
@@ -48,6 +49,7 @@ const LEARNING_STAGES = [
 export default function HomePage() {
   const articles = getAllArticles()
   const categories = getAllCategories()
+  const latestArticles = getLatestArticles(6)
 
   // 當日能量
   const [today] = analyzeDays(1)
@@ -238,6 +240,26 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── 最新文章 ── */}
+      {latestArticles.length > 0 && (
+        <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LATEST</p>
+              <h2 className="font-serif text-[#2B241C] text-2xl font-bold">最新文章</h2>
+            </div>
+            <Link href="/latest" className="text-[#8A8071] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-1">
+              全部最新 <ArrowRight size={13} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {latestArticles.map((article) => (
+              <LatestCard key={article.slug} article={article} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── Learning Path ── */}
       <section className="reveal bg-[#2B241C]/[0.04] border-b border-[#2B241C]/10 py-14">

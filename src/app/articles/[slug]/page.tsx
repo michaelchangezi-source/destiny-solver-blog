@@ -211,8 +211,17 @@ export default async function ArticlePage({ params }: Props) {
         <span className="text-[#6B6155] truncate max-w-[180px] sm:max-w-xs">{article.title}</span>
       </nav>
 
-      {/* Cover — glyph banner */}
+      {/* Cover — 每週帖文顯示真實配圖，教學系列顯示字形 banner */}
       {(() => {
+        const hasRealCover = article.slug.startsWith('post-') && !!article.coverImage && !article.coverImage.includes('default')
+        if (hasRealCover) {
+          return (
+            <div className="relative w-full h-56 sm:h-80 rounded-md overflow-hidden mb-8 bg-[#FBF7EE] border border-[#2B241C]/10">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={article.coverImage} alt={article.title} className="w-full h-full object-cover" />
+            </div>
+          )
+        }
         const glyph = ({ '八字基礎':'甲','干支詳解':'子','十神應用':'祿','命盤格局':'局','實戰斷命':'斷','大運流年':'運','感情格局':'情','事業財運':'財','健康命理':'壽','風水地理':'風' } as Record<string,string>)[article.category] ?? '命'
         const seq = article.slug.match(/^topic-(\d+)/)?.[1]?.padStart(2,'0')
         return (

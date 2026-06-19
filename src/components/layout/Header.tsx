@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 
 const NAV_LINKS = [
+  { href: '/latest', label: '最新文章' },
   { href: '/daily', label: '每日能量' },
   { href: '/bazi', label: '八字排盤' },
   { href: '/compat', label: '命盤合盤' },

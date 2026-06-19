@@ -10,7 +10,8 @@ const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles')
 // 確保 URL 不含中文字符，避免靜態路由 404
 function extractSlug(filename: string): string {
   const basename = filename.replace(/\.(md|mdoc)$/, '')
-  const match = basename.match(/^(topic-\d+)/)
+  // topic-NN（教學系列）或 post-YYYYMMDD-NN（每週自動發佈），其餘用完整檔名
+  const match = basename.match(/^(topic-\d+|post-\d{8}-\d+)/)
   return match ? match[1] : basename
 }
 
@@ -77,6 +78,14 @@ export function getAllArticles(): ArticleMeta[] {
       }
       return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     })
+}
+
+// 每週自動發佈的「最新文章」（slug 以 post- 開頭），按發佈時間新到舊排序
+export function getLatestArticles(limit?: number): ArticleMeta[] {
+  const latest = getAllArticles()
+    .filter((a) => a.slug.startsWith('post-'))
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+  return limit ? latest.slice(0, limit) : latest
 }
 
 export function getArticlesByCategory(category: string): ArticleMeta[] {
