@@ -20,6 +20,7 @@ const notoSerifTC = Noto_Serif_TC({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://destiny-solver-blog.vercel.app'),
   title: {
     default: '命運解決師｜八字命理深度解析',
     template: '%s｜命運解決師',
