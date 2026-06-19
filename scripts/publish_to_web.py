@@ -30,6 +30,7 @@ import re
 import shutil
 import subprocess
 import sys
+import urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -56,18 +57,39 @@ def strip_md(text: str) -> str:
     return text.strip()
 
 
-def parse_body(raw: str):
-    """回傳 (hook 首句, 去掉首句後的正文)。"""
-    lines = raw.splitlines()
-    hook = ""
-    rest_start = 0
-    for i, ln in enumerate(lines):
-        if ln.strip():
-            hook = strip_md(ln.strip())
-            rest_start = i + 1
-            break
-    rest = "\n".join(lines[rest_start:]).strip()
-    return hook, rest
+def _norm(s: str) -> str:
+    return re.sub(r"[，。：、？！「」『』\s,.:?!\"'…]", "", s)
+
+
+def parse_body(raw: str, title: str = ""):
+    """回傳 (摘要, 正文)。摘要取首段；若首段與標題幾乎相同（標題本身就是 hook），
+    改用第二段做摘要。正文一律去掉已用作標題/摘要的開頭段落，避免重複。"""
+    paras = [strip_md(ln.strip()) for ln in raw.splitlines() if ln.strip() and ln.strip() != "---"]
+    hook = paras[0] if paras else ""
+    nt, nh = _norm(title), _norm(hook)
+    title_is_hook = bool(title and nt) and (nt == nh or nt in nh or nh in nt)
+    if title_is_hook:
+        excerpt = paras[1] if len(paras) > 1 else hook
+        drop = 2  # 去掉 hook + 已用作摘要的第二段
+    else:
+        excerpt = hook
+        drop = 1  # 去掉 hook（已用作摘要）
+    # 正文：跳過開頭 drop 個內容段落，再略過緊接的空行/分隔線
+    out, dropped, started = [], 0, False
+    for ln in raw.splitlines():
+        s = ln.strip()
+        if not started:
+            if s and s != "---":
+                dropped += 1
+                if dropped >= drop:
+                    started = True
+                continue
+            continue  # 跳過開頭的空行與 ---
+        out.append(ln)
+    # 去除正文最前殘留的空行與分隔線
+    body = "\n".join(out).strip()
+    body = re.sub(r"^(?:-{3,}\s*)+", "", body).strip()
+    return excerpt, body
 
 
 def make_excerpt(hook: str, limit: int = 96) -> str:
@@ -86,8 +108,8 @@ def build_article(entry: dict, seq: int, date_str: str) -> Path:
     cover_file = Path(entry["cover_file"])
 
     raw = body_file.read_text(encoding="utf-8")
-    hook, body = parse_body(raw)
-    excerpt = make_excerpt(hook)
+    excerpt, body = parse_body(raw, title)
+    excerpt = make_excerpt(excerpt)
 
     date_compact = date_str.replace("-", "")
     slug = f"post-{date_compact}-{seq:02d}"
@@ -95,10 +117,16 @@ def build_article(entry: dict, seq: int, date_str: str) -> Path:
     base = datetime.strptime(date_str, "%Y-%m-%d").replace(hour=15, minute=0)
     published = (base - timedelta(minutes=seq - 1)).strftime("%Y-%m-%dT%H:%M:%S+08:00")
 
-    # 複製封面圖
+    # 複製封面圖（支援本機路徑或 http(s) URL）
     COVERS_DIR.mkdir(parents=True, exist_ok=True)
     cover_dest = COVERS_DIR / f"{slug}.jpg"
-    shutil.copyfile(cover_file, cover_dest)
+    cover_src = str(entry["cover_file"])
+    if cover_src.startswith("http://") or cover_src.startswith("https://"):
+        req = urllib.request.Request(cover_src, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=60) as r, open(cover_dest, "wb") as f:
+            f.write(r.read())
+    else:
+        shutil.copyfile(cover_file, cover_dest)
 
     tags = [t for t in ["八字", "命理", category] if t]
     frontmatter = (
