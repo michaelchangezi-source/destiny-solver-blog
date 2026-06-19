@@ -6,6 +6,7 @@ import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
 import type { Element } from '@/lib/bazi-daily'
 import CategoryBadge from '@/components/ui/CategoryBadge'
 import LatestCard from '@/components/blog/LatestCard'
+import HomeMotion from '@/components/HomeMotion'
 
 export const revalidate = 3600
 
@@ -60,6 +61,8 @@ export default function HomePage() {
 
   return (
     <>
+      <HomeMotion />
+
       {/* ── Hero ── */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 pointer-events-none select-none">
@@ -72,8 +75,8 @@ export default function HomePage() {
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 xl:gap-24">
 
             {/* Left: Text */}
-            <div className="flex-1 hero-in">
-              <div className="flex items-center gap-3 mb-6">
+            <div className="flex-1 hero-left">
+              <div className="hero-eyebrow flex items-center gap-3 mb-6">
                 <div className="relative w-11 h-11 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25 flex-shrink-0 lg:hidden">
                   <Image src="/images/avatar.png" alt="陳卓賢" fill sizes="44px" className="object-cover" />
                 </div>
@@ -82,22 +85,22 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <h1 className="font-serif text-[#2B241C] text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
+              <h1 className="hero-h1 font-serif text-[#2B241C] text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
                 用命理<br />
                 <span className="text-[#B23E26]">讀懂你</span><br />
                 這個人
               </h1>
-              <p className="text-[#5A5247] text-lg leading-relaxed mb-10 max-w-lg">
+              <p className="hero-sub text-[#5A5247] text-lg leading-relaxed mb-10 max-w-lg">
                 不是預測命運，是認識自己。透過八字命理的框架，看見你的能量結構、人生格局與時勢流動。
               </p>
 
-              <div className="flex flex-wrap items-center gap-8 mb-10 text-[#8A8071] text-sm">
+              <div className="hero-stats flex flex-wrap items-center gap-8 mb-10 text-[#8A8071] text-sm">
                 <div>
                   <span className="text-[#2B241C] font-black text-2xl mr-1.5">每周更新</span>命理文章
                 </div>
                 <div className="w-px h-5 bg-[#2B241C]/10" />
                 <div>
-                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">100萬+</span>每月 Threads 瀏覽量
+                  <span className="text-[#2B241C] font-black text-2xl mr-1.5" data-count-to="100" data-count-suffix="萬+">100萬+</span>每月 Threads 瀏覽量
                 </div>
                 <div className="w-px h-5 bg-[#2B241C]/10" />
                 <div>
@@ -105,7 +108,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-4">
+              <div className="hero-cta flex flex-wrap gap-4">
                 <Link
                   href="/categories"
                   className="flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-7 py-3.5 rounded transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97]"
@@ -122,7 +125,7 @@ export default function HomePage() {
             </div>
 
             {/* Right: Avatar (desktop) */}
-            <div className="hidden lg:flex flex-shrink-0 items-center justify-center hero-in-2">
+            <div className="hero-avatar hidden lg:flex flex-shrink-0 items-center justify-center">
               <div className="relative">
                 <div className="absolute -inset-8 rounded-full bg-[#B23E26]/[0.07] blur-3xl pointer-events-none" />
                 <div className="relative w-64 h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25">
@@ -148,7 +151,7 @@ export default function HomePage() {
             <div className="flex items-center gap-5 flex-shrink-0">
               {/* 日柱字：印章式 */}
               <div
-                className="seal-frame-paper flex flex-col items-center justify-center w-20 h-24 flex-shrink-0"
+                className="seal-stamp seal-frame-paper flex flex-col items-center justify-center w-20 h-24 flex-shrink-0"
                 style={{ background: `${mainColor}10` }}
               >
                 <span className="font-serif font-black text-5xl leading-none" style={{ color: mainColor }}>

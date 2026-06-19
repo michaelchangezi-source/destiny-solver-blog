@@ -70,46 +70,12 @@ html { scroll-behavior: smooth; }
 .drift-slow { animation: drift 14s ease-in-out infinite; animation-delay: -4s; }
 .drift-slower { animation: drift 18s ease-in-out infinite; animation-delay: -9s; }
 
-/* Scroll 進場：fade-up（支援 scroll-driven animation 嘅瀏覽器先生效） */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(28px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@supports (animation-timeline: view()) {
-  .reveal {
-    animation: fade-up 0.8s ease-out both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 45%;
-  }
-}
-
-/* Hero 入場 */
-@keyframes hero-in {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.hero-in { animation: hero-in 0.9s ease-out both; }
-.hero-in-2 { animation: hero-in 0.9s ease-out 0.15s both; }
-.hero-in-3 { animation: hero-in 0.9s ease-out 0.3s both; }
-
-/* 卡片網格：逐張級聯進場 */
-@supports (animation-timeline: view()) {
-  .reveal-stagger > * {
-    animation: fade-up 0.7s ease-out both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 38%;
-  }
-  .reveal-stagger > *:nth-child(2) { animation-range: entry 4% entry 42%; }
-  .reveal-stagger > *:nth-child(3) { animation-range: entry 8% entry 46%; }
-  .reveal-stagger > *:nth-child(4) { animation-range: entry 11% entry 49%; }
-  .reveal-stagger > *:nth-child(5) { animation-range: entry 14% entry 52%; }
-  .reveal-stagger > *:nth-child(n+6) { animation-range: entry 16% entry 54%; }
-}
+/* Hero 入場、區塊 scroll 進場、卡片級聯、印章蓋章、數字 count-up
+   全部改由 GSAP（components/HomeMotion.tsx）跨瀏覽器驅動，
+   並完整尊重 prefers-reduced-motion。CSS 只保留浮水印 drift。 */
 
 @media (prefers-reduced-motion: reduce) {
-  .drift, .drift-slow, .drift-slower, .reveal,
-  .hero-in, .hero-in-2, .hero-in-3,
-  .reveal-stagger > * { animation: none; }
+  .drift, .drift-slow, .drift-slower { animation: none; }
 }
 
 /* ── 可達性：鍵盤聚焦環（朱批） ── */
