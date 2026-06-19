@@ -4,6 +4,7 @@ import CompatCalculator from './CompatCalculator'
 export const metadata: Metadata = {
   title: '八字合盤｜干支互動分析',
   description: '輸入兩人出生資料，即時分析雙方四柱的天干五合、地支六合、六沖、六害等干支互動關係。destiny.solver 免費合盤工具。',
+  alternates: { canonical: '/compat' },
 }
 
 export default function CompatPage() {

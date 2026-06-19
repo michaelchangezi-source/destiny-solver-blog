@@ -43,8 +43,33 @@ export const metadata: Metadata = {
     title: '命運解決師｜八字命理深度解析',
     description: '用命理讀懂你這個人：不是預測命運，是認識自己。',
   },
-  robots: { index: true, follow: true },
+  alternates: { canonical: '/' },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
 }
+
+// 出版者實體（Organization）— 供 Article schema 的 publisher 引用，
+// Google 富摘要要求 publisher 帶 logo，方能取得 rich result。
+export const PUBLISHER = {
+  '@type': 'Organization',
+  name: '命運解決師',
+  url: 'https://destiny-solver-blog.vercel.app',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
+    width: 512,
+    height: 512,
+  },
+} as const
 
 const websiteJsonLd = {
   '@context': 'https://schema.org',
@@ -64,6 +89,7 @@ const websiteJsonLd = {
       'https://www.instagram.com/destiny.solver',
     ],
   },
+  publisher: PUBLISHER,
   potentialAction: {
     '@type': 'SearchAction',
     target: {
@@ -74,6 +100,24 @@ const websiteJsonLd = {
   },
 }
 
+// 作者個人實體（Person）— 強化 Google／AI 對「陳卓賢」這個作者的知識圖譜識別，
+// 連同每篇文章的 author 一致指向同一網址，坐實原創作者身份。
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: '陳卓賢',
+  alternateName: ['命運解決師', 'Destiny Solver'],
+  jobTitle: '八字命理師',
+  url: 'https://destiny-solver-blog.vercel.app/about',
+  image: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
+  worksFor: PUBLISHER,
+  knowsAbout: ['八字命理', '十神', '大運流年', '盲派命理', '吠陀占星'],
+  sameAs: [
+    'https://www.threads.com/@destiny.solver',
+    'https://www.instagram.com/destiny.solver',
+  ],
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-TW" className={`${notoSansTC.variable} ${notoSerifTC.variable}`}>
@@ -81,6 +125,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
       <body className="bg-[#F4EEE1] font-sans antialiased min-h-screen">

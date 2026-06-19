@@ -4,6 +4,7 @@ import { MessageCircle, Mail, CheckCircle, Clock, Star, XCircle } from 'lucide-r
 export const metadata: Metadata = {
   title: '預約諮詢',
   description: '預約一對一八字命理深度諮詢，解讀你的格局、時機與人生方向。',
+  alternates: { canonical: '/consultation' },
 }
 
 const testimonials = [

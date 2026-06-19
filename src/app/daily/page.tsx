@@ -7,6 +7,7 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: '日運能量｜今日及未來一週八字流日分析',
   description: '根據流年、流月、流日三柱六字五行計分，分析每日大環境能量，提供宜忌參考。非個人命盤，適用所有人。',
+  alternates: { canonical: '/daily' },
 }
 
 // ── 元件：柱顯示 ─────────────────────────────────────────

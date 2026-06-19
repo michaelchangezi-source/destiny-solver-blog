@@ -56,6 +56,7 @@ export function getArticleBySlug(slug: string): Article | null {
     tags: data.tags ?? [],
     coverImage: data.coverImage ?? '/images/covers/default.png',
     publishedAt: data.publishedAt ?? new Date().toISOString(),
+    updatedAt: data.updatedAt ?? data.publishedAt ?? new Date().toISOString(),
     readingTime: stats.text,
     order: data.order,
     isPaid: data.isPaid ?? false,

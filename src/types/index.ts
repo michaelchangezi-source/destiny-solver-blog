@@ -7,6 +7,7 @@ export interface Article {
   tags: string[]
   coverImage: string
   publishedAt: string
+  updatedAt: string
   readingTime: string
   order?: number
   isPaid?: boolean
@@ -20,6 +21,7 @@ export interface ArticleMeta {
   tags: string[]
   coverImage: string
   publishedAt: string
+  updatedAt: string
   readingTime: string
   order?: number
   isPaid?: boolean

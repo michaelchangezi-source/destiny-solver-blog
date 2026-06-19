@@ -7,6 +7,7 @@ import { CATEGORY_SLUGS, CATEGORY_GLYPHS, CATEGORY_ORDER } from '@/types'
 export const metadata: Metadata = {
   title: '學習路徑',
   description: '從零開始系統學習八字命理：天干地支→十神體系→格局判斷→大運流年，循序漸進。',
+  alternates: { canonical: '/categories' },
 }
 
 const CATEGORY_DESC: Record<string, string> = {

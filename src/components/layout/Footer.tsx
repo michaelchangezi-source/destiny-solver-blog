@@ -64,8 +64,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#2B241C]/10 mt-10 pt-6 text-center text-[#8A8071] text-xs">
-          © {new Date().getFullYear()} 命運解決師｜陳卓賢. All rights reserved.
+        <div className="border-t border-[#2B241C]/10 mt-10 pt-6 text-center text-[#8A8071] text-xs space-y-1">
+          <p>© {new Date().getFullYear()} 命運解決師｜陳卓賢. All rights reserved.</p>
+          <p>本站所有文章為陳卓賢原創，版權所有。歡迎引用，惟須註明作者及原文連結，未經授權不得全文轉載。</p>
         </div>
       </div>
     </footer>

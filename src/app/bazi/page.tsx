@@ -4,6 +4,7 @@ import BaziCalculator from './BaziCalculator'
 export const metadata: Metadata = {
   title: '八字速算｜免費四柱大運排盤',
   description: '輸入出生年月日時，即時計算四柱命盤、十神及十個大運。destiny.solver 免費八字排盤工具。',
+  alternates: { canonical: '/bazi' },
 }
 
 export default function BaziPage() {

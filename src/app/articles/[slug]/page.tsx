@@ -8,6 +8,7 @@ import { formatDate } from '@/lib/utils'
 import { CATEGORY_SLUGS } from '@/types'
 import ArticleBody from '@/components/blog/ArticleBody'
 import ArticleCard from '@/components/blog/ArticleCard'
+import CopyAttribution from '@/components/blog/CopyAttribution'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
@@ -95,13 +96,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const article = getArticleBySlug(slug)
   if (!article) return {}
+  const url = `/articles/${article.slug}`
   return {
     title: article.title,
     description: article.excerpt,
+    keywords: article.tags,
+    authors: [{ name: '陳卓賢', url: `${BASE_URL}/about` }],
+    alternates: { canonical: url },
     openGraph: {
+      type: 'article',
+      url,
       title: article.title,
       description: article.excerpt,
+      siteName: '命運解決師｜陳卓賢',
+      locale: 'zh_TW',
+      publishedTime: article.publishedAt,
+      modifiedTime: article.updatedAt,
+      authors: [`${BASE_URL}/about`],
+      section: article.category,
+      tags: article.tags,
       images: [{ url: article.coverImage }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.excerpt,
+      images: [article.coverImage],
     },
   }
 }
@@ -158,18 +178,28 @@ export default async function ArticlePage({ params }: Props) {
       ? [`https://destiny-solver-blog.vercel.app${article.coverImage}`]
       : ['https://destiny-solver-blog.vercel.app/images/og-default.png'],
     datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
+    dateModified: article.updatedAt,
     url: `https://destiny-solver-blog.vercel.app/articles/${article.slug}`,
     inLanguage: 'zh-TW',
     author: {
       '@type': 'Person',
       name: '陳卓賢',
       url: 'https://destiny-solver-blog.vercel.app/about',
+      sameAs: [
+        'https://www.threads.com/@destiny.solver',
+        'https://www.instagram.com/destiny.solver',
+      ],
     },
     publisher: {
-      '@type': 'Person',
-      name: '陳卓賢',
+      '@type': 'Organization',
+      name: '命運解決師',
       url: 'https://destiny-solver-blog.vercel.app',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
+        width: 512,
+        height: 512,
+      },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -195,6 +225,8 @@ export default async function ArticlePage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
+
+      <CopyAttribution title={article.title} path={`/articles/${article.slug}`} />
 
       {/* Breadcrumb */}
       <nav aria-label="breadcrumb" className="flex items-center gap-1 text-xs text-[#8A8071] mb-6 flex-wrap">
@@ -266,7 +298,9 @@ export default async function ArticlePage({ params }: Props) {
       )}
 
       {/* Body */}
-      <ArticleBody html={html} />
+      <div id="article-content">
+        <ArticleBody html={html} />
+      </div>
 
       {/* Tags */}
       {article.tags.length > 0 && (

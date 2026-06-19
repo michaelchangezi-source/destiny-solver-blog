@@ -5,6 +5,7 @@ import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail } from '
 export const metadata: Metadata = {
   title: '關於我',
   description: '香港八字命理師陳卓賢，融合東方命理與現代心理學，用命理幫助你認識真實的自己。',
+  alternates: { canonical: '/about' },
 }
 
 const personJsonLd = {

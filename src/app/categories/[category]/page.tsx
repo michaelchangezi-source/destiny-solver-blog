@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: name,
     description: `所有關於「${name}」的八字命理深度文章。`,
+    alternates: { canonical: `/categories/${category}` },
   }
 }
 
