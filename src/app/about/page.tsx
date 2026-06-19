@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Users, Award, MessageCircle, Mail } from 'lucide-react'
+import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: '關於我',
@@ -99,10 +99,10 @@ export default function AboutPage() {
             desc: '每日在 Threads 分享命理洞察，每月逾百萬次瀏覽',
           },
           {
-            icon: Award,
-            value: '多次',
-            title: '媒體報導',
-            desc: '曾獲媒體採訪，並在多個平台進行命理與 AI 教育分享',
+            icon: CalendarDays,
+            value: '每週',
+            title: '更新命理文章',
+            desc: '每週穩定發布深度命理文章，持續為你建立八字知識體系',
           },
         ].map((item) => (
           <div
