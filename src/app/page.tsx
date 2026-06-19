@@ -92,7 +92,7 @@ export default function HomePage() {
 
               <div className="flex flex-wrap items-center gap-8 mb-10 text-[#8A8071] text-sm">
                 <div>
-                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">{articles.length}+</span>深度文章
+                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">每周更新</span>命理文章
                 </div>
                 <div className="w-px h-5 bg-[#2B241C]/10" />
                 <div>
@@ -127,7 +127,7 @@ export default function HomePage() {
                 <div className="relative w-64 h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25">
                   <img src="/images/avatar.png" alt="陳卓賢 @destiny.solver" className="w-full h-full object-cover" />
                 </div>
-                <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#FBF7EE] border border-[#2B241C]/10 rounded px-4 py-2 whitespace-nowrap">
+                <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 bg-[#FBF7EE] border border-[#2B241C]/10 rounded px-4 py-2 whitespace-nowrap">
                   <p className="text-[#2B241C] text-xs font-semibold text-center">陳卓賢</p>
                   <p className="text-[#B23E26] text-[10px] text-center tracking-wider">@destiny.solver</p>
                 </div>
