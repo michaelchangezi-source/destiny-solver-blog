@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
-import { analyzeDays } from '@/lib/bazi-daily'
+import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
 import CategoryBadge from '@/components/ui/CategoryBadge'
 import LatestCard from '@/components/blog/LatestCard'
 import HomeMotion from '@/components/HomeMotion'
@@ -67,6 +67,7 @@ export default function HomePage() {
           energyTitle: today.energyTitle,
           dateLabel: today.dateLabel,
           weekday: today.weekday,
+          accent: ELEMENT_COLOR[today.dayPillar.element],
           yi: today.yi.map((y) => y.item),
           buYi: today.buYi.map((b) => b.item),
         }}

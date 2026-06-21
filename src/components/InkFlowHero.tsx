@@ -16,6 +16,7 @@ export type HeroToday = {
   energyTitle: string
   dateLabel: string
   weekday: string
+  accent: string // 日柱五行色（隨日變：木綠火紅土啡金藍水靛）
   yi: string[]
   buYi: string[]
 }
@@ -23,12 +24,13 @@ export type HeroToday = {
 // /hero-demo 等無伺服器資料的情境用的後備樣本。
 const FALLBACK: HeroToday = {
   stem: '丙',
-  branch: '午',
-  energyTitle: '火旺通明',
-  dateLabel: '六月廿一',
-  weekday: '週六',
-  yi: ['面談', '簽約', '表態', '創作'],
-  buYi: ['爭執', '遠行'],
+  branch: '寅',
+  energyTitle: '火氣獨旺，光明之日',
+  dateLabel: '2026年6月21日',
+  weekday: '週日',
+  accent: '#C24A2E',
+  yi: ['公開演講、簡報、提案', '品牌推廣、社群發帖', '社交應酬、拓展人際'],
+  buYi: ['激動爭論、口舌是非', '倉促簽署複雜合約'],
 }
 
 /**
@@ -137,72 +139,76 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
             </div>
           </div>
 
-          {/* 右：玻璃命盤卡（真實今日命盤） */}
+          {/* 右：淺色霜面命盤卡（真實今日命盤；日柱隨五行變色）。
+             淺奶油底浮於深色 hero 之上，反差強；五行色（綠/紅/啡/藍/靛）在淺底上一律清晰。 */}
           <div className="hero-d-card flex flex-shrink-0 justify-center lg:justify-end">
-            <div className="relative w-full max-w-[380px] rounded-[28px] border border-white/30 bg-white/[0.14] p-7 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.75)] backdrop-blur-2xl">
-              <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/[0.2] to-white/[0.03]" />
-
-              <div className="relative">
-                <div className="mb-5 flex items-center justify-between">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#F4EEE1]/50">
-                    Today · 今日命盤
-                  </span>
-                  <span className="text-[11px] text-[#F4EEE1]/50">
-                    {today.dateLabel} · {today.weekday}
-                  </span>
-                </div>
-
-                <div className="mb-6 flex items-center gap-5">
-                  <div className="flex h-24 w-20 flex-shrink-0 flex-col items-center justify-center rounded-lg border border-[#CC5C3F]/45 bg-[#CC5C3F]/[0.1]">
-                    <span className="font-serif text-5xl font-black leading-none text-[#CC5C3F]">{today.stem}</span>
-                    <span className="font-serif text-4xl font-bold leading-none text-[#F4EEE1]">{today.branch}</span>
-                  </div>
-                  <div>
-                    <p className="font-serif text-xl font-black leading-snug text-[#E8A86E]">{today.energyTitle}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-[#F4EEE1]/65">每日命盤更新，按下方看完整流年。</p>
-                  </div>
-                </div>
-
-                <div className="mb-5 space-y-3">
-                  {yi.length > 0 && (
-                    <div>
-                      <p className="mb-2 text-[10px] font-semibold tracking-widest text-[#7FB69A]">今日宜</p>
-                      <div className="flex flex-wrap gap-2">
-                        {yi.map((t) => (
-                          <span
-                            key={t}
-                            className="rounded-full border border-[#F4EEE1]/20 px-3 py-1 text-xs text-[#F4EEE1]/85"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {buYi.length > 0 && (
-                    <div>
-                      <p className="mb-2 text-[10px] font-semibold tracking-widest text-[#E08A6E]">今日不宜</p>
-                      <div className="flex flex-wrap gap-2">
-                        {buYi.map((t) => (
-                          <span
-                            key={t}
-                            className="rounded-full border border-[#F4EEE1]/20 px-3 py-1 text-xs text-[#F4EEE1]/75"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <Link
-                  href="/daily"
-                  className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#F4EEE1] font-bold text-[#241B14] transition-all hover:bg-white active:scale-[0.98]"
-                >
-                  完整分析 <ArrowRight size={16} />
-                </Link>
+            <div className="relative w-full max-w-[380px] rounded-[28px] border border-[#2B241C]/10 bg-[#FBF7EE]/90 p-7 text-[#2B241C] shadow-[0_44px_100px_-30px_rgba(0,0,0,0.7)] backdrop-blur-xl">
+              <div className="mb-5 flex items-center justify-between">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#9C9282]">
+                  Today · 今日命盤
+                </span>
+                <span className="text-[11px] text-[#9C9282]">
+                  {today.dateLabel} · {today.weekday}
+                </span>
               </div>
+
+              <div className="mb-6 flex items-center gap-5">
+                <div
+                  className="flex h-24 w-20 flex-shrink-0 flex-col items-center justify-center rounded-lg border"
+                  style={{ borderColor: `${today.accent}66`, background: `${today.accent}12` }}
+                >
+                  <span className="font-serif text-5xl font-black leading-none" style={{ color: today.accent }}>
+                    {today.stem}
+                  </span>
+                  <span className="font-serif text-4xl font-bold leading-none text-[#2B241C]">{today.branch}</span>
+                </div>
+                <div>
+                  <p className="font-serif text-xl font-black leading-snug" style={{ color: today.accent }}>
+                    {today.energyTitle}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-[#6B6155]">每日命盤更新，按下方看完整流年。</p>
+                </div>
+              </div>
+
+              <div className="mb-5 space-y-3">
+                {yi.length > 0 && (
+                  <div>
+                    <p className="mb-2 text-[10px] font-semibold tracking-widest text-[#2E7D52]">今日宜</p>
+                    <div className="flex flex-wrap gap-2">
+                      {yi.map((t) => (
+                        <span
+                          key={t}
+                          className="rounded-full border border-[#2B241C]/12 px-3 py-1 text-xs text-[#5A5247]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {buYi.length > 0 && (
+                  <div>
+                    <p className="mb-2 text-[10px] font-semibold tracking-widest text-[#C24A2E]">今日不宜</p>
+                    <div className="flex flex-wrap gap-2">
+                      {buYi.map((t) => (
+                        <span
+                          key={t}
+                          className="rounded-full border border-[#2B241C]/12 px-3 py-1 text-xs text-[#6B6155]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <Link
+                href="/daily"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#B23E26] font-bold text-[#F7F1E5] transition-all hover:bg-[#96321E] active:scale-[0.98]"
+              >
+                完整分析 <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </div>
