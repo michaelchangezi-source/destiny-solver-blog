@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
-import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
-import type { Element } from '@/lib/bazi-daily'
+import { analyzeDays } from '@/lib/bazi-daily'
 import CategoryBadge from '@/components/ui/CategoryBadge'
 import LatestCard from '@/components/blog/LatestCard'
 import HomeMotion from '@/components/HomeMotion'
+import InkFlowHero from '@/components/InkFlowHero'
 
 export const revalidate = 3600
 
@@ -53,194 +52,54 @@ export default function HomePage() {
   const categories = getAllCategories()
   const latestArticles = getLatestArticles(6)
 
-  // 當日能量
+  // 今日命盤（供 Hero 卡）
   const [today] = analyzeDays(1)
-  const mainColor = ELEMENT_COLOR[today.dominantElements[0]]
-  const hasChong = today.interactions.some(i => i.type === '沖')
-  const hasHe = today.interactions.some(i => i.type === '合')
 
   return (
     <>
       <HomeMotion />
 
-      {/* ── Hero ── */}
-      <section className="relative min-h-[88vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none select-none">
-          <div className="drift-slow absolute top-10 left-10 font-serif text-[200px] font-black text-[#2B241C] leading-none opacity-[0.04] md:opacity-[0.06]">甲</div>
-          <div className="drift absolute bottom-20 right-16 font-serif text-[160px] font-black text-[#B23E26] leading-none opacity-[0.05] md:opacity-[0.08]">命</div>
-          <div className="drift-slower absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[300px] font-black text-[#2B241C] leading-none opacity-[0.025] md:opacity-[0.035]">乾</div>
-        </div>
+      {/* ── Hero（水墨流光）── */}
+      <InkFlowHero
+        today={{
+          stem: today.dayPillar.stem,
+          branch: today.dayPillar.branch,
+          energyTitle: today.energyTitle,
+          dateLabel: today.dateLabel,
+          weekday: today.weekday,
+          yi: today.yi.map((y) => y.item),
+          buYi: today.buYi.map((b) => b.item),
+        }}
+      />
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-24 w-full">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16 xl:gap-24">
-
-            {/* Left: Text */}
-            <div className="flex-1 hero-left">
-              <div className="hero-eyebrow flex items-center gap-3 mb-6">
-                <div className="relative w-11 h-11 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25 flex-shrink-0 lg:hidden">
-                  <Image src="/images/avatar.png" alt="陳卓賢" fill sizes="44px" className="object-cover" />
-                </div>
-                <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase">
-                  命運解決師 · Destiny Solver · @destiny.solver
-                </p>
-              </div>
-
-              <h1 className="hero-h1 font-serif text-[#2B241C] text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
-                用命理<br />
-                <span className="text-[#B23E26]">讀懂你</span><br />
-                這個人
-              </h1>
-              <p className="hero-sub text-[#5A5247] text-lg leading-relaxed mb-10 max-w-lg">
-                不是預測命運，是認識自己。透過八字命理的框架，看見你的能量結構、人生格局與時勢流動。
-              </p>
-
-              <div className="hero-stats flex flex-wrap items-center gap-8 mb-10 text-[#8A8071] text-sm">
-                <div>
-                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">每周更新</span>命理文章
-                </div>
-                <div className="w-px h-5 bg-[#2B241C]/10" />
-                <div>
-                  <span className="text-[#2B241C] font-black text-2xl mr-1.5" data-count-to="100" data-count-suffix="萬+">100萬+</span>每月 Threads 瀏覽量
-                </div>
-                <div className="w-px h-5 bg-[#2B241C]/10" />
-                <div>
-                  <span className="text-[#2B241C] font-black text-2xl mr-1.5">免費</span>開放閱讀
-                </div>
-              </div>
-
-              <div className="hero-cta flex flex-wrap gap-4">
-                <Link
-                  href="/categories"
-                  className="flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-7 py-3.5 rounded transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97]"
-                >
-                  從這裡開始 <ArrowRight size={18} />
-                </Link>
-                <Link
-                  href="/consultation"
-                  className="flex items-center gap-2 border border-[#2B241C]/20 hover:border-[#B23E26]/60 text-[#5A5247] hover:text-[#2B241C] font-medium px-7 py-3.5 rounded transition-all active:scale-[0.97]"
-                >
-                  預約諮詢
-                </Link>
-              </div>
-            </div>
-
-            {/* Right: Avatar (desktop) */}
-            <div className="hero-avatar hidden lg:flex flex-shrink-0 items-center justify-center">
-              <div className="relative">
-                <div className="absolute -inset-8 rounded-full bg-[#B23E26]/[0.07] blur-3xl pointer-events-none" />
-                <div className="relative w-64 h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25">
-                  <Image src="/images/avatar.png" alt="陳卓賢 @destiny.solver" fill priority sizes="(max-width: 1280px) 256px, 288px" className="object-cover" />
-                </div>
-                <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 bg-[#FBF7EE] border border-[#2B241C]/10 rounded px-4 py-2 whitespace-nowrap">
-                  <p className="text-[#2B241C] text-xs font-semibold text-center">陳卓賢</p>
-                  <p className="text-[#B23E26] text-[10px] text-center tracking-wider">@destiny.solver</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ── 當日能量 ── */}
-      <section className="reveal border-y border-[#2B241C]/10 py-12" style={{ background: `${mainColor}0C` }}>
+      {/* ── Threads ── */}
+      <section className="reveal border-y border-[#B23E26]/20 bg-[#B23E26]/[0.04] py-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
-
-            {/* 日柱 + 基本信息 */}
-            <div className="flex items-center gap-5 flex-shrink-0">
-              {/* 日柱字：印章式 */}
-              <div
-                className="seal-stamp seal-frame-paper flex flex-col items-center justify-center w-20 h-24 flex-shrink-0"
-                style={{ background: `${mainColor}10` }}
-              >
-                <span className="font-serif font-black text-5xl leading-none" style={{ color: mainColor }}>
-                  {today.dayPillar.stem}
-                </span>
-                <span className="font-serif font-bold text-4xl leading-none text-[#3A332A]">
-                  {today.dayPillar.branch}
-                </span>
-              </div>
-
-              {/* 標題區 */}
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[10px] font-semibold tracking-[0.3em] text-[#8A8071] uppercase">TODAY</span>
-                  <span className="text-[#9C9282] text-xs">·</span>
-                  <span className="text-[#8A8071] text-[11px]">{today.dateLabel} {today.weekday}</span>
-                </div>
-                <p className="font-serif font-black text-2xl leading-snug" style={{ color: mainColor }}>
-                  {today.energyTitle}
-                </p>
-                <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                  {/* 三柱小標 */}
-                  {[
-                    { label: '年', pillar: today.yearPillar },
-                    { label: '月', pillar: today.monthPillar },
-                    { label: '日', pillar: today.dayPillar },
-                  ].map(({ label, pillar }) => (
-                    <span key={label} className="text-[11px] text-[#8A8071]">
-                      {label}
-                      <span className="font-semibold ml-0.5" style={{ color: ELEMENT_COLOR[pillar.element] }}>
-                        {pillar.stem}{pillar.branch}
-                      </span>
-                    </span>
-                  ))}
-                  {hasChong && (
-                    <span className="text-[10px] border rounded-full px-1.5 py-0.5 text-[#C24A2E] border-[#C24A2E]/30">沖</span>
-                  )}
-                  {hasHe && (
-                    <span className="text-[10px] border rounded-full px-1.5 py-0.5 text-[#2E7D52] border-[#2E7D52]/30">合</span>
-                  )}
-                </div>
-              </div>
+          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
+            <div className="seal-frame-paper w-16 h-16 flex items-center justify-center flex-shrink-0 bg-[#B23E26]/[0.08]">
+              <span className="font-serif font-black text-3xl text-[#B23E26] leading-none">解</span>
             </div>
-
-            {/* 分隔線（桌面） */}
-            <div className="hidden lg:block w-px h-20 bg-[#2B241C]/[0.07] flex-shrink-0" />
-
-            {/* 宜 */}
             <div className="flex-1">
-              <p className="text-[#2E7D52] text-[10px] font-semibold tracking-widest mb-2">今日宜</p>
-              <div className="flex flex-wrap gap-2">
-                {today.yi.slice(0, 5).map((y, i) => (
-                  <span
-                    key={i}
-                    className="text-xs text-[#5A5247] border border-[#2B241C]/10 rounded-full px-3 py-1"
-                  >
-                    {y.item}
-                  </span>
-                ))}
+              <div className="flex items-center gap-2 justify-center sm:justify-start mb-2 flex-wrap">
+                <p className="text-[#2B241C] font-bold text-base">陳卓賢</p>
+                <span className="text-[#8A8071]">·</span>
+                <p className="text-[#B23E26] font-semibold text-sm">@destiny.solver</p>
+                <span className="text-[#8A8071] text-[11px] border border-[#2B241C]/15 px-2 py-0.5 rounded-full">
+                  月瀏覽 100萬+
+                </span>
               </div>
+              <p className="text-[#5A5247] text-sm leading-relaxed max-w-lg">
+                每日分享命理洞察、實案分析與五行思考。在 Threads 了解最新動態。
+              </p>
             </div>
-
-            {/* 不宜 */}
-            <div className="flex-1 lg:max-w-[220px]">
-              <p className="text-[#C24A2E] text-[10px] font-semibold tracking-widest mb-2">今日不宜</p>
-              <div className="flex flex-wrap gap-2">
-                {today.buYi.slice(0, 3).map((b, i) => (
-                  <span
-                    key={i}
-                    className="text-xs text-[#6B6155] border border-[#2B241C]/10 rounded-full px-3 py-1"
-                  >
-                    {b.item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA */}
-            <Link
-              href="/daily"
-              className="flex-shrink-0 flex items-center gap-2 border font-semibold text-sm px-5 py-3 rounded transition-all hover:text-[#2B241C] active:scale-[0.97] whitespace-nowrap"
-              style={{
-                borderColor: `${mainColor}50`,
-                color: mainColor,
-              }}
+            <a
+              href="https://www.threads.com/@destiny.solver"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold text-sm px-7 py-3.5 rounded transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97] whitespace-nowrap"
             >
-              完整分析 <ArrowRight size={15} />
-            </Link>
-
+              在 Threads 跟蹤
+            </a>
           </div>
         </div>
       </section>
@@ -332,38 +191,6 @@ export default function HomePage() {
           </div>
         </section>
       )}
-
-      {/* ── Threads ── */}
-      <section className="reveal border-y border-[#B23E26]/20 bg-[#B23E26]/[0.04] py-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
-            <div className="seal-frame-paper w-16 h-16 flex items-center justify-center flex-shrink-0 bg-[#B23E26]/[0.08]">
-              <span className="font-serif font-black text-3xl text-[#B23E26] leading-none">解</span>
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 justify-center sm:justify-start mb-2 flex-wrap">
-                <p className="text-[#2B241C] font-bold text-base">陳卓賢</p>
-                <span className="text-[#8A8071]">·</span>
-                <p className="text-[#B23E26] font-semibold text-sm">@destiny.solver</p>
-                <span className="text-[#8A8071] text-[11px] border border-[#2B241C]/15 px-2 py-0.5 rounded-full">
-                  月瀏覽 100萬+
-                </span>
-              </div>
-              <p className="text-[#5A5247] text-sm leading-relaxed max-w-lg">
-                每日分享命理洞察、實案分析與五行思考。在 Threads 了解最新動態。
-              </p>
-            </div>
-            <a
-              href="https://www.threads.com/@destiny.solver"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold text-sm px-7 py-3.5 rounded transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97] whitespace-nowrap"
-            >
-              在 Threads 跟蹤
-            </a>
-          </div>
-        </div>
-      </section>
 
       {/* ── CTA Consultation ── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">

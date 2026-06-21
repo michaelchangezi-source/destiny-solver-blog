@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail, Instagram } from 'lucide-react'
 import { SITE_URL, PERSON } from '@/lib/site'
 
@@ -79,9 +80,24 @@ export default function AboutPage() {
           命
         </div>
         <div className="relative">
-          <div className="mb-6">
-            <h2 className="text-[#2B241C] text-2xl font-bold mb-1">陳卓賢</h2>
-            <p className="text-[#B23E26] text-sm tracking-wider">命運解決師 · @destiny.solver · 香港</p>
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-center gap-6">
+            <div className="relative flex-shrink-0">
+              <div className="absolute -inset-5 rounded-full bg-[#B23E26]/[0.07] blur-3xl pointer-events-none" />
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25">
+                <Image
+                  src="/images/avatar.png"
+                  alt="陳卓賢 @destiny.solver"
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 192px, 224px"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div>
+              <h2 className="text-[#2B241C] text-2xl font-bold mb-1">陳卓賢</h2>
+              <p className="text-[#B23E26] text-sm tracking-wider">命運解決師 · @destiny.solver · 香港</p>
+            </div>
           </div>
           <div className="space-y-4 text-[#5A5247] leading-relaxed text-[15px]">
             <p>
@@ -113,8 +129,8 @@ export default function AboutPage() {
         {[
           {
             icon: BookOpen,
-            value: '38+',
-            title: '深度文章',
+            value: '免費',
+            title: '八字基礎教材',
             desc: '從十天干地支到大運流年，系統建立你的八字框架',
           },
           {
