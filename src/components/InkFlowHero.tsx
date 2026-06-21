@@ -98,7 +98,7 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
             <h1 className="hero-d-h1 mb-6 font-serif text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
               用命理
               <br />
-              <span className="text-[#CC5C3F]" style={{ textShadow: '0 0 42px rgba(204,92,63,0.35)' }}>
+              <span className="text-[#F47B4A]" style={{ textShadow: '0 0 40px rgba(244,123,74,0.55)' }}>
                 讀懂你
               </span>
               <br />
@@ -126,7 +126,7 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
             <div className="hero-d-cta flex flex-wrap gap-4">
               <Link
                 href="/latest"
-                className="flex items-center gap-2 rounded bg-[#B23E26] px-7 py-3.5 font-bold text-[#F7F1E5] transition-all hover:bg-[#96321E] hover:shadow-[0_14px_30px_-10px_rgba(178,62,38,0.7)] active:scale-[0.97]"
+                className="flex items-center gap-2 rounded bg-[#E0552C] px-7 py-3.5 font-bold text-[#FBF7EE] shadow-[0_12px_30px_-8px_rgba(224,85,44,0.7)] transition-all hover:bg-[#C9461F] hover:shadow-[0_16px_36px_-10px_rgba(224,85,44,0.85)] active:scale-[0.97]"
               >
                 從這裡開始 <ArrowRight size={18} />
               </Link>
