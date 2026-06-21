@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
@@ -77,12 +78,12 @@ export default function HomePage() {
       <section className="reveal border-y border-[#B23E26]/20 bg-[#B23E26]/[0.04] py-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
-            <div className="seal-frame-paper w-16 h-16 flex items-center justify-center flex-shrink-0 bg-[#B23E26]/[0.08]">
-              <span className="font-serif font-black text-3xl text-[#B23E26] leading-none">解</span>
+            <div className="relative w-16 h-16 flex-shrink-0 rounded-full overflow-hidden ring-1 ring-[#B23E26]/30">
+              <Image src="/images/avatar.png" alt="陳卓賢 @destiny.solver" fill sizes="64px" className="object-cover" />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 justify-center sm:justify-start mb-2 flex-wrap">
-                <p className="text-[#2B241C] font-bold text-base">陳卓賢</p>
+                <p className="text-[#2B241C] font-bold text-base">命運解決師｜陳卓賢</p>
                 <span className="text-[#8A8071]">·</span>
                 <p className="text-[#B23E26] font-semibold text-sm">@destiny.solver</p>
                 <span className="text-[#8A8071] text-[11px] border border-[#2B241C]/15 px-2 py-0.5 rounded-full">
