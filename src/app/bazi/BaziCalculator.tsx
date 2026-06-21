@@ -260,7 +260,9 @@ export default function BaziCalculator() {
           >
             立即排盤
           </button>
-          <p className="text-[10px] text-[#9C9282]">⚠ 生於節氣前後 2 天者建議人工核對月柱</p>
+          {result?.boundaryNote
+            ? <p className="text-[10px] text-[#9C9282]">⚠ {result.boundaryNote}</p>
+            : null}
         </div>
       </div>
 
