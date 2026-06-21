@@ -51,6 +51,8 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   '事業財運': 'career',
   '健康命理': 'health',
   '風水地理': 'fengshui',
+  // 非教學系列分類（每週帖文用），同樣需 ASCII slug 避免中文 URL 404
+  '職場現象': 'workplace',
 }
 
 // ASCII slug → 中文分類（用於頁面顯示）

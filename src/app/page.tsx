@@ -185,7 +185,7 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="flex flex-wrap gap-2 justify-center">
               {categories.map((cat) => (
-                <CategoryBadge key={cat} category={cat} linkable />
+                <CategoryBadge key={cat} category={cat} linkable showNumber={false} />
               ))}
             </div>
           </div>

@@ -139,8 +139,8 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
 
           {/* 右：玻璃命盤卡（真實今日命盤） */}
           <div className="hero-d-card flex flex-shrink-0 justify-center lg:justify-end">
-            <div className="relative w-full max-w-[380px] rounded-[28px] border border-white/15 bg-white/[0.07] p-7 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.6)] backdrop-blur-xl">
-              <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/[0.08] to-transparent" />
+            <div className="relative w-full max-w-[380px] rounded-[28px] border border-white/30 bg-white/[0.14] p-7 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.75)] backdrop-blur-2xl">
+              <div className="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/[0.2] to-white/[0.03]" />
 
               <div className="relative">
                 <div className="mb-5 flex items-center justify-between">
