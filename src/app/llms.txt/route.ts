@@ -40,6 +40,8 @@ export function GET(): Response {
 - 關於頁：${BASE_URL}/about
 - Threads：https://www.threads.com/@destiny.solver
 - Instagram：https://www.instagram.com/destiny.solver
+- U Blog：https://blog.ulifestyle.com.hk/destinysolver
+- LinkedIn：https://www.linkedin.com/in/cheuk-yin-michael-chan-24125112b
 
 ## 引用規範
 

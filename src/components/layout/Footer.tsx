@@ -46,10 +46,30 @@ export default function Footer() {
                 <a
                   href="https://www.threads.com/@destiny.solver"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-2"
                 >
                   <span>Threads @destiny.solver</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/destiny.solver"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-2"
+                >
+                  <span>Instagram @destiny.solver</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://blog.ulifestyle.com.hk/destinysolver"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-2"
+                >
+                  <span>U Blog 命運解決師</span>
                 </a>
               </li>
               <li>

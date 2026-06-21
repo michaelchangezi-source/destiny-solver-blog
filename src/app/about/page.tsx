@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail } from 'lucide-react'
+import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail, Instagram } from 'lucide-react'
 import { SITE_URL, PERSON } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -188,11 +188,29 @@ export default function AboutPage() {
           <a
             href="https://www.threads.com/@destiny.solver"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="me noopener noreferrer"
             className="flex items-center gap-2 border border-[#2B241C]/15 hover:border-[#B23E26]/50 text-[#6B6155] hover:text-[#B23E26] px-5 py-3 rounded text-sm transition-colors"
           >
             <MessageCircle size={16} />
             Threads @destiny.solver
+          </a>
+          <a
+            href="https://www.instagram.com/destiny.solver"
+            target="_blank"
+            rel="me noopener noreferrer"
+            className="flex items-center gap-2 border border-[#2B241C]/15 hover:border-[#B23E26]/50 text-[#6B6155] hover:text-[#B23E26] px-5 py-3 rounded text-sm transition-colors"
+          >
+            <Instagram size={16} />
+            Instagram @destiny.solver
+          </a>
+          <a
+            href="https://blog.ulifestyle.com.hk/destinysolver"
+            target="_blank"
+            rel="me noopener noreferrer"
+            className="flex items-center gap-2 border border-[#2B241C]/15 hover:border-[#B23E26]/50 text-[#6B6155] hover:text-[#B23E26] px-5 py-3 rounded text-sm transition-colors"
+          >
+            <BookOpen size={16} />
+            U Blog 命運解決師
           </a>
           <a
             href="mailto:michaelchan.gezi@gmail.com"
