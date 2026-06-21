@@ -12,6 +12,7 @@ import CopyAttribution from '@/components/blog/CopyAttribution'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
+import { PERSON, PUBLISHER } from '@/lib/site'
 
 const BASE_URL = 'https://destiny-solver-blog.vercel.app'
 
@@ -181,26 +182,8 @@ export default async function ArticlePage({ params }: Props) {
     dateModified: article.updatedAt,
     url: `https://destiny-solver-blog.vercel.app/articles/${article.slug}`,
     inLanguage: 'zh-TW',
-    author: {
-      '@type': 'Person',
-      name: '陳卓賢',
-      url: 'https://destiny-solver-blog.vercel.app/about',
-      sameAs: [
-        'https://www.threads.com/@destiny.solver',
-        'https://www.instagram.com/destiny.solver',
-      ],
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: '命運解決師',
-      url: 'https://destiny-solver-blog.vercel.app',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
-        width: 512,
-        height: 512,
-      },
-    },
+    author: PERSON,
+    publisher: PUBLISHER,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `https://destiny-solver-blog.vercel.app/articles/${article.slug}`,

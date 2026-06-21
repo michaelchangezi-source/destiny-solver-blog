@@ -1,32 +1,52 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail } from 'lucide-react'
+import { SITE_URL, PERSON } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: '關於我',
-  description: '香港八字命理師陳卓賢，融合東方命理與現代心理學，用命理幫助你認識真實的自己。',
+  title: { absolute: '關於陳卓賢｜命運解決師．香港八字命理師' },
+  description:
+    '陳卓賢，網名「命運解決師」，香港八字命理師。深入八字、十神、大運流年與盲派命理，用命理幫助你認識真實的自己。',
   alternates: { canonical: '/about' },
 }
 
-const personJsonLd = {
+// ProfilePage 是 Google 為「人物／創作者個人頁」建議的型別，
+// mainEntity 指向 lib/site 的統一 Person 實體，是 Google／AI 認識「陳卓賢是誰」的權威頁。
+const profileJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: '陳卓賢',
-  alternateName: '命運解決師',
-  url: 'https://destiny-solver-blog.vercel.app/about',
-  jobTitle: '八字命理師',
-  description: '香港八字命理研究者與諮詢師，融合東方命理與現代心理學，用命理幫助人認識真實的自己。',
-  image: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
-  email: 'michaelchan.gezi@gmail.com',
-  sameAs: [
-    'https://www.threads.com/@destiny.solver',
-    'https://www.instagram.com/destiny.solver',
-  ],
-  knowsAbout: ['八字命理', '五行哲學', '十神', '大運流年', '吠陀占星', '中國傳統命理'],
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': 'https://destiny-solver-blog.vercel.app/about',
+  '@type': 'ProfilePage',
+  '@id': `${SITE_URL}/about`,
+  url: `${SITE_URL}/about`,
+  name: '關於陳卓賢｜命運解決師',
+  inLanguage: 'zh-TW',
+  mainEntity: PERSON,
+}
+
+// 實體型 FAQ：直接回答「陳卓賢是誰」一類查詢，把「陳卓賢＋命運解決師＋命理＋八字」
+// 的共現寫進結構化資料，利於 AI 引用與同名區分。需與頁面可見問答一致。
+const aboutFaq = [
+  {
+    q: '陳卓賢（命運解決師）是誰？',
+    a: '陳卓賢是香港的八字命理師，網名「命運解決師（Destiny Solver）」。他深入八字、十神、大運流年與盲派命理，主張命理是認識自己的工具，而非預測命運的水晶球。',
   },
+  {
+    q: '命運解決師陳卓賢提供什麼命理服務？',
+    a: '陳卓賢提供一對一八字命理諮詢，涵蓋命格整體解讀、性格與天賦、大運流年時機，以及事業、感情、健康等人生議題的深度分析，並在個人網站、Threads 與 Instagram 持續發表命理文章。',
+  },
+  {
+    q: '陳卓賢的八字分析方法有什麼特色？',
+    a: '他以「做功、去向、能量交換」三個維度解讀命局，重視類象思維與格局結構，不使用模稜兩可的說法，主張清醒的認識比模糊的安慰更有價值。',
+  },
+]
+
+const aboutFaqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: aboutFaq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
 }
 
 export default function AboutPage() {
@@ -34,7 +54,11 @@ export default function AboutPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutFaqJsonLd) }}
       />
 
       {/* ── Header ── */}
@@ -139,6 +163,19 @@ export default function AboutPage() {
             <div key={p.title} className="border-l border-[#2B241C]/10 pl-6">
               <h3 className="text-[#2B241C] font-semibold mb-2">{p.title}</h3>
               <p className="text-[#6B6155] text-sm leading-relaxed">{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 常見問題（與 FAQPage schema 一致，回答「陳卓賢是誰」一類查詢）── */}
+      <div className="mb-14">
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-8">常見問題</h2>
+        <div className="space-y-4">
+          {aboutFaq.map((item, i) => (
+            <div key={i} className="border border-[#2B241C]/10 rounded-md p-6">
+              <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
+              <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
             </div>
           ))}
         </div>

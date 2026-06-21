@@ -4,6 +4,7 @@ import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { Analytics } from '@vercel/analytics/next'
+import { SITE_URL, PERSON, PUBLISHER, personJsonLd } from '@/lib/site'
 
 const notoSansTC = Noto_Sans_TC({
   subsets: ['latin'],
@@ -22,8 +23,8 @@ const notoSerifTC = Noto_Serif_TC({
 export const metadata: Metadata = {
   metadataBase: new URL('https://destiny-solver-blog.vercel.app'),
   title: {
-    default: '命運解決師｜八字命理深度解析',
-    template: '%s｜命運解決師',
+    default: '命運解決師 陳卓賢｜八字命理深度解析',
+    template: '%s｜命運解決師 陳卓賢',
   },
   description:
     '用命理讀懂你這個人：不是預測命運，是認識自己。香港八字命理師陳卓賢，深度解析八字、十神、大運流年，讓命理成為你的自我認識工具。',
@@ -57,65 +58,26 @@ export const metadata: Metadata = {
   },
 }
 
-// 出版者實體（Organization）— 供 Article schema 的 publisher 引用，
-// Google 富摘要要求 publisher 帶 logo，方能取得 rich result。
-export const PUBLISHER = {
-  '@type': 'Organization',
-  name: '命運解決師',
-  url: 'https://destiny-solver-blog.vercel.app',
-  logo: {
-    '@type': 'ImageObject',
-    url: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
-    width: 512,
-    height: 512,
-  },
-} as const
-
+// WebSite 實體 —— 作者與出版者一律引用 lib/site 的單一實體，三處 Schema 完全一致。
 const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: '命運解決師｜陳卓賢',
-  alternateName: ['命運解決師', 'Destiny Solver', 'destinysolver'],
-  url: 'https://destiny-solver-blog.vercel.app',
+  '@id': `${SITE_URL}/#website`,
+  name: '命運解決師 陳卓賢',
+  alternateName: ['命運解決師', 'Destiny Solver', '陳卓賢 命運解決師', '陳卓賢 八字命理'],
+  url: SITE_URL,
   description: '用命理讀懂你這個人：不是預測命運，是認識自己。香港八字命理師陳卓賢的命理知識平台。',
   inLanguage: 'zh-TW',
-  author: {
-    '@type': 'Person',
-    name: '陳卓賢',
-    image: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
-    url: 'https://destiny-solver-blog.vercel.app/about',
-    sameAs: [
-      'https://www.threads.com/@destiny.solver',
-      'https://www.instagram.com/destiny.solver',
-    ],
-  },
+  author: PERSON,
   publisher: PUBLISHER,
   potentialAction: {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: 'https://destiny-solver-blog.vercel.app/articles?q={search_term_string}',
+      urlTemplate: `${SITE_URL}/articles?q={search_term_string}`,
     },
     'query-input': 'required name=search_term_string',
   },
-}
-
-// 作者個人實體（Person）— 強化 Google／AI 對「陳卓賢」這個作者的知識圖譜識別，
-// 連同每篇文章的 author 一致指向同一網址，坐實原創作者身份。
-const personJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: '陳卓賢',
-  alternateName: ['命運解決師', 'Destiny Solver'],
-  jobTitle: '八字命理師',
-  url: 'https://destiny-solver-blog.vercel.app/about',
-  image: 'https://destiny-solver-blog.vercel.app/images/avatar.png',
-  worksFor: PUBLISHER,
-  knowsAbout: ['八字命理', '十神', '大運流年', '盲派命理', '吠陀占星'],
-  sameAs: [
-    'https://www.threads.com/@destiny.solver',
-    'https://www.instagram.com/destiny.solver',
-  ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
