@@ -17,10 +17,10 @@ export const SAME_AS: string[] = [
   'https://www.instagram.com/destiny.solver',
   'https://blog.ulifestyle.com.hk/destinysolver',
   'https://www.linkedin.com/in/cheuk-yin-michael-chan-24125112b',
+  'https://www.wikidata.org/wiki/Q140305842',
   // TODO（有就加，每個都是把帳號縫合成同一實體的強訊號）：
   // 'https://www.youtube.com/@……',      // YouTube 頻道
   // 'https://www.facebook.com/……',      // Facebook 專頁
-  // 'https://www.wikidata.org/wiki/Q……', // Wikidata 實體（建立後填）
 ]
 
 export const PUBLISHER = {
