@@ -8,10 +8,13 @@ import { NextResponse } from 'next/server'
 //   BUTTONDOWN_API_KEY   Buttondown 的 API Token（必需才會真正寫入名單）
 //   SUBSCRIBE_ENDPOINT   覆寫 API 端點（換別家服務時用，預設 Buttondown）
 
-const DEFAULT_ENDPOINT = 'https://api.buttondown.email/v1/subscribers'
+const DEFAULT_ENDPOINT = 'https://api.buttondown.com/v1/subscribers'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export async function POST(req: Request) {
+  // 診斷用：?debug=1 時把上游真實狀態/訊息帶回（只供臨時排查）
+  const debug = new URL(req.url).searchParams.get('debug') === '1'
+
   let email = ''
   try {
     const body = await req.json()
@@ -40,20 +43,36 @@ export async function POST(req: Request) {
         Authorization: `Token ${apiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email_address: email, email, referrer_url: 'https://destiny-solver-blog.vercel.app' }),
+      body: JSON.stringify({ email_address: email }),
     })
 
     if (res.ok) {
       return NextResponse.json({ ok: true })
     }
 
-    // Buttondown 對「已訂閱」回 400，視為成功（避免洩露名單也不報錯給用戶）
     const text = await res.text()
+    // Buttondown 對「已訂閱」回 400，視為成功（避免洩露名單也不報錯給用戶）
     if (res.status === 400 && /already|exists|subscribed/i.test(text)) {
       return NextResponse.json({ ok: true, already: true })
     }
-    return NextResponse.json({ ok: false, error: '訂閱暫時無法完成，請稍後再試。' }, { status: 502 })
-  } catch {
-    return NextResponse.json({ ok: false, error: '訂閱暫時無法完成，請稍後再試。' }, { status: 502 })
+    console.error('[subscribe] buttondown error', res.status, text.slice(0, 500))
+    return NextResponse.json(
+      {
+        ok: false,
+        error: '訂閱暫時無法完成，請稍後再試。',
+        ...(debug ? { detail: { status: res.status, body: text.slice(0, 500) } } : {}),
+      },
+      { status: 502 }
+    )
+  } catch (e) {
+    console.error('[subscribe] fetch failed', e)
+    return NextResponse.json(
+      {
+        ok: false,
+        error: '訂閱暫時無法完成，請稍後再試。',
+        ...(debug ? { detail: { thrown: String(e) } } : {}),
+      },
+      { status: 502 }
+    )
   }
 }
