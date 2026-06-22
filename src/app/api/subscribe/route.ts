@@ -35,6 +35,10 @@ export async function POST(req: Request) {
     )
   }
 
+  // 傳真實訪客 IP 給 Buttondown，否則防火牆只見到 Vercel 伺服器 IP（重複請求被判可疑而封鎖）。
+  const fwd = req.headers.get('x-forwarded-for') ?? ''
+  const clientIp = fwd.split(',')[0].trim() || req.headers.get('x-real-ip') || ''
+
   const endpoint = process.env.SUBSCRIBE_ENDPOINT || DEFAULT_ENDPOINT
   try {
     const res = await fetch(endpoint, {
@@ -43,7 +47,7 @@ export async function POST(req: Request) {
         Authorization: `Token ${apiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email_address: email }),
+      body: JSON.stringify(clientIp ? { email_address: email, ip_address: clientIp } : { email_address: email }),
     })
 
     if (res.ok) {
