@@ -1,9 +1,23 @@
 import Link from 'next/link'
+import SubscribeForm from '@/components/SubscribeForm'
 
 export default function Footer() {
   return (
     <footer className="bg-[#FBF7EE] border-t border-[#2B241C]/10 py-12 mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        {/* 電郵訂閱 */}
+        <div className="mb-10 pb-10 border-b border-[#2B241C]/10 flex flex-col md:flex-row md:items-center gap-5 md:gap-10">
+          <div className="md:flex-1">
+            <h4 className="text-[#2B241C] font-semibold tracking-wide mb-1">訂閱命理電子報</h4>
+            <p className="text-[#6B6155] text-sm leading-relaxed">
+              新文章與每日能量，直接送到你的信箱。不發廣告，隨時可退訂。
+            </p>
+          </div>
+          <div className="md:w-[380px]">
+            <SubscribeForm variant="compact" />
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
@@ -22,6 +36,7 @@ export default function Footer() {
             <h4 className="text-[#3A332A] text-sm font-semibold mb-4 tracking-wide">快速連結</h4>
             <ul className="space-y-2">
               {[
+                { href: '/articles', label: '搜尋文章' },
                 { href: '/categories', label: '學習路徑' },
                 { href: '/about', label: '關於我' },
                 { href: '/consultation', label: '預約諮詢' },
@@ -35,6 +50,14 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href="/feed.xml"
+                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
+                >
+                  RSS 訂閱
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -84,7 +107,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#2B241C]/10 mt-10 pt-6 text-center text-[#8A8071] text-xs space-y-1">
+        <div className="border-t border-[#2B241C]/10 mt-10 pt-6 text-center text-[#6B6155] text-xs space-y-1">
           <p>© {new Date().getFullYear()} 命運解決師｜陳卓賢. All rights reserved.</p>
           <p>本站所有文章為陳卓賢原創，版權所有。歡迎引用，惟須註明作者及原文連結，未經授權不得全文轉載。</p>
         </div>

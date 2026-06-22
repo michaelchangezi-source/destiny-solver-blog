@@ -1,0 +1,59 @@
+import { NextResponse } from 'next/server'
+
+// 電郵訂閱：預設接 Buttondown（免費、簡單）。
+// 只需在 Vercel 環境變數設定 BUTTONDOWN_API_KEY 即生效；
+// 未設定時回 503 並附清楚訊息，前端會顯示「即將開放」而非報錯。
+//
+// 可選環境變數：
+//   BUTTONDOWN_API_KEY   Buttondown 的 API Token（必需才會真正寫入名單）
+//   SUBSCRIBE_ENDPOINT   覆寫 API 端點（換別家服務時用，預設 Buttondown）
+
+const DEFAULT_ENDPOINT = 'https://api.buttondown.email/v1/subscribers'
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+export async function POST(req: Request) {
+  let email = ''
+  try {
+    const body = await req.json()
+    email = String(body?.email ?? '').trim().toLowerCase()
+  } catch {
+    return NextResponse.json({ ok: false, error: '請求格式錯誤' }, { status: 400 })
+  }
+
+  if (!EMAIL_RE.test(email)) {
+    return NextResponse.json({ ok: false, error: '請輸入有效的電郵地址' }, { status: 400 })
+  }
+
+  const apiKey = process.env.BUTTONDOWN_API_KEY
+  if (!apiKey) {
+    return NextResponse.json(
+      { ok: false, error: '訂閱功能即將開放，目前請先在 Threads 追蹤。', reason: 'not_configured' },
+      { status: 503 }
+    )
+  }
+
+  const endpoint = process.env.SUBSCRIBE_ENDPOINT || DEFAULT_ENDPOINT
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email_address: email, email, referrer_url: 'https://destiny-solver-blog.vercel.app' }),
+    })
+
+    if (res.ok) {
+      return NextResponse.json({ ok: true })
+    }
+
+    // Buttondown 對「已訂閱」回 400，視為成功（避免洩露名單也不報錯給用戶）
+    const text = await res.text()
+    if (res.status === 400 && /already|exists|subscribed/i.test(text)) {
+      return NextResponse.json({ ok: true, already: true })
+    }
+    return NextResponse.json({ ok: false, error: '訂閱暫時無法完成，請稍後再試。' }, { status: 502 })
+  } catch {
+    return NextResponse.json({ ok: false, error: '訂閱暫時無法完成，請稍後再試。' }, { status: 502 })
+  }
+}

@@ -102,6 +102,55 @@ def make_excerpt(hook: str, limit: int = 96) -> str:
     return (e[:limit] + "…") if len(e) > limit else e
 
 
+_SEO_KEYWORDS = ["八字", "命理", "十神", "大運", "流年", "五行", "格局", "命盤", "干支", "命局"]
+
+
+def make_seo_description(body: str, title: str, category: str,
+                         min_len: int = 80, max_len: int = 150) -> str:
+    """從正文煉出 80-150 字 SEO 摘要：完整句、去破折號、含關鍵詞、不留省略號。
+    與 backfill_descriptions.py 同一套規則，確保新舊帖一致。"""
+    lines = []
+    for ln in body.split("\n"):
+        s = ln.strip()
+        if not s or s == "---" or s.startswith("#") or s.startswith("|") or s.startswith(">"):
+            continue
+        s = re.sub(r"^[-*+]\s+", "", s)
+        s = re.sub(r"^\d+[\.\)]\s+", "", s)
+        s = strip_md(s)
+        if s:
+            lines.append(s)
+    text = " ".join(lines).replace("——", "，").replace("—", "，").replace("--", "，")
+    text = re.sub(r"，{2,}", "，", text)
+    sentences = [x.strip() for x in re.findall(r"[^。！？]*[。！？]", text) if x.strip()]
+    if not sentences:
+        return ""
+
+    nt = _norm(title)
+    desc = ""
+    for sent in sentences:
+        ns = _norm(sent)
+        if not desc and nt and (ns == nt or ns in nt or nt in ns):
+            continue
+        if not desc:
+            desc = sent
+        elif len(desc) + len(sent) > max_len:
+            break
+        else:
+            desc += sent
+        if len(desc) >= min_len:
+            break
+
+    if len(desc) > max_len:
+        cut = max(desc.rfind("。", 0, max_len), desc.rfind("！", 0, max_len), desc.rfind("？", 0, max_len))
+        desc = desc[: cut + 1] if cut > min_len else desc[:max_len]
+
+    if desc and not any(k in desc for k in _SEO_KEYWORDS):
+        tail = f"從八字命理角度，解析{category}。"
+        if len(desc) + len(tail) <= max_len + 12:
+            desc += tail
+    return desc.strip().replace('"', "'")
+
+
 def yaml_escape(s: str) -> str:
     return s.replace('"', '\\"')
 
@@ -114,6 +163,7 @@ def build_article(entry: dict, seq: int, date_str: str) -> Path:
 
     raw = body_file.read_text(encoding="utf-8")
     excerpt, body = parse_body(raw, title)
+    description = make_seo_description(body, title, category)
     excerpt = make_excerpt(excerpt)
 
     date_compact = date_str.replace("-", "")
@@ -139,6 +189,7 @@ def build_article(entry: dict, seq: int, date_str: str) -> Path:
         f'title: "{yaml_escape(title)}"\n'
         f'slug: "{slug}"\n'
         f'excerpt: "{yaml_escape(excerpt)}"\n'
+        f'description: "{yaml_escape(description)}"\n'
         f'category: "{category}"\n'
         f'tags: [{", ".join(chr(34) + t + chr(34) for t in tags)}]\n'
         f'coverImage: "/images/covers/{slug}.jpg"\n'

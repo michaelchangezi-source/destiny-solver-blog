@@ -9,6 +9,7 @@ import { CATEGORY_SLUGS } from '@/types'
 import ArticleBody from '@/components/blog/ArticleBody'
 import ArticleCard from '@/components/blog/ArticleCard'
 import CopyAttribution from '@/components/blog/CopyAttribution'
+import SubscribeForm from '@/components/SubscribeForm'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
@@ -98,9 +99,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = getArticleBySlug(slug)
   if (!article) return {}
   const url = `/articles/${article.slug}`
+  const metaDescription = article.description || article.excerpt
   return {
     title: article.title,
-    description: article.excerpt,
+    description: metaDescription,
     keywords: article.tags,
     authors: [{ name: '陳卓賢', url: `${BASE_URL}/about` }],
     alternates: { canonical: url },
@@ -108,7 +110,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
       url,
       title: article.title,
-      description: article.excerpt,
+      description: metaDescription,
       siteName: '命運解決師｜陳卓賢',
       locale: 'zh_TW',
       publishedTime: article.publishedAt,
@@ -121,7 +123,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: article.title,
-      description: article.excerpt,
+      description: metaDescription,
       images: [article.coverImage],
     },
   }
@@ -174,7 +176,7 @@ export default async function ArticlePage({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: article.title,
-    description: article.excerpt,
+    description: article.description || article.excerpt,
     image: article.coverImage
       ? [`https://destiny-solver-blog.vercel.app${article.coverImage}`]
       : ['https://destiny-solver-blog.vercel.app/images/og-default.png'],
@@ -350,6 +352,21 @@ export default async function ArticlePage({ params }: Props) {
         >
           預約諮詢
         </Link>
+      </div>
+
+      {/* 電郵訂閱 */}
+      <div className="mt-12 bg-[#FBF7EE] border border-[#2B241C]/10 rounded p-6 sm:p-8">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
+          <div className="sm:flex-1">
+            <p className="text-[#2B241C] font-bold mb-1">訂閱命理電子報</p>
+            <p className="text-[#6B6155] text-sm leading-relaxed">
+              新文章與每日能量直送信箱，不發廣告，隨時可退訂。
+            </p>
+          </div>
+          <div className="sm:w-[360px]">
+            <SubscribeForm variant="compact" />
+          </div>
+        </div>
       </div>
 
       {/* Related */}

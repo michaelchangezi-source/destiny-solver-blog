@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Noto_Sans_TC, Noto_Serif_TC } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
@@ -44,7 +44,11 @@ export const metadata: Metadata = {
     title: '命運解決師｜八字命理深度解析',
     description: '用命理讀懂你這個人：不是預測命運，是認識自己。',
   },
-  alternates: { canonical: '/' },
+  alternates: {
+    canonical: '/',
+    types: { 'application/rss+xml': `${SITE_URL}/feed.xml` },
+  },
+  manifest: '/manifest.webmanifest',
   robots: {
     index: true,
     follow: true,
@@ -56,6 +60,11 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
     },
   },
+}
+
+// 瀏覽器頂欄 / iOS 狀態列品牌色
+export const viewport: Viewport = {
+  themeColor: '#B23E26',
 }
 
 // WebSite 實體 —— 作者與出版者一律引用 lib/site 的單一實體，三處 Schema 完全一致。

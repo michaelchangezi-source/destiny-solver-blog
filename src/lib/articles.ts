@@ -51,6 +51,8 @@ export function getArticleBySlug(slug: string): Article | null {
     slug,
     title: data.title ?? '',
     excerpt: data.excerpt ?? '',
+    // SEO 摘要：獨立於卡片用 excerpt。缺省時回退 excerpt，確保永遠有值。
+    description: data.description ?? data.excerpt ?? '',
     content,
     category: data.category ?? '八字基礎',
     tags: data.tags ?? [],

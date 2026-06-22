@@ -2,6 +2,7 @@ export interface Article {
   slug: string
   title: string
   excerpt: string
+  description: string
   content: string
   category: string
   tags: string[]
@@ -17,6 +18,7 @@ export interface ArticleMeta {
   slug: string
   title: string
   excerpt: string
+  description: string
   category: string
   tags: string[]
   coverImage: string

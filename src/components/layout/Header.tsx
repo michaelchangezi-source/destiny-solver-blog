@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Search } from 'lucide-react'
 
 const NAV_LINKS = [
   { href: '/latest', label: '最新文章' },
@@ -53,6 +53,15 @@ export default function Header() {
             )
           })}
           <Link
+            href="/articles"
+            aria-label="搜尋文章"
+            className={`transition-colors duration-200 ${
+              isActive('/articles') ? 'text-[#B23E26]' : 'text-[#5A5247] hover:text-[#B23E26]'
+            }`}
+          >
+            <Search size={18} />
+          </Link>
+          <Link
             href="/consultation"
             className="bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] text-sm font-semibold px-4 py-2 rounded transition-all duration-200 active:scale-[0.97]"
           >
@@ -91,6 +100,13 @@ export default function Header() {
               </Link>
             )
           })}
+          <Link
+            href="/articles"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2 text-base tracking-wide text-[#5A5247] hover:text-[#B23E26] transition-colors"
+          >
+            <Search size={16} /> 搜尋文章
+          </Link>
           <Link
             href="/consultation"
             onClick={() => setOpen(false)}

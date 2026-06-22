@@ -2,6 +2,7 @@
 title: "盲派取象與大象思維：從八字全局鎖定人生職業與模式"
 slug: "topic-12-盲派取象與大象思維-從八字全局鎖定人生職業與模式"
 excerpt: "盲派取象與大象思維：從八字全局鎖定妳的人生職業與成功模式 在八字命理的實戰體系中，「取象」（Image Association）與「大象思維」（Macro-Image Thinking）是解讀命盤時，將抽象的干支符號轉化為具體人事物、職業、..."
+description: "在八字命理的實戰體系中，「取象」（Image Association）與「大象思維」（Macro-Image Thinking）是解讀命盤時，將抽象的干支符號轉化為具體人事物、職業、乃至於人生模式的兩大核心技術。"
 category: "十神應用"
 tags: ["八字", "命理", "十神應用"]
 coverImage: "/images/covers/topic-12.jpg"
