@@ -12,9 +12,6 @@ const DEFAULT_ENDPOINT = 'https://api.buttondown.com/v1/subscribers'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export async function POST(req: Request) {
-  // 診斷用：?debug=1 時把上游真實狀態/訊息帶回（只供臨時排查）
-  const debug = new URL(req.url).searchParams.get('debug') === '1'
-
   let email = ''
   try {
     const body = await req.json()
@@ -60,23 +57,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true, already: true })
     }
     console.error('[subscribe] buttondown error', res.status, text.slice(0, 500))
-    return NextResponse.json(
-      {
-        ok: false,
-        error: '訂閱暫時無法完成，請稍後再試。',
-        ...(debug ? { detail: { status: res.status, body: text.slice(0, 500) } } : {}),
-      },
-      { status: 502 }
-    )
+    return NextResponse.json({ ok: false, error: '訂閱暫時無法完成，請稍後再試。' }, { status: 502 })
   } catch (e) {
     console.error('[subscribe] fetch failed', e)
-    return NextResponse.json(
-      {
-        ok: false,
-        error: '訂閱暫時無法完成，請稍後再試。',
-        ...(debug ? { detail: { thrown: String(e) } } : {}),
-      },
-      { status: 502 }
-    )
+    return NextResponse.json({ ok: false, error: '訂閱暫時無法完成，請稍後再試。' }, { status: 502 })
   }
 }
