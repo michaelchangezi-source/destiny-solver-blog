@@ -9,6 +9,9 @@ import { CATEGORY_SLUGS } from '@/types'
 import ArticleBody from '@/components/blog/ArticleBody'
 import ArticleCard from '@/components/blog/ArticleCard'
 import CopyAttribution from '@/components/blog/CopyAttribution'
+import AuthorBio from '@/components/blog/AuthorBio'
+import ReadingProgress from '@/components/blog/ReadingProgress'
+import TableOfContents from '@/components/blog/TableOfContents'
 import SubscribeForm from '@/components/SubscribeForm'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
@@ -129,9 +132,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+/**
+ * 標題層級正規化（D3 無障礙 + A4 語意結構）。
+ * 部分教學文正文最高只用 #### / ##### / ######（甚至先出深層 #### 才出 ###），
+ * 頁面 H1（標題）之後直接跳 h3/h4，觸發 Lighthouse
+ * 「Heading elements are not in a sequentially-descending order」。
+ * 用「相對深度」棧式重映射：按文件次序逐個標題，依巢狀深度重新編級，
+ * 正文一律由 h2 起、逐級只降一階，無論原文層級點亂都保證唔跳級；
+ * 同時把教學文變成有真子標題的結構，順帶啟用 sticky 目錄。
+ */
+function normalizeHeadings(html: string): string {
+  const stack: number[] = []
+  return html.replace(/<h([1-6])([^>]*)>([\s\S]*?)<\/h\1>/g, (_m, lvl: string, attrs: string, inner: string) => {
+    const L = Number(lvl)
+    while (stack.length && stack[stack.length - 1] >= L) stack.pop()
+    const assigned = Math.min(6, stack.length + 2)
+    stack.push(L)
+    return `<h${assigned}${attrs}>${inner}</h${assigned}>`
+  })
+}
+
 async function markdownToHtml(markdown: string): Promise<string> {
   const result = await remark().use(remarkGfm).use(remarkHtml, { sanitize: false }).process(markdown)
-  return result.toString()
+  return normalizeHeadings(result.toString())
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -195,7 +218,10 @@ export default async function ArticlePage({ params }: Props) {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <>
+      <ReadingProgress />
+      <div className="mx-auto max-w-4xl xl:max-w-6xl xl:flex xl:justify-center xl:gap-12 px-4 sm:px-6">
+        <article className="w-full max-w-4xl py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -214,7 +240,7 @@ export default async function ArticlePage({ params }: Props) {
       <CopyAttribution title={article.title} path={`/articles/${article.slug}`} />
 
       {/* Breadcrumb */}
-      <nav aria-label="breadcrumb" className="flex items-center gap-1 text-xs text-[#8A8071] mb-6 flex-wrap">
+      <nav aria-label="breadcrumb" className="flex items-center gap-1 text-xs text-[#6B6155] mb-6 flex-wrap">
         <Link href="/" className="hover:text-[#B23E26] transition-colors">首頁</Link>
         <ChevronRight size={12} />
         <Link href="/articles" className="hover:text-[#B23E26] transition-colors">文章</Link>
@@ -253,8 +279,8 @@ export default async function ArticlePage({ params }: Props) {
           <div className="relative w-full h-40 sm:h-52 rounded-md overflow-hidden mb-8 bg-[#FBF7EE] border border-[#2B241C]/10 flex items-center justify-center">
             <span className="absolute text-[200px] font-black text-[#2B241C]/[0.03] leading-none select-none">{glyph}</span>
             <span className="text-[100px] sm:text-[130px] font-black text-[#B23E26]/70 leading-none select-none">{glyph}</span>
-            {seq && <span className="absolute top-4 left-5 text-[#9C9282] text-xs font-mono tracking-widest">{seq}</span>}
-            <span className="absolute bottom-4 right-5 text-[#9C9282] text-xs tracking-wider">{article.category}</span>
+            {seq && <span className="absolute top-4 left-5 text-[#6B6155] text-xs font-mono tracking-widest">{seq}</span>}
+            <span className="absolute bottom-4 right-5 text-[#6B6155] text-xs tracking-wider">{article.category}</span>
           </div>
         )
       })()}
@@ -264,10 +290,10 @@ export default async function ArticlePage({ params }: Props) {
         <span className="text-xs px-2.5 py-1 rounded border border-[#2B241C]/15 text-[#6B6155]">
           {article.category}
         </span>
-        <span className="flex items-center gap-1 text-[#8A8071] text-sm">
+        <span className="flex items-center gap-1 text-[#6B6155] text-sm">
           <Clock size={13} /> {article.readingTime}
         </span>
-        <span className="flex items-center gap-1 text-[#8A8071] text-sm">
+        <span className="flex items-center gap-1 text-[#6B6155] text-sm">
           <Calendar size={13} /> {formatDate(article.publishedAt)}
         </span>
       </div>
@@ -290,9 +316,9 @@ export default async function ArticlePage({ params }: Props) {
       {/* Tags */}
       {article.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-10 pt-8 border-t border-[#2B241C]/10">
-          <Tag size={14} className="text-[#8A8071] self-center" />
+          <Tag size={14} className="text-[#6B6155] self-center" />
           {article.tags.map((tag) => (
-            <span key={tag} className="text-xs text-[#8A8071] bg-[#2B241C]/[0.05] px-3 py-1 rounded-full">
+            <span key={tag} className="text-xs text-[#6B6155] bg-[#2B241C]/[0.05] px-3 py-1 rounded-full">
               #{tag}
             </span>
           ))}
@@ -306,7 +332,7 @@ export default async function ArticlePage({ params }: Props) {
           <div className="flex items-center gap-3 mb-7">
             <span className="w-1 h-7 rounded-full bg-[#B23E26] shrink-0" aria-hidden="true" />
             <h2 className="text-[#2B241C] text-xl font-bold">本文重點解答</h2>
-            <span className="text-[#9C9282] text-sm font-normal tracking-wide">FAQ</span>
+            <span className="text-[#6B6155] text-sm font-normal tracking-wide">FAQ</span>
           </div>
 
           {/* Q&A Cards */}
@@ -341,6 +367,9 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </section>
       )}
+
+      {/* 關於作者（B1 / E-E-A-T） */}
+      <AuthorBio />
 
       {/* Consultation CTA */}
       <div className="mt-12 bg-gradient-to-br from-[#B23E26]/15 to-transparent border border-[#B23E26]/25 rounded p-6 text-center">
@@ -380,6 +409,11 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </div>
       )}
-    </article>
+        </article>
+
+        {/* 長文 sticky 目錄（C3）：有子標題先顯示，xl 闊屏限定 */}
+        <TableOfContents />
+      </div>
+    </>
   )
 }

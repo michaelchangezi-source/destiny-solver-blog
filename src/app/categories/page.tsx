@@ -76,10 +76,10 @@ export default function CategoriesPage() {
                     <span className="text-[#2B241C] font-bold text-base group-hover:text-[#B23E26] transition-colors">
                       {cat.name}
                     </span>
-                    <span className="ml-auto text-[#9C9282] text-xs">{cat.count} 篇</span>
+                    <span className="ml-auto text-[#6B6155] text-xs">{cat.count} 篇</span>
                   </div>
                   {cat.desc && (
-                    <p className="text-[#8A8071] text-sm leading-relaxed group-hover:text-[#6B6155] transition-colors">
+                    <p className="text-[#6B6155] text-sm leading-relaxed group-hover:text-[#5A5247] transition-colors">
                       {cat.desc}
                     </p>
                   )}

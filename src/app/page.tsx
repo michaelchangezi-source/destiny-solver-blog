@@ -156,24 +156,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Bazi Calculator CTA ── */}
+      {/* ── Bazi Calculator CTA（深色墨底，呼應 hero，畀頁面呼吸節奏）── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <Link href="/bazi" className="group block border border-[#B23E26]/25 hover:border-[#B23E26]/60 rounded p-10 sm:p-14 relative overflow-hidden transition-all hover:shadow-[0_18px_40px_-22px_rgba(178,62,38,0.35)]">
-          <div className="absolute right-8 bottom-0 text-[200px] font-black text-[#B23E26] opacity-[0.04] leading-none select-none pointer-events-none font-serif">命</div>
+        <Link href="/bazi" className="group block bg-[#1E1A15] border border-[#2B241C] hover:border-[#CC5C3F]/50 rounded p-10 sm:p-14 relative overflow-hidden transition-all hover:shadow-[0_18px_44px_-20px_rgba(178,62,38,0.5)]">
+          <div className="absolute right-8 bottom-0 text-[200px] font-black text-[#B23E26] opacity-[0.12] leading-none select-none pointer-events-none font-serif">命</div>
           <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
-            <ArrowRight size={20} className="text-[#B23E26]" />
+            <ArrowRight size={20} className="text-[#CC5C3F]" />
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-8">
-            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 border border-[#B23E26]/40 rounded flex flex-col items-center justify-center bg-[#B23E26]/[0.06]">
-              <span className="font-serif font-black text-4xl sm:text-5xl text-[#B23E26] leading-none">八</span>
-              <span className="text-[#B23E26]/60 text-[10px] tracking-widest mt-1">字</span>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-8 relative">
+            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 border border-[#CC5C3F]/40 rounded flex flex-col items-center justify-center bg-[#B23E26]/[0.12]">
+              <span className="font-serif font-black text-4xl sm:text-5xl text-[#CC5C3F] leading-none">八</span>
+              <span className="text-[#CC5C3F]/70 text-[10px] tracking-widest mt-1">字</span>
             </div>
             <div className="flex-1">
-              <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase mb-2">Free Tool</p>
-              <h2 className="font-serif text-[#2B241C] text-2xl sm:text-3xl font-black mb-3 group-hover:text-[#B23E26] transition-colors">
+              <p className="text-[#CC5C3F] text-xs font-semibold tracking-[0.35em] uppercase mb-2">Free Tool</p>
+              <h2 className="font-serif text-[#F7F1E5] text-2xl sm:text-3xl font-black mb-3 group-hover:text-[#CC5C3F] transition-colors">
                 免費八字排盤
               </h2>
-              <p className="text-[#5A5247] text-sm leading-relaxed max-w-lg">
+              <p className="text-[#C9BFAE] text-sm leading-relaxed max-w-lg">
                 輸入出生年月日時，即時排出四柱命盤、十神及十個大運。讀懂你的命局結構，是認識自己的第一步。
               </p>
             </div>

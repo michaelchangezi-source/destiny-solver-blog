@@ -126,11 +126,14 @@ export default function ArticleSearch({ articles, categories, initialQuery = '' 
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {results.map((article, i) => (
-            <ArticleCard key={article.slug} article={article} featured index={i} />
-          ))}
-        </div>
+        <>
+          <h2 className="sr-only">{isSearching ? '搜尋結果' : '全部文章'}</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {results.map((article, i) => (
+              <ArticleCard key={article.slug} article={article} featured index={i} />
+            ))}
+          </div>
+        </>
       )}
     </>
   )

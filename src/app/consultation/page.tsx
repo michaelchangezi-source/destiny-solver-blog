@@ -1,5 +1,6 @@
 ﻿import type { Metadata } from 'next'
 import { MessageCircle, Mail, CheckCircle, Clock, Star, XCircle } from 'lucide-react'
+import { SITE_URL, PERSON } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: '預約諮詢',
@@ -89,9 +90,67 @@ const wontAccept = [
   '以算命代替醫療、法律或心理健康的專業建議',
 ]
 
+// ── 結構化資料（AEO）────────────────────────────────────────────
+// 諮詢服務本體：Service ＋ Offer（價錢／地區／預約管道），provider 指向統一 Person 實體。
+// 客戶見證以 Review 內嵌，author＋reviewBody 為真實見證原文；不捏造星級評分（無實際評分數據），
+// 寧可不出星，亦保資料誠實，仍利答案引擎理解服務實體與信任度。
+const SERVICE_ID = `${SITE_URL}/consultation#service`
+
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': SERVICE_ID,
+  name: '一對一八字命理諮詢',
+  serviceType: '八字命理諮詢',
+  description:
+    '深度解讀八字本命格局、五行能量強弱與用神、大運流年時機，涵蓋事業、感情、健康等人生議題的一對一命理諮詢。',
+  provider: PERSON,
+  areaServed: { '@type': 'Place', name: '香港' },
+  url: `${SITE_URL}/consultation`,
+  inLanguage: 'zh-TW',
+  availableChannel: [
+    { '@type': 'ServiceChannel', name: 'Threads 私訊', serviceUrl: 'https://www.threads.com/@destiny.solver' },
+    { '@type': 'ServiceChannel', name: 'Email 預約', serviceUrl: 'mailto:michaelchan.gezi@gmail.com' },
+  ],
+  offers: {
+    '@type': 'Offer',
+    name: '基礎諮詢',
+    price: '800',
+    priceCurrency: 'HKD',
+    availability: 'https://schema.org/InStock',
+    url: `${SITE_URL}/consultation`,
+  },
+  review: testimonials.map((t) => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: t.name },
+    reviewBody: t.content.replace(/\s*\n+\s*/g, ' ').trim(),
+    itemReviewed: { '@id': SERVICE_ID },
+  })),
+}
+
+// 諮詢頁 9 條常見問答 → FAQPage（與頁面可見問答完全一致）。
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+}
+
 export default function ConsultationPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
       {/* Header */}
       <div className="text-center mb-16">
         <p className="text-[#B23E26] text-sm font-semibold tracking-widest mb-4">CONSULTATION</p>

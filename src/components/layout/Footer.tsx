@@ -8,7 +8,7 @@ export default function Footer() {
         {/* 電郵訂閱 */}
         <div className="mb-10 pb-10 border-b border-[#2B241C]/10 flex flex-col md:flex-row md:items-center gap-5 md:gap-10">
           <div className="md:flex-1">
-            <h4 className="text-[#2B241C] font-semibold tracking-wide mb-1">訂閱命理電子報</h4>
+            <h2 className="text-[#2B241C] font-semibold tracking-wide mb-1">訂閱命理電子報</h2>
             <p className="text-[#6B6155] text-sm leading-relaxed">
               新文章與每日能量，直接送到你的信箱。不發廣告，隨時可退訂。
             </p>
@@ -33,7 +33,7 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="text-[#3A332A] text-sm font-semibold mb-4 tracking-wide">快速連結</h4>
+            <h2 className="text-[#3A332A] text-sm font-semibold mb-4 tracking-wide">快速連結</h2>
             <ul className="space-y-2">
               {[
                 { href: '/articles', label: '搜尋文章' },
@@ -63,7 +63,7 @@ export default function Footer() {
 
           {/* Social */}
           <div>
-            <h4 className="text-[#3A332A] text-sm font-semibold mb-4 tracking-wide">聯絡我</h4>
+            <h2 className="text-[#3A332A] text-sm font-semibold mb-4 tracking-wide">聯絡我</h2>
             <ul className="space-y-2">
               <li>
                 <a

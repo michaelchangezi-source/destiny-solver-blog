@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Clock } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
-import { CATEGORY_GLYPHS } from '@/types'
+import { CATEGORY_GLYPHS, getCategoryAccent } from '@/types'
 import type { ArticleMeta } from '@/types'
 
 interface Props {
@@ -20,6 +20,9 @@ function getSeqNo(slug: string): string {
 export default function ArticleCard({ article, featured = false, index }: Props) {
   const glyph = CATEGORY_GLYPHS[article.category] ?? '命'
   const seq = getSeqNo(article.slug)
+  const accent = getCategoryAccent(article.category)
+  // 首屏第一張封面 priority 載入（拉快 LCP），其餘維持 next/image 預設 lazy
+  const isPriority = index !== undefined && index < 1
   const hasRealCover =
     article.slug.startsWith('post-') &&
     !!article.coverImage &&
@@ -29,6 +32,8 @@ export default function ArticleCard({ article, featured = false, index }: Props)
     return (
       <Link href={`/articles/${article.slug}`} className="group block">
         <div className="relative rounded-md overflow-hidden bg-[#2B241C]/[0.05] border border-[#2B241C]/10 hover:border-[#B23E26]/50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-14px_rgba(178,62,38,0.25)]">
+          {/* 分類五行強調色條（C1 快速掃讀辨識） */}
+          <div className="h-[3px] w-full" style={{ backgroundColor: accent }} aria-hidden="true" />
           {/* Visual cover: 真實封面優先，教學系列 fallback 字形 banner */}
           <div className="relative h-48 w-full overflow-hidden bg-[#1E1A15]">
             {hasRealCover ? (
@@ -36,6 +41,7 @@ export default function ArticleCard({ article, featured = false, index }: Props)
                 src={article.coverImage}
                 alt={article.title}
                 fill
+                priority={isPriority}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
               />
@@ -49,14 +55,15 @@ export default function ArticleCard({ article, featured = false, index }: Props)
                 </span>
               </div>
             )}
-            {/* Category label bottom-right */}
+            {/* Category label bottom-right（帶五行強調色點） */}
             <span
               className={
                 hasRealCover
-                  ? 'absolute bottom-2 right-3 text-[11px] tracking-widest text-[#F7F1E5] bg-[#2B241C]/55 px-2 py-0.5 rounded backdrop-blur-sm'
-                  : 'absolute bottom-3 right-4 text-[#9C9282] text-[11px] tracking-widest'
+                  ? 'absolute bottom-2 right-3 inline-flex items-center gap-1.5 text-[11px] tracking-widest text-[#F7F1E5] bg-[#2B241C]/55 px-2 py-0.5 rounded backdrop-blur-sm'
+                  : 'absolute bottom-3 right-4 inline-flex items-center gap-1.5 text-[#6B6155] text-[11px] tracking-widest'
               }
             >
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent }} aria-hidden="true" />
               {article.category}
             </span>
           </div>
@@ -66,7 +73,7 @@ export default function ArticleCard({ article, featured = false, index }: Props)
               {article.title}
             </h3>
             <p className="text-[#6B6155] text-sm leading-relaxed line-clamp-2 mb-4">{article.excerpt}</p>
-            <div className="flex items-center gap-4 text-[#9C9282] text-xs">
+            <div className="flex items-center gap-4 text-[#6B6155] text-xs">
               <span className="flex items-center gap-1">
                 <Clock size={11} />
                 {article.readingTime}
@@ -84,8 +91,9 @@ export default function ArticleCard({ article, featured = false, index }: Props)
       href={`/articles/${article.slug}`}
       className="group flex gap-4 py-5 border-b border-[#2B241C]/10 hover:border-[#2B241C]/20 transition-colors"
     >
-      {/* Small block: number as primary, glyph as faint watermark */}
+      {/* Small block: number as primary, glyph as faint watermark；左側五行強調色條 */}
       <div className="w-16 h-16 flex-shrink-0 rounded bg-[#FBF7EE] border border-[#2B241C]/10 flex items-center justify-center overflow-hidden relative">
+        <span className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ backgroundColor: accent }} aria-hidden="true" />
         <span className="absolute text-[48px] font-black text-[#2B241C]/[0.05] leading-none select-none pointer-events-none">
           {glyph}
         </span>
@@ -98,9 +106,12 @@ export default function ArticleCard({ article, featured = false, index }: Props)
         <h3 className="text-[#3A332A] font-semibold text-sm leading-snug group-hover:text-[#B23E26] transition-colors line-clamp-2 mb-1">
           {article.title}
         </h3>
-        <div className="flex items-center gap-3 text-[#9C9282] text-xs">
+        <div className="flex items-center gap-3 text-[#6B6155] text-xs">
           <span className="flex items-center gap-1"><Clock size={10} />{article.readingTime}</span>
-          <span>{article.category}</span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accent }} aria-hidden="true" />
+            {article.category}
+          </span>
         </div>
       </div>
     </Link>

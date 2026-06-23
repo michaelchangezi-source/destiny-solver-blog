@@ -76,6 +76,37 @@ export const CATEGORY_COLORS: Record<string, string> = {
   '風水地理': 'bg-white/10 text-white/80 border border-white/20',
 }
 
+// 分類 → 五行屬性 → 收斂過嘅大地色系強調色（C1 分類視覺線索）。
+// 全部刻意調暗、低飽和，坐喺米色宣紙底上唔搶戲，只做快速掃讀辨識。
+// 火＝品牌朱砂本色，其餘四行用同色溫嘅啞色，與整體風格一致。
+export const ELEMENT_ACCENT: Record<string, string> = {
+  '木': '#5E7355', // 木 沉穩苔綠
+  '火': '#B23E26', // 火 品牌朱砂
+  '土': '#B5862F', // 土 赭黃
+  '金': '#80776A', // 金 啞鉛灰
+  '水': '#3F5A6B', // 水 黛藍
+}
+
+// 每個分類歸一個五行，盡量令相鄰分類顏色分明，便於一眼分辨。
+export const CATEGORY_ELEMENT: Record<string, string> = {
+  '八字基礎': '木',
+  '干支詳解': '水',
+  '十神應用': '金',
+  '命盤格局': '土',
+  '實戰斷命': '火',
+  '大運流年': '水',
+  '感情格局': '火',
+  '事業財運': '金',
+  '健康命理': '木',
+  '風水地理': '土',
+  '職場現象': '金',
+}
+
+// 取分類強調色（HEX）；未知分類回退品牌朱砂。
+export function getCategoryAccent(category: string): string {
+  return ELEMENT_ACCENT[CATEGORY_ELEMENT[category]] ?? '#B23E26'
+}
+
 // Category → representative Chinese character (used in article cards)
 export const CATEGORY_GLYPHS: Record<string, string> = {
   '八字基礎': '甲',

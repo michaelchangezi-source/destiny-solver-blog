@@ -29,6 +29,8 @@ export function GET(): Response {
 
 > 用命理讀懂你這個人：不是預測命運，是認識自己。香港八字命理師陳卓賢（Destiny Solver）的八字命理知識平台，深度解析八字、十神、大運流年。
 
+> 全文版（全部文章正文）：${BASE_URL}/llms-full.txt
+
 ## 關於
 
 - 作者：陳卓賢（命運解決師 / Destiny Solver）

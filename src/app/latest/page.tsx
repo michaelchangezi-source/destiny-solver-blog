@@ -28,11 +28,14 @@ export default function LatestPage() {
       </div>
 
       {articles.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.map((article) => (
-            <LatestCard key={article.slug} article={article} />
-          ))}
-        </div>
+        <>
+          <h2 className="sr-only">最新文章列表</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {articles.map((article, i) => (
+              <LatestCard key={article.slug} article={article} priority={i < 2} />
+            ))}
+          </div>
+        </>
       ) : (
         <div className="border border-[#2B241C]/10 rounded-md p-12 text-center bg-[#FBF7EE]">
           <p className="text-[#6B6155] mb-5">新文章準備中，每週更新。先從系統學習路徑開始。</p>
