@@ -6,9 +6,13 @@ import Footer from '@/components/layout/Footer'
 import { Analytics } from '@vercel/analytics/next'
 import { SITE_URL, PERSON, PUBLISHER, personJsonLd } from '@/lib/site'
 
+// 字重收斂到實際大量使用嗰幾級（正文 400／粗體 700／黑體 900）。
+// font-medium(500) 僅 8 處次要標籤、font-semibold(600) 一向靠合成（站已如此運作且觀感良好），
+// 維持合成可少載一個 CJK 字重切片組。next/font 本身已按 unicode-range 切片＋display:swap，
+// 首屏文字即時以系統字頂上、唔等字體（已過「webfont load 期間文字可見」）。
 const notoSansTC = Noto_Sans_TC({
   subsets: ['latin'],
-  weight: ['400', '500', '700', '900'],
+  weight: ['400', '700', '900'],
   variable: '--font-noto',
   display: 'swap',
 })

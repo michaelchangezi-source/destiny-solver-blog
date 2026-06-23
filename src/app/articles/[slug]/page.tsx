@@ -215,6 +215,11 @@ export default async function ArticlePage({ params }: Props) {
     },
     keywords: article.tags.join(', '),
     articleSection: article.category,
+    // B3 Speakable：標示標題與導讀段落，利語音助理朗讀摘要。
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '#article-lead'],
+    },
   }
 
   return (
@@ -303,7 +308,7 @@ export default async function ArticlePage({ params }: Props) {
         {article.title}
       </h1>
       {article.excerpt && (
-        <p className="text-[#6B6155] text-lg leading-relaxed mb-8 pb-8 border-b border-[#2B241C]/10">
+        <p id="article-lead" className="text-[#6B6155] text-lg leading-relaxed mb-8 pb-8 border-b border-[#2B241C]/10">
           {article.excerpt}
         </p>
       )}
