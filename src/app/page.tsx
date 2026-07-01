@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
-import CategoryBadge from '@/components/ui/CategoryBadge'
+import CategoryWheel from '@/components/ui/CategoryWheel'
 import LatestCard from '@/components/blog/LatestCard'
 import HomeMotion from '@/components/HomeMotion'
 import InkFlowHero from '@/components/InkFlowHero'
@@ -181,15 +181,11 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* ── Categories strip ── */}
+      {/* ── Categories wheel ── */}
       {categories.length > 0 && (
         <section className="reveal border-y border-[#2B241C]/10 py-10">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="flex flex-wrap gap-2 justify-center">
-              {categories.map((cat) => (
-                <CategoryBadge key={cat} category={cat} linkable showNumber={false} />
-              ))}
-            </div>
+            <CategoryWheel categories={categories} />
           </div>
         </section>
       )}
