@@ -181,12 +181,14 @@ export default async function OpengraphImage() {
     ),
     {
       ...size,
+      // 注意：不可傳 []（空陣列屬 truthy，會停用 next/og 內建的 fallback
+      // 字型，令 Satori 連無文字排版都拋「No fonts are loaded」）。
       fonts: hasFont
         ? [
             { name: 'serif', data: serif900!, weight: 900 as const, style: 'normal' as const },
             { name: 'serif', data: serif400!, weight: 400 as const, style: 'normal' as const },
           ]
-        : [],
+        : undefined,
     }
   )
 }

@@ -34,9 +34,12 @@ export async function renderBrandIcon(px: number) {
     {
       width: px,
       height: px,
+      // 注意：字型載入失敗時不可傳 []（空陣列在 JS 屬 truthy，會令 next/og
+      // 內建的 fallback 字型失效，Satori 連無文字的純色塊都會拋
+      // 「No fonts are loaded」）。傳 undefined 讓它退回內建字型。
       fonts: serif
         ? [{ name: 'serif', data: serif, weight: 900 as const, style: 'normal' as const }]
-        : [],
+        : undefined,
     }
   )
 }
