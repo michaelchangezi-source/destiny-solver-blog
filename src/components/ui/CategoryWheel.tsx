@@ -20,6 +20,7 @@ export default function CategoryWheel({ categories }: Props) {
   const draggingRef = useRef(false)
   const movedRef = useRef(false)
   const lastAngleRef = useRef(0)
+  const startPosRef = useRef({ x: 0, y: 0 })
   const n = categories.length
   const radius = size * 0.36
 
@@ -62,25 +63,33 @@ export default function CategoryWheel({ categories }: Props) {
   function handlePointerDown(e: React.PointerEvent) {
     draggingRef.current = true
     movedRef.current = false
+    startPosRef.current = { x: e.clientX, y: e.clientY }
     lastAngleRef.current = angleFromPoint(e.clientX, e.clientY)
-    dialRef.current?.setPointerCapture(e.pointerId)
   }
 
   function handlePointerMove(e: React.PointerEvent) {
     if (!draggingRef.current) return
+
+    // 用實際移動距離（而唔係角度）判斷係咪真係拖緊，避免撳落去嗰吓
+    // 滑鼠 sub-pixel 郁動喺圓環邊緣被角度公式放大，誤判做拖曳。
+    if (!movedRef.current) {
+      const dx = e.clientX - startPosRef.current.x
+      const dy = e.clientY - startPosRef.current.y
+      if (Math.hypot(dx, dy) < 6) return
+      movedRef.current = true
+      dialRef.current?.setPointerCapture(e.pointerId)
+    }
+
     const a = angleFromPoint(e.clientX, e.clientY)
     let delta = a - lastAngleRef.current
     if (delta > 180) delta -= 360
     if (delta < -180) delta += 360
-    if (Math.abs(delta) > 0.3) {
-      movedRef.current = true
-      setRotation((r) => {
-        const next = r + delta
-        setSelected(nearestCategory(next))
-        return next
-      })
-      lastAngleRef.current = a
-    }
+    setRotation((r) => {
+      const next = r + delta
+      setSelected(nearestCategory(next))
+      return next
+    })
+    lastAngleRef.current = a
   }
 
   function handlePointerUp() {
