@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { SplitText } from 'gsap/SplitText'
-import InkFlowCanvas from './InkFlowCanvas'
+import InkRippleMotif from './InkRippleMotif'
 
 gsap.registerPlugin(useGSAP, SplitText)
 
@@ -77,7 +77,7 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
       ref={root}
       className="relative w-full overflow-hidden bg-[#3A332B] text-[#F4EEE1] min-h-[calc(100vh-4rem)]"
     >
-      <InkFlowCanvas />
+      <InkRippleMotif />
 
       {/* 浮水印大字：炁（樞衡真詮），淡墨筆觸 */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center select-none">
