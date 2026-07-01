@@ -260,9 +260,9 @@ export default async function ArticlePage({ params }: Props) {
         <span className="text-[#6B6155] truncate max-w-[180px] sm:max-w-xs">{article.title}</span>
       </nav>
 
-      {/* Cover — 每週帖文顯示真實配圖，教學系列顯示字形 banner */}
+      {/* Cover — 全部文章一律顯示真實配圖 */}
       {(() => {
-        const hasRealCover = article.slug.startsWith('post-') && !!article.coverImage && !article.coverImage.includes('default')
+        const hasRealCover = !!article.coverImage && !article.coverImage.includes('default')
         if (hasRealCover) {
           return (
             <div className="relative w-full aspect-[2/1] rounded-md overflow-hidden mb-8 bg-[#1E1A15] border border-[#2B241C]/10">

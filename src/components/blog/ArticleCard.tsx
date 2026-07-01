@@ -23,10 +23,7 @@ export default function ArticleCard({ article, featured = false, index }: Props)
   const accent = getCategoryAccent(article.category)
   // 首屏第一張封面 priority 載入（拉快 LCP），其餘維持 next/image 預設 lazy
   const isPriority = index !== undefined && index < 1
-  const hasRealCover =
-    article.slug.startsWith('post-') &&
-    !!article.coverImage &&
-    !article.coverImage.includes('default')
+  const hasRealCover = !!article.coverImage && !article.coverImage.includes('default')
 
   if (featured) {
     return (
@@ -34,7 +31,7 @@ export default function ArticleCard({ article, featured = false, index }: Props)
         <div className="relative rounded-md overflow-hidden bg-[#2B241C]/[0.05] border border-[#2B241C]/10 hover:border-[#B23E26]/50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-14px_rgba(178,62,38,0.25)]">
           {/* 分類五行強調色條（C1 快速掃讀辨識） */}
           <div className="h-[3px] w-full" style={{ backgroundColor: accent }} aria-hidden="true" />
-          {/* Visual cover: 真實封面優先，教學系列 fallback 字形 banner */}
+          {/* Visual cover: 真實封面優先，缺圖時 fallback 字形 banner */}
           <div className="relative h-48 w-full overflow-hidden bg-[#1E1A15]">
             {hasRealCover ? (
               <Image

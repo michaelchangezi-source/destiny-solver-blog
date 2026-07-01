@@ -10,44 +10,6 @@ import InkFlowHero from '@/components/InkFlowHero'
 
 export const revalidate = 3600
 
-const LEARNING_STAGES = [
-  {
-    no: '01',
-    title: '認識天干地支',
-    desc: '甲乙丙丁…十天干；子丑寅卯…十二地支。理解八字的字母表。',
-    cat: '八字基礎',
-    slug: 'basics',
-  },
-  {
-    no: '02',
-    title: '掌握干支關係',
-    desc: '刑、沖、合、害。地支之間的動態關係，決定命局的張力。',
-    cat: '干支詳解',
-    slug: 'ganzhi',
-  },
-  {
-    no: '03',
-    title: '讀懂十神體系',
-    desc: '比劫、食傷、財星、官殺、印綬。這是命理的語言骨架。',
-    cat: '十神應用',
-    slug: 'shishen',
-  },
-  {
-    no: '04',
-    title: '判斷格局清純度',
-    desc: '命局的結構決定人的層次與模式。清純與雜亂各有其象。',
-    cat: '命盤格局',
-    slug: 'patterns',
-  },
-  {
-    no: '05',
-    title: '解讀大運流年',
-    desc: '人生時序如何運作？為什麼有人在某個年份突破，另一個停滯？',
-    cat: '大運流年',
-    slug: 'dayun',
-  },
-]
-
 export default function HomePage() {
   const articles = getAllArticles()
   const categories = getAllCategories()
@@ -126,36 +88,6 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── Learning Path ── */}
-      <section className="bg-[#2B241C]/[0.04] border-b border-[#2B241C]/10 py-14">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="reveal flex items-center justify-between mb-8">
-            <div>
-              <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LEARNING PATH</p>
-              <h2 className="font-serif text-[#2B241C] text-2xl font-bold">系統學習路徑</h2>
-            </div>
-            <Link href="/categories" className="text-[#8A8071] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-1">
-              全部分類 <ArrowRight size={13} />
-            </Link>
-          </div>
-          <div className="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            {LEARNING_STAGES.map((stage) => (
-              <Link
-                key={stage.no}
-                href={`/categories/${stage.slug}`}
-                className="group relative bg-[#FBF7EE] border border-[#2B241C]/10 hover:border-[#B23E26]/40 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-16px_rgba(178,62,38,0.3)] rounded p-5 transition-all duration-300"
-              >
-                <p className="font-serif text-2xl font-black text-[#B23E26]/25 group-hover:text-[#B23E26]/55 leading-none mb-3 transition-colors">{stage.no}</p>
-                <h3 className="text-[#2B241C] font-bold text-sm mb-2 group-hover:text-[#B23E26] transition-colors leading-snug">
-                  {stage.title}
-                </h3>
-                <p className="text-[#6B6155] text-xs leading-relaxed">{stage.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Bazi Calculator CTA（深色墨底，呼應 hero，畀頁面呼吸節奏）── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <Link href="/bazi" className="group block bg-[#1E1A15] border border-[#2B241C] hover:border-[#CC5C3F]/50 rounded p-10 sm:p-14 relative overflow-hidden transition-all hover:shadow-[0_18px_44px_-20px_rgba(178,62,38,0.5)]">
@@ -181,10 +113,19 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* ── Categories wheel ── */}
+      {/* ── Categories wheel（系統學習路徑入口）── */}
       {categories.length > 0 && (
-        <section className="reveal border-y border-[#2B241C]/10 py-10">
+        <section className="reveal border-y border-[#2B241C]/10 bg-[#2B241C]/[0.04] py-14">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="flex items-center justify-between mb-2">
+              <div>
+                <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LEARNING PATH</p>
+                <h2 className="font-serif text-[#2B241C] text-2xl font-bold">系統學習路徑</h2>
+              </div>
+              <Link href="/categories" className="text-[#8A8071] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-1">
+                全部分類 <ArrowRight size={13} />
+              </Link>
+            </div>
             <CategoryWheel categories={categories} />
           </div>
         </section>
