@@ -53,10 +53,6 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   '事業財運': 'career',
   '健康命理': 'health',
   '風水地理': 'fengshui',
-  // 非教學系列分類（每週帖文用），同樣需 ASCII slug 避免中文 URL 404
-  '職場現象': 'workplace',
-  '兩性關係': 'love',
-  '基礎知識': 'fundamentals',
 }
 
 // ASCII slug → 中文分類（用於頁面顯示）
@@ -101,9 +97,6 @@ export const CATEGORY_ELEMENT: Record<string, string> = {
   '事業財運': '金',
   '健康命理': '木',
   '風水地理': '土',
-  '職場現象': '金',
-  '兩性關係': '火',
-  '基礎知識': '木',
 }
 
 // 取分類強調色（HEX）；未知分類回退品牌朱砂。
