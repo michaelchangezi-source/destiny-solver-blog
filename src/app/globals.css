@@ -28,13 +28,6 @@
 
 .font-serif { font-family: var(--font-serif); }
 
-/* 導航下拉選單開啟時，將底下頁面內容輕微模糊淡出，避免文字與選單重疊視覺打架 */
-header:has(.nav-dropdown-trigger:hover) ~ main {
-  filter: blur(2px);
-  opacity: 0.5;
-  transition: filter 0.15s, opacity 0.15s;
-  pointer-events: none;
-}
 
 body {
   background: var(--background);

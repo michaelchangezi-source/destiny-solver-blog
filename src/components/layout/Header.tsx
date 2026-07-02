@@ -41,7 +41,7 @@ export default function Header() {
             >
               文章 <span className="text-[10px] text-[#8A8071]">▾</span>
             </Link>
-            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 bg-[#FFFFFF] border border-[#2B241C]/10 rounded-xl p-2.5 grid grid-cols-2 gap-0.5 w-[300px] shadow-[0_24px_60px_-24px_rgba(43,36,28,0.35)]">
+            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[#2B241C]/10 rounded-xl p-2.5 grid grid-cols-2 gap-0.5 w-[300px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
               {CATEGORY_ORDER.map((cat) => (
                 <Link
                   key={cat}
@@ -79,7 +79,7 @@ export default function Header() {
             >
               排盤工具 <span className="text-[10px] text-[#8A8071]">▾</span>
             </Link>
-            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 bg-[#FFFFFF] border border-[#2B241C]/10 rounded-xl p-2.5 flex flex-col gap-0.5 w-[180px] shadow-[0_24px_60px_-24px_rgba(43,36,28,0.35)]">
+            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[#2B241C]/10 rounded-xl p-2.5 flex flex-col gap-0.5 w-[180px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
               <Link href="/bazi" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
                 免費八字排盤
               </Link>
