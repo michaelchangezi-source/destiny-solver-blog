@@ -14,7 +14,7 @@ const CINNABAR = '#B23E26'
 const DEEP = '#96321E'
 const PAPER = '#F7F1E5'
 const MUTED = '#6B6155'
-const FAINT = '#9C9282'
+const FAINT = '#6B6155'
 
 // 圖內出現的所有文字（用來向 Google Fonts 取最小子集）
 const TITLE = '命運解決師'

@@ -8,7 +8,7 @@ import { MessageCircle, Instagram, ArrowRight } from 'lucide-react'
  */
 export default function AuthorBio() {
   return (
-    <aside className="mt-12 border border-[#2B241C]/10 rounded-md bg-[#FBF7EE] p-6 sm:p-7">
+    <aside className="mt-12 border border-[#2B241C]/10 rounded-2xl bg-[#F4EEE1] p-6 sm:p-7">
       <div className="flex flex-col sm:flex-row gap-5 sm:items-center">
         <Link href="/about" className="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-full overflow-hidden ring-1 ring-[#B23E26]/25">
           <Image

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
+import { analyzeDays } from '@/lib/bazi-daily'
 import type { DayAnalysis, Element } from '@/lib/bazi-daily'
 
 export const revalidate = 3600
@@ -8,6 +8,15 @@ export const metadata: Metadata = {
   title: '日運能量｜今日及未來一週八字流日分析',
   description: '根據流年、流月、流日三柱六字五行計分，分析每日大環境能量，提供宜忌參考。非個人命盤，適用所有人。',
   alternates: { canonical: '/daily' },
+}
+
+// §7 五行固定色（規格指定）
+const BAR_COLOR: Record<Element, string> = {
+  木: '#2E7D52',
+  火: '#B23E26',
+  土: '#9C7A3F',
+  金: '#8A8071',
+  水: '#4A7A96',
 }
 
 // ── 元件：柱顯示 ─────────────────────────────────────────
@@ -19,7 +28,7 @@ function PillarBadge({ label, stem, branch, element, size = 'sm' }: {
   element: Element
   size?: 'sm' | 'lg'
 }) {
-  const color = ELEMENT_COLOR[element]
+  const color = BAR_COLOR[element]
   const stemSize = size === 'lg' ? 'text-4xl' : 'text-xl'
   const branchSize = size === 'lg' ? 'text-3xl' : 'text-lg'
 
@@ -27,13 +36,13 @@ function PillarBadge({ label, stem, branch, element, size = 'sm' }: {
     <div className="flex flex-col items-center gap-1">
       <span className="text-[#8A8071] text-[10px] tracking-widest">{label}</span>
       <div
-        className="flex flex-col items-center justify-center rounded border px-3 py-2 gap-0.5"
+        className="flex flex-col items-center justify-center rounded-lg border px-3 py-2 gap-0.5"
         style={{ borderColor: `${color}40`, background: `${color}10` }}
       >
         <span className={`font-serif font-black leading-none ${stemSize}`} style={{ color }}>
           {stem}
         </span>
-        <span className={`font-serif font-bold leading-none ${branchSize} text-[#3A332A]`}>
+        <span className={`font-serif font-bold leading-none ${branchSize} text-[#2B241C]`}>
           {branch}
         </span>
       </div>
@@ -42,27 +51,29 @@ function PillarBadge({ label, stem, branch, element, size = 'sm' }: {
   )
 }
 
-// ── 元件：五行能量條 ──────────────────────────────────────
+// ── 元件：五行能量橫向 bar chart（§7.1，固定五色 + width 過渡動畫）──
 
 function ElementBar({ scores }: { scores: Record<Element, number> }) {
   const elements: Element[] = ['木', '火', '土', '金', '水']
-  const max = Math.max(...Object.values(scores))
+  const max = Math.max(...Object.values(scores), 1)
 
   return (
-    <div className="space-y-2">
-      {elements.map(el => {
+    <div className="space-y-2.5">
+      {elements.map((el) => {
         const val = scores[el]
-        const pct = max > 0 ? (val / max) * 100 : 0
+        const pct = max > 0 ? Math.round((val / max) * 100) : 0
         return (
           <div key={el} className="flex items-center gap-3">
-            <span className="text-xs w-4 text-center font-bold" style={{ color: ELEMENT_COLOR[el] }}>{el}</span>
-            <div className="flex-1 h-1.5 bg-[#2B241C]/[0.07] rounded-full overflow-hidden">
+            <span className="w-6 font-serif font-bold text-sm" style={{ color: BAR_COLOR[el] }}>
+              {el}
+            </span>
+            <div className="h-2.5 flex-1 rounded-full bg-[#2B241C]/8 overflow-hidden">
               <div
-                className="h-full rounded-full"
-                style={{ width: `${pct}%`, background: ELEMENT_COLOR[el] }}
+                className="h-full rounded-full transition-all duration-700 ease-out"
+                style={{ width: `${pct}%`, background: BAR_COLOR[el] }}
               />
             </div>
-            <span className="text-[#8A8071] text-[10px] w-6 text-right">{val.toFixed(1)}</span>
+            <span className="w-10 text-right text-sm tabular-nums text-[#6B6155]">{val.toFixed(1)}</span>
           </div>
         )
       })}
@@ -89,10 +100,10 @@ function InteractionTag({ type }: { type: '合' | '沖' | '刑' | '害' }) {
 // ── 元件：今日完整分析 ───────────────────────────────────
 
 function TodayCard({ day }: { day: DayAnalysis }) {
-  const mainColor = ELEMENT_COLOR[day.dominantElements[0]]
+  const mainColor = BAR_COLOR[day.dominantElements[0]]
 
   return (
-    <div className="rounded-sm border border-[#2B241C]/10 overflow-hidden">
+    <div className="rounded-2xl border border-[#2B241C]/10 overflow-hidden bg-[#FFFFFF]">
       {/* Header */}
       <div className="px-6 py-5 border-b border-[#2B241C]/10" style={{ background: `${mainColor}08` }}>
         <div className="flex flex-col sm:flex-row sm:items-start gap-6">
@@ -107,7 +118,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span className="text-[11px] font-semibold tracking-widest text-[#8A8071] uppercase">TODAY</span>
-              <span className="text-[#9C9282]">·</span>
+              <span className="text-[#8A8071]">·</span>
               <span className="text-[#8A8071] text-[11px]">{day.dateLabel} {day.weekday}</span>
             </div>
             <h2 className="font-serif text-2xl font-black mb-3" style={{ color: mainColor }}>
@@ -117,7 +128,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
               <div className="flex gap-2 mb-3">
                 {day.dominantElements.map(el => (
                   <span key={el} className="text-xs border rounded-full px-2 py-0.5 font-bold"
-                    style={{ color: ELEMENT_COLOR[el], borderColor: `${ELEMENT_COLOR[el]}40` }}>
+                    style={{ color: BAR_COLOR[el], borderColor: `${BAR_COLOR[el]}40` }}>
                     {el}旺
                   </span>
                 ))}
@@ -133,7 +144,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
           </div>
 
           {/* 五行能量條 */}
-          <div className="sm:w-44 w-full">
+          <div className="sm:w-52 w-full">
             <p className="text-[#8A8071] text-[10px] tracking-widest mb-2">五行強弱</p>
             <ElementBar scores={day.elementScores} />
           </div>
@@ -165,9 +176,9 @@ function TodayCard({ day }: { day: DayAnalysis }) {
         </div>
       )}
 
-      {/* 宜 / 不宜 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[#2B241C]/10">
-        <div className="px-6 py-5">
+      {/* 宜 / 不宜：兩欄卡片（§7.2） */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 border-t border-[#2B241C]/10">
+        <div className="rounded-xl border-l-4 border-[#2E7D52] bg-[#2E7D52]/[0.04] px-5 py-5">
           <p className="text-[#2E7D52] text-xs font-semibold tracking-widest mb-4">宜</p>
           <ul className="space-y-3">
             {day.yi.map((y, i) => (
@@ -181,7 +192,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
             ))}
           </ul>
         </div>
-        <div className="px-6 py-5">
+        <div className="rounded-xl border-l-4 border-[#C24A2E] bg-[#C24A2E]/[0.04] px-5 py-5">
           <p className="text-[#C24A2E] text-xs font-semibold tracking-widest mb-4">不宜</p>
           <ul className="space-y-3">
             {day.buYi.map((b, i) => (
@@ -198,7 +209,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
       </div>
 
       {/* 三柱綜合 */}
-      <div className="px-6 py-5 border-t border-[#2B241C]/10 bg-[#FBF7EE]/[0.02]">
+      <div className="px-6 py-5 border-t border-[#2B241C]/10 bg-[#F4EEE1]/40">
         <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-2">三柱綜合</p>
         <p className="text-[#6B6155] text-sm leading-relaxed">{day.summary}</p>
       </div>
@@ -206,15 +217,15 @@ function TodayCard({ day }: { day: DayAnalysis }) {
   )
 }
 
-// ── 元件：一週簡覽卡 ─────────────────────────────────────
+// ── 元件：一週橫向小卡（§7.3，手機可橫滑）─────────────────
 
 function WeekCard({ day }: { day: DayAnalysis }) {
-  const mainColor = ELEMENT_COLOR[day.dominantElements[0]]
+  const mainColor = BAR_COLOR[day.dominantElements[0]]
   const hasChong = day.interactions.some(i => i.type === '沖')
   const hasHe = day.interactions.some(i => i.type === '合')
 
   return (
-    <div className="rounded border border-[#2B241C]/10 hover:border-[#2B241C]/20 p-4 flex flex-col gap-3 transition-colors">
+    <div className="rounded-2xl border border-[#2B241C]/10 hover:border-[#B23E26]/40 bg-[#FFFFFF] p-4 flex flex-col gap-3 transition-colors duration-200 flex-shrink-0 w-[180px] snap-start">
       {/* 日期 */}
       <div>
         <p className="text-[#8A8071] text-[10px]">{day.dateLabel}</p>
@@ -223,7 +234,7 @@ function WeekCard({ day }: { day: DayAnalysis }) {
 
       {/* 日柱 + 標題 */}
       <div className="flex items-center gap-2">
-        <div className="flex flex-col items-center w-9 h-10 justify-center rounded border flex-shrink-0"
+        <div className="flex flex-col items-center w-9 h-10 justify-center rounded-lg border flex-shrink-0"
           style={{ borderColor: `${mainColor}40`, background: `${mainColor}10` }}>
           <span className="font-serif font-black text-lg leading-none" style={{ color: mainColor }}>
             {day.dayPillar.stem}
@@ -236,7 +247,7 @@ function WeekCard({ day }: { day: DayAnalysis }) {
           <p className="text-[#2B241C] text-xs font-semibold leading-snug line-clamp-2">{day.energyTitle}</p>
           <div className="flex gap-1 mt-1 flex-wrap">
             {day.dominantElements.map(el => (
-              <span key={el} className="text-[10px]" style={{ color: ELEMENT_COLOR[el] }}>{el}</span>
+              <span key={el} className="text-[10px]" style={{ color: BAR_COLOR[el] }}>{el}</span>
             ))}
             {hasChong && <span className="text-[10px] text-[#C24A2E]">· 沖</span>}
             {hasHe && <span className="text-[10px] text-[#2E7D52]">· 合</span>}
@@ -244,11 +255,11 @@ function WeekCard({ day }: { day: DayAnalysis }) {
         </div>
       </div>
 
-      {/* 宜（前3） */}
+      {/* 宜（首兩項） */}
       <div>
         <p className="text-[#2E7D52] text-[10px] font-semibold tracking-widest mb-1">宜</p>
         <ul className="space-y-0.5">
-          {day.yi.slice(0, 3).map((y, i) => (
+          {day.yi.slice(0, 2).map((y, i) => (
             <li key={i} className="text-[#6B6155] text-[11px] truncate">· {y.item}</li>
           ))}
         </ul>
@@ -283,7 +294,7 @@ export default function DailyPage() {
           <p className="text-[#B23E26] text-xs font-semibold tracking-[0.3em] uppercase">未來一週</p>
           <div className="flex-1 h-px bg-[#2B241C]/[0.06]" />
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+        <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory sm:grid sm:grid-cols-4 lg:grid-cols-7 sm:overflow-visible">
           {week.map((d, i) => (
             <WeekCard key={i} day={d} />
           ))}

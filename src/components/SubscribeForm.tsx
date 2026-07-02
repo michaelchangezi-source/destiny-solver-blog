@@ -64,7 +64,7 @@ export default function SubscribeForm({ variant = 'default' }: Props) {
         <div className="relative flex-1">
           <Mail
             size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9C9282] pointer-events-none"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6B6155] pointer-events-none"
           />
           <input
             type="email"
@@ -73,13 +73,13 @@ export default function SubscribeForm({ variant = 'default' }: Props) {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="你的電郵地址"
             aria-label="電郵地址"
-            className="w-full rounded-md border border-[#2B241C]/15 bg-[#FBF7EE] py-2.5 pl-9 pr-3 text-sm text-[#2B241C] placeholder:text-[#9C9282] focus:border-[#B23E26]/50 focus:outline-none focus:ring-2 focus:ring-[#B23E26]/15 transition-colors"
+            className="w-full rounded-md border border-[#2B241C]/15 bg-[#FBF7EE] py-2.5 pl-9 pr-3 text-sm text-[#2B241C] placeholder:text-[#6B6155] focus:border-[#B23E26]/50 focus:outline-none focus:ring-2 focus:ring-[#B23E26]/15 transition-colors"
           />
         </div>
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="flex items-center justify-center gap-2 bg-[#B23E26] hover:bg-[#96321E] disabled:opacity-60 text-[#F7F1E5] text-sm font-bold px-5 py-2.5 rounded-md transition-all active:scale-[0.97] whitespace-nowrap"
+          className="flex items-center justify-center gap-2 bg-[#E0552C] hover:bg-[#C9461F] disabled:opacity-60 text-[#F7F1E5] text-sm font-bold px-5 py-2.5 rounded-md transition-all active:scale-[0.97] whitespace-nowrap"
         >
           {status === 'loading' ? <Loader2 size={15} className="animate-spin" /> : null}
           訂閱

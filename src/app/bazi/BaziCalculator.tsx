@@ -59,7 +59,7 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
               {hs.char}
             </span>
             <span className="text-[10px] text-[#6B6155]">{hs.tenGod}</span>
-            <span className="text-[9px] text-[#9C9282]">{hs.tier}</span>
+            <span className="text-[9px] text-[#6B6155]">{hs.tier}</span>
           </div>
         ))}
       </div>
@@ -256,12 +256,12 @@ export default function BaziCalculator() {
         <div className="flex items-center gap-4">
           <button
             onClick={handleCalculate}
-            className="bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-7 py-2.5 rounded-full text-sm transition-colors"
+            className="bg-[#E0552C] hover:bg-[#C9461F] text-[#F7F1E5] font-bold px-7 py-2.5 rounded-full text-sm transition-colors"
           >
             立即排盤
           </button>
           {result?.boundaryNote
-            ? <p className="text-[10px] text-[#9C9282]">⚠ {result.boundaryNote}</p>
+            ? <p className="text-[10px] text-[#6B6155]">⚠ {result.boundaryNote}</p>
             : null}
         </div>
       </div>
@@ -318,7 +318,7 @@ export default function BaziCalculator() {
             <p className="text-[#6B6155] text-sm">想深入了解命盤的格局與能量流向？</p>
             <a
               href="/consultation"
-              className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors"
+              className="inline-block bg-[#E0552C] hover:bg-[#C9461F] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors"
             >
               預約深度命盤分析
             </a>

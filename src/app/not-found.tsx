@@ -9,7 +9,7 @@ export default function NotFound() {
       <p className="text-[#8A8071] mb-8">也許這個命局尚未顯現。</p>
       <Link
         href="/"
-        className="inline-flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded-full transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97]"
+        className="inline-flex items-center gap-2 bg-[#E0552C] hover:bg-[#C9461F] text-[#F7F1E5] font-bold px-6 py-3 rounded-full transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97]"
       >
         <ArrowLeft size={16} /> 返回首頁
       </Link>

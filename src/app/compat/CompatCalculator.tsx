@@ -59,7 +59,7 @@ function PersonInput({ label, form, onChange }: {
       <input
         type="text" placeholder="暱稱（選填）"
         value={form.name} onChange={set('name')}
-        className="w-full bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors placeholder:text-[#9C9282]"
+        className="w-full bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors placeholder:text-[#6B6155]"
       />
 
       <div className="flex flex-wrap gap-2">
@@ -195,7 +195,7 @@ export default function CompatCalculator() {
 
       <div className="flex justify-center">
         <button onClick={handleCalc}
-          className="bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-8 py-2.5 rounded-full text-sm transition-colors">
+          className="bg-[#E0552C] hover:bg-[#C9461F] text-[#F7F1E5] font-bold px-8 py-2.5 rounded-full text-sm transition-colors">
           立即合盤
         </button>
       </div>
@@ -266,10 +266,10 @@ export default function CompatCalculator() {
                           className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm flex-wrap ${item.isDay ? 'ring-1' : ''}`}
                           style={{background: st.bg, border: `1px solid ${st.border}`}}>
                           <span className="font-serif font-bold" style={{color: st.text}}>{item.aLabel.split(' ')[1]}</span>
-                          <span className="text-[#9C9282] text-xs">{item.aLabel.split(' ')[0]}</span>
+                          <span className="text-[#6B6155] text-xs">{item.aLabel.split(' ')[0]}</span>
                           <span className="text-[#8A8071]">×</span>
                           <span className="font-serif font-bold" style={{color: st.text}}>{item.bLabel.split(' ')[1]}</span>
-                          <span className="text-[#9C9282] text-xs">{item.bLabel.split(' ')[0]}</span>
+                          <span className="text-[#6B6155] text-xs">{item.bLabel.split(' ')[0]}</span>
                           <span className="ml-auto text-xs" style={{color: st.text}}>→ {item.detail}</span>
                           {item.isDay && (
                             <span className="text-[9px] px-1.5 py-0.5 rounded" style={{color: col, background: `${col}20`, border: `1px solid ${col}40`}}>
@@ -291,7 +291,7 @@ export default function CompatCalculator() {
               合盤只是第一步，真正的緣分深度需要結合各自格局、大運才能判斷
             </p>
             <a href="/consultation"
-              className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors">
+              className="inline-block bg-[#E0552C] hover:bg-[#C9461F] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors">
               預約深度合盤分析
             </a>
           </div>

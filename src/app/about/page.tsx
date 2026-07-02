@@ -31,7 +31,7 @@ const aboutFaq = [
     a: '陳卓賢是香港的八字命理師，網名「命運解決師（Destiny Solver）」。他深入八字、十神、大運流年與盲派命理，主張命理是認識自己的工具，而非預測命運的水晶球。',
   },
   {
-    q: '命運解決師陳卓賢提供什麼命理服務？',
+    q: '陳卓賢提供什麼命理服務？',
     a: '陳卓賢提供一對一八字命理諮詢，涵蓋命格整體解讀、性格與天賦、大運流年時機，以及事業、感情、健康等人生議題的深度分析，並在個人網站、Threads 與 Instagram 持續發表命理文章。',
   },
   {
@@ -250,7 +250,7 @@ export default function AboutPage() {
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/categories"
-            className="flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-colors text-sm"
+            className="flex items-center gap-2 bg-[#E0552C] hover:bg-[#C9461F] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-colors text-sm"
           >
             開始閱讀 <ArrowRight size={15} />
           </Link>

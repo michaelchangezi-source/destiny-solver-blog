@@ -49,7 +49,7 @@ export default function ArticleFilter({ articles, categories }: Props) {
             )}
           </button>
         ))}
-        <span className="ml-auto text-[#9C9282] text-xs">{filtered.length} 篇</span>
+        <span className="ml-auto text-[#6B6155] text-xs">{filtered.length} 篇</span>
       </div>
 
       {/* Category chips — only shown in 全部 tab */}

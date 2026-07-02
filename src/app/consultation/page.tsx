@@ -1,4 +1,5 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
+import Image from 'next/image'
 import { MessageCircle, Mail, CheckCircle, Clock, Star, XCircle } from 'lucide-react'
 import { SITE_URL, PERSON } from '@/lib/site'
 
@@ -11,25 +12,33 @@ export const metadata: Metadata = {
 const testimonials = [
   {
     id: '01',
-    name: 'T 小姐，31 歲，台北',
+    name: 'T 小姐',
+    tag: 'T 小姐 · 31 · 台北',
+    quote: '陳師給我看見了自己天賦的方向，也幫我想清楚怎樣爭取更適合自己的職位。',
     content:
       '我在家族的小型事務所做行政，整整做了幾年。明明很努力，卻一直有種才能被埋沒、方向錯了的窒息感，還同時面對感情失戀和自我認同的危機。\n\n諮詢後我才明白，不是我不夠努力，是我的能量結構根本不適合那個封閉的環境。陳師給我看見了自己天賦的方向，也幫我想清楚怎樣跟父母談判、爭取更適合自己的職位。\n\n那次諮詢後，焦慮沒有消失，但我知道自己在往哪裡走了。這個「方向感」，是我以前怎麼努力都找不到的東西。',
   },
   {
     id: '02',
-    name: 'J 女士，53 歲，美國',
+    name: 'J 女士',
+    tag: 'J 女士 · 53 · 美國',
+    quote: '陳師用結構和數據說話，讓我看清楚自己的財運底氣其實比我想像的強得多。',
     content:
       '我在婚姻的十字路口待了很久，猶豫要不要離婚，最大的恐懼是：年過半百，孩子快上大學，我還有財務能力獨立生活嗎？\n\n陳師把我的命盤拆開來給我看，用結構和數據說話，不是叫我「跟從命運」，而是讓我看清楚自己的財運底氣其實比我想像的強得多。他也指出地產方向適合我，這跟我自己的直覺不謀而合。\n\n現在我已經開始備考地產經紀執照。不是因為命理告訴我，而是因為我終於有了底氣，相信自己做得到。',
   },
   {
     id: '03',
-    name: 'C 醫師，45 歲，香港',
+    name: 'C 醫師',
+    tag: 'C 醫師 · 45 · 香港',
+    quote: '他不是叫我等，而是告訴我現在應該做哪些「沉澱」，為未來的起跑做準備。',
     content:
       '我在打工的事業上遇到了天花板，心裡很清楚自己想創業，但一直拿不定主意：現在做？還是等？\n\n陳師的分析非常冷靜直接——他把我目前的大運結構和下一個大運的差異清楚說明，讓我理解為什麼現在創業的阻力比五年後大得多。他不是叫我等，而是告訴我現在應該做哪些「沉澱」，為未來的起跑做準備。\n\n我帶著這份清晰回去了。少了那種「明明想動卻不知該不該動」的焦慮。',
   },
   {
     id: '04',
-    name: 'W 小姐，29 歲，香港',
+    name: 'W 小姐',
+    tag: 'W 小姐 · 29 · 香港',
+    quote: '我第一次覺得：過去那些「壞事」是有意義的，我現在走的路是對的。',
     content:
       '二十幾歲經歷了很多：失去至親、感情被背叛、被朋友傷害。那幾年我一直在問自己：為什麼這些事情全都發生在我身上？\n\n陳師用八字幫我看見了那段時間的「格局意義」——不是說我命苦，而是說那些遭遇在命理結構上有清晰的邏輯，而且它們在幫我長出邊界感。我放棄了沒有出路的生活、回來讀書，他說這個選擇在命理上非常準確。\n\n我第一次覺得：過去那些「壞事」是有意義的，我現在走的路是對的。',
   },
@@ -90,10 +99,21 @@ const wontAccept = [
   '以算命代替醫療、法律或心理健康的專業建議',
 ]
 
+const pricingIncludes = [
+  '命格整體解讀',
+  '性格與天賦',
+  '當前大運分析',
+  '1-2 個人生議題深入解答',
+]
+
+const THREADS_DM_URL = 'https://www.threads.net/@destiny.solver'
+const MAILTO_URL =
+  'mailto:michaelchan.gezi@gmail.com?subject=' +
+  encodeURIComponent('預約八字諮詢') +
+  '&body=' +
+  encodeURIComponent('稱呼：\n出生年月日時：\n想諮詢的方向：\n')
+
 // ── 結構化資料（AEO）────────────────────────────────────────────
-// 諮詢服務本體：Service ＋ Offer（價錢／地區／預約管道），provider 指向統一 Person 實體。
-// 客戶見證以 Review 內嵌，author＋reviewBody 為真實見證原文；不捏造星級評分（無實際評分數據），
-// 寧可不出星，亦保資料誠實，仍利答案引擎理解服務實體與信任度。
 const SERVICE_ID = `${SITE_URL}/consultation#service`
 
 const serviceJsonLd = {
@@ -109,7 +129,7 @@ const serviceJsonLd = {
   url: `${SITE_URL}/consultation`,
   inLanguage: 'zh-TW',
   availableChannel: [
-    { '@type': 'ServiceChannel', name: 'Threads 私訊', serviceUrl: 'https://www.threads.com/@destiny.solver' },
+    { '@type': 'ServiceChannel', name: 'Threads 私訊', serviceUrl: THREADS_DM_URL },
     { '@type': 'ServiceChannel', name: 'Email 預約', serviceUrl: 'mailto:michaelchan.gezi@gmail.com' },
   ],
   offers: {
@@ -122,13 +142,12 @@ const serviceJsonLd = {
   },
   review: testimonials.map((t) => ({
     '@type': 'Review',
-    author: { '@type': 'Person', name: t.name },
+    author: { '@type': 'Person', name: t.tag },
     reviewBody: t.content.replace(/\s*\n+\s*/g, ' ').trim(),
     itemReviewed: { '@id': SERVICE_ID },
   })),
 }
 
-// 諮詢頁 9 條常見問答 → FAQPage（與頁面可見問答完全一致）。
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -151,9 +170,12 @@ export default function ConsultationPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      {/* Header */}
+      {/* Header：公仔頭像 + 「真人一對一諮詢」文案並列（§2） */}
       <div className="text-center mb-16">
-        <p className="text-[#B23E26] text-sm font-semibold tracking-widest mb-4">CONSULTATION</p>
+        <div className="relative w-16 h-16 mx-auto mb-5 rounded-full overflow-hidden ring-2 ring-[#B23E26]/25">
+          <Image src="/images/avatar.png" alt="命運解決師" fill sizes="64px" className="object-cover" />
+        </div>
+        <p className="text-[#B23E26] text-sm font-semibold tracking-widest mb-4">真人一對一諮詢</p>
         <h1 className="text-[#2B241C] text-4xl sm:text-5xl font-black mb-6">一對一命理諮詢</h1>
         <p className="text-[#6B6155] text-lg max-w-2xl mx-auto leading-relaxed">
           深度解讀你的八字格局，讓命理成為你人生決策的羅盤。
@@ -161,7 +183,7 @@ export default function ConsultationPage() {
       </div>
 
       {/* What you get */}
-      <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-8 mb-10">
+      <div className="bg-[#F4EEE1] rounded-2xl p-8 mb-10">
         <h2 className="text-[#2B241C] text-xl font-bold mb-6">諮詢內容包括</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
@@ -177,6 +199,41 @@ export default function ConsultationPage() {
               <span className="text-[#5A5247] text-sm">{item}</span>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Pricing 卡（§5.1）：置中定價，一撳即開的雙 CTA */}
+      <div className="relative bg-[#FFFFFF] border border-[#2B241C]/10 rounded-3xl p-10 mb-10 text-center overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-1 bg-[#B23E26]" aria-hidden="true" />
+        <p className="text-[#B23E26] text-xs font-semibold tracking-[0.3em] uppercase mb-3">一對一八字諮詢</p>
+        <p className="font-serif text-[#2B241C] text-5xl font-black mb-6">
+          HK$800<span className="text-2xl font-bold text-[#6B6155]"> 起</span>
+        </p>
+        <ul className="max-w-sm mx-auto mb-8 space-y-2.5 text-left">
+          {pricingIncludes.map((item) => (
+            <li key={item} className="flex items-center gap-2.5 text-[#5A5247] text-sm">
+              <CheckCircle size={15} className="text-[#B23E26] flex-shrink-0" />
+              {item}
+            </li>
+          ))}
+        </ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+          <a
+            href={THREADS_DM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2.5 bg-[#E0552C] hover:bg-[#C9461F] text-[#FBF7EE] font-bold py-3.5 px-6 rounded-lg transition-all duration-200 active:scale-[0.97]"
+          >
+            <MessageCircle size={18} />
+            Threads 私訊預約
+          </a>
+          <a
+            href={MAILTO_URL}
+            className="flex items-center justify-center gap-2.5 border border-[#2B241C]/20 hover:border-[#B23E26] hover:text-[#B23E26] text-[#2B241C] font-bold py-3.5 px-6 rounded-lg transition-all duration-200 active:scale-[0.97]"
+          >
+            <Mail size={18} />
+            Email 預約
+          </a>
         </div>
       </div>
 
@@ -201,29 +258,9 @@ export default function ConsultationPage() {
         </div>
       </div>
 
-      {/* Contact buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-16">
-        <a
-          href="https://www.threads.com/@destiny.solver"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-3 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold py-4 px-6 rounded transition-colors"
-        >
-          <MessageCircle size={20} />
-          Threads 私訊預約
-        </a>
-        <a
-          href="mailto:michaelchan.gezi@gmail.com?subject=命理諮詢預約"
-          className="flex items-center justify-center gap-3 border border-[#B23E26]/40 hover:border-[#B23E26] text-[#2B241C] font-bold py-4 px-6 rounded transition-colors"
-        >
-          <Mail size={20} />
-          Email 聯絡
-        </a>
-      </div>
-
       {/* Will / Won't accept */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
-        <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-6">
+        <div className="bg-[#F4EEE1] rounded-2xl p-6">
           <h3 className="text-[#2B241C] font-bold mb-4 flex items-center gap-2">
             <CheckCircle size={18} className="text-[#B23E26]" />
             適合諮詢的情況
@@ -237,7 +274,7 @@ export default function ConsultationPage() {
             ))}
           </ul>
         </div>
-        <div className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-6">
+        <div className="bg-[#F4EEE1] rounded-2xl p-6">
           <h3 className="text-[#2B241C] font-bold mb-4 flex items-center gap-2">
             <XCircle size={18} className="text-[#8A8071]" />
             我不接的諮詢
@@ -253,24 +290,35 @@ export default function ConsultationPage() {
         </div>
       </div>
 
-      {/* Testimonials */}
+      {/* Testimonials：卡片化，quote 放大 + 摺埋長文（§5.3） */}
       <div className="mb-16">
         <h2 className="text-[#2B241C] text-xl font-bold mb-8 flex items-center gap-2">
           <Star size={18} className="text-[#B23E26]" />
           客戶見證
         </h2>
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {testimonials.map((t) => (
-            <div key={t.id} className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-6">
-              <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-3">見證 {t.id}</p>
-              <p className="text-[#3A332A] font-semibold mb-4">{t.name}</p>
-              <div className="space-y-3">
-                {t.content.split('\n\n').map((para, i) => (
-                  <p key={i} className="text-[#6B6155] text-sm leading-relaxed">
-                    {para}
-                  </p>
-                ))}
-              </div>
+            <div key={t.id} className="bg-[#FFFFFF] border border-[#2B241C]/10 rounded-2xl p-6 flex flex-col">
+              <p className="font-serif text-[#B23E26] text-3xl leading-none mb-2" aria-hidden="true">
+                &ldquo;
+              </p>
+              <p className="text-[#2B241C] font-serif font-semibold text-base leading-relaxed mb-4">
+                {t.quote}
+              </p>
+              <p className="text-[#8A8071] text-xs tracking-wide mb-4">{t.tag}</p>
+              <details className="mt-auto group">
+                <summary className="text-[#B23E26] text-xs font-semibold cursor-pointer list-none flex items-center gap-1 select-none">
+                  閱讀完整見證
+                  <span className="transition-transform group-open:rotate-180">▾</span>
+                </summary>
+                <div className="mt-3 space-y-3">
+                  {t.content.split('\n\n').map((para, i) => (
+                    <p key={i} className="text-[#6B6155] text-sm leading-relaxed">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              </details>
             </div>
           ))}
         </div>
@@ -281,7 +329,7 @@ export default function ConsultationPage() {
         <h2 className="text-[#2B241C] text-xl font-bold mb-8">常見問題</h2>
         <div className="space-y-4">
           {faq.map((item, i) => (
-            <div key={i} className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 rounded p-6">
+            <div key={i} className="bg-[#F4EEE1] rounded-2xl p-6">
               <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-2">Q{i + 1}</p>
               <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
               <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
@@ -291,7 +339,7 @@ export default function ConsultationPage() {
       </div>
 
       {/* Notes */}
-      <div className="bg-[#2B241C]/[0.04] border border-[#2B241C]/10 rounded p-6">
+      <div className="bg-[#F4EEE1] rounded-2xl p-6">
         <h3 className="text-[#5A5247] font-semibold mb-3 flex items-center gap-2">
           <Clock size={16} className="text-[#B23E26]" /> 注意事項
         </h3>
@@ -305,4 +353,3 @@ export default function ConsultationPage() {
     </div>
   )
 }
-

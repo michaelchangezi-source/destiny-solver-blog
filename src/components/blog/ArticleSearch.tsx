@@ -69,7 +69,7 @@ export default function ArticleSearch({ articles, categories, initialQuery = '' 
       <div className="relative mb-6">
         <Search
           size={18}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9C9282] pointer-events-none"
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6B6155] pointer-events-none"
         />
         <input
           type="search"
@@ -78,13 +78,13 @@ export default function ArticleSearch({ articles, categories, initialQuery = '' 
           autoFocus
           placeholder="搜尋文章：甲木、桃花、大運、十神…"
           aria-label="搜尋文章"
-          className="w-full rounded-md border border-[#2B241C]/15 bg-[#FBF7EE] py-3.5 pl-12 pr-11 text-[#2B241C] placeholder:text-[#9C9282] focus:border-[#B23E26]/50 focus:outline-none focus:ring-2 focus:ring-[#B23E26]/15 transition-colors"
+          className="w-full rounded-md border border-[#2B241C]/15 bg-[#FBF7EE] py-3.5 pl-12 pr-11 text-[#2B241C] placeholder:text-[#6B6155] focus:border-[#B23E26]/50 focus:outline-none focus:ring-2 focus:ring-[#B23E26]/15 transition-colors"
         />
         {query && (
           <button
             onClick={() => setQuery('')}
             aria-label="清除搜尋"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9C9282] hover:text-[#B23E26] transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B6155] hover:text-[#B23E26] transition-colors"
           >
             <X size={18} />
           </button>
@@ -118,7 +118,7 @@ export default function ArticleSearch({ articles, categories, initialQuery = '' 
       {results.length === 0 ? (
         <div className="text-center py-20">
           <p className="text-[#8A8071] mb-2">找不到「{query.trim()}」相關的文章</p>
-          <p className="text-[#9C9282] text-sm">試試其他關鍵詞，或瀏覽下方分類。</p>
+          <p className="text-[#6B6155] text-sm">試試其他關鍵詞，或瀏覽下方分類。</p>
           <div className="flex flex-wrap gap-2 justify-center mt-6">
             {categories.map((cat) => (
               <CategoryBadge key={cat} category={cat} linkable size="sm" />

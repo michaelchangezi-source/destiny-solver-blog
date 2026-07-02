@@ -382,7 +382,7 @@ export default async function ArticlePage({ params }: Props) {
         <p className="text-[#6B6155] text-sm mb-4">預約一對一命理諮詢，解讀你的八字格局與人生時機。</p>
         <Link
           href="/consultation"
-          className="inline-block bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97] text-sm"
+          className="inline-block bg-[#E0552C] hover:bg-[#C9461F] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-all hover:shadow-[0_10px_24px_-10px_rgba(178,62,38,0.55)] active:scale-[0.97] text-sm"
         >
           預約諮詢
         </Link>

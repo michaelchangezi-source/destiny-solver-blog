@@ -41,7 +41,7 @@ export default function LatestPage() {
           <p className="text-[#6B6155] mb-5">新文章準備中，每週更新。先從系統學習路徑開始。</p>
           <Link
             href="/categories"
-            className="inline-flex items-center gap-2 bg-[#B23E26] hover:bg-[#96321E] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-colors text-sm"
+            className="inline-flex items-center gap-2 bg-[#E0552C] hover:bg-[#C9461F] text-[#F7F1E5] font-bold px-6 py-3 rounded transition-colors text-sm"
           >
             前往學習路徑 <ArrowRight size={16} />
           </Link>

@@ -1,9 +1,10 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import SubscribeForm from '@/components/SubscribeForm'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#FBF7EE] border-t border-[#2B241C]/10 py-12 mt-20">
+    <footer className="bg-[#FFFFFF] border-t border-[#2B241C]/10 py-12 mt-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* 電郵訂閱 */}
         <div className="mb-10 pb-10 border-b border-[#2B241C]/10 flex flex-col md:flex-row md:items-center gap-5 md:gap-10">
@@ -21,12 +22,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-[#B23E26] text-2xl font-bold">命</span>
+            <div className="flex items-center gap-2.5 mb-3">
+              <span className="relative w-[38px] h-[38px] flex-shrink-0 rounded-full overflow-hidden border-[1.5px] border-[#B23E26]/25">
+                <Image src="/images/avatar.png" alt="命運解決師" fill sizes="38px" className="object-cover" />
+              </span>
               <span className="text-[#2B241C] font-semibold tracking-widest">命運解決師</span>
             </div>
             <p className="text-[#6B6155] text-sm leading-relaxed">
-              用命理讀懂你這個人：<br />
+              用命理讀懂你這個人：
+              <br />
               不是預測命運，是認識自己。
             </p>
           </div>

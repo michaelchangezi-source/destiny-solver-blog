@@ -160,7 +160,7 @@ export default function CategoryWheel({ categories }: Props) {
         })}
       </div>
 
-      <p className="mt-2 text-center text-xs text-[#9C9282]">拖曳／滑動轉動，或直接撳選分類</p>
+      <p className="mt-2 text-center text-xs text-[#6B6155]">拖曳／滑動轉動，或直接撳選分類</p>
     </div>
   )
 }
