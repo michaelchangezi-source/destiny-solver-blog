@@ -28,6 +28,14 @@
 
 .font-serif { font-family: var(--font-serif); }
 
+/* 導航下拉選單開啟時，將底下頁面內容輕微模糊淡出，令選單更明確浮喺最上層 */
+header:has(.nav-dropdown-trigger:hover) ~ main {
+  filter: blur(2px);
+  opacity: 0.5;
+  transition: filter 0.15s, opacity 0.15s;
+  pointer-events: none;
+}
+
 
 body {
   background: var(--background);
@@ -46,7 +54,7 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-main, header, footer { position: relative; z-index: 1; }
+main, footer { position: relative; z-index: 1; }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 6px; }
