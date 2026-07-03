@@ -6,8 +6,9 @@ import gsap from 'gsap'
 /**
  * 漣漪動態背景（純裝飾，aria-hidden）。SVG + GSAP，無 Canvas。
  *
- * 淺色 hero 底上用硃砂／橙描邊漣漪，每組三個同心環相隔約 380ms 發出，
- * 造成水波擴散感，約 1.6 秒一組背景自動觸發；另外支援 click 座標觸發（見 burstAt）。
+ * 淺色 hero 底上用硃砂／橙描邊漣漪，每組三個同心環相隔約 450ms 發出，
+ * 造成水波擴散感，約 3.4 秒一組背景自動觸發（放緩頻率，避免太急促）；
+ * 另外支援 click 座標觸發（見 burstAt）。
  *
  * 完整尊重 prefers-reduced-motion（完全不生成，留空）。
  * 分頁隱藏／捲出視窗時自動暫停，慳電慳 CPU。
@@ -71,8 +72,8 @@ export default function InkRippleMotif({
       const size = 120 + Math.random() * 240
       const color = COLORS[Math.floor(Math.random() * COLORS.length)]
       ring(cx, cy, size, color, 0)
-      ring(cx, cy, size, color, 380)
-      ring(cx, cy, size, color, 760)
+      ring(cx, cy, size, color, 450)
+      ring(cx, cy, size, color, 900)
     }
 
     // 對外暴露：click 座標（百分比 0-1）轉 viewBox 座標後觸發
@@ -92,9 +93,9 @@ export default function InkRippleMotif({
       if (running) return
       running = true
       burst()
-      const t = setTimeout(() => burst(), 700)
+      const t = setTimeout(() => burst(), 1600)
       activeTimeouts.add(t)
-      interval = setInterval(() => burst(), 1600)
+      interval = setInterval(() => burst(), 3400)
     }
 
     function stop() {
