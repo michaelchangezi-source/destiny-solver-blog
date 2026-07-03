@@ -69,24 +69,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Bazi Calculator banner（§8 上移至最新文章之前）── */}
+      {/* ── Bazi Compat Calculator banner（§8 上移至最新文章之前）── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <Link href="/bazi" className="group block bg-[#F4EEE1] border border-[#2B241C]/10 hover:border-[#B23E26]/40 rounded-3xl p-10 sm:p-14 relative overflow-hidden transition-all duration-200 hover:shadow-[0_18px_44px_-20px_rgba(178,62,38,0.25)]">
+        <Link href="/compat" className="group block bg-[#F4EEE1] border border-[#2B241C]/10 hover:border-[#B23E26]/40 rounded-3xl p-10 sm:p-14 relative overflow-hidden transition-all duration-200 hover:shadow-[0_18px_44px_-20px_rgba(178,62,38,0.25)]">
           <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
             <ArrowRight size={20} className="text-[#B23E26]" />
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-8 relative">
             <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex flex-col items-center justify-center bg-[#B23E26]">
-              <span className="font-serif font-black text-4xl sm:text-5xl text-[#FBF7EE] leading-none">八</span>
-              <span className="text-[#FBF7EE]/70 text-[10px] tracking-widest mt-1">字</span>
+              <span className="font-serif font-black text-4xl sm:text-5xl text-[#FBF7EE] leading-none">合</span>
+              <span className="text-[#FBF7EE]/70 text-[10px] tracking-widest mt-1">盤</span>
             </div>
             <div className="flex-1">
               <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase mb-2">Free Tool</p>
               <h2 className="font-serif text-[#2B241C] text-2xl sm:text-3xl font-black mb-3 group-hover:text-[#B23E26] transition-colors">
-                免費八字排盤
+                免費八字合盤
               </h2>
               <p className="text-[#6B6155] text-sm leading-relaxed max-w-lg">
-                輸入出生年月日時，即時排出四柱命盤、十神及十個大運。讀懂你的命局結構，是認識自己的第一步。
+                輸入兩人出生年月日時，即時分析雙方四柱的天干五合、地支六合、六沖、六害等干支互動關係，看懂你們之間的命理契合度。
               </p>
             </div>
           </div>
@@ -142,7 +142,9 @@ export default function HomePage() {
             準備好認識<br className="sm:hidden" /><span className="text-[#E8A86E]">真實的自己</span>了嗎？
           </h2>
           <p className="text-[#F4EEE1]/70 max-w-lg mx-auto mb-8 leading-relaxed text-sm">
-            深度八字命理分析，解讀你的能量結構、格局層次與人生時機。讓命理成為你的決策工具，而非焦慮的來源。
+            深度八字命理分析，解讀你的能量結構、格局層次與人生時機。
+            <br />
+            讓命理成為你的決策工具，而非焦慮的來源。
           </p>
           <Link
             href="/consultation"
