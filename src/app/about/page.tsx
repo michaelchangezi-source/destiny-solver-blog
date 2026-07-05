@@ -115,6 +115,24 @@ export default function AboutPage() {
         </div>
       </div>
 
+      {/* ── Background ── */}
+      <div className="mb-14">
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-6">跨界背景</h2>
+        <div className="space-y-4 text-[#5A5247] leading-relaxed text-[15px]">
+          <p>
+            在投入命理研究之前，我曾任職香港財經媒體逾十年，先後於《明報》及《經濟日報》擔任編輯，
+            並持續為《資本雜誌》撰寫專欄，亦主編超過七十本書籍，涵蓋財經、商管與科普領域，
+            自己亦出版過數本探討股票投資與科技產業趨勢的著作。
+          </p>
+          <p>
+            這段訓練讓我習慣用結構化的方式拆解複雜系統：面對市場數據或企業趨勢，
+            我先看的是背後的邏輯與能量流動，而不是表面的漲跌與情緒。
+            後來將這套訓練轉向命理研究時，我發現八字本質上也是一套解讀人生系統的邏輯工具，
+            而非玄之又玄的預言。這正是樞衡體系強調做功、去向與能量交換這些結構化維度的方法論根基。
+          </p>
+        </div>
+      </div>
+
       {/* ── Core belief quote ── */}
       <div className="mb-14">
         <blockquote className="border-l-2 border-[#B23E26] pl-6 py-2">
