@@ -101,6 +101,16 @@ export default function Footer() {
               </li>
               <li>
                 <a
+                  href="https://www.linkedin.com/in/cheuk-yin-michael-chan-24125112b"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-2"
+                >
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+              <li>
+                <a
                   href="mailto:michaelchan.gezi@gmail.com"
                   className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
                 >

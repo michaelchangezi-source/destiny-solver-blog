@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail, Instagram } from 'lucide-react'
+import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail, Instagram, Linkedin } from 'lucide-react'
 import { SITE_URL, PERSON } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -245,6 +245,15 @@ export default function AboutPage() {
           >
             <BookOpen size={16} />
             U Blog 命運解決師
+          </a>
+          <a
+            href="https://www.linkedin.com/in/cheuk-yin-michael-chan-24125112b"
+            target="_blank"
+            rel="me noopener noreferrer"
+            className="flex items-center gap-2 border border-[#2B241C]/15 hover:border-[#B23E26]/50 text-[#6B6155] hover:text-[#B23E26] px-5 py-3 rounded text-sm transition-colors"
+          >
+            <Linkedin size={16} />
+            LinkedIn
           </a>
           <a
             href="mailto:michaelchan.gezi@gmail.com"
