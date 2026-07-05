@@ -12,7 +12,7 @@ const BASE_URL = 'https://destiny-solver-blog.vercel.app'
 
 /**
  * 複製帶出處：當訪客複製文章內文，自動在剪貼簿尾端附上作者署名與原文連結。
- * 純錦上添花——擋唔到刻意刪走嘅人，但替順手轉載者自動帶回 backlink 與署名。
+ * 純錦上添花，擋唔到刻意刪走嘅人，但替順手轉載者自動帶回 backlink 與署名。
  * 不影響 SEO/AEO：爬蟲讀 HTML，唔行 copy 事件。
  */
 export default function CopyAttribution({ title, path }: Props) {

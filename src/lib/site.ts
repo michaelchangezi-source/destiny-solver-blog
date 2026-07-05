@@ -10,7 +10,7 @@ export const SITE_URL = 'https://destiny-solver-blog.vercel.app'
 export const PERSON_ID = `${SITE_URL}/about#person`
 export const ORG_ID = `${SITE_URL}/#organization`
 
-// 跨平台帳號 —— sameAs 的核心。每加一個「已存在、同名」的地盤網址，
+// 跨平台帳號，sameAs 的核心。每加一個「已存在、同名」的地盤網址，
 // 就多一條把帳號縫合成同一實體的訊號。只可放真實、可開啟的網址。
 export const SAME_AS: string[] = [
   'https://www.threads.com/@destiny.solver',

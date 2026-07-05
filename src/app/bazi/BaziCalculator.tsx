@@ -25,7 +25,7 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
   const bc = branchColor(pillar.branch)
 
   return (
-    <div className={`flex flex-col items-center gap-2 rounded-xl border p-3 sm:p-4 ${
+    <div className={`flex flex-col items-center gap-2 rounded-lg border p-3 sm:p-4 ${
       isDay ? 'border-[#B23E26]/60 bg-[#B23E26]/[0.06]' : 'border-[#2B241C]/10 bg-[#FBF7EE]/[0.02]'
     }`}>
       <p className="text-[#8A8071] text-[9px] tracking-[0.2em]">{label}</p>
@@ -181,7 +181,7 @@ export default function BaziCalculator() {
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       {/* 表單 */}
-      <div className="rounded-2xl border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-5 sm:p-6 space-y-5">
+      <div className="rounded-lg border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-5 sm:p-6 space-y-5">
         <div className="flex flex-wrap gap-3 items-end">
           <div className="flex flex-col gap-1.5">
             <label className="text-[10px] text-[#B23E26] tracking-widest">出生年份</label>
@@ -314,7 +314,7 @@ export default function BaziCalculator() {
           </div>
 
           {/* CTA */}
-          <div className="rounded-2xl border border-[#B23E26]/20 bg-[#B23E26]/[0.04] p-6 text-center space-y-3">
+          <div className="rounded-lg border border-[#B23E26]/20 bg-[#B23E26]/[0.04] p-6 text-center space-y-3">
             <p className="text-[#6B6155] text-sm">想深入了解命盤的格局與能量流向？</p>
             <a
               href="/consultation"

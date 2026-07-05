@@ -103,7 +103,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
   const mainColor = BAR_COLOR[day.dominantElements[0]]
 
   return (
-    <div className="rounded-2xl border border-[#2B241C]/10 overflow-hidden bg-[#FFFFFF]">
+    <div className="rounded-lg border border-[#2B241C]/10 overflow-hidden bg-[#FFFFFF]">
       {/* Header */}
       <div className="px-6 py-5 border-b border-[#2B241C]/10" style={{ background: `${mainColor}08` }}>
         <div className="flex flex-col sm:flex-row sm:items-start gap-6">
@@ -178,7 +178,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
 
       {/* 宜 / 不宜：兩欄卡片（§7.2） */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 border-t border-[#2B241C]/10">
-        <div className="rounded-xl border-l-4 border-[#2E7D52] bg-[#2E7D52]/[0.04] px-5 py-5">
+        <div className="rounded-lg border-l-4 border-[#2E7D52] bg-[#2E7D52]/[0.04] px-5 py-5">
           <p className="text-[#2E7D52] text-xs font-semibold tracking-widest mb-4">宜</p>
           <ul className="space-y-3">
             {day.yi.map((y, i) => (
@@ -192,7 +192,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
             ))}
           </ul>
         </div>
-        <div className="rounded-xl border-l-4 border-[#C24A2E] bg-[#C24A2E]/[0.04] px-5 py-5">
+        <div className="rounded-lg border-l-4 border-[#C24A2E] bg-[#C24A2E]/[0.04] px-5 py-5">
           <p className="text-[#C24A2E] text-xs font-semibold tracking-widest mb-4">不宜</p>
           <ul className="space-y-3">
             {day.buYi.map((b, i) => (
@@ -225,7 +225,7 @@ function WeekCard({ day }: { day: DayAnalysis }) {
   const hasHe = day.interactions.some(i => i.type === '合')
 
   return (
-    <div className="rounded-2xl border border-[#2B241C]/10 hover:border-[#B23E26]/40 bg-[#FFFFFF] p-4 flex flex-col gap-3 transition-colors duration-200 flex-shrink-0 w-[180px] snap-start">
+    <div className="rounded-lg border border-[#2B241C]/10 hover:border-[#B23E26]/40 bg-[#FFFFFF] p-4 flex flex-col gap-3 transition-colors duration-200 flex-shrink-0 w-[180px] snap-start">
       {/* 日期 */}
       <div>
         <p className="text-[#8A8071] text-[10px]">{day.dateLabel}</p>

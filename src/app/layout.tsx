@@ -71,7 +71,7 @@ export const viewport: Viewport = {
   themeColor: '#B23E26',
 }
 
-// WebSite 實體 —— 作者與出版者一律引用 lib/site 的單一實體，三處 Schema 完全一致。
+// WebSite 實體：作者與出版者一律引用 lib/site 的單一實體，三處 Schema 完全一致。
 const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',

@@ -71,17 +71,16 @@ export default function HomePage() {
 
       {/* ── Bazi Compat Calculator banner（§8 上移至最新文章之前）── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <Link href="/compat" className="group block bg-[#F4EEE1] border border-[#2B241C]/10 hover:border-[#B23E26]/40 rounded-3xl p-10 sm:p-14 relative overflow-hidden transition-all duration-200 hover:shadow-[0_18px_44px_-20px_rgba(178,62,38,0.25)]">
+        <Link href="/compat" className="group block bg-[#F4EEE1] border border-[#2B241C]/10 hover:border-[#B23E26]/40 rounded-lg p-10 sm:p-14 relative overflow-hidden transition-colors duration-200">
           <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
             <ArrowRight size={20} className="text-[#B23E26]" />
           </div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-8 relative">
-            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex flex-col items-center justify-center bg-[#B23E26]">
+            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-lg flex flex-col items-center justify-center bg-[#B23E26]">
               <span className="font-serif font-black text-4xl sm:text-5xl text-[#FBF7EE] leading-none">合</span>
               <span className="text-[#FBF7EE]/70 text-[10px] tracking-widest mt-1">盤</span>
             </div>
             <div className="flex-1">
-              <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase mb-2">Free Tool</p>
               <h2 className="font-serif text-[#2B241C] text-2xl sm:text-3xl font-black mb-3 group-hover:text-[#B23E26] transition-colors">
                 免費八字合盤
               </h2>
@@ -119,7 +118,6 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="flex items-center justify-between mb-2">
               <div>
-                <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LEARNING PATH</p>
                 <h2 className="font-serif text-[#2B241C] text-2xl font-bold">系統學習路徑</h2>
               </div>
               <Link href="/categories" className="text-[#8A8071] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-1">
@@ -133,7 +131,7 @@ export default function HomePage() {
 
       {/* ── CTA Consultation（深色 --ink 區，節奏對比）── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="bg-[#161310] rounded-3xl p-10 sm:p-14 text-center relative overflow-hidden">
+        <div className="bg-[#161310] rounded-lg p-10 sm:p-14 text-center relative overflow-hidden">
           <div className="relative w-16 h-16 mx-auto mb-6 rounded-full overflow-hidden ring-2 ring-[#E8A86E]/40">
             <Image src="/images/avatar.png" alt="命運解決師" fill sizes="64px" className="object-cover" />
           </div>

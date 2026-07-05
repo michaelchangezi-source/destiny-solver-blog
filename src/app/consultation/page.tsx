@@ -32,7 +32,7 @@ const testimonials = [
     tag: 'C 醫師 · 45 · 香港',
     quote: '他不是叫我等，而是告訴我現在應該做哪些「沉澱」，為未來的起跑做準備。',
     content:
-      '我在打工的事業上遇到了天花板，心裡很清楚自己想創業，但一直拿不定主意：現在做？還是等？\n\n陳師的分析非常冷靜直接——他把我目前的大運結構和下一個大運的差異清楚說明，讓我理解為什麼現在創業的阻力比五年後大得多。他不是叫我等，而是告訴我現在應該做哪些「沉澱」，為未來的起跑做準備。\n\n我帶著這份清晰回去了。少了那種「明明想動卻不知該不該動」的焦慮。',
+      '我在打工的事業上遇到了天花板，心裡很清楚自己想創業，但一直拿不定主意：現在做？還是等？\n\n陳師的分析非常冷靜直接，他把我目前的大運結構和下一個大運的差異清楚說明，讓我理解為什麼現在創業的阻力比五年後大得多。他不是叫我等，而是告訴我現在應該做哪些「沉澱」，為未來的起跑做準備。\n\n我帶著這份清晰回去了。少了那種「明明想動卻不知該不該動」的焦慮。',
   },
   {
     id: '04',
@@ -40,14 +40,14 @@ const testimonials = [
     tag: 'W 小姐 · 29 · 香港',
     quote: '我第一次覺得：過去那些「壞事」是有意義的，我現在走的路是對的。',
     content:
-      '二十幾歲經歷了很多：失去至親、感情被背叛、被朋友傷害。那幾年我一直在問自己：為什麼這些事情全都發生在我身上？\n\n陳師用八字幫我看見了那段時間的「格局意義」——不是說我命苦，而是說那些遭遇在命理結構上有清晰的邏輯，而且它們在幫我長出邊界感。我放棄了沒有出路的生活、回來讀書，他說這個選擇在命理上非常準確。\n\n我第一次覺得：過去那些「壞事」是有意義的，我現在走的路是對的。',
+      '二十幾歲經歷了很多：失去至親、感情被背叛、被朋友傷害。那幾年我一直在問自己：為什麼這些事情全都發生在我身上？\n\n陳師用八字幫我看見了那段時間的「格局意義」，不是說我命苦，而是說那些遭遇在命理結構上有清晰的邏輯，而且它們在幫我長出邊界感。我放棄了沒有出路的生活、回來讀書，他說這個選擇在命理上非常準確。\n\n我第一次覺得：過去那些「壞事」是有意義的，我現在走的路是對的。',
   },
 ]
 
 const faq = [
   {
     q: '什麼人適合來做命理諮詢？',
-    a: '正在面臨人生交叉點的人——不論是職業方向、感情決策、移民或創業時機。諮詢不是給對生活完全滿意的人，而是給那些「有想法但方向模糊」或「知道有問題但說不清楚」的人。',
+    a: '正在面臨人生交叉點的人，不論是職業方向、感情決策、移民或創業時機。諮詢不是給對生活完全滿意的人，而是給那些「有想法但方向模糊」或「知道有問題但說不清楚」的人。',
   },
   {
     q: '命理可以預測未來嗎？是命定論嗎？',
@@ -75,7 +75,7 @@ const faq = [
   },
   {
     q: '如果你說的跟我的感受不符，怎麼辦？',
-    a: '這是正常的，也是最值得深入的時刻。命理分析提供的是結構視角，你的親身感受提供的是現實驗證。兩者出現落差時，我們一起找原因——有時候是時辰需要校正，有時候是某些能量還沒有顯化。',
+    a: '這是正常的，也是最值得深入的時刻。命理分析提供的是結構視角，你的親身感受提供的是現實驗證。兩者出現落差時，我們一起找原因：有時候是時辰需要校正，有時候是某些能量還沒有顯化。',
   },
   {
     q: '我需要相信命理才能受惠嗎？',
@@ -183,7 +183,7 @@ export default function ConsultationPage() {
       </div>
 
       {/* What you get */}
-      <div className="bg-[#F4EEE1] rounded-2xl p-8 mb-10">
+      <div className="bg-[#F4EEE1] rounded-lg p-8 mb-10">
         <h2 className="text-[#2B241C] text-xl font-bold mb-6">諮詢內容包括</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
@@ -203,7 +203,7 @@ export default function ConsultationPage() {
       </div>
 
       {/* Pricing 卡（§5.1）：置中定價，一撳即開的雙 CTA */}
-      <div className="relative bg-[#FFFFFF] border border-[#2B241C]/10 rounded-3xl p-10 mb-10 text-center overflow-hidden">
+      <div className="relative bg-[#FFFFFF] border border-[#2B241C]/10 rounded-lg p-10 mb-10 text-center overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-[#B23E26]" aria-hidden="true" />
         <p className="text-[#B23E26] text-xs font-semibold tracking-[0.3em] uppercase mb-3">一對一八字諮詢</p>
         <p className="font-serif text-[#2B241C] text-5xl font-black mb-6">
@@ -260,7 +260,7 @@ export default function ConsultationPage() {
 
       {/* Will / Won't accept */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
-        <div className="bg-[#F4EEE1] rounded-2xl p-6">
+        <div className="bg-[#F4EEE1] rounded-lg p-6">
           <h3 className="text-[#2B241C] font-bold mb-4 flex items-center gap-2">
             <CheckCircle size={18} className="text-[#B23E26]" />
             適合諮詢的情況
@@ -274,7 +274,7 @@ export default function ConsultationPage() {
             ))}
           </ul>
         </div>
-        <div className="bg-[#F4EEE1] rounded-2xl p-6">
+        <div className="bg-[#F4EEE1] rounded-lg p-6">
           <h3 className="text-[#2B241C] font-bold mb-4 flex items-center gap-2">
             <XCircle size={18} className="text-[#8A8071]" />
             我不接的諮詢
@@ -298,7 +298,7 @@ export default function ConsultationPage() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {testimonials.map((t) => (
-            <div key={t.id} className="bg-[#FFFFFF] border border-[#2B241C]/10 rounded-2xl p-6 flex flex-col">
+            <div key={t.id} className="bg-[#FFFFFF] border border-[#2B241C]/10 rounded-lg p-6 flex flex-col">
               <p className="font-serif text-[#B23E26] text-3xl leading-none mb-2" aria-hidden="true">
                 &ldquo;
               </p>
@@ -329,7 +329,7 @@ export default function ConsultationPage() {
         <h2 className="text-[#2B241C] text-xl font-bold mb-8">常見問題</h2>
         <div className="space-y-4">
           {faq.map((item, i) => (
-            <div key={i} className="bg-[#F4EEE1] rounded-2xl p-6">
+            <div key={i} className="bg-[#F4EEE1] rounded-lg p-6">
               <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-2">Q{i + 1}</p>
               <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
               <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
@@ -339,7 +339,7 @@ export default function ConsultationPage() {
       </div>
 
       {/* Notes */}
-      <div className="bg-[#F4EEE1] rounded-2xl p-6">
+      <div className="bg-[#F4EEE1] rounded-lg p-6">
         <h3 className="text-[#5A5247] font-semibold mb-3 flex items-center gap-2">
           <Clock size={16} className="text-[#B23E26]" /> 注意事項
         </h3>

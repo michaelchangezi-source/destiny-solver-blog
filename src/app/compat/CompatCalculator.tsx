@@ -53,7 +53,7 @@ function PersonInput({ label, form, onChange }: {
     onChange({ ...form, [k]: e.target.value })
 
   return (
-    <div className="flex-1 rounded-xl border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-3">
+    <div className="flex-1 rounded-lg border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-3">
       <p className="text-[11px] text-[#B23E26] tracking-[0.2em] font-medium">{label}</p>
 
       <input
@@ -204,7 +204,7 @@ export default function CompatCalculator() {
       {compat && resultA && resultB && (
         <>
           {/* 雙方四柱 */}
-          <div className="rounded-xl border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-4">
+          <div className="rounded-lg border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-4">
             <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em]">雙 方 命 盤</h2>
             <div className="flex flex-col sm:flex-row gap-4">
               <MiniPillars result={resultA} name={formA.name || '甲方'} />
@@ -213,7 +213,7 @@ export default function CompatCalculator() {
           </div>
 
           {/* 日支關係（重點） */}
-          <div className="rounded-xl border p-4 space-y-2"
+          <div className="rounded-lg border p-4 space-y-2"
             style={{
               borderColor: SENTIMENT_STYLE[compat.dayBranchSentiment].border,
               background: SENTIMENT_STYLE[compat.dayBranchSentiment].bg,
@@ -238,7 +238,7 @@ export default function CompatCalculator() {
           </div>
 
           {/* 互動總覽 */}
-          <div className="rounded-xl border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-4">
+          <div className="rounded-lg border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em]">干 支 互 動</h2>
               <div className="flex gap-3 text-[10px]">
@@ -286,7 +286,7 @@ export default function CompatCalculator() {
           </div>
 
           {/* CTA */}
-          <div className="rounded-2xl border border-[#B23E26]/20 bg-[#B23E26]/[0.04] p-6 text-center space-y-3">
+          <div className="rounded-lg border border-[#B23E26]/20 bg-[#B23E26]/[0.04] p-6 text-center space-y-3">
             <p className="text-[#6B6155] text-sm">
               合盤只是第一步，真正的緣分深度需要結合各自格局、大運才能判斷
             </p>

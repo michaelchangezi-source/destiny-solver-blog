@@ -19,6 +19,64 @@
   --font-serif: var(--font-noto-serif), 'Noto Serif TC', serif;
 }
 
+/* ── Dark mode：跟隨系統 prefers-color-scheme，唔加手動 toggle 掣 ──
+   策略：CSS 變數延伸（--ink/--sand/--cinnabar 等已有 token 提供 dark 對應值），
+   同時用 attribute selector 覆寫最常見嘅硬編碼 hex class（bg-[#...]/text-[#...]/border-[#...]），
+   令主要頁面同 component 唔使逐一改 class 都可以自動切換，並維持 WCAG AA 對比。 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #14120F;
+    --surface: #1E1A15;
+    --sand: #241F18;
+    --foreground: #EDE6D8;
+    --ink: #0E0C0A;
+    --ink-surface: #1E1A15;
+    --cinnabar: #E0704F;
+    --cinnabar-deep: #C9553A;
+    --cinnabar-ink: #E88463;
+    --ember: #E8845B;
+    --ember-deep: #D66E44;
+    --gold: #F0BE8C;
+    --muted: #B8AD9C;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+
+  /* 頁面／卡片底色：紙白／宣紙底 → 深墨面 */
+  [class*="bg-\[#FFFFFF\]"],
+  [class*="bg-\[#FBF7EE\]"],
+  [class*="bg-\[#FAFAF8\]"] { background-color: var(--surface) !important; }
+  [class*="bg-\[#F4EEE1\]"],
+  [class*="bg-\[#F3ECDD\]"],
+  [class*="bg-\[#F7F5EE\]"],
+  [class*="bg-\[#FBF6EC\]"] { background-color: var(--sand) !important; }
+  [class*="bg-\[#161310\]"] { background-color: var(--ink) !important; }
+
+  /* 文章正文（prose）暖白 */
+  .prose { --tw-prose-body: rgba(237, 230, 216, 0.82); }
+
+  /* 主要文字：深墨 → 暖白；次要文字：赭灰 → 淺赭灰 */
+  [class*="text-\[#2B241C\]"],
+  [class*="text-\[#211C15\]"] { color: var(--foreground) !important; }
+  [class*="text-\[#6B6155\]"],
+  [class*="text-\[#5A5247\]"],
+  [class*="text-\[#8A8071\]"] { color: var(--muted) !important; }
+
+  /* 朱砂強調色：稍為提亮以維持深底對比 */
+  [class*="text-\[#B23E26\]"] { color: var(--cinnabar) !important; }
+  [class*="bg-\[#B23E26\]"] { background-color: var(--cinnabar) !important; }
+  [class*="border-\[#B23E26\]"] { border-color: var(--cinnabar) !important; }
+
+  /* 邊框：墨線在深底改用半透明暖白 */
+  [class*="border-\[#2B241C\]/10"],
+  [class*="border-\[#2B241C\]/15"],
+  [class*="border-\[#2B241C\]/20"] { border-color: rgba(237, 230, 216, 0.14) !important; }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -39,7 +39,7 @@ export default function CategoryWheel({ categories }: Props) {
     cellRefs.current.forEach((cell) => {
       if (!cell) return
       const isFocus = cell === closest
-      cell.style.transform = isFocus ? 'scale(1.12)' : 'scale(0.86)'
+      cell.style.transform = isFocus ? 'scale(1.06)' : 'scale(0.95)'
       cell.style.opacity = isFocus ? '1' : '0.5'
       cell.style.borderColor = isFocus ? '#B23E26' : 'rgba(43,36,28,.15)'
     })
