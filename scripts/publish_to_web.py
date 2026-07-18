@@ -66,6 +66,17 @@ def _norm(s: str) -> str:
     return re.sub(r"[，。：、？！「」『』\s,.:?!\"'…]", "", s)
 
 
+def strip_frontmatter(raw: str) -> str:
+    """Strip YAML frontmatter (--- ... ---) if present."""
+    stripped = raw.lstrip()
+    if stripped.startswith("---"):
+        after_open = stripped[3:]
+        close_idx = after_open.find("\n---")
+        if close_idx != -1:
+            return after_open[close_idx + 4:].lstrip("\n")
+    return raw
+
+
 def parse_body(raw: str, title: str = ""):
     """回傳 (摘要, 正文)。摘要取首段；若首段與標題幾乎相同（標題本身就是 hook），
     改用第二段做摘要。正文一律去掉已用作標題/摘要的開頭段落，避免重複。"""
@@ -162,6 +173,7 @@ def build_article(entry: dict, seq: int, date_str: str) -> Path:
     cover_file = Path(entry["cover_file"])
 
     raw = body_file.read_text(encoding="utf-8")
+    raw = strip_frontmatter(raw)
     excerpt, body = parse_body(raw, title)
     description = make_seo_description(body, title, category)
     excerpt = make_excerpt(excerpt)
