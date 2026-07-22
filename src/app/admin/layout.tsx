@@ -2,7 +2,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <style>{`
-        body > header, body > footer, body > main { display: none !important; }
+        body > header, body > footer { display: none !important; }
+        body > main { padding: 0 !important; }
       `}</style>
       <div
         style={{
