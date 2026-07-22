@@ -1,7 +1,21 @@
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="fixed inset-0 z-50 bg-[#1a1a1a] text-white overflow-auto">
-      {children}
-    </div>
+    <>
+      <style>{`
+        body > header, body > footer, body > main { display: none !important; }
+      `}</style>
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          background: '#1a1a1a',
+          color: '#fff',
+          overflow: 'auto',
+        }}
+      >
+        {children}
+      </div>
+    </>
   )
 }
