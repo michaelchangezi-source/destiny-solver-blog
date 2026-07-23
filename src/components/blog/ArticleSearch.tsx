@@ -38,6 +38,10 @@ function scoreArticle(a: ArticleMeta, q: string, terms: string[]): number {
 
 export default function ArticleSearch({ articles, categories, initialQuery = '' }: Props) {
   const [query, setQuery] = useState(initialQuery)
+  // 只喺桌面（滑鼠等精準指標裝置）先自動 focus 搜尋框，手機唔自動彈鍵盤
+  const [isDesktop] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches
+  )
 
   // 同步查詢到網址（可分享、對齊 SearchAction），不觸發整頁導航
   useEffect(() => {
@@ -75,7 +79,7 @@ export default function ArticleSearch({ articles, categories, initialQuery = '' 
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          autoFocus
+          autoFocus={isDesktop}
           placeholder="搜尋文章：甲木、桃花、大運、十神…"
           aria-label="搜尋文章"
           className="w-full rounded-md border border-[#2B241C]/15 bg-[#FBF7EE] py-3.5 pl-12 pr-11 text-[#2B241C] placeholder:text-[#6B6155] focus:border-[#B23E26]/50 focus:outline-none focus:ring-2 focus:ring-[#B23E26]/15 transition-colors"

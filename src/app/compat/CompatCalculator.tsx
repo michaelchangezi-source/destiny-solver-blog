@@ -44,8 +44,9 @@ const SENTIMENT_STYLE: Record<Sentiment, { bg: string; border: string; text: str
 interface PersonForm { year: string; month: string; day: string; hour: string; gender: string; name: string }
 const defaultForm = (): PersonForm => ({ year: '', month: '1', day: '', hour: '-1', gender: 'F', name: '' })
 
-function PersonInput({ label, form, onChange }: {
+function PersonInput({ label, idPrefix, form, onChange }: {
   label: string
+  idPrefix: string
   form: PersonForm
   onChange: (f: PersonForm) => void
 }) {
@@ -58,22 +59,26 @@ function PersonInput({ label, form, onChange }: {
 
       <input
         type="text" placeholder="暱稱（選填）"
+        aria-label={`${label} 暱稱`}
         value={form.name} onChange={set('name')}
         className="w-full bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-3 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors placeholder:text-[#6B6155]"
       />
 
       <div className="flex flex-wrap gap-2">
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] text-[#8A8071] tracking-widest">年份</label>
+          <label htmlFor={`${idPrefix}-year`} className="text-[9px] text-[#8A8071] tracking-widest">年份</label>
           <input
+            id={`${idPrefix}-year`}
+            name={`${idPrefix}-year`}
             type="number" placeholder="例：1990"
+            autoComplete="off"
             value={form.year} onChange={set('year')}
             className="w-24 bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors"
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] text-[#8A8071] tracking-widest">月</label>
-          <select value={form.month} onChange={set('month')}
+          <label htmlFor={`${idPrefix}-month`} className="text-[9px] text-[#8A8071] tracking-widest">月</label>
+          <select id={`${idPrefix}-month`} value={form.month} onChange={set('month')}
             className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors">
             {Array.from({length:12},(_,i) => (
               <option key={i+1} value={i+1} className="bg-[#F4EEE1]">{i+1}月</option>
@@ -81,16 +86,19 @@ function PersonInput({ label, form, onChange }: {
           </select>
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] text-[#8A8071] tracking-widest">日</label>
+          <label htmlFor={`${idPrefix}-day`} className="text-[9px] text-[#8A8071] tracking-widest">日</label>
           <input
+            id={`${idPrefix}-day`}
+            name={`${idPrefix}-day`}
             type="number" placeholder="1-31"
+            autoComplete="off"
             value={form.day} onChange={set('day')}
             className="w-16 bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors"
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] text-[#8A8071] tracking-widest">時辰</label>
-          <select value={form.hour} onChange={set('hour')}
+          <label htmlFor={`${idPrefix}-hour`} className="text-[9px] text-[#8A8071] tracking-widest">時辰</label>
+          <select id={`${idPrefix}-hour`} value={form.hour} onChange={set('hour')}
             className="bg-[#2B241C]/[0.05] border border-[#2B241C]/10 text-[#2B241C] rounded-lg px-2 py-1.5 text-sm outline-none focus:border-[#B23E26]/50 transition-colors">
             {HOUR_OPTIONS.map(o => (
               <option key={o.value} value={o.value} className="bg-[#F4EEE1]">{o.label}</option>
@@ -99,10 +107,11 @@ function PersonInput({ label, form, onChange }: {
         </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2" role="group" aria-label={`${label} 性別`}>
         {(['F','M'] as const).map(g => (
           <button key={g}
             onClick={() => onChange({...form, gender: g})}
+            aria-pressed={form.gender === g}
             className={`px-3 py-1 rounded-lg text-xs border transition-colors ${
               form.gender===g
                 ? 'bg-[#B23E26] border-[#B23E26] text-[#F7F1E5] font-bold'
@@ -184,14 +193,14 @@ export default function CompatCalculator() {
 
       {/* 輸入區 */}
       <div className="flex flex-col sm:flex-row gap-3">
-        <PersonInput label="甲 方" form={formA} onChange={setFormA} />
+        <PersonInput label="甲 方" idPrefix="person-a" form={formA} onChange={setFormA} />
         <div className="flex items-center justify-center text-[#B23E26]/40 text-2xl font-serif select-none sm:py-4">
           ×
         </div>
-        <PersonInput label="乙 方" form={formB} onChange={setFormB} />
+        <PersonInput label="乙 方" idPrefix="person-b" form={formB} onChange={setFormB} />
       </div>
 
-      {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+      {error && <p aria-live="polite" className="text-red-400 text-sm text-center">{error}</p>}
 
       <div className="flex justify-center">
         <button onClick={handleCalc}

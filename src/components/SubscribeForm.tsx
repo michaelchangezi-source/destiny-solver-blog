@@ -44,6 +44,7 @@ export default function SubscribeForm({ variant = 'default' }: Props) {
   if (status === 'ok') {
     return (
       <div
+        aria-live="polite"
         className={`flex items-center gap-2 text-[#2B241C] ${
           variant === 'compact' ? 'text-sm' : 'text-base justify-center'
         }`}
@@ -69,6 +70,8 @@ export default function SubscribeForm({ variant = 'default' }: Props) {
           <input
             type="email"
             required
+            name="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="你的電郵地址"
@@ -86,7 +89,7 @@ export default function SubscribeForm({ variant = 'default' }: Props) {
         </button>
       </div>
       {status === 'error' && message && (
-        <p className="mt-2 text-xs text-[#B23E26]">{message}</p>
+        <p aria-live="polite" className="mt-2 text-xs text-[#B23E26]">{message}</p>
       )}
     </form>
   )

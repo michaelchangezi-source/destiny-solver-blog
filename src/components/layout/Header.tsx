@@ -41,7 +41,7 @@ export default function Header() {
             >
               文章 <span className="text-[10px] text-[#8A8071]">▾</span>
             </Link>
-            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[#2B241C]/10 rounded-lg p-2.5 grid grid-cols-2 gap-0.5 w-[300px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
+            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[#2B241C]/10 rounded-lg p-2.5 grid grid-cols-2 gap-0.5 w-[300px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
               {CATEGORY_ORDER.map((cat) => (
                 <Link
                   key={cat}
@@ -79,7 +79,7 @@ export default function Header() {
             >
               排盤工具 <span className="text-[10px] text-[#8A8071]">▾</span>
             </Link>
-            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[#2B241C]/10 rounded-lg p-2.5 flex flex-col gap-0.5 w-[180px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
+            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[#2B241C]/10 rounded-lg p-2.5 flex flex-col gap-0.5 w-[180px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
               <Link href="/bazi" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
                 免費八字排盤
               </Link>
@@ -110,7 +110,7 @@ export default function Header() {
 
           <Link
             href="/consultation"
-            className="bg-[#E0552C] hover:bg-[#C9461F] text-[#FBF7EE] text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.97]"
+            className="bg-[#E0552C] hover:bg-[#C9461F] text-[#FBF7EE] text-sm font-semibold px-4 py-2 rounded-lg transition-[background-color,transform] duration-200 active:scale-[0.97]"
           >
             立即諮詢
           </Link>

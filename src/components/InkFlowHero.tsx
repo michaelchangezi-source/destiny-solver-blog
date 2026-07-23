@@ -142,13 +142,13 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
             <div className="hero-d-cta flex flex-wrap gap-4">
               <Link
                 href="/bazi"
-                className="flex items-center gap-2 rounded-lg bg-[#E0552C] px-7 py-3.5 font-bold text-[#FBF7EE] shadow-[0_10px_24px_-10px_rgba(224,85,44,0.45)] transition-all duration-200 hover:bg-[#C9461F] active:scale-[0.97]"
+                className="flex items-center gap-2 rounded-lg bg-[#E0552C] px-7 py-3.5 font-bold text-[#FBF7EE] shadow-[0_10px_24px_-10px_rgba(224,85,44,0.45)] transition-[background-color,transform] duration-200 hover:bg-[#C9461F] active:scale-[0.97]"
               >
                 免費排盤，讀你的命局 <ArrowRight size={18} />
               </Link>
               <Link
                 href="/consultation"
-                className="flex items-center gap-2 rounded-lg border border-[#2B241C]/20 px-7 py-3.5 font-medium text-[#2B241C] transition-all duration-200 hover:border-[#B23E26] hover:text-[#B23E26] active:scale-[0.97]"
+                className="flex items-center gap-2 rounded-lg border border-[#2B241C]/20 px-7 py-3.5 font-medium text-[#2B241C] transition-[color,border-color,transform] duration-200 hover:border-[#B23E26] hover:text-[#B23E26] active:scale-[0.97]"
               >
                 預約諮詢
               </Link>
@@ -220,7 +220,7 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
 
               <Link
                 href="/daily"
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#B23E26] font-bold text-[#F7F1E5] transition-all duration-200 hover:bg-[#96321E] active:scale-[0.98]"
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#B23E26] font-bold text-[#F7F1E5] transition-[background-color,transform] duration-200 hover:bg-[#96321E] active:scale-[0.98]"
               >
                 完整分析 <ArrowRight size={16} />
               </Link>

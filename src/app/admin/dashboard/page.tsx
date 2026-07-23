@@ -65,13 +65,13 @@ export default function AdminDashboard() {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="搜尋文章標題、分類..."
+          placeholder="搜尋文章標題、分類…"
           className="w-full max-w-md px-4 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#B23E26] text-white placeholder-white/30"
         />
       </div>
 
       {loading ? (
-        <p className="text-white/50">載入中...</p>
+        <p className="text-white/50">載入中…</p>
       ) : (
         <div className="space-y-2">
           <div className="grid grid-cols-[1fr_150px_120px_80px] gap-4 px-4 py-2 text-sm text-white/40 border-b border-white/10">

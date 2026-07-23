@@ -184,19 +184,24 @@ export default function BaziCalculator() {
       <div className="rounded-lg border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-5 sm:p-6 space-y-5">
         <div className="flex flex-wrap gap-3 items-end">
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#B23E26] tracking-widest">出生年份</label>
+            <label htmlFor="bazi-year" className="text-[10px] text-[#B23E26] tracking-widest">出生年份</label>
             <input
+              id="bazi-year"
+              name="year"
               type="number" placeholder="例：1990"
+              autoComplete="off"
               value={form.year}
               onChange={e => setForm(f => ({ ...f, year: e.target.value }))}
               onKeyDown={e => e.key === 'Enter' && handleCalculate()}
+              aria-describedby={error ? 'bazi-error' : undefined}
               className="w-28 bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#B23E26] tracking-widest">月</label>
+            <label htmlFor="bazi-month" className="text-[10px] text-[#B23E26] tracking-widest">月</label>
             <select
+              id="bazi-month"
               value={form.month}
               onChange={e => setForm(f => ({ ...f, month: e.target.value }))}
               className="bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
@@ -208,19 +213,24 @@ export default function BaziCalculator() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#B23E26] tracking-widest">日</label>
+            <label htmlFor="bazi-day" className="text-[10px] text-[#B23E26] tracking-widest">日</label>
             <input
+              id="bazi-day"
+              name="day"
               type="number" placeholder="1-31"
+              autoComplete="off"
               value={form.day}
               onChange={e => setForm(f => ({ ...f, day: e.target.value }))}
               onKeyDown={e => e.key === 'Enter' && handleCalculate()}
+              aria-describedby={error ? 'bazi-error' : undefined}
               className="w-20 bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#B23E26] tracking-widest">出生時辰</label>
+            <label htmlFor="bazi-hour" className="text-[10px] text-[#B23E26] tracking-widest">出生時辰</label>
             <select
+              id="bazi-hour"
               value={form.hour}
               onChange={e => setForm(f => ({ ...f, hour: e.target.value }))}
               className="bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
@@ -232,12 +242,13 @@ export default function BaziCalculator() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] text-[#B23E26] tracking-widest">性別</label>
-            <div className="flex gap-2">
+            <label id="bazi-gender-label" className="text-[10px] text-[#B23E26] tracking-widest">性別</label>
+            <div className="flex gap-2" role="group" aria-labelledby="bazi-gender-label">
               {(['F', 'M'] as const).map(g => (
                 <button
                   key={g}
                   onClick={() => setForm(f => ({ ...f, gender: g }))}
+                  aria-pressed={form.gender === g}
                   className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
                     form.gender === g
                       ? 'bg-[#B23E26] border-[#B23E26] text-[#F7F1E5] font-bold'
@@ -251,7 +262,7 @@ export default function BaziCalculator() {
           </div>
         </div>
 
-        {error && <p className="text-red-400 text-sm">{error}</p>}
+        {error && <p id="bazi-error" aria-live="polite" className="text-red-400 text-sm">{error}</p>}
 
         <div className="flex items-center gap-4">
           <button

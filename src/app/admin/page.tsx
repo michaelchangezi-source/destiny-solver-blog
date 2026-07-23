@@ -38,6 +38,7 @@ export default function AdminLogin() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="輸入密碼"
+            autoComplete="current-password"
             className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-[#B23E26] text-white placeholder-white/40"
             autoFocus
           />
@@ -48,7 +49,7 @@ export default function AdminLogin() {
           disabled={loading}
           className="w-full py-3 bg-[#B23E26] hover:bg-[#8B2E1D] disabled:opacity-50 rounded-lg font-medium transition-colors"
         >
-          {loading ? '登入中...' : '登入'}
+          {loading ? '登入中…' : '登入'}
         </button>
       </form>
     </div>

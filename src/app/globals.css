@@ -87,7 +87,8 @@
 .font-serif { font-family: var(--font-serif); }
 
 /* 導航下拉選單開啟時，將底下頁面內容輕微模糊淡出，令選單更明確浮喺最上層 */
-header:has(.nav-dropdown-trigger:hover) ~ main {
+header:has(.nav-dropdown-trigger:hover) ~ main,
+header:has(.nav-dropdown-trigger:focus-within) ~ main {
   filter: blur(2px);
   opacity: 0.5;
   transition: filter 0.15s, opacity 0.15s;

@@ -60,7 +60,7 @@ export default function HomePage() {
                 href="https://www.threads.com/@destiny.solver"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block border border-[#2B241C]/20 hover:border-[#B23E26] hover:text-[#B23E26] text-[#2B241C] font-bold text-sm px-6 py-2.5 rounded-lg transition-all duration-200 active:scale-[0.97] whitespace-nowrap"
+                className="inline-block border border-[#2B241C]/20 hover:border-[#B23E26] hover:text-[#B23E26] text-[#2B241C] font-bold text-sm px-6 py-2.5 rounded-lg transition-[color,border-color,transform] duration-200 active:scale-[0.97] whitespace-nowrap"
               >
                 在 Threads 跟蹤
               </a>
@@ -146,7 +146,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/consultation"
-            className="inline-flex items-center gap-2 bg-[#E0552C] hover:bg-[#C9461F] text-[#FBF7EE] font-bold px-8 py-4 rounded-lg transition-all duration-200 active:scale-[0.97]"
+            className="inline-flex items-center gap-2 bg-[#E0552C] hover:bg-[#C9461F] text-[#FBF7EE] font-bold px-8 py-4 rounded-lg transition-[background-color,transform] duration-200 active:scale-[0.97]"
           >
             了解諮詢服務 <ArrowRight size={18} />
           </Link>

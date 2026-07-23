@@ -222,14 +222,14 @@ export default function ConsultationPage() {
             href={THREADS_DM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2.5 bg-[#E0552C] hover:bg-[#C9461F] text-[#FBF7EE] font-bold py-3.5 px-6 rounded-lg transition-all duration-200 active:scale-[0.97]"
+            className="flex items-center justify-center gap-2.5 bg-[#E0552C] hover:bg-[#C9461F] text-[#FBF7EE] font-bold py-3.5 px-6 rounded-lg transition-[background-color,transform] duration-200 active:scale-[0.97]"
           >
             <MessageCircle size={18} />
             Threads 私訊預約
           </a>
           <a
             href={MAILTO_URL}
-            className="flex items-center justify-center gap-2.5 border border-[#2B241C]/20 hover:border-[#B23E26] hover:text-[#B23E26] text-[#2B241C] font-bold py-3.5 px-6 rounded-lg transition-all duration-200 active:scale-[0.97]"
+            className="flex items-center justify-center gap-2.5 border border-[#2B241C]/20 hover:border-[#B23E26] hover:text-[#B23E26] text-[#2B241C] font-bold py-3.5 px-6 rounded-lg transition-[color,border-color,transform] duration-200 active:scale-[0.97]"
           >
             <Mail size={18} />
             Email 預約
