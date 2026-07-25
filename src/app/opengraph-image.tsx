@@ -20,7 +20,7 @@ const FAINT = '#6B6155'
 const TITLE = '命運解決師'
 const SUB = '八字命理深度解析'
 const LATIN = 'DESTINY · SOLVER'
-const DOMAIN = 'destiny-solver-blog.vercel.app'
+const DOMAIN = 'www.destinysolver.com'
 const SUBSET = Array.from(new Set((TITLE + SUB + LATIN + DOMAIN + '命').split(''))).join('')
 
 export default async function OpengraphImage() {

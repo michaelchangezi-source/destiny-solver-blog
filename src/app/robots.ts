@@ -12,6 +12,6 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: 'PerplexityBot', allow: '/' },
       { userAgent: 'CCBot', allow: '/' },
     ],
-    sitemap: 'https://destiny-solver-blog.vercel.app/sitemap.xml',
+    sitemap: 'https://www.destinysolver.com/sitemap.xml',
   }
 }

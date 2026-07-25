@@ -18,7 +18,7 @@ import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
 import { PERSON, PUBLISHER } from '@/lib/site'
 
-const BASE_URL = 'https://destiny-solver-blog.vercel.app'
+const BASE_URL = 'https://www.destinysolver.com'
 
 /** 清除 Markdown 行內格式，還原為純文字 */
 function stripMarkdown(text: string): string {
@@ -201,17 +201,17 @@ export default async function ArticlePage({ params }: Props) {
     headline: article.title,
     description: article.description || article.excerpt,
     image: article.coverImage
-      ? [`https://destiny-solver-blog.vercel.app${article.coverImage}`]
-      : ['https://destiny-solver-blog.vercel.app/images/og-default.png'],
+      ? [`https://www.destinysolver.com${article.coverImage}`]
+      : ['https://www.destinysolver.com/images/og-default.png'],
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
-    url: `https://destiny-solver-blog.vercel.app/articles/${article.slug}`,
+    url: `https://www.destinysolver.com/articles/${article.slug}`,
     inLanguage: 'zh-TW',
     author: PERSON,
     publisher: PUBLISHER,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://destiny-solver-blog.vercel.app/articles/${article.slug}`,
+      '@id': `https://www.destinysolver.com/articles/${article.slug}`,
     },
     keywords: article.tags.join(', '),
     articleSection: article.category,

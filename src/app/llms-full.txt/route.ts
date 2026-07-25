@@ -1,7 +1,7 @@
 import { getAllArticles, getArticleBySlug } from '@/lib/articles'
 import { CATEGORY_ORDER } from '@/types'
 
-const BASE_URL = 'https://destiny-solver-blog.vercel.app'
+const BASE_URL = 'https://www.destinysolver.com'
 
 // llms-full.txt — llms.txt 的全文版（https://llmstxt.org）。
 // 把全部文章正文串成一份純文字，畀 AI 一次過攞晒全文內容，

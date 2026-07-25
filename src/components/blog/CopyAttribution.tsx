@@ -8,7 +8,7 @@ interface Props {
   path: string
 }
 
-const BASE_URL = 'https://destiny-solver-blog.vercel.app'
+const BASE_URL = 'https://www.destinysolver.com'
 
 /**
  * 複製帶出處：當訪客複製文章內文，自動在剪貼簿尾端附上作者署名與原文連結。

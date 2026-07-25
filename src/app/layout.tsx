@@ -25,7 +25,7 @@ const notoSerifTC = Noto_Serif_TC({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://destiny-solver-blog.vercel.app'),
+  metadataBase: new URL('https://www.destinysolver.com'),
   title: {
     default: '命運解決師 陳卓賢｜八字命理深度解析',
     template: '%s｜命運解決師 陳卓賢',
@@ -33,12 +33,12 @@ export const metadata: Metadata = {
   description:
     '用命理讀懂你這個人：不是預測命運，是認識自己。香港八字命理師陳卓賢，深度解析八字、十神、大運流年，讓命理成為你的自我認識工具。',
   keywords: ['八字命理', '八字', '十神', '大運流年', '命理', '香港命理師', '自我認識'],
-  authors: [{ name: '陳卓賢', url: 'https://destiny-solver-blog.vercel.app' }],
+  authors: [{ name: '陳卓賢', url: 'https://www.destinysolver.com' }],
   creator: '陳卓賢',
   openGraph: {
     type: 'website',
     locale: 'zh_TW',
-    url: 'https://destiny-solver-blog.vercel.app',
+    url: 'https://www.destinysolver.com',
     siteName: '命運解決師｜陳卓賢',
     title: '命運解決師｜八字命理深度解析',
     description: '用命理讀懂你這個人：不是預測命運，是認識自己。',

@@ -41,7 +41,7 @@ DEFAULT_STAGING = Path("C:/Users/micha/destiny-solver-web-staging")
 
 # IndexNow：出文後即時通知搜尋引擎（Bing/Yandex 等，間接惠及部分 AI 搜尋）。
 # 金鑰驗證檔須長期存在於 public/{KEY}.txt 並已部署上線。
-SITE_URL = "https://destiny-solver-blog.vercel.app"
+SITE_URL = "https://www.destinysolver.com"
 INDEXNOW_KEY = "89a823e9a77b875b3fea063c5a24ff64"
 
 INVALID_FILENAME = re.compile(r'[\\/:*?"<>|\r\n]+')

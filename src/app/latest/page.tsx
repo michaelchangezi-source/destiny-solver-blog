@@ -9,7 +9,7 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: '最新文章',
   description: '每週更新的命理新文章，涵蓋兩性、職場與八字基礎，附原創配圖。',
-  alternates: { canonical: 'https://destiny-solver-blog.vercel.app/latest' },
+  alternates: { canonical: 'https://www.destinysolver.com/latest' },
 }
 
 export default function LatestPage() {

@@ -1,6 +1,6 @@
 # 個人網站原型（destiny-solver-blog）— Claude 開工守則
 
-GitHub repo：michaelchangezi-source/destiny-solver-blog（部署：https://destiny-solver-blog.vercel.app）
+GitHub repo：michaelchangezi-source/destiny-solver-blog（部署：https://www.destinysolver.com，Vercel 子域名 destiny-solver-blog.vercel.app 仍可用作備援）
 
 ## 排盤算法鐵律（改 src\lib\bazi-calc.ts 前必讀）
 

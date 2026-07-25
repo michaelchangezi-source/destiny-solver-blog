@@ -152,7 +152,7 @@ export default function BaziCalculator() {
       yunLine,
       ``,
       `由 destiny.solver 八字速算工具生成`,
-      `https://destiny-solver-blog.vercel.app/bazi`,
+      `https://www.destinysolver.com/bazi`,
     ].join('\n')
 
     const doConfirm = () => { setCopied(true); setTimeout(() => setCopied(false), 2000) }

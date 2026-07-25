@@ -1,7 +1,7 @@
 import { getAllArticles } from '@/lib/articles'
 import { CATEGORY_SLUGS, CATEGORY_ORDER } from '@/types'
 
-const BASE_URL = 'https://destiny-solver-blog.vercel.app'
+const BASE_URL = 'https://www.destinysolver.com'
 
 // llms.txt — AI 搜尋／大型語言模型的內容索引標準（https://llmstxt.org）。
 // 主動告訴 ChatGPT、Perplexity、Google AI Overviews 等：本站是誰、有哪些內容、

@@ -2,7 +2,7 @@
 import { getAllArticles, getAllCategories } from '@/lib/articles'
 import { CATEGORY_SLUGS } from '@/types'
 
-const BASE_URL = 'https://destiny-solver-blog.vercel.app'
+const BASE_URL = 'https://www.destinysolver.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles()
