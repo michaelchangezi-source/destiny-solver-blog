@@ -15,12 +15,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  const categoryUrls = categories.map((cat) => ({
-    url: `${BASE_URL}/categories/${CATEGORY_SLUGS[cat] ?? cat}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.6,
-  }))
+  // 只收錄有登記 slug 的分類。舊寫法用中文原名做 fallback，
+  // 一旦出現未登記分類就會把一條打不開的網址寫進 sitemap，拖累整站索引信任度。
+  const categoryUrls = categories
+    .filter((cat) => CATEGORY_SLUGS[cat])
+    .map((cat) => ({
+      url: `${BASE_URL}/categories/${CATEGORY_SLUGS[cat]}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }))
 
   return [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },

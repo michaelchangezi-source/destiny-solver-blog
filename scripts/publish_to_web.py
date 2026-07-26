@@ -166,9 +166,34 @@ def yaml_escape(s: str) -> str:
     return s.replace('"', '\\"')
 
 
+# 網站只認得 src/types/index.ts 的 CATEGORY_SLUGS 十個分類；
+# 寫入未登記的分類，分類頁會直接爆錯，而且該網址會混入 sitemap 變成壞連結。
+# 這裡把常見同義寫法收斂回正式名稱，未知的一律退回預設並警告。
+CANONICAL_CATEGORIES = {
+    "八字基礎", "干支詳解", "十神應用", "命盤格局", "實戰斷命",
+    "大運流年", "感情格局", "事業財運", "健康命理", "風水地理",
+}
+CATEGORY_ALIASES = {
+    "基礎知識": "八字基礎",
+    "職場現象": "事業財運",
+}
+
+
+def normalize_category(raw: str) -> str:
+    name = (raw or "").strip()
+    if name in CANONICAL_CATEGORIES:
+        return name
+    mapped = CATEGORY_ALIASES.get(name)
+    if mapped:
+        print(f"  [!] 分類「{name}」未登記，已自動歸入「{mapped}」")
+        return mapped
+    print(f"  [!] 分類「{name}」未登記且無對應，退回「八字基礎」，請補 CATEGORY_SLUGS 或 CATEGORY_ALIASES")
+    return "八字基礎"
+
+
 def build_article(entry: dict, seq: int, date_str: str) -> Path:
     title = entry["title"].strip()
-    category = entry.get("category", "八字基礎").strip()
+    category = normalize_category(entry.get("category", "八字基礎"))
     body_file = Path(entry["body_file"])
     cover_file = Path(entry["cover_file"])
 
