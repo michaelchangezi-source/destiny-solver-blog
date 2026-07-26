@@ -34,19 +34,28 @@ function stripMarkdown(text: string): string {
 /**
  * 從 Markdown 子標題自動提取 Q&A 配對
  * 同時供 FAQPage Schema（JSON-LD）與頁面可見 FAQ 區塊使用
- * 策略：取 ###～###### 層級標題為問題，緊跟的段落文字為答案
+ * 策略：取 ###～###### 層級標題為問題，緊跟的段落文字為答案。
+ * ## 層級只在標題本身已經是問句時採用：本站多數文章用 ## 分節，
+ * 若一律改寫成問句會把陳述句硬拗成問題，反而製造與內文不符的 FAQ。
  */
 function extractFaqPairs(markdown: string): Array<{ question: string; answer: string }> {
   const faqs: Array<{ question: string; answer: string }> = []
-  const lines = markdown.split('\n')
+  // 內容檔多為 CRLF；必須連 \r 一併切走。JS 正則的 . 不匹配 \r，
+  // 殘留的 \r 會令 /^#{2,6}\s+(.+)$/ 整條標題比對失敗，FAQ 因而完全抽不出來。
+  const lines = markdown.split(/\r?\n/)
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
-    const headingMatch = line.match(/^#{3,6}\s+(.+)$/)
+    const headingMatch = line.match(/^(#{2,6})\s+(.+)$/)
     if (!headingMatch) continue
 
+    const isTopLevel = headingMatch[1].length === 2
+    const rawHeading = headingMatch[2].trim()
+    // ## 標題本身不是問句就跳過，不替它補問號
+    if (isTopLevel && !rawHeading.endsWith('？') && !rawHeading.endsWith('?')) continue
+
     // 清除中文序號（一、二、）、數字序號（1. 2.）、多餘 # 符號
-    let question = headingMatch[1]
+    let question = headingMatch[2]
       .replace(/^[一二三四五六七八九十百千]+[、．.]\s*/, '')
       .replace(/^\d+[、．.]\s*/, '')
       .replace(/##+\s*/, '')
