@@ -105,3 +105,17 @@ export function getRelatedArticles(slug: string, category: string, limit = 3): A
     .filter((a) => a.slug !== slug && a.category === category)
     .slice(0, limit)
 }
+
+// 上一篇／下一篇導覽：純按 publishedAt 排序（不受 order 欄位影響），
+// prev＝發佈時間較早的一篇，next＝發佈時間較晚的一篇。
+export function getAdjacentArticles(slug: string): { prev: ArticleMeta | null; next: ArticleMeta | null } {
+  const sorted = getAllArticles().sort(
+    (a, b) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()
+  )
+  const idx = sorted.findIndex((a) => a.slug === slug)
+  if (idx === -1) return { prev: null, next: null }
+  return {
+    prev: idx > 0 ? sorted[idx - 1] : null,
+    next: idx < sorted.length - 1 ? sorted[idx + 1] : null,
+  }
+}

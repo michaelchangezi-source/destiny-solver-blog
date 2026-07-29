@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Clock, Calendar, Tag, ChevronRight } from 'lucide-react'
-import { getArticleBySlug, getArticleSlugs, getRelatedArticles } from '@/lib/articles'
+import { getArticleBySlug, getArticleSlugs, getRelatedArticles, getAdjacentArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/utils'
 import { CATEGORY_SLUGS } from '@/types'
 import ArticleBody from '@/components/blog/ArticleBody'
@@ -13,6 +13,7 @@ import AuthorBio from '@/components/blog/AuthorBio'
 import ReadingProgress from '@/components/blog/ReadingProgress'
 import TableOfContents from '@/components/blog/TableOfContents'
 import SubscribeForm from '@/components/SubscribeForm'
+import ShareButtons from '@/components/blog/ShareButtons'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
@@ -173,6 +174,7 @@ export default async function ArticlePage({ params }: Props) {
 
   const html = await markdownToHtml(article.content)
   const related = getRelatedArticles(slug, article.category, 3)
+  const { prev, next } = getAdjacentArticles(slug)
   const faqPairs = extractFaqPairs(article.content)
 
   const breadcrumbJsonLd = {
@@ -301,9 +303,12 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* Meta */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
-        <span className="text-xs px-2.5 py-1 rounded border border-[#2B241C]/15 text-[#6B6155]">
+        <Link
+          href={`/categories/${CATEGORY_SLUGS[article.category] ?? article.category}`}
+          className="text-xs px-2.5 py-1 rounded border border-[#2B241C]/15 text-[#6B6155] hover:text-[#B23E26] hover:border-[#B23E26]/40 transition-colors"
+        >
           {article.category}
-        </span>
+        </Link>
         <span className="flex items-center gap-1 text-[#6B6155] text-sm">
           <Clock size={13} /> {article.readingTime}
         </span>
@@ -321,6 +326,11 @@ export default async function ArticlePage({ params }: Props) {
           {article.excerpt}
         </p>
       )}
+
+      {/* 分享 */}
+      <div className="mb-8">
+        <ShareButtons url={`${BASE_URL}/articles/${article.slug}`} title={article.title} />
+      </div>
 
       {/* Body */}
       <div id="article-content">
@@ -411,6 +421,38 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {/* 上一篇／下一篇（按發佈時間排序） */}
+      {(prev || next) && (
+        <nav aria-label="上一篇／下一篇" className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {prev ? (
+            <Link
+              href={`/articles/${prev.slug}`}
+              className="group flex flex-col gap-1.5 rounded border border-[#2B241C]/10 bg-[#FBF7EE] p-5 hover:border-[#B23E26]/40 transition-colors"
+            >
+              <span className="text-[#6B6155] text-xs tracking-wide">← 上一篇</span>
+              <span className="text-[#2B241C] font-semibold text-sm leading-snug line-clamp-2 group-hover:text-[#B23E26] transition-colors">
+                {prev.title}
+              </span>
+            </Link>
+          ) : (
+            <div />
+          )}
+          {next ? (
+            <Link
+              href={`/articles/${next.slug}`}
+              className="group flex flex-col gap-1.5 rounded border border-[#2B241C]/10 bg-[#FBF7EE] p-5 sm:text-right hover:border-[#B23E26]/40 transition-colors"
+            >
+              <span className="text-[#6B6155] text-xs tracking-wide">下一篇 →</span>
+              <span className="text-[#2B241C] font-semibold text-sm leading-snug line-clamp-2 group-hover:text-[#B23E26] transition-colors">
+                {next.title}
+              </span>
+            </Link>
+          ) : (
+            <div />
+          )}
+        </nav>
+      )}
 
       {/* Related */}
       {related.length > 0 && (

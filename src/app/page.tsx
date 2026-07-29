@@ -71,7 +71,7 @@ export default function HomePage() {
 
       {/* ── Bazi Compat Calculator banner（§8 上移至最新文章之前）── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <Link href="/compat" className="group block bg-[#F4EEE1] border border-[#2B241C]/10 hover:border-[#B23E26]/40 rounded-lg p-10 sm:p-14 relative overflow-hidden transition-colors duration-200">
+        <Link href="/compat" className="group block bg-[#F4EEE1] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:border-[#B23E26]/40 rounded-lg p-10 sm:p-14 relative overflow-hidden transition-colors duration-200">
           <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
             <ArrowRight size={20} className="text-[#B23E26]" />
           </div>

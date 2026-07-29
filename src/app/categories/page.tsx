@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
 import { CATEGORY_SLUGS, CATEGORY_GLYPHS, CATEGORY_ORDER } from '@/types'
+import { SITE_URL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: '學習路徑',
@@ -40,8 +41,29 @@ export default function CategoriesPage() {
     idx: CATEGORY_ORDER.indexOf(cat),
   }))
 
+  const collectionJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: '學習路徑',
+    url: `${SITE_URL}/categories`,
+    description: '從零開始系統學習八字命理：天干地支、十神體系、格局判斷、大運流年，循序漸進。',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: allCats.map((cat, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${SITE_URL}/categories/${CATEGORY_SLUGS[cat] ?? cat}`,
+        name: cat,
+      })),
+    },
+  }
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
       {/* Header */}
       <div className="mb-14">
         <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase mb-3">LEARNING PATH</p>
@@ -61,7 +83,7 @@ export default function CategoriesPage() {
               <Link
                 key={cat.name}
                 href={`/categories/${CATEGORY_SLUGS[cat.name] ?? cat.name}`}
-                className="group relative bg-[#FBF7EE] border border-[#2B241C]/10 hover:border-[#B23E26]/50 rounded-md p-6 transition-all overflow-hidden"
+                className="group relative bg-[#FBF7EE] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:border-[#B23E26]/50 rounded-md p-6 transition-all overflow-hidden"
               >
                 {/* Background glyph */}
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[80px] font-black text-[#2B241C]/5 group-hover:text-[#B23E26]/5 leading-none select-none pointer-events-none transition-colors">

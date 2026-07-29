@@ -25,7 +25,7 @@ export default function ArticleCard({ article, featured = false, index: _index }
   if (featured) {
     return (
       <Link href={`/articles/${article.slug}`} className="group block">
-        <div className="relative rounded-lg overflow-hidden bg-[#FFFFFF] border border-[#2B241C]/10 hover:border-[#B23E26]/50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-14px_rgba(178,62,38,0.25)]">
+        <div className="relative rounded-lg overflow-hidden bg-[#FFFFFF] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] hover:border-[#B23E26]/50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-14px_rgba(178,62,38,0.25)]">
           {/* 分類五行強調色條（C1 快速掃讀辨識） */}
           <div className="h-[3px] w-full" style={{ backgroundColor: accent }} aria-hidden="true" />
           {/* 程式生成封面：分類 + 標題 + 印章字 */}
@@ -57,7 +57,7 @@ export default function ArticleCard({ article, featured = false, index: _index }
       className="group flex gap-4 py-5 border-b border-[#2B241C]/10 hover:border-[#2B241C]/20 transition-colors"
     >
       {/* Small block: number as primary, glyph as faint watermark；左側五行強調色條 */}
-      <div className="w-16 h-16 flex-shrink-0 rounded-lg bg-[#FFFFFF] border border-[#2B241C]/10 flex items-center justify-center overflow-hidden relative">
+      <div className="w-16 h-16 flex-shrink-0 rounded-lg bg-[#FFFFFF] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] flex items-center justify-center overflow-hidden relative">
         <span className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ backgroundColor: accent }} aria-hidden="true" />
         <span className="absolute text-[48px] font-black text-[#2B241C]/[0.05] leading-none select-none pointer-events-none">
           {glyph}

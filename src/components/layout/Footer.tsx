@@ -48,7 +48,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
+                    className="inline-flex items-center py-3 -my-3 text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -57,7 +57,7 @@ export default function Footer() {
               <li>
                 <a
                   href="/feed.xml"
-                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
+                  className="inline-flex items-center py-3 -my-3 text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
                 >
                   RSS 訂閱
                 </a>
@@ -74,7 +74,7 @@ export default function Footer() {
                   href="https://www.threads.com/@destiny.solver"
                   target="_blank"
                   rel="me noopener noreferrer"
-                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-2"
+                  className="inline-flex items-center gap-2 py-3 -my-3 text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
                 >
                   <span>Threads @destiny.solver</span>
                 </a>
@@ -84,7 +84,7 @@ export default function Footer() {
                   href="https://www.instagram.com/destiny.solver"
                   target="_blank"
                   rel="me noopener noreferrer"
-                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-2"
+                  className="inline-flex items-center gap-2 py-3 -my-3 text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
                 >
                   <span>Instagram @destiny.solver</span>
                 </a>
@@ -94,7 +94,7 @@ export default function Footer() {
                   href="https://blog.ulifestyle.com.hk/destinysolver"
                   target="_blank"
                   rel="me noopener noreferrer"
-                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-2"
+                  className="inline-flex items-center gap-2 py-3 -my-3 text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
                 >
                   <span>U Blog 命運解決師</span>
                 </a>
@@ -104,7 +104,7 @@ export default function Footer() {
                   href="https://www.linkedin.com/in/cheuk-yin-michael-chan-24125112b"
                   target="_blank"
                   rel="me noopener noreferrer"
-                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-2"
+                  className="inline-flex items-center gap-2 py-3 -my-3 text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
                 >
                   <span>LinkedIn</span>
                 </a>
@@ -112,7 +112,7 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:michaelchan.gezi@gmail.com"
-                  className="text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
+                  className="inline-flex items-center py-3 -my-3 text-[#6B6155] hover:text-[#B23E26] text-sm transition-colors"
                 >
                   michaelchan.gezi@gmail.com
                 </a>

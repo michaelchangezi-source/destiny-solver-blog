@@ -157,12 +157,12 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
 
           {/* 右：今日命盤卡 */}
           <div className="hero-d-card flex flex-shrink-0 justify-center lg:justify-end">
-            <div className="relative w-full max-w-[380px] rounded-lg border border-[#2B241C]/10 bg-[#FFFFFF] p-7 text-[#2B241C] shadow-[0_24px_60px_-28px_rgba(43,36,28,0.28)]">
+            <div className="relative w-full max-w-[380px] rounded-lg border border-[color:var(--border-card)] bg-[#FFFFFF] p-7 text-[#2B241C] shadow-[0_24px_60px_-28px_rgba(43,36,28,0.28)]">
               <div className="mb-5 flex items-center justify-between">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B23E26]">
                   Today · 今日命盤
                 </span>
-                <span className="text-[11px] text-[#8A8071]">
+                <span className="text-[13px] text-[#6B6155]">
                   {today.dateLabel} · {today.weekday}
                 </span>
               </div>
@@ -188,7 +188,7 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
               <div className="mb-5 space-y-3">
                 {yi.length > 0 && (
                   <div>
-                    <p className="mb-2 text-[10px] font-semibold tracking-widest text-[#2E7D52]">今日宜</p>
+                    <p className="mb-2 text-[10px] font-semibold tracking-widest text-[#5E7355]">今日宜</p>
                     <div className="flex flex-wrap gap-2">
                       {yi.map((t) => (
                         <span

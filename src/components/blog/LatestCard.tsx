@@ -10,7 +10,7 @@ export default function LatestCard({ article }: { article: ArticleMeta; priority
   const accent = getCategoryAccent(article.category)
   return (
     <Link href={`/articles/${article.slug}`} className="group block">
-      <div className="rounded-lg overflow-hidden bg-[#FFFFFF] border border-[#2B241C]/10 hover:border-[#B23E26] hover:bg-[#FBF7EE] transition-colors duration-200">
+      <div className="rounded-lg overflow-hidden bg-[#FFFFFF] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:border-[#B23E26] hover:bg-[#FBF7EE] transition-colors duration-200">
         {/* 分類五行強調色條（C1 快速掃讀辨識） */}
         <div className="h-[3px] w-full" style={{ backgroundColor: accent }} aria-hidden="true" />
         <div className="relative aspect-[2/1] w-full overflow-hidden">

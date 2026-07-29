@@ -15,6 +15,9 @@
   --ember-deep: #C9461F;
   --gold: #E8A86E;
   --muted: #6B6155;
+  --border-card: rgba(43, 36, 28, 0.14);
+  --shadow-card: 0 1px 2px rgba(43, 36, 28, .04), 0 4px 12px rgba(43, 36, 28, .06);
+  --shadow-lift: 0 2px 4px rgba(43, 36, 28, .06), 0 12px 28px rgba(43, 36, 28, .10);
   --font-sans: var(--font-noto), 'Noto Sans TC', sans-serif;
   --font-serif: var(--font-noto-serif), 'Noto Serif TC', serif;
 }
@@ -39,6 +42,9 @@
     --ember-deep: #D66E44;
     --gold: #F0BE8C;
     --muted: #B8AD9C;
+    --border-card: rgba(237, 230, 216, 0.16);
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, .24), 0 4px 14px rgba(0, 0, 0, .32);
+    --shadow-lift: 0 2px 5px rgba(0, 0, 0, .30), 0 14px 32px rgba(0, 0, 0, .42);
   }
 
   body {

@@ -150,7 +150,7 @@ export default function CategoryWheel({ categories }: Props) {
               }}
               href={`/categories/${CATEGORY_SLUGS[cat] ?? cat}`}
               onClick={handleItemClick}
-              className="flex h-[110px] w-[170px] flex-shrink-0 select-none flex-col items-center justify-center gap-2.5 rounded border border-[#2B241C]/15 bg-[#FBF6EC] text-center transition-[transform,opacity,border-color] duration-200"
+              className="flex h-[110px] w-[170px] flex-shrink-0 select-none flex-col items-center justify-center gap-2.5 rounded border border-[color:var(--border-card)] shadow-[var(--shadow-card)] bg-[#FBF6EC] text-center transition-[transform,opacity,border-color] duration-200"
               style={{ scrollSnapAlign: 'center' }}
             >
               <span className="h-2 w-2 rounded-full" style={{ background: color }} />

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { analyzeDays } from '@/lib/bazi-daily'
 import type { DayAnalysis, Element } from '@/lib/bazi-daily'
+import { SITE_URL } from '@/lib/site'
 
 export const revalidate = 3600
 
@@ -10,9 +11,58 @@ export const metadata: Metadata = {
   alternates: { canonical: '/daily' },
 }
 
+const faq = [
+  {
+    q: '日運能量計算的是什麼？',
+    a: '日運能量根據當日的流年、流月、流日三組干支，合共六個字，計算五行（木火土金水）強弱分佈，分析當日大環境的能量格局，並非根據個人命盤排出。',
+  },
+  {
+    q: '這個分析是不是個人命盤？',
+    a: '不是。日運能量只計算流年、流月、流日三柱，並不涉及命主本人的出生四柱，因此不會因人而異，是大環境層面的參考，與個人八字排盤性質不同。',
+  },
+  {
+    q: '五行分數怎麼看？',
+    a: '流年是年度大氣候，流月是月份中氣候，流日是當日最直接的催化，三者疊加得出當日五行分數，分數最高的五行即為當日的主導能量，長條圖越長代表能量越強。',
+  },
+  {
+    q: '「不宜」項目是不是代表當日一定會發生壞事？',
+    a: '不是。不宜只是能量傾向的參考，提示當日環境條件較不利於某些事項，並非必然應驗的預言。',
+  },
+  {
+    q: '單日五行分數偏低，是不是代表整天都不順？',
+    a: '五行強弱是流年、流月、流日三層疊加的結果，每日的分數會隨三柱組合浮動，重點在於掌握一段時間內的整體趨勢，而非執著於單一數值的高低。',
+  },
+  {
+    q: '未來一週的卡片和今日分析有什麼分別？',
+    a: '今日完整分析列出三柱、五行長條圖、宜忌與三柱綜合描述；未來一週的橫向卡片則是精簡版，只列出當日日柱與能量標題，方便一次過對照未來幾天的能量走勢。',
+  },
+]
+
+const webApplicationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: '日運能量',
+  url: `${SITE_URL}/daily`,
+  applicationCategory: 'LifestyleApplication',
+  operatingSystem: 'Any',
+  description:
+    '根據流年、流月、流日三柱六字五行計分，分析每日大環境能量並提供宜忌參考的免費線上工具。',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'HKD' },
+}
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+}
+
 // §7 五行固定色（規格指定）
 const BAR_COLOR: Record<Element, string> = {
-  木: '#2E7D52',
+  木: '#5E7355',
   火: '#B23E26',
   土: '#9C7A3F',
   金: '#8A8071',
@@ -85,7 +135,7 @@ function ElementBar({ scores }: { scores: Record<Element, number> }) {
 
 function InteractionTag({ type }: { type: '合' | '沖' | '刑' | '害' }) {
   const styles = {
-    合: 'bg-[#2E7D52]/15 text-[#2E7D52] border-[#2E7D52]/30',
+    合: 'bg-[#5E7355]/15 text-[#5E7355] border-[#5E7355]/30',
     沖: 'bg-[#C24A2E]/15 text-[#C24A2E] border-[#C24A2E]/30',
     刑: 'bg-[#B23E26]/15 text-[#B23E26] border-[#B23E26]/30',
     害: 'bg-[#4A7A96]/15 text-[#4A7A96] border-[#4A7A96]/30',
@@ -103,7 +153,7 @@ function TodayCard({ day }: { day: DayAnalysis }) {
   const mainColor = BAR_COLOR[day.dominantElements[0]]
 
   return (
-    <div className="rounded-lg border border-[#2B241C]/10 overflow-hidden bg-[#FFFFFF]">
+    <div className="rounded-lg border border-[color:var(--border-card)] shadow-[var(--shadow-card)] overflow-hidden bg-[#FFFFFF]">
       {/* Header */}
       <div className="px-6 py-5 border-b border-[#2B241C]/10" style={{ background: `${mainColor}08` }}>
         <div className="flex flex-col sm:flex-row sm:items-start gap-6">
@@ -178,12 +228,12 @@ function TodayCard({ day }: { day: DayAnalysis }) {
 
       {/* 宜 / 不宜：兩欄卡片（§7.2） */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 border-t border-[#2B241C]/10">
-        <div className="rounded-lg border-l-4 border-[#2E7D52] bg-[#2E7D52]/[0.04] px-5 py-5">
-          <p className="text-[#2E7D52] text-xs font-semibold tracking-widest mb-4">宜</p>
+        <div className="rounded-lg border-l-4 border-[#5E7355] bg-[#5E7355]/[0.04] px-5 py-5">
+          <p className="text-[#5E7355] text-xs font-semibold tracking-widest mb-4">宜</p>
           <ul className="space-y-3">
             {day.yi.map((y, i) => (
               <li key={i} className="flex gap-2">
-                <span className="text-[#2E7D52] text-xs mt-0.5 flex-shrink-0">◆</span>
+                <span className="text-[#5E7355] text-xs mt-0.5 flex-shrink-0">◆</span>
                 <div>
                   <span className="text-[#2B241C] text-sm font-semibold">{y.item}</span>
                   <p className="text-[#6B6155] text-xs mt-0.5 leading-relaxed">{y.reason}</p>
@@ -225,7 +275,7 @@ function WeekCard({ day }: { day: DayAnalysis }) {
   const hasHe = day.interactions.some(i => i.type === '合')
 
   return (
-    <div className="rounded-lg border border-[#2B241C]/10 hover:border-[#B23E26]/40 bg-[#FFFFFF] p-4 flex flex-col gap-3 transition-colors duration-200 flex-shrink-0 w-[180px] snap-start">
+    <div className="rounded-lg border border-[color:var(--border-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:border-[#B23E26]/40 bg-[#FFFFFF] p-4 flex flex-col gap-3 transition-colors duration-200 flex-shrink-0 w-[180px] snap-start">
       {/* 日期 */}
       <div>
         <p className="text-[#8A8071] text-[10px]">{day.dateLabel}</p>
@@ -250,14 +300,14 @@ function WeekCard({ day }: { day: DayAnalysis }) {
               <span key={el} className="text-[10px]" style={{ color: BAR_COLOR[el] }}>{el}</span>
             ))}
             {hasChong && <span className="text-[10px] text-[#C24A2E]">· 沖</span>}
-            {hasHe && <span className="text-[10px] text-[#2E7D52]">· 合</span>}
+            {hasHe && <span className="text-[10px] text-[#5E7355]">· 合</span>}
           </div>
         </div>
       </div>
 
       {/* 宜（首兩項） */}
       <div>
-        <p className="text-[#2E7D52] text-[10px] font-semibold tracking-widest mb-1">宜</p>
+        <p className="text-[#5E7355] text-[10px] font-semibold tracking-widest mb-1">宜</p>
         <ul className="space-y-0.5">
           {day.yi.slice(0, 2).map((y, i) => (
             <li key={i} className="text-[#6B6155] text-[11px] truncate">· {y.item}</li>
@@ -277,6 +327,15 @@ export default function DailyPage() {
 
   return (
     <div className="pb-1">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-6">
         <p className="text-[#B23E26] text-xs font-semibold tracking-[0.35em] uppercase mb-2">DAILY ENERGY</p>
         <h1 className="font-serif text-[#2B241C] text-4xl font-black mb-3">日運能量</h1>
@@ -298,6 +357,43 @@ export default function DailyPage() {
           {week.map((d, i) => (
             <WeekCard key={i} day={d} />
           ))}
+        </div>
+      </section>
+
+      {/* 工具說明 */}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-20 space-y-10">
+        <div>
+          <h2 className="text-[#2B241C] text-xl font-bold mb-4">計算什麼</h2>
+          <p className="text-[#5A5247] text-sm leading-relaxed">
+            日運能量根據當日的流年、流月、流日三組干支，合共六個字，計算五行（木火土金水）強弱分佈，分析當日大環境的能量格局。流年是年度的大氣候，流月是月份的中氣候，流日則是當日最直接的催化，三者疊加之後得出當日五行分數，分數最高的五行，即為當日的主導能量。工具同時檢視流年、流月、流日三柱之間地支的互動關係，包括合與沖等類型，並歸納出當日的宜與不宜事項，以及三柱綜合的能量描述。此分析屬於大環境通用能量，並非根據個人命盤排出，所有人皆適用，與個人八字排盤性質不同。
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-[#2B241C] text-xl font-bold mb-4">如何理解結果</h2>
+          <p className="text-[#5A5247] text-sm leading-relaxed">
+            頁面最上方顯示今日完整分析，包括流年、流月、流日三柱的天干地支，以及對應的五行強弱長條圖，長條越長，代表該五行當日的能量越強。標題部分的能量標題，概括當日的主導能量特徵；如果當日出現地支互動，例如合或沖，工具會以標籤形式列出，並附上簡短說明其代表的動態。中段的宜與不宜兩欄，是根據當日五行強弱與地支互動歸納出的參考事項，每一項都附有簡短原因。底部的三柱綜合，則是把流年、流月、流日三層能量放在一起的整體描述。往下捲動可以看到未來一週的橫向卡片，每張卡片列出當日日柱與能量標題，方便一次過對照未來幾天的能量走勢。
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-[#2B241C] text-xl font-bold mb-4">常見誤解</h2>
+          <p className="text-[#5A5247] text-sm leading-relaxed">
+            第一個常見誤解，是把日運能量當成個人命盤分析。日運能量只計算流年、流月、流日三柱，並不涉及命主本人的出生四柱，因此不會因人而異，是大環境層面的參考，而非個人命理判斷。第二個常見誤解，是把「不宜」項目理解為當日一定會發生壞事。不宜只是能量傾向的參考，提示當日環境條件較不利於某些事項，並非必然應驗的預言。第三個常見誤解，是把單一天的五行分數看得過重。五行強弱是流年、流月、流日三層疊加的結果，每日的分數會隨三柱組合浮動，重點在於掌握一段時間內的整體趨勢，而非執著於單一數值的高低。
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-[#2B241C] text-xl font-bold mb-6">常見問題</h2>
+          <div className="space-y-4">
+            {faq.map((item, i) => (
+              <div key={i} className="bg-[#F4EEE1] rounded-lg p-6">
+                <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-2">Q{i + 1}</p>
+                <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
+                <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>

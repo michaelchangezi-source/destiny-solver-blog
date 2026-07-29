@@ -210,7 +210,7 @@ export function calculate(
   return {
     year:  buildPillar(yStem,  yBranch,  dStem),
     month: buildPillar(mStem,  mBranch,  dStem),
-    day:   buildPillar(dStem,  dBranch,  null),
+    day:   buildPillar(dStem,  dBranch,  dStem),
     hour:  hBranch >= 0 ? buildPillar(hStem, hBranch, dStem) : null,
     daYuns, startAge,
     boundaryNote: computeBoundaryNote(year, month, day, hourBranch),

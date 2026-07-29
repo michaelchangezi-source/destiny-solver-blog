@@ -60,7 +60,7 @@ export default function SubscribeForm({ variant = 'default' }: Props) {
   const compact = variant === 'compact'
 
   return (
-    <form onSubmit={submit} className="w-full">
+    <form onSubmit={submit} method="post" action="/api/subscribe" className="w-full">
       <div className={`flex gap-2 ${compact ? 'flex-col sm:flex-row' : 'flex-col sm:flex-row'}`}>
         <div className="relative flex-1">
           <Mail

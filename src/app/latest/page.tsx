@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { getLatestArticles } from '@/lib/articles'
 import LatestCard from '@/components/blog/LatestCard'
+import { SITE_URL } from '@/lib/site'
 
 export const revalidate = 3600
 
@@ -15,8 +16,29 @@ export const metadata: Metadata = {
 export default function LatestPage() {
   const articles = getLatestArticles()
 
+  const collectionJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: '最新文章',
+    url: `${SITE_URL}/latest`,
+    description: '每週更新的命理新文章，涵蓋兩性、職場與八字基礎，附原創配圖。',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: articles.map((a, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${SITE_URL}/articles/${a.slug}`,
+        name: a.title,
+      })),
+    },
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
       {/* Header */}
       <div className="mb-10">
         <p className="text-[#B23E26] text-xs font-semibold tracking-[0.3em] uppercase mb-2">LATEST</p>
@@ -37,7 +59,7 @@ export default function LatestPage() {
           </div>
         </>
       ) : (
-        <div className="border border-[#2B241C]/10 rounded-md p-12 text-center bg-[#FBF7EE]">
+        <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-12 text-center bg-[#FBF7EE]">
           <p className="text-[#6B6155] mb-5">新文章準備中，每週更新。先從系統學習路徑開始。</p>
           <Link
             href="/categories"

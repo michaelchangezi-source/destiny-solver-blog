@@ -54,7 +54,7 @@ function PersonInput({ label, idPrefix, form, onChange }: {
     onChange({ ...form, [k]: e.target.value })
 
   return (
-    <div className="flex-1 rounded-lg border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-3">
+    <div className="flex-1 rounded-lg border border-[color:var(--border-card)] shadow-[var(--shadow-card)] bg-[#FBF7EE]/[0.02] p-4 space-y-3">
       <p className="text-[11px] text-[#B23E26] tracking-[0.2em] font-medium">{label}</p>
 
       <input
@@ -137,8 +137,8 @@ function MiniPillars({ result, name }: { result: BaziResult; name: string }) {
       {name && <p className="text-[10px] text-[#8A8071] tracking-widest">{name}</p>}
       <div className="flex gap-2">
         {pillars.map(({p, lbl}) => (
-          <div key={lbl} className={`flex flex-col items-center gap-0.5 rounded-lg border px-2.5 py-2 ${
-            lbl==='日' ? 'border-[#B23E26]/50 bg-[#B23E26]/[0.06]' : 'border-[#2B241C]/10 bg-[#FBF7EE]/[0.02]'
+          <div key={lbl} className={`flex flex-col items-center gap-0.5 rounded-lg border px-2.5 py-2 shadow-[var(--shadow-card)] ${
+            lbl==='日' ? 'border-[#B23E26]/50 bg-[#B23E26]/[0.06]' : 'border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02]'
           }`}>
             <span className="text-[9px] text-[#8A8071] tracking-widest">{lbl}</span>
             <span className="text-xl font-black font-serif leading-none" style={{color: stemColor(p.stem)}}>{p.stemChar}</span>
@@ -213,7 +213,7 @@ export default function CompatCalculator() {
       {compat && resultA && resultB && (
         <>
           {/* 雙方四柱 */}
-          <div className="rounded-lg border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-4">
+          <div className="rounded-lg border border-[color:var(--border-card)] shadow-[var(--shadow-card)] bg-[#FBF7EE]/[0.02] p-4 space-y-4">
             <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em]">雙 方 命 盤</h2>
             <div className="flex flex-col sm:flex-row gap-4">
               <MiniPillars result={resultA} name={formA.name || '甲方'} />
@@ -247,7 +247,7 @@ export default function CompatCalculator() {
           </div>
 
           {/* 互動總覽 */}
-          <div className="rounded-lg border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-4 space-y-4">
+          <div className="rounded-lg border border-[color:var(--border-card)] shadow-[var(--shadow-card)] bg-[#FBF7EE]/[0.02] p-4 space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em]">干 支 互 動</h2>
               <div className="flex gap-3 text-[10px]">

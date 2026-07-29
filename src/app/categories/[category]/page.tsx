@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import { getArticlesByCategory, getAllCategories } from '@/lib/articles'
 import { CATEGORY_SLUGS, SLUG_TO_CATEGORY } from '@/types'
 import ArticleCard from '@/components/blog/ArticleCard'
+import { SITE_URL } from '@/lib/site'
 
 interface Props {
   params: Promise<{ category: string }>
@@ -34,8 +35,29 @@ export default async function CategoryPage({ params }: Props) {
 
   if (articles.length === 0) notFound()
 
+  const collectionJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name,
+    url: `${SITE_URL}/categories/${category}`,
+    description: `所有關於「${name}」的八字命理深度文章。`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: articles.map((a, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${SITE_URL}/articles/${a.slug}`,
+        name: a.title,
+      })),
+    },
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
       <Link
         href="/categories"
         className="inline-flex items-center gap-2 text-[#6B6155] hover:text-[#B23E26] text-sm mb-8 transition-colors"

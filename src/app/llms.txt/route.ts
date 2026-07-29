@@ -1,5 +1,6 @@
 import { getAllArticles } from '@/lib/articles'
 import { CATEGORY_SLUGS, CATEGORY_ORDER } from '@/types'
+import { GLOSSARY_TERMS } from '@/lib/glossary'
 
 const BASE_URL = 'https://www.destinysolver.com'
 
@@ -24,6 +25,10 @@ export function GET(): Response {
   })
     .filter(Boolean)
     .join('\n\n')
+
+  const glossaryLines = GLOSSARY_TERMS.map(
+    (t) => `- [${t.term}](${BASE_URL}/glossary/${t.slug})：${t.definition}`
+  ).join('\n')
 
   const body = `# 命運解決師｜陳卓賢
 
@@ -55,6 +60,11 @@ export function GET(): Response {
 - [八字合盤](${BASE_URL}/compat)：干支互動分析
 - [日運能量](${BASE_URL}/daily)：每日流日五行分析
 - [預約諮詢](${BASE_URL}/consultation)：一對一命盤深度解讀
+
+## 命理詞彙表
+
+- [命理詞彙表](${BASE_URL}/glossary)：八字命理核心詞彙定義速查
+${glossaryLines}
 
 ## 文章
 

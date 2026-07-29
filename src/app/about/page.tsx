@@ -75,7 +75,7 @@ export default function AboutPage() {
       </div>
 
       {/* ── Identity block ── */}
-      <div className="border border-[#2B241C]/10 rounded-md p-8 mb-12 relative overflow-hidden">
+      <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-8 mb-12 relative overflow-hidden">
         <div className="absolute right-6 bottom-0 text-[150px] font-black text-[#B23E26]/[0.04] leading-none select-none pointer-events-none">
           命
         </div>
@@ -166,7 +166,7 @@ export default function AboutPage() {
         ].map((item) => (
           <div
             key={item.title}
-            className="bg-[#FBF7EE] border border-[#2B241C]/10 rounded-md p-6 text-center"
+            className="bg-[#FBF7EE] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 text-center"
           >
             <item.icon className="mx-auto mb-3 text-[#B23E26]" size={24} />
             <p className="text-[#2B241C] font-black text-2xl mb-1">{item.value}</p>
@@ -207,7 +207,7 @@ export default function AboutPage() {
         <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-8">常見問題</h2>
         <div className="space-y-4">
           {aboutFaq.map((item, i) => (
-            <div key={i} className="border border-[#2B241C]/10 rounded-md p-6">
+            <div key={i} className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
               <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
               <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
             </div>

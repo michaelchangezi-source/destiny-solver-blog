@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { calculate, stemColor, branchColor } from '@/lib/bazi-calc'
 import type { BaziResult, Pillar, DaYun } from '@/lib/bazi-calc'
 
@@ -25,8 +25,8 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
   const bc = branchColor(pillar.branch)
 
   return (
-    <div className={`flex flex-col items-center gap-2 rounded-lg border p-3 sm:p-4 ${
-      isDay ? 'border-[#B23E26]/60 bg-[#B23E26]/[0.06]' : 'border-[#2B241C]/10 bg-[#FBF7EE]/[0.02]'
+    <div className={`flex flex-col items-center gap-2 rounded-lg border p-3 sm:p-4 shadow-[var(--shadow-card)] ${
+      isDay ? 'border-[#B23E26]/60 bg-[#B23E26]/[0.06]' : 'border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02]'
     }`}>
       <p className="text-[#8A8071] text-[9px] tracking-[0.2em]">{label}</p>
 
@@ -69,8 +69,8 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
 
 function DaYunCard({ dy, isCurrent }: { dy: DaYun; isCurrent: boolean }) {
   return (
-    <div className={`flex flex-col items-center gap-1 rounded-lg border p-2 ${
-      isCurrent ? 'border-[#B23E26]/60 bg-[#B23E26]/[0.07]' : 'border-[#2B241C]/10 bg-[#FBF7EE]/[0.02]'
+    <div className={`flex flex-col items-center gap-1 rounded-lg border p-2 shadow-[var(--shadow-card)] ${
+      isCurrent ? 'border-[#B23E26]/60 bg-[#B23E26]/[0.07]' : 'border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02]'
     }`}>
       <span className="text-xl font-black font-serif leading-none" style={{ color: stemColor(dy.stem) }}>
         {dy.stemChar}
@@ -91,24 +91,70 @@ export default function BaziCalculator() {
   const [result, setResult] = useState<BaziResult | null>(null)
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
+  const [linkCopied, setLinkCopied] = useState(false)
 
   const currentYear = new Date().getFullYear()
 
-  const handleCalculate = useCallback(() => {
-    const y = parseInt(form.year)
-    const m = parseInt(form.month)
-    const d = parseInt(form.day)
-    const h = parseInt(form.hour)
+  // 排盤（可選擇是否寫入網址，供永久連結分享用）
+  const doCalculate = useCallback((f: typeof form, updateUrl: boolean) => {
+    const y = parseInt(f.year)
+    const m = parseInt(f.month)
+    const d = parseInt(f.day)
+    const h = parseInt(f.hour)
 
     if (!y || y < 1900 || y > currentYear) return setError('請輸入有效出生年份（1900 至今）')
     if (!d || d < 1 || d > 31)             return setError('請輸入有效日期')
     setError('')
     try {
-      setResult(calculate(y, m, d, h, form.gender as 'M' | 'F'))
+      setResult(calculate(y, m, d, h, f.gender as 'M' | 'F'))
+      if (updateUrl && typeof window !== 'undefined') {
+        const params = new URLSearchParams()
+        params.set('y', String(y))
+        params.set('m', String(m))
+        params.set('d', String(d))
+        params.set('h', String(h))
+        params.set('g', f.gender)
+        window.history.pushState(null, '', `${window.location.pathname}?${params.toString()}`)
+      }
     } catch {
       setError('計算出錯，請確認日期是否存在')
     }
-  }, [form, currentYear])
+  }, [currentYear])
+
+  const handleCalculate = useCallback(() => {
+    doCalculate(form, true)
+  }, [form, doCalculate])
+
+  // 頁面載入時：若網址帶有排盤參數，自動填表並排盤
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    const y = params.get('y')
+    const m = params.get('m')
+    const d = params.get('d')
+    const h = params.get('h')
+    const g = params.get('g')
+    if (!y || !d) return
+
+    const restored = {
+      year: y,
+      month: m ?? '1',
+      day: d,
+      hour: h ?? '-1',
+      gender: g === 'M' ? 'M' : 'F',
+    }
+    setForm(restored)
+    doCalculate(restored, false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleCopyLink = useCallback(() => {
+    if (typeof window === 'undefined') return
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setLinkCopied(true)
+      setTimeout(() => setLinkCopied(false), 2000)
+    }).catch(() => {})
+  }, [])
 
   const handleCopy = useCallback(() => {
     if (!result) return
@@ -181,7 +227,7 @@ export default function BaziCalculator() {
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       {/* 表單 */}
-      <div className="rounded-lg border border-[#2B241C]/10 bg-[#FBF7EE]/[0.02] p-5 sm:p-6 space-y-5">
+      <div className="rounded-lg border border-[color:var(--border-card)] shadow-[var(--shadow-card)] bg-[#FBF7EE]/[0.02] p-5 sm:p-6 space-y-5">
         <div className="flex flex-wrap gap-3 items-end">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="bazi-year" className="text-[10px] text-[#B23E26] tracking-widest">出生年份</label>
@@ -311,7 +357,7 @@ export default function BaziCalculator() {
           </section>
 
           {/* 複製按鈕 */}
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-3">
             <button
               onClick={handleCopy}
               className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
@@ -321,6 +367,16 @@ export default function BaziCalculator() {
               }`}
             >
               {copied ? '✓ 已複製命盤' : '複製命盤文字'}
+            </button>
+            <button
+              onClick={handleCopyLink}
+              className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
+                linkCopied
+                  ? 'border-green-500/60 text-green-400 bg-green-500/10'
+                  : 'border-[#B23E26]/40 text-[#B23E26] hover:bg-[#B23E26]/10'
+              }`}
+            >
+              {linkCopied ? '✓ 已複製連結' : '複製連結'}
             </button>
           </div>
 

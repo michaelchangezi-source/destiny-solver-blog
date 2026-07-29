@@ -106,7 +106,7 @@ const pricingIncludes = [
   '1-2 個人生議題深入解答',
 ]
 
-const THREADS_DM_URL = 'https://www.threads.net/@destiny.solver'
+const THREADS_DM_URL = 'https://www.threads.com/@destiny.solver'
 const MAILTO_URL =
   'mailto:michaelchan.gezi@gmail.com?subject=' +
   encodeURIComponent('預約八字諮詢') +
@@ -203,7 +203,7 @@ export default function ConsultationPage() {
       </div>
 
       {/* Pricing 卡（§5.1）：置中定價，一撳即開的雙 CTA */}
-      <div className="relative bg-[#FFFFFF] border border-[#2B241C]/10 rounded-lg p-10 mb-10 text-center overflow-hidden">
+      <div className="relative bg-[#FFFFFF] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-lg p-10 mb-10 text-center overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-[#B23E26]" aria-hidden="true" />
         <p className="text-[#B23E26] text-xs font-semibold tracking-[0.3em] uppercase mb-3">一對一八字諮詢</p>
         <p className="font-serif text-[#2B241C] text-5xl font-black mb-6">
@@ -298,7 +298,7 @@ export default function ConsultationPage() {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {testimonials.map((t) => (
-            <div key={t.id} className="bg-[#FFFFFF] border border-[#2B241C]/10 rounded-lg p-6 flex flex-col">
+            <div key={t.id} className="bg-[#FFFFFF] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-lg p-6 flex flex-col">
               <p className="font-serif text-[#B23E26] text-3xl leading-none mb-2" aria-hidden="true">
                 &ldquo;
               </p>

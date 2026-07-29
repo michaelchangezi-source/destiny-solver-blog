@@ -107,8 +107,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-[#F4EEE1] font-sans antialiased min-h-screen">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-lg focus:bg-[#B23E26] focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-[#FBF7EE] focus:outline-none focus:ring-2 focus:ring-[#FBF7EE]"
+        >
+          跳至主要內容
+        </a>
         <Header />
-        <main className="pt-16">{children}</main>
+        <main id="main-content" className="pt-16">{children}</main>
         <Footer />
         <Analytics />
       </body>

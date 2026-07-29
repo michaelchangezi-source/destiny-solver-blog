@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
 import ArticleSearch from '@/components/blog/ArticleSearch'
+import { SITE_URL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: '搜尋文章',
@@ -19,8 +20,29 @@ export default async function ArticlesPage({ searchParams }: Props) {
   const articles = getAllArticles()
   const categories = getAllCategories()
 
+  const collectionJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: '搜尋文章',
+    url: `${SITE_URL}/articles`,
+    description: '搜尋命運解決師的八字命理文章：十神、大運流年、格局、感情與事業財運。',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: articles.map((a, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${SITE_URL}/articles/${a.slug}`,
+        name: a.title,
+      })),
+    },
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
       <header className="mb-8">
         <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">SEARCH</p>
         <h1 className="font-serif text-[#2B241C] text-3xl font-black">搜尋文章</h1>
