@@ -67,7 +67,7 @@ export default async function CategoryPage({ params }: Props) {
 
       <div className="mb-10">
         <p className="text-[#B23E26] text-sm font-semibold tracking-widest mb-3">分類</p>
-        <h1 className="text-[#2B241C] text-4xl font-black mb-3">{name}</h1>
+        <h1 className="text-[#2B241C] text-4xl font-bold mb-3">{name}</h1>
         <p className="text-[#6B6155]">共 {articles.length} 篇文章</p>
       </div>
 

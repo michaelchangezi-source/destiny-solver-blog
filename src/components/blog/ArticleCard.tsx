@@ -59,7 +59,7 @@ export default function ArticleCard({ article, featured = false, index: _index }
       {/* Small block: number as primary, glyph as faint watermark；左側五行強調色條 */}
       <div className="w-16 h-16 flex-shrink-0 rounded-lg bg-[#FFFFFF] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] flex items-center justify-center overflow-hidden relative">
         <span className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ backgroundColor: accent }} aria-hidden="true" />
-        <span className="absolute text-[48px] font-black text-[#2B241C]/[0.05] leading-none select-none pointer-events-none">
+        <span className="absolute text-[48px] font-bold text-[#2B241C]/[0.05] leading-none select-none pointer-events-none">
           {glyph}
         </span>
         <span className="relative font-serif text-xl font-black text-[#B23E26]/80 leading-none select-none">

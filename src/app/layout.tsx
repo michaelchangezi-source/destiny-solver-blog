@@ -12,7 +12,7 @@ import { SITE_URL, PERSON, PUBLISHER, personJsonLd } from '@/lib/site'
 // 首屏文字即時以系統字頂上、唔等字體（已過「webfont load 期間文字可見」）。
 const notoSansTC = Noto_Sans_TC({
   subsets: ['latin'],
-  weight: ['400', '700', '900'],
+  weight: ['400', '700'],
   variable: '--font-noto',
   display: 'swap',
 })

@@ -176,7 +176,7 @@ export default function ConsultationPage() {
           <Image src="/images/avatar.png" alt="命運解決師" fill sizes="64px" className="object-cover" />
         </div>
         <p className="text-[#B23E26] text-sm font-semibold tracking-widest mb-4">真人一對一諮詢</p>
-        <h1 className="text-[#2B241C] text-4xl sm:text-5xl font-black mb-6">一對一命理諮詢</h1>
+        <h1 className="text-[#2B241C] text-4xl sm:text-5xl font-bold mb-6">一對一命理諮詢</h1>
         <p className="text-[#6B6155] text-lg max-w-2xl mx-auto leading-relaxed">
           深度解讀你的八字格局，讓命理成為你人生決策的羅盤。
         </p>
@@ -248,7 +248,7 @@ export default function ConsultationPage() {
             { step: '04', title: '開始解讀', desc: '透過 Threads / IG 私訊、Email 或 WhatsApp 進行深度命盤解讀' },
           ].map((item) => (
             <div key={item.step} className="flex gap-5 items-start">
-              <span className="text-[#B23E26] text-2xl font-black w-10 flex-shrink-0">{item.step}</span>
+              <span className="text-[#B23E26] text-2xl font-bold w-10 flex-shrink-0">{item.step}</span>
               <div>
                 <h3 className="text-[#2B241C] font-semibold mb-1">{item.title}</h3>
                 <p className="text-[#6B6155] text-sm leading-relaxed">{item.desc}</p>

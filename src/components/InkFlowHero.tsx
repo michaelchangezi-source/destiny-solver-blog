@@ -127,15 +127,15 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
 
             <div className="hero-d-stats mb-10 flex flex-wrap items-center gap-7 text-sm text-[#6B6155]">
               <div>
-                <span className="mr-1.5 text-2xl font-black text-[#2B241C]">每周更新</span>命理文章
+                <span className="mr-1.5 text-2xl font-bold text-[#2B241C]">每周更新</span>命理文章
               </div>
               <div className="h-5 w-px bg-[#2B241C]/15" />
               <div>
-                <span className="mr-1.5 text-2xl font-black text-[#2B241C]">100萬+</span>每月 Threads 瀏覽量
+                <span className="mr-1.5 text-2xl font-bold text-[#2B241C]">100萬+</span>每月 Threads 瀏覽量
               </div>
               <div className="h-5 w-px bg-[#2B241C]/15" />
               <div>
-                <span className="mr-1.5 text-2xl font-black text-[#2B241C]">免費</span>開放閱讀
+                <span className="mr-1.5 text-2xl font-bold text-[#2B241C]">免費</span>開放閱讀
               </div>
             </div>
 

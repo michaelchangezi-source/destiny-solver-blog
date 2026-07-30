@@ -76,7 +76,7 @@ export default function AboutPage() {
 
       {/* ── Identity block ── */}
       <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-8 mb-12 relative overflow-hidden">
-        <div className="absolute right-6 bottom-0 text-[150px] font-black text-[#B23E26]/[0.04] leading-none select-none pointer-events-none">
+        <div className="absolute right-6 bottom-0 text-[150px] font-bold text-[#B23E26]/[0.04] leading-none select-none pointer-events-none">
           命
         </div>
         <div className="relative">
@@ -169,7 +169,7 @@ export default function AboutPage() {
             className="bg-[#FBF7EE] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 text-center"
           >
             <item.icon className="mx-auto mb-3 text-[#B23E26]" size={24} />
-            <p className="text-[#2B241C] font-black text-2xl mb-1">{item.value}</p>
+            <p className="text-[#2B241C] font-bold text-2xl mb-1">{item.value}</p>
             <p className="text-[#5A5247] font-semibold text-sm mb-2">{item.title}</p>
             <p className="text-[#8A8071] text-xs leading-relaxed">{item.desc}</p>
           </div>
@@ -267,7 +267,7 @@ export default function AboutPage() {
 
       {/* ── CTA ── */}
       <div className="border border-[#B23E26]/20 rounded-sm p-8 sm:p-10 text-center relative overflow-hidden">
-        <div className="absolute right-4 bottom-0 text-[120px] font-black text-[#B23E26]/[0.04] leading-none select-none pointer-events-none">
+        <div className="absolute right-4 bottom-0 text-[120px] font-bold text-[#B23E26]/[0.04] leading-none select-none pointer-events-none">
           解
         </div>
         <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-3">想開始認識自己的命盤？</h2>

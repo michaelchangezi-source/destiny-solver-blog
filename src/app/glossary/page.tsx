@@ -51,7 +51,7 @@ export default function GlossaryIndexPage() {
 
       <div className="mb-10">
         <p className="text-[#B23E26] text-sm font-semibold tracking-widest mb-3">詞彙表</p>
-        <h1 className="text-[#2B241C] text-4xl font-black mb-3">命理詞彙表</h1>
+        <h1 className="text-[#2B241C] text-4xl font-bold mb-3">命理詞彙表</h1>
         <p className="text-[#6B6155] leading-relaxed">
           八字命理常用詞彙的直接定義，每個詞彙一頁，附常見誤解與延伸閱讀，方便快速查找核心概念。
         </p>

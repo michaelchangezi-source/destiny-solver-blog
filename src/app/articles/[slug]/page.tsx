@@ -293,8 +293,8 @@ export default async function ArticlePage({ params }: Props) {
         const seq = article.slug.match(/^topic-(\d+)/)?.[1]?.padStart(2,'0')
         return (
           <div className="relative w-full h-40 sm:h-52 rounded-md overflow-hidden mb-8 bg-[#FBF7EE] border border-[#2B241C]/10 flex items-center justify-center">
-            <span className="absolute text-[200px] font-black text-[#2B241C]/[0.03] leading-none select-none">{glyph}</span>
-            <span className="text-[100px] sm:text-[130px] font-black text-[#B23E26]/70 leading-none select-none">{glyph}</span>
+            <span className="absolute text-[200px] font-bold text-[#2B241C]/[0.03] leading-none select-none">{glyph}</span>
+            <span className="text-[100px] sm:text-[130px] font-bold text-[#B23E26]/70 leading-none select-none">{glyph}</span>
             {seq && <span className="absolute top-4 left-5 text-[#6B6155] text-xs font-mono tracking-widest">{seq}</span>}
             <span className="absolute bottom-4 right-5 text-[#6B6155] text-xs tracking-wider">{article.category}</span>
           </div>
@@ -318,7 +318,7 @@ export default async function ArticlePage({ params }: Props) {
       </div>
 
       {/* Title */}
-      <h1 className="text-[#2B241C] text-3xl sm:text-4xl font-black leading-tight mb-4">
+      <h1 className="text-[#2B241C] text-3xl sm:text-4xl font-bold leading-tight mb-4">
         {article.title}
       </h1>
       {article.excerpt && (
@@ -369,7 +369,7 @@ export default async function ArticlePage({ params }: Props) {
                 {/* Question */}
                 <p className="flex items-start gap-3 mb-3">
                   <span
-                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#B23E26]/20 text-[#B23E26] text-[10px] font-black flex items-center justify-center leading-none select-none"
+                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#B23E26]/20 text-[#B23E26] text-[10px] font-bold flex items-center justify-center leading-none select-none"
                     aria-label="問題"
                   >
                     Q

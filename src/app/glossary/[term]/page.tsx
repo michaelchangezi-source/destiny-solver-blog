@@ -78,7 +78,7 @@ export default async function GlossaryTermPage({ params }: Props) {
         <span className="text-[#6B6155]">{entry.term}</span>
       </nav>
 
-      <h1 className="text-[#2B241C] text-4xl font-black mb-6">{entry.term}</h1>
+      <h1 className="text-[#2B241C] text-4xl font-bold mb-6">{entry.term}</h1>
 
       <p id="glossary-definition" className="text-[#2B241C] text-lg leading-relaxed mb-10 pb-8 border-b border-[#2B241C]/10">
         {entry.definition}

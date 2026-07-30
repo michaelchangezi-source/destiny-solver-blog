@@ -86,7 +86,7 @@ export default function CategoriesPage() {
                 className="group relative bg-[#FBF7EE] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:border-[#B23E26]/50 rounded-md p-6 transition-all overflow-hidden"
               >
                 {/* Background glyph */}
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[80px] font-black text-[#2B241C]/5 group-hover:text-[#B23E26]/5 leading-none select-none pointer-events-none transition-colors">
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[80px] font-bold text-[#2B241C]/5 group-hover:text-[#B23E26]/5 leading-none select-none pointer-events-none transition-colors">
                   {cat.glyph}
                 </span>
 
