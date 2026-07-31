@@ -31,6 +31,7 @@ const TYPE_COLOR: Record<InteractionType, string> = {
   '地支六沖': '#e05c2a',
   '地支六害': '#a83020',
   '地支相破': '#7a5a80',
+  '地支伏吟': '#8a7a55',
 }
 
 const SENTIMENT_STYLE: Record<Sentiment, { bg: string; border: string; text: string }> = {
@@ -186,7 +187,7 @@ export default function CompatCalculator() {
   }, [formA, formB])
 
   // ── 分組互動 ──────────────────────────────────────────
-  const groups: InteractionType[] = ['天干五合','地支六合','地支三合','地支六沖','地支六害','地支相破']
+  const groups: InteractionType[] = ['天干五合','地支六合','地支三合','地支六沖','地支六害','地支相破','地支伏吟']
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">

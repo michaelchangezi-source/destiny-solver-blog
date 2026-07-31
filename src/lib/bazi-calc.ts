@@ -7,7 +7,7 @@ const STEM_YY    = [0,1,0,1,0,1,0,1,0,1]
 const BRANCH_ELEM = [4,2,0,0,2,1,1,2,3,3,2,4]
 
 const HIDDEN: Record<number, [number, number][]> = {
-  0:  [[8,0]],
+  0:  [[9,0]],
   1:  [[5,0],[9,1],[7,2]],
   2:  [[0,0],[2,1],[4,2]],
   3:  [[1,0]],
@@ -149,16 +149,21 @@ function daysSince1900(y: number, m: number, d: number): number {
   return Math.round((new Date(y, m - 1, d).getTime() - new Date(1900, 0, 1).getTime()) / 86400000)
 }
 
+// 單一地支的藏干＋十神（本／中／餘氣）。抽出來供排盤與回歸測試共用
+export function branchHiddenStems(branch: number, dayStem: number | null): HiddenStem[] {
+  return (HIDDEN[branch] ?? []).map(([hs, tier]) => ({
+    char: STEMS[hs], stemIdx: hs,
+    tenGod: dayStem !== null ? TEN_GODS[tenGodIdx(dayStem, hs)] : '',
+    tier: TIER_NAMES[tier],
+  }))
+}
+
 function buildPillar(s: number, b: number, dayStem: number | null): Pillar {
   return {
     stem: s, branch: b,
     stemChar: STEMS[s], branchChar: BRANCHES[b],
     tenGod: dayStem !== null ? TEN_GODS[tenGodIdx(dayStem, s)] : null,
-    hiddenStems: (HIDDEN[b] ?? []).map(([hs, tier]) => ({
-      char: STEMS[hs], stemIdx: hs,
-      tenGod: dayStem !== null ? TEN_GODS[tenGodIdx(dayStem, hs)] : '',
-      tier: TIER_NAMES[tier],
-    })),
+    hiddenStems: branchHiddenStems(b, dayStem),
   }
 }
 
