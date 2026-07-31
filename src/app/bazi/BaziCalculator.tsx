@@ -1,8 +1,34 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
-import { calculate, stemColor, branchColor } from '@/lib/bazi-calc'
+import { useState, useCallback, useEffect, useMemo } from 'react'
+import { calculate, stemColor, branchColor, BRANCHES } from '@/lib/bazi-calc'
 import type { BaziResult, Pillar, DaYun } from '@/lib/bazi-calc'
+import { twelveStage, emptyBranches, xunName, nayin, computeShenSha } from '@/lib/bazi-shensha'
+import type { ShenShaHit } from '@/lib/bazi-shensha'
+import { monthCells, dayCells, hourCells, yearGanZhi, branchInteractions, lifeTable } from '@/lib/bazi-timeline'
+
+// 常用出生地經度與時區標準經線（真太陽時校正用）
+const PLACES = [
+  { key: 'HK', label: '香港',   lon: 114.17, meridian: 120 },
+  { key: 'MO', label: '澳門',   lon: 113.55, meridian: 120 },
+  { key: 'TP', label: '台北',   lon: 121.52, meridian: 120 },
+  { key: 'GZ', label: '廣州',   lon: 113.26, meridian: 120 },
+  { key: 'SZ', label: '深圳',   lon: 114.06, meridian: 120 },
+  { key: 'SG', label: '新加坡', lon: 103.82, meridian: 120 },
+  { key: 'KL', label: '吉隆坡', lon: 101.69, meridian: 120 },
+  { key: 'TO', label: '多倫多', lon: -79.38, meridian: -75 },
+  { key: 'VA', label: '溫哥華', lon: -123.12, meridian: -120 },
+  { key: 'LD', label: '倫敦',   lon: -0.13,  meridian: 0 },
+  { key: 'SY', label: '悉尼',   lon: 151.21, meridian: 150 },
+  { key: 'CUSTOM', label: '自訂經度', lon: 114.17, meridian: 120 },
+]
+
+type DetailLevel = 'simple' | 'standard' | 'full'
+const DETAIL_OPTIONS: { value: DetailLevel; label: string }[] = [
+  { value: 'simple',   label: '精簡' },
+  { value: 'standard', label: '標準' },
+  { value: 'full',     label: '完整' },
+]
 
 const HOUR_OPTIONS = [
   { value: -1, label: '不確定時辰' },
@@ -20,9 +46,14 @@ const HOUR_OPTIONS = [
   { value: 11, label: '亥時 21:00–23:00' },
 ]
 
-function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; isDay: boolean }) {
+function PillarCard({ pillar, label, isDay, detail, dayStem, kong }: {
+  pillar: Pillar; label: string; isDay: boolean
+  detail: DetailLevel; dayStem: number; kong: number[]
+}) {
   const sc = stemColor(pillar.stem)
   const bc = branchColor(pillar.branch)
+  const showMore = detail !== 'simple'
+  const isKong = kong.includes(pillar.branch)
 
   return (
     <div className={`flex flex-col items-center gap-2 rounded-lg border p-3 sm:p-4 shadow-[var(--shadow-card)] ${
@@ -51,6 +82,19 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
         {pillar.branchChar}
       </span>
 
+      {/* 十二長生、納音、空亡（標準與完整模式） */}
+      {showMore && (
+        <div className="flex flex-col items-center gap-1">
+          <span className="text-[10px] px-2 py-0.5 rounded border border-[#2B241C]/15 text-[#5A5247] bg-[#2B241C]/[0.04]">
+            {twelveStage(dayStem, pillar.branch)}
+          </span>
+          <span className="text-[9px] text-[#8A8071]">{nayin(pillar.stem, pillar.branch)}</span>
+          {isKong && (
+            <span className="text-[9px] px-1.5 py-0.5 rounded border border-[#B23E26]/40 text-[#B23E26]">空亡</span>
+          )}
+        </div>
+      )}
+
       {/* 藏干 */}
       <div className="w-full mt-1 pt-2 border-t border-[#2B241C]/30/[0.06] space-y-1 min-h-[3rem]">
         {pillar.hiddenStems.map((hs, i) => (
@@ -67,31 +111,299 @@ function PillarCard({ pillar, label, isDay }: { pillar: Pillar; label: string; i
   )
 }
 
-function DaYunCard({ dy, isCurrent }: { dy: DaYun; isCurrent: boolean }) {
+function DaYunCard({ dy, isCurrent, isSelected, tenGod, stage, onSelect }: {
+  dy: DaYun; isCurrent: boolean; isSelected: boolean
+  tenGod: string; stage: string; onSelect: () => void
+}) {
   return (
-    <div className={`flex flex-col items-center gap-1 rounded-lg border p-2 shadow-[var(--shadow-card)] ${
-      isCurrent ? 'border-[#B23E26]/60 bg-[#B23E26]/[0.07]' : 'border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02]'
-    }`}>
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-pressed={isSelected}
+      className={`flex flex-col items-center gap-1 rounded-lg border p-2 shadow-[var(--shadow-card)] transition-colors ${
+        isSelected
+          ? 'border-[#E0552C] bg-[#B23E26]/[0.12]'
+          : isCurrent
+            ? 'border-[#B23E26]/60 bg-[#B23E26]/[0.07]'
+            : 'border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02] hover:border-[#B23E26]/40'
+      }`}
+    >
+      <span className="text-[9px] text-[#8A8071] leading-none">{tenGod}</span>
       <span className="text-xl font-black font-serif leading-none" style={{ color: stemColor(dy.stem) }}>
         {dy.stemChar}
       </span>
       <span className="text-lg font-bold font-serif leading-none" style={{ color: branchColor(dy.branch), opacity: 0.85 }}>
         {dy.branchChar}
       </span>
+      <span className="text-[9px] text-[#6B6155] leading-none">{stage}</span>
       <div className="mt-0.5 text-center">
         <p className="text-[11px] text-[#B23E26] font-medium">{dy.startAge}歲</p>
         <p className="text-[9px] text-[#8A8071]">{dy.startYear}</p>
       </div>
-    </div>
+    </button>
+  )
+}
+
+// 神煞面板：標準模式只列吉神凶煞各前五，完整模式全列並附計算基準
+function ShenShaPanel({ hits, detail, kongLabel }: {
+  hits: ShenShaHit[]; detail: DetailLevel; kongLabel: string
+}) {
+  const good = hits.filter(h => h.category === '吉神')
+  const bad  = hits.filter(h => h.category === '凶煞')
+  const full = detail === 'full'
+  const shown = full
+    ? [...good, ...bad]
+    : [...good.slice(0, 5), ...bad.slice(0, 5)]
+
+  return (
+    <section>
+      <div className="flex items-baseline gap-3 mb-4">
+        <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em]">神 煞 與 空 亡</h2>
+        <span className="text-[11px] text-[#8A8071]">{kongLabel}</span>
+      </div>
+      {shown.length === 0 ? (
+        <p className="text-[#6B6155] text-sm">此命盤未見所列核心神煞。</p>
+      ) : (
+        <div className="grid gap-2 sm:grid-cols-2">
+          {shown.map((h, i) => (
+            <div
+              key={i}
+              title={h.basis}
+              className={`rounded-lg border p-3 ${
+                h.category === '吉神'
+                  ? 'border-[#5da832]/40 bg-[#5da832]/[0.06]'
+                  : 'border-[#B23E26]/40 bg-[#B23E26]/[0.05]'
+              }`}
+            >
+              <div className="flex items-baseline gap-2">
+                <span className="text-sm font-bold text-[#2B241C]">{h.name}</span>
+                <span className="text-[10px] text-[#8A8071]">{h.category}</span>
+                <span className="text-[11px] text-[#5A5247]">見於{h.pillars.join('、')}柱</span>
+              </div>
+              {full && <p className="mt-1 text-[10px] text-[#6B6155] leading-relaxed">計算基準：{h.basis}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+      {!full && hits.length > shown.length && (
+        <p className="mt-3 text-[10px] text-[#8A8071]">切換至「完整」可看齊全部 {hits.length} 項神煞及計算基準。</p>
+      )}
+      {full && (
+        <p className="mt-3 text-[10px] text-[#8A8071] leading-relaxed">
+          門派說明：三合局類神煞以日支為主基準、年支為輔基準，每項均標示起算柱位。羊刃採「陰干取冠帶位」一派，故乙、丁、己、辛、癸日主亦立刃。
+        </p>
+      )}
+    </section>
+  )
+}
+
+function GzCell({ top, stem, branch, bottom, active, onClick }: {
+  top: string; stem: string; branch: string; bottom: string
+  active?: boolean; onClick?: () => void
+}) {
+  const si = '甲乙丙丁戊己庚辛壬癸'.indexOf(stem)
+  const bx = BRANCHES.indexOf(branch)
+  const inner = (
+    <>
+      <span className="text-[9px] text-[#8A8071] leading-none">{top}</span>
+      <span className="text-base font-black font-serif leading-none" style={{ color: si >= 0 ? stemColor(si) : undefined }}>{stem}</span>
+      <span className="text-base font-bold font-serif leading-none" style={{ color: bx >= 0 ? branchColor(bx) : undefined, opacity: 0.85 }}>{branch}</span>
+      <span className="text-[9px] text-[#6B6155] leading-none">{bottom}</span>
+    </>
+  )
+  const cls = `flex flex-col items-center gap-1 rounded-lg border p-2 transition-colors ${
+    active ? 'border-[#E0552C] bg-[#B23E26]/[0.12]' : 'border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02]'
+  }${onClick ? ' hover:border-[#B23E26]/40' : ''}`
+  return onClick
+    ? <button type="button" onClick={onClick} aria-pressed={!!active} className={cls}>{inner}</button>
+    : <div className={cls}>{inner}</div>
+}
+
+// 五層時間軸的流年、流月、流日、流時與一生運程總表
+function TimelinePanel({ result, birthYear, daYun, currentYear }: {
+  result: BaziResult; birthYear: number; daYun: DaYun | null; currentYear: number
+}) {
+  const TABS = ['流年', '流月', '流日', '流時', '一生運程總表'] as const
+  const [tab, setTab] = useState<(typeof TABS)[number]>('流年')
+  const [yearPick, setYearPick] = useState<number | null>(null)
+  const [monthPick, setMonthPick] = useState(0)
+  const [dayPick, setDayPick] = useState(0)
+  const dayStem = result.day.stem
+
+  const years = useMemo(() => {
+    const base = daYun ? daYun.startYear : currentYear - 4
+    return Array.from({ length: 10 }, (_, i) => base + i)
+  }, [daYun, currentYear])
+
+  const activeYear = yearPick !== null && years.includes(yearPick)
+    ? yearPick
+    : (years.includes(currentYear) ? currentYear : years[0])
+
+  const months = useMemo(() => monthCells(activeYear, dayStem), [activeYear, dayStem])
+  const monthIdx = Math.min(monthPick, 11)
+  const days = useMemo(() => dayCells(activeYear, monthIdx, dayStem), [activeYear, monthIdx, dayStem])
+  const dayIdx = Math.min(dayPick, Math.max(days.length - 1, 0))
+  const theDay = days[dayIdx]
+  const hours = useMemo(() => hourCells(theDay ? theDay.stem : dayStem, dayStem), [theDay, dayStem])
+  const life = useMemo(() => lifeTable(result, birthYear), [result, birthYear])
+
+  const activeGz = yearGanZhi(activeYear, dayStem)
+  const acts = useMemo(() => branchInteractions(activeGz.branch, result), [activeGz.branch, result])
+
+  return (
+    <section>
+      <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-4">流 年 流 月 流 日 流 時</h2>
+
+      <div className="flex flex-wrap gap-2 mb-4">
+        {TABS.map(t => (
+          <button
+            key={t}
+            type="button"
+            onClick={() => setTab(t)}
+            aria-pressed={tab === t}
+            className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
+              tab === t
+                ? 'bg-[#B23E26] border-[#B23E26] text-[#F7F1E5] font-bold'
+                : 'bg-[#2B241C]/[0.05] border-[#2B241C]/15 text-[#5A5247] hover:border-[#B23E26]/50'
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+
+      {tab === '流年' && (
+        <div className="space-y-4">
+          <p className="text-[11px] text-[#8A8071]">
+            範圍：{daYun ? `${daYun.stemChar}${daYun.branchChar} 大運（${years[0]} 至 ${years[9]}）` : `${years[0]} 至 ${years[9]}`}。點選任一流年，下方列出它與原局的沖合刑害破。
+          </p>
+          <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
+            {years.map(y => {
+              const g = yearGanZhi(y, dayStem)
+              return (
+                <GzCell
+                  key={y}
+                  top={String(y)}
+                  stem={g.gz[0]} branch={g.gz[1]}
+                  bottom={g.tenGod}
+                  active={y === activeYear}
+                  onClick={() => setYearPick(y)}
+                />
+              )
+            })}
+          </div>
+          <div className="rounded-lg border border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02] p-4">
+            <p className="text-xs text-[#2B241C] font-semibold mb-2">
+              {activeYear} 年 {activeGz.gz}（天干{activeGz.tenGod}）引動原局
+            </p>
+            {acts.length === 0 ? (
+              <p className="text-[11px] text-[#6B6155]">此流年地支與原局四支無直接沖合刑害破。</p>
+            ) : (
+              <ul className="space-y-1">
+                {acts.map((a, i) => (
+                  <li key={i} className="text-[11px] text-[#5A5247]">
+                    <span className="inline-block w-12 text-[#B23E26]">{a.pillarLabel}</span>
+                    <span className="inline-block w-8">{a.relation}</span>
+                    {a.detail}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
+
+      {tab === '流月' && (
+        <div className="space-y-3">
+          <p className="text-[11px] text-[#8A8071]">
+            {activeYear} 年流月。八字月份以節氣分界，非曆月，下方標出各月交節日期與時刻（香港時間）。
+          </p>
+          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+            {months.map((m, i) => (
+              <GzCell
+                key={i}
+                top={`${m.jieName} ${m.jieDate}`}
+                stem={m.gz[0]} branch={m.gz[1]}
+                bottom={m.tenGod}
+                active={i === monthIdx}
+                onClick={() => { setMonthPick(i); setDayPick(0) }}
+              />
+            ))}
+          </div>
+          <p className="text-[10px] text-[#8A8071]">
+            {months[monthIdx].jieName}交節：{activeYear} 年 {months[monthIdx].jieDate} {months[monthIdx].jieTime}
+          </p>
+        </div>
+      )}
+
+      {tab === '流日' && (
+        <div className="space-y-3">
+          <p className="text-[11px] text-[#8A8071]">
+            {months[monthIdx].gz} 月（{months[monthIdx].jieName} {months[monthIdx].jieDate} 起）逐日干支，共 {days.length} 日。可在流月分頁切換月份。
+          </p>
+          <div className="grid grid-cols-5 sm:grid-cols-8 gap-2">
+            {days.map((d, i) => (
+              <GzCell
+                key={i}
+                top={d.date}
+                stem={d.gz[0]} branch={d.gz[1]}
+                bottom={d.tenGod}
+                active={i === dayIdx}
+                onClick={() => setDayPick(i)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {tab === '流時' && (
+        <div className="space-y-3">
+          <p className="text-[11px] text-[#8A8071]">
+            {theDay ? `${theDay.year} 年 ${theDay.date}（${theDay.gz} 日）` : '所選日'}的十二時辰干支，依五鼠遁由日干起。
+          </p>
+          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+            {hours.map((h, i) => (
+              <GzCell key={i} top={h.range} stem={h.gz[0]} branch={h.gz[1]} bottom={h.tenGod} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {tab === '一生運程總表' && (
+        <div className="space-y-4">
+          <p className="text-[11px] text-[#8A8071]">由出生年起 108 年，按大運分組。</p>
+          {life.map((g, i) => (
+            <div key={i} className="rounded-lg border border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02] p-3">
+              <p className="text-[11px] text-[#B23E26] mb-2">
+                {g.label}　{g.startYear} 至 {g.endYear}　{g.startAge} 歲起
+              </p>
+              <div className="flex flex-wrap gap-x-3 gap-y-1">
+                {g.years.map(y => (
+                  <span key={y.year} className={`text-[11px] ${y.year === currentYear ? 'text-[#B23E26] font-bold' : 'text-[#5A5247]'}`}>
+                    {y.year} {y.gz}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
   )
 }
 
 export default function BaziCalculator() {
-  const [form, setForm] = useState({ year: '', month: '1', day: '', hour: '-1', gender: 'F' })
+  const [form, setForm] = useState({
+    year: '', month: '1', day: '', hour: '-1', gender: 'F',
+    timeMode: 'branch', h24: '12', min: '0',
+    trueSolar: '0', place: 'HK', customLon: '114.17', zishi: '23',
+  })
   const [result, setResult] = useState<BaziResult | null>(null)
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
   const [linkCopied, setLinkCopied] = useState(false)
+  const [detail, setDetail] = useState<DetailLevel>('simple')
+  const [daYunPick, setDaYunPick] = useState<number | null>(null)
 
   const currentYear = new Date().getFullYear()
 
@@ -100,13 +412,29 @@ export default function BaziCalculator() {
     const y = parseInt(f.year)
     const m = parseInt(f.month)
     const d = parseInt(f.day)
-    const h = parseInt(f.hour)
+    const exact = f.timeMode === 'exact'
+    const h24 = parseInt(f.h24) || 0
+    const mi  = parseInt(f.min) || 0
+    const h = f.timeMode === 'unknown' ? -1 : (exact ? hourBranchOf(h24, mi) : parseInt(f.hour))
 
     if (!y || y < 1900 || y > currentYear) return setError('請輸入有效出生年份（1900 至今）')
     if (!d || d < 1 || d > 31)             return setError('請輸入有效日期')
     setError('')
+
+    const place = PLACES.find(p => p.key === f.place) ?? PLACES[0]
+    const lonRaw = f.place === 'CUSTOM' ? parseFloat(f.customLon) : place.lon
+    const opts = exact ? {
+      hour24: h24,
+      minute: mi,
+      trueSolarTime: f.trueSolar === '1',
+      longitude: Number.isFinite(lonRaw) ? lonRaw : 114.17,
+      standardMeridian: place.meridian,
+      zishiMode: (f.zishi === '00' ? '00' : '23') as '23' | '00',
+    } : undefined
+
     try {
-      setResult(calculate(y, m, d, h, f.gender as 'M' | 'F'))
+      setResult(calculate(y, m, d, h, f.gender as 'M' | 'F', opts))
+      setDaYunPick(null)
       if (updateUrl && typeof window !== 'undefined') {
         const params = new URLSearchParams()
         params.set('y', String(y))
@@ -114,6 +442,15 @@ export default function BaziCalculator() {
         params.set('d', String(d))
         params.set('h', String(h))
         params.set('g', f.gender)
+        params.set('tm', f.timeMode)
+        if (exact) {
+          params.set('t', String(h24))
+          params.set('n', String(mi))
+          params.set('st', f.trueSolar)
+          params.set('pl', f.place)
+          if (f.place === 'CUSTOM') params.set('lo', f.customLon)
+          params.set('z', f.zishi)
+        }
         window.history.pushState(null, '', `${window.location.pathname}?${params.toString()}`)
       }
     } catch {
@@ -136,12 +473,20 @@ export default function BaziCalculator() {
     const g = params.get('g')
     if (!y || !d) return
 
+    const tm = params.get('tm')
     const restored = {
       year: y,
       month: m ?? '1',
       day: d,
       hour: h ?? '-1',
       gender: g === 'M' ? 'M' : 'F',
+      timeMode: tm === 'exact' || tm === 'unknown' ? tm : (h === '-1' ? 'unknown' : 'branch'),
+      h24: params.get('t') ?? '12',
+      min: params.get('n') ?? '0',
+      trueSolar: params.get('st') === '1' ? '1' : '0',
+      place: PLACES.some(p => p.key === params.get('pl')) ? (params.get('pl') as string) : 'HK',
+      customLon: params.get('lo') ?? '114.17',
+      zishi: params.get('z') === '00' ? '00' : '23',
     }
     setForm(restored)
     doCalculate(restored, false)

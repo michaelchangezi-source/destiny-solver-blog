@@ -7,6 +7,9 @@ import CategoryWheel from '@/components/ui/CategoryWheel'
 import LatestCard from '@/components/blog/LatestCard'
 import HomeMotion from '@/components/HomeMotion'
 import InkFlowHero from '@/components/InkFlowHero'
+import PricingTiers from '@/components/home/PricingTiers'
+import SelfQualification from '@/components/home/SelfQualification'
+import Commitments from '@/components/home/Commitments'
 
 export const revalidate = 3600
 
@@ -128,6 +131,47 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── 諮詢方案（P2-1：三層定價上首頁，做價格錨定）── */}
+      <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="text-center mb-10">
+          <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">PRICING</p>
+          <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-3">一對一諮詢方案</h2>
+          <p className="text-[#6B6155] text-sm leading-relaxed max-w-lg mx-auto">
+            三個層級，按你想看的深度選擇，詳細說明與預約方式見諮詢頁。
+          </p>
+        </div>
+        <PricingTiers />
+        <div className="text-center mt-8">
+          <Link
+            href="/consultation"
+            className="inline-flex items-center gap-2 text-[#B23E26] hover:text-[#C9461F] font-bold text-sm transition-colors"
+          >
+            查看完整諮詢說明與預約流程 <ArrowRight size={15} />
+          </Link>
+        </div>
+      </section>
+
+      {/* ── 自我篩選（P2-2：適合／未必適合雙欄對照）── */}
+      <section className="reveal border-y border-[#2B241C]/10 bg-[#F4EEE1] py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-3">這個諮詢適合你嗎？</h2>
+            <p className="text-[#6B6155] text-sm leading-relaxed max-w-lg mx-auto">
+              與其事後失望，不如先看清楚。以下兩欄請對照著讀。
+            </p>
+          </div>
+          <SelfQualification />
+        </div>
+      </section>
+
+      {/* ── 明文承諾（P2-3）── */}
+      <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="text-center mb-10">
+          <h2 className="font-serif text-[#2B241C] text-2xl font-bold">我的三個承諾</h2>
+        </div>
+        <Commitments />
+      </section>
 
       {/* ── CTA Consultation（深色 --ink 區，節奏對比）── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">

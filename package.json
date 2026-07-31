@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node tests/bazi-spec.mjs"
+    "test": "node tests/bazi-spec.mjs && node tests/compat-spec.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
