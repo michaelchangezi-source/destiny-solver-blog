@@ -3,6 +3,7 @@ import { Noto_Sans_TC, Noto_Serif_TC } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration'
 import { Analytics } from '@vercel/analytics/next'
 import { SITE_URL, PERSON, PUBLISHER, personJsonLd } from '@/lib/site'
 
@@ -117,6 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main-content" className="pt-16">{children}</main>
         <Footer />
         <Analytics />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   )

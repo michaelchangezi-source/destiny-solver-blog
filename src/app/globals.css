@@ -188,3 +188,38 @@ h1, h2, h3 { text-wrap: balance; }
 .btn-radius { border-radius: 8px; }
 .card-radius { border-radius: 16px; }
 .feature-radius { border-radius: 24px; }
+
+/* ── 詞彙連結 ── */
+.glossary-link {
+  color: #B23E26;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  transition: opacity 0.15s;
+}
+.glossary-link:hover { opacity: 0.75; }
+
+/* ── 列印樣式（供 PDF 匯出）── */
+@media print {
+  /* 隱藏導航、頁腳、表單、按鈕 */
+  header, footer, nav,
+  form, [data-print-hide],
+  .no-print { display: none !important; }
+
+  /* 命盤結果區 */
+  [data-print-show] { display: block !important; }
+
+  body {
+    background: #fff !important;
+    color: #2B241C !important;
+    font-size: 12pt;
+  }
+
+  /* 每個柱保持在同一頁 */
+  .pillar-card { break-inside: avoid; }
+
+  @page {
+    size: A4 portrait;
+    margin: 20mm 15mm;
+  }
+}

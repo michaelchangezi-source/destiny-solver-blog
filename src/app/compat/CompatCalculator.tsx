@@ -32,6 +32,7 @@ const TYPE_COLOR: Record<InteractionType, string> = {
   '地支六害': '#a83020',
   '地支相破': '#7a5a80',
   '地支伏吟': '#8a7a55',
+  '地支三刑': '#9c3f4c',
 }
 
 const SENTIMENT_STYLE: Record<Sentiment, { bg: string; border: string; text: string }> = {
@@ -187,7 +188,7 @@ export default function CompatCalculator() {
   }, [formA, formB])
 
   // ── 分組互動 ──────────────────────────────────────────
-  const groups: InteractionType[] = ['天干五合','地支六合','地支三合','地支六沖','地支六害','地支相破','地支伏吟']
+  const groups: InteractionType[] = ['天干五合','地支六合','地支三合','地支六沖','地支三刑','地支六害','地支相破','地支伏吟']
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -273,19 +274,26 @@ export default function CompatCalculator() {
                       const st = SENTIMENT_STYLE[item.sentiment]
                       return (
                         <div key={idx}
-                          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm flex-wrap ${item.isDay ? 'ring-1' : ''}`}
+                          className={`rounded-lg px-3 py-2 text-sm space-y-1.5 ${item.isDay ? 'ring-1' : ''}`}
                           style={{background: st.bg, border: `1px solid ${st.border}`}}>
-                          <span className="font-serif font-bold" style={{color: st.text}}>{item.aLabel.split(' ')[1]}</span>
-                          <span className="text-[#6B6155] text-xs">{item.aLabel.split(' ')[0]}</span>
-                          <span className="text-[#8A8071]">×</span>
-                          <span className="font-serif font-bold" style={{color: st.text}}>{item.bLabel.split(' ')[1]}</span>
-                          <span className="text-[#6B6155] text-xs">{item.bLabel.split(' ')[0]}</span>
-                          <span className="ml-auto text-xs" style={{color: st.text}}>→ {item.detail}</span>
-                          {item.isDay && (
-                            <span className="text-[9px] px-1.5 py-0.5 rounded" style={{color: col, background: `${col}20`, border: `1px solid ${col}40`}}>
-                              日柱
-                            </span>
-                          )}
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-serif font-bold" style={{color: st.text}}>{item.aLabel.split(' ')[1]}</span>
+                            <span className="text-[#6B6155] text-xs">{item.aLabel.split(' ')[0]}</span>
+                            <span className="text-[#8A8071]">×</span>
+                            <span className="font-serif font-bold" style={{color: st.text}}>{item.bLabel.split(' ')[1]}</span>
+                            <span className="text-[#6B6155] text-xs">{item.bLabel.split(' ')[0]}</span>
+                            <span className="ml-auto text-xs" style={{color: st.text}}>→ {item.detail}</span>
+                            {item.isDay && (
+                              <span className="text-[9px] px-1.5 py-0.5 rounded" style={{color: col, background: `${col}20`, border: `1px solid ${col}40`}}>
+                                日柱
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[#6B6155] text-xs leading-relaxed">{item.narrative}</p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px] text-[#8A8071]">
+                            <p>{item.aPerspective}</p>
+                            <p>{item.bPerspective}</p>
+                          </div>
                         </div>
                       )
                     })}

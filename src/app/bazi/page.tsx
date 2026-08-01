@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import BaziCalculator from './BaziCalculator'
 import { SITE_URL } from '@/lib/site'
+import { getArticlesByElement } from '@/lib/articles'
+import type { ArticleMeta } from '@/types'
 
 export const metadata: Metadata = {
   title: '八字速算｜免費四柱大運排盤',
@@ -58,6 +60,13 @@ const faqJsonLd = {
 }
 
 export default function BaziPage() {
+  const articlesByElement: Record<string, ArticleMeta[]> = {
+    '木': getArticlesByElement('木', undefined, 3),
+    '火': getArticlesByElement('火', undefined, 3),
+    '土': getArticlesByElement('土', undefined, 3),
+    '金': getArticlesByElement('金', undefined, 3),
+    '水': getArticlesByElement('水', undefined, 3),
+  }
   return (
     <main className="pt-24 pb-20 px-4">
       <script
@@ -77,7 +86,7 @@ export default function BaziPage() {
           </h1>
           <p className="text-[#6B6155] text-sm">輸入出生資料，即時排出四柱命盤及大運</p>
         </div>
-        <BaziCalculator />
+        <BaziCalculator articlesByElement={articlesByElement} />
 
         {/* 工具說明 */}
         <div className="max-w-3xl mx-auto mt-16 space-y-10">

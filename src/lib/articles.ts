@@ -3,6 +3,7 @@ import path from 'path'
 import matter from 'gray-matter'
 import readingTime from 'reading-time'
 import type { Article, ArticleMeta } from '@/types'
+import { CATEGORY_ELEMENT } from '@/types'
 
 const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles')
 
@@ -93,6 +94,12 @@ export function getLatestArticles(limit?: number): ArticleMeta[] {
 
 export function getArticlesByCategory(category: string): ArticleMeta[] {
   return getAllArticles().filter((a) => a.category === category)
+}
+
+export function getArticlesByElement(element: string, exclude?: string, limit = 3): ArticleMeta[] {
+  return getAllArticles()
+    .filter((a) => CATEGORY_ELEMENT[a.category] === element && a.slug !== exclude)
+    .slice(0, limit)
 }
 
 export function getAllCategories(): string[] {

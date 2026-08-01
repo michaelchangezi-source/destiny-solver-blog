@@ -105,31 +105,45 @@ export default function AboutPage() {
               <strong className="text-[#3A332A]"> 命理是認識自己的工具，而非預測命運的水晶球。</strong>
             </p>
             <p>
-              多年來，我深入研究八字、吠陀占星與五行哲學，將東方古典智慧與現代心理學框架結合，
-              幫助學員和客戶看見自身的能量結構、格局層次，以及如何在人生不同的時間節點做出更好的決策。
-            </p>
-            <p>
               我相信，真正的命理諮詢應該讓你離開時比來時更清晰、更有力量，而不是更焦慮、更依賴。
             </p>
           </div>
         </div>
       </div>
 
-      {/* ── Background ── */}
+      {/* ── Background：起點、轉折、方法論的形成（P3-2 敘事性重組，素材沿用原有內容）── */}
       <div className="mb-14">
-        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-6">跨界背景</h2>
-        <div className="space-y-4 text-[#5A5247] leading-relaxed text-[15px]">
-          <p>
-            在投入命理研究之前，我曾任職香港財經媒體逾十年，先後於《明報》及《經濟日報》擔任編輯，
-            並持續為《資本雜誌》撰寫專欄，亦主編超過七十本書籍，涵蓋財經、商管與科普領域，
-            自己亦出版過數本探討股票投資與科技產業趨勢的著作。
-          </p>
-          <p>
-            這段訓練讓我習慣用結構化的方式拆解複雜系統：面對市場數據或企業趨勢，
-            我先看的是背後的邏輯與能量流動，而不是表面的漲跌與情緒。
-            後來將這套訓練轉向命理研究時，我發現八字本質上也是一套解讀人生系統的邏輯工具，
-            而非玄之又玄的預言。這正是樞衡體系強調做功、去向與能量交換這些結構化維度的方法論根基。
-          </p>
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-8">從財經媒體到命理研究</h2>
+        <div className="space-y-8">
+          <div className="border-l border-[#2B241C]/10 pl-6">
+            <p className="text-[#B23E26] text-xs font-semibold tracking-[0.25em] uppercase mb-3">起點</p>
+            <p className="text-[#5A5247] leading-relaxed text-[15px]">
+              在投入命理研究之前，我曾任職香港財經媒體逾十年，先後於《明報》及《經濟日報》擔任編輯，
+              並持續為《資本雜誌》撰寫專欄，亦主編超過七十本書籍，涵蓋財經、商管與科普領域，
+              自己亦出版過數本探討股票投資與科技產業趨勢的著作。
+            </p>
+          </div>
+          <div className="border-l border-[#2B241C]/10 pl-6">
+            <p className="text-[#B23E26] text-xs font-semibold tracking-[0.25em] uppercase mb-3">轉折</p>
+            <p className="text-[#5A5247] leading-relaxed text-[15px]">
+              這段訓練讓我習慣用結構化的方式拆解複雜系統：面對市場數據或企業趨勢，
+              我先看的是背後的邏輯與能量流動，而不是表面的漲跌與情緒。
+              後來將這套訓練轉向命理研究時，我發現八字本質上也是一套解讀人生系統的邏輯工具，
+              而非玄之又玄的預言。
+            </p>
+          </div>
+          <div className="border-l border-[#2B241C]/10 pl-6">
+            <p className="text-[#B23E26] text-xs font-semibold tracking-[0.25em] uppercase mb-3">方法論的形成</p>
+            <div className="space-y-4 text-[#5A5247] leading-relaxed text-[15px]">
+              <p>
+                這正是樞衡體系強調做功、去向與能量交換這些結構化維度的方法論根基。
+              </p>
+              <p>
+                多年來，我深入研究八字、吠陀占星與五行哲學，將東方古典智慧與現代心理學框架結合，
+                幫助學員和客戶看見自身的能量結構、格局層次，以及如何在人生不同的時間節點做出更好的決策。
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

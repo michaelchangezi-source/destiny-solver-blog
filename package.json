@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node tests/bazi-spec.mjs"
+    "test": "node tests/bazi-spec.mjs && node tests/compat-spec.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -16,6 +16,7 @@
     "date-fns": "^4.3.0",
     "gray-matter": "^4.0.3",
     "gsap": "^3.15.0",
+    "html2canvas": "^1.4.1",
     "lucide-react": "^0.511.0",
     "lunar-typescript": "^1.8.6",
     "next": "16.2.6",

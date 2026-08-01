@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { MessageCircle, Mail, CheckCircle, Clock, Star, XCircle } from 'lucide-react'
 import { SITE_URL, PERSON } from '@/lib/site'
+import PricingTiers, { CONSULTATION_PRICE } from '@/components/home/PricingTiers'
 
 export const metadata: Metadata = {
   title: '預約諮詢',
@@ -99,11 +100,24 @@ const wontAccept = [
   '以算命代替醫療、法律或心理健康的專業建議',
 ]
 
-const pricingIncludes = [
-  '命格整體解讀',
-  '性格與天賦',
-  '當前大運分析',
-  '1-2 個人生議題深入解答',
+// 服務流程透明化（P3-3）。value 留空的項目版面自動不顯示，
+// 站主填入後即時出現，不需另外改版。
+//
+// TODO（待站主填入，未填之前不得自行補寫）：
+//   · 交付物：諮詢後是否附文字報告、PDF 或錄音
+//   · 諮詢時長：每次約多久
+//   · 付款時點與方式：何時付款、可用哪些方式
+//   · 改期政策：可否改期、需提前多久
+//   · 可否追問：諮詢後多長時間內可以追問、次數限制
+const serviceDetails = [
+  { label: '諮詢形式', value: '透過 Threads / IG 私訊、Email 或 WhatsApp 進行' },
+  { label: '諮詢語言', value: '廣東話或普通話' },
+  { label: '回覆時間', value: '工作日 24 小時內' },
+  { label: '交付物', value: '' },
+  { label: '諮詢時長', value: '' },
+  { label: '付款時點與方式', value: '' },
+  { label: '改期政策', value: '' },
+  { label: '可否追問', value: '' },
 ]
 
 const THREADS_DM_URL = 'https://www.threads.com/@destiny.solver'
@@ -134,8 +148,8 @@ const serviceJsonLd = {
   ],
   offers: {
     '@type': 'Offer',
-    name: '基礎諮詢',
-    price: '800',
+    name: '一對一命理諮詢',
+    price: CONSULTATION_PRICE,
     priceCurrency: 'HKD',
     availability: 'https://schema.org/InStock',
     url: `${SITE_URL}/consultation`,
@@ -202,22 +216,11 @@ export default function ConsultationPage() {
         </div>
       </div>
 
-      {/* Pricing 卡（§5.1）：置中定價，一撳即開的雙 CTA */}
-      <div className="relative bg-[#FFFFFF] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-lg p-10 mb-10 text-center overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-[#B23E26]" aria-hidden="true" />
-        <p className="text-[#B23E26] text-xs font-semibold tracking-[0.3em] uppercase mb-3">一對一八字諮詢</p>
-        <p className="font-serif text-[#2B241C] text-5xl font-black mb-6">
-          HK$800<span className="text-2xl font-bold text-[#6B6155]"> 起</span>
-        </p>
-        <ul className="max-w-sm mx-auto mb-8 space-y-2.5 text-left">
-          {pricingIncludes.map((item) => (
-            <li key={item} className="flex items-center gap-2.5 text-[#5A5247] text-sm">
-              <CheckCircle size={15} className="text-[#B23E26] flex-shrink-0" />
-              {item}
-            </li>
-          ))}
-        </ul>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+      {/* Pricing（P2-1）：三層方案 + 一撳即開的雙 CTA */}
+      <div className="mb-10">
+        <h2 className="text-[#2B241C] text-xl font-bold mb-6">諮詢方案</h2>
+        <PricingTiers />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto mt-10">
           <a
             href={THREADS_DM_URL}
             target="_blank"
@@ -258,6 +261,21 @@ export default function ConsultationPage() {
         </div>
       </div>
 
+      {/* 服務說明（P3-3：服務流程透明化）*/}
+      <div className="mb-16">
+        <h2 className="text-[#2B241C] text-xl font-bold mb-6">服務說明</h2>
+        <dl className="bg-[#F4EEE1] rounded-lg divide-y divide-[#2B241C]/10">
+          {serviceDetails
+            .filter((item) => item.value)
+            .map((item) => (
+              <div key={item.label} className="flex flex-col sm:flex-row gap-1 sm:gap-6 px-6 py-4">
+                <dt className="text-[#2B241C] font-semibold text-sm sm:w-40 flex-shrink-0">{item.label}</dt>
+                <dd className="text-[#6B6155] text-sm leading-relaxed">{item.value}</dd>
+              </div>
+            ))}
+        </dl>
+      </div>
+
       {/* Will / Won't accept */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
         <div className="bg-[#F4EEE1] rounded-lg p-6">
@@ -296,6 +314,14 @@ export default function ConsultationPage() {
           <Star size={18} className="text-[#B23E26]" />
           客戶見證
         </h2>
+        <p className="text-[#8A8071] text-sm leading-relaxed mb-8">
+          以下見證只會使用已取得客人同意刊載、並完成匿名處理的內容。姓名一律以代稱顯示，
+          個人可識別的細節已經略去。
+        </p>
+        {/* TODO（待站主填入真實素材）：截圖版見證。
+            站主提供已取得同意並完成打碼的對話截圖後，在此加一個 grid，
+            每張截圖標註服務類型與大致時間（例：一對一諮詢 · 2025 年春）。
+            嚴禁以生成內容或示意圖填充此版位。 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {testimonials.map((t) => (
             <div key={t.id} className="bg-[#FFFFFF] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-lg p-6 flex flex-col">
