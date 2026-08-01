@@ -19,6 +19,7 @@ export type HeroToday = {
   accent: string // 日柱五行色（隨日變：木綠火紅土啡金藍水靛）
   yi: string[]
   buYi: string[]
+  solarTerm?: string | null
 }
 
 // /hero-demo 等無伺服器資料的情境用的後備樣本。
@@ -159,8 +160,13 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
           <div className="hero-d-card flex flex-shrink-0 justify-center lg:justify-end">
             <div className="relative w-full max-w-[380px] rounded-lg border border-[color:var(--border-card)] bg-[#FFFFFF] p-7 text-[#2B241C] shadow-[0_24px_60px_-28px_rgba(43,36,28,0.28)]">
               <div className="mb-5 flex items-center justify-between">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B23E26]">
-                  Today · 今日命盤
+                <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#B23E26] flex items-center gap-2">
+                  TODAY · 今日能量
+                  {today.solarTerm && (
+                    <span className="inline-flex items-center rounded-full bg-[#B23E26]/10 px-2 py-0.5 text-[9px] font-bold tracking-widest text-[#B23E26]">
+                      {today.solarTerm}
+                    </span>
+                  )}
                 </span>
                 <span className="text-[13px] text-[#6B6155]">
                   {today.dateLabel} · {today.weekday}

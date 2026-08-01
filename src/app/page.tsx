@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
+import { getSolarTermOnDate } from '@/lib/bazi-calc'
 import CategoryWheel from '@/components/ui/CategoryWheel'
 import LatestCard from '@/components/blog/LatestCard'
 import HomeMotion from '@/components/HomeMotion'
@@ -20,6 +21,7 @@ export default function HomePage() {
 
   // 今日命盤（供 Hero 卡）
   const [today] = analyzeDays(1)
+  const solarTerm = getSolarTermOnDate(new Date())
 
   return (
     <>
@@ -36,6 +38,7 @@ export default function HomePage() {
           accent: ELEMENT_COLOR[today.dayPillar.element],
           yi: today.yi.map((y) => y.item),
           buYi: today.buYi.map((b) => b.item),
+          solarTerm,
         }}
       />
 
@@ -136,9 +139,9 @@ export default function HomePage() {
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="text-center mb-10">
           <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">PRICING</p>
-          <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-3">一對一諮詢方案</h2>
+          <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-3">命理諮詢方案</h2>
           <p className="text-[#6B6155] text-sm leading-relaxed max-w-lg mx-auto">
-            三個層級，按你想看的深度選擇，詳細說明與預約方式見諮詢頁。
+            個人或雙人，按你的需要選擇，詳細說明與預約方式見諮詢頁。
           </p>
         </div>
         <PricingTiers />
@@ -173,29 +176,6 @@ export default function HomePage() {
         <Commitments />
       </section>
 
-      {/* ── CTA Consultation（深色 --ink 區，節奏對比）── */}
-      <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="bg-[#161310] rounded-lg p-10 sm:p-14 text-center relative overflow-hidden">
-          <div className="relative w-16 h-16 mx-auto mb-6 rounded-full overflow-hidden ring-2 ring-[#E8A86E]/40">
-            <Image src="/images/avatar.png" alt="命運解決師" fill sizes="64px" className="object-cover" />
-          </div>
-          <p className="text-[#E8A86E] text-xs font-semibold tracking-[0.3em] uppercase mb-4">一對一命理諮詢</p>
-          <h2 className="font-serif text-[#F4EEE1] text-3xl sm:text-4xl font-black mb-4">
-            準備好認識<br className="sm:hidden" /><span className="text-[#E8A86E]">真實的自己</span>了嗎？
-          </h2>
-          <p className="text-[#F4EEE1]/70 max-w-lg mx-auto mb-8 leading-relaxed text-sm">
-            深度八字命理分析，解讀你的能量結構、格局層次與人生時機。
-            <br />
-            讓命理成為你的決策工具，而非焦慮的來源。
-          </p>
-          <Link
-            href="/consultation"
-            className="inline-flex items-center gap-2 bg-[#E0552C] hover:bg-[#C9461F] text-[#FBF7EE] font-bold px-8 py-4 rounded-lg transition-[background-color,transform] duration-200 active:scale-[0.97]"
-          >
-            了解諮詢服務 <ArrowRight size={18} />
-          </Link>
-        </div>
-      </section>
     </>
   )
 }

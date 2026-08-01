@@ -64,6 +64,48 @@ export function jieJD(year: number, jieIndex: number): number {
   }
   return jd
 }
+// 24節氣完整列表（太陽視黃經 → 節氣名）
+const JIEQI_24: Array<{ long: number; name: string }> = [
+  { long: 315, name: '立春' }, { long: 330, name: '雨水' },
+  { long: 345, name: '驚蟄' }, { long: 0,   name: '春分' },
+  { long: 15,  name: '清明' }, { long: 30,  name: '穀雨' },
+  { long: 45,  name: '立夏' }, { long: 60,  name: '小滿' },
+  { long: 75,  name: '芒種' }, { long: 90,  name: '夏至' },
+  { long: 105, name: '小暑' }, { long: 120, name: '大暑' },
+  { long: 135, name: '立秋' }, { long: 150, name: '處暑' },
+  { long: 165, name: '白露' }, { long: 180, name: '秋分' },
+  { long: 195, name: '寒露' }, { long: 210, name: '霜降' },
+  { long: 225, name: '立冬' }, { long: 240, name: '小雪' },
+  { long: 255, name: '大雪' }, { long: 270, name: '冬至' },
+  { long: 285, name: '小寒' }, { long: 300, name: '大寒' },
+]
+// 求任意太陽視黃經目標對應的 JD（Newton 迭代，適用全部 24 節氣）
+function solarTermJD(year: number, targetLong: number): number {
+  const offset = ((targetLong - 280) + 360) % 360
+  let jd = 2451545.0 + offset / 0.9856474 + (year - 2000) * 365.25
+  for (let i = 0; i < 30; i++) {
+    let diff = targetLong - sunLong(jd)
+    if (diff > 180) diff -= 360
+    if (diff < -180) diff += 360
+    if (Math.abs(diff) < 1e-9) break
+    jd += diff / 0.9856474
+  }
+  return jd
+}
+// 若指定日期（香港時間 UTC+8）為某節氣，回傳節氣名；否則回傳 null
+export function getSolarTermOnDate(date: Date): string | null {
+  const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate()
+  const jdStart = gregToJD(y, m, d, -8) // 香港午夜 = 前一天 16:00 UT
+  const jdEnd = jdStart + 1
+  for (const yr of [y - 1, y, y + 1]) {
+    for (const { long, name } of JIEQI_24) {
+      const jd = solarTermJD(yr, long)
+      if (jd >= jdStart && jd < jdEnd) return name
+    }
+  }
+  return null
+}
+
 // 出生瞬間 JD（時辰 → CST 民用時 → UT）；hourBranch<0（不確定）視為正午
 function birthJD(year: number, month: number, day: number, hourBranch: number): number {
   const civ = hourBranch >= 0 ? hourBranch * 2 : 12 // 子=0,丑=2,寅=4..亥=22
