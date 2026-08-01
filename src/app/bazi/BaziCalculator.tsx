@@ -1,11 +1,16 @@
 'use client'
 
-import { useState, useCallback, useEffect, useMemo } from 'react'
-import { calculate, stemColor, branchColor, BRANCHES } from '@/lib/bazi-calc'
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
+import Link from 'next/link'
+import { calculate, stemColor, branchColor, BRANCHES, hourBranchOf, tenGodOf } from '@/lib/bazi-calc'
 import type { BaziResult, Pillar, DaYun } from '@/lib/bazi-calc'
+import type { ArticleMeta } from '@/types'
 import { twelveStage, emptyBranches, xunName, nayin, computeShenSha } from '@/lib/bazi-shensha'
 import type { ShenShaHit } from '@/lib/bazi-shensha'
 import { monthCells, dayCells, hourCells, yearGanZhi, branchInteractions, lifeTable } from '@/lib/bazi-timeline'
+import { useChartLibrary } from './useChartLibrary'
+import ChartLibrary from './ChartLibrary'
+import type html2canvasType from 'html2canvas'
 
 // 常用出生地經度與時區標準經線（真太陽時校正用）
 const PLACES = [
@@ -392,7 +397,12 @@ function TimelinePanel({ result, birthYear, daYun, currentYear }: {
   )
 }
 
-export default function BaziCalculator() {
+// Day stem index (0–9) to 五行
+const STEM_ELEMENT = ['木','木','火','火','土','土','金','金','水','水'] as const
+
+export default function BaziCalculator({ articlesByElement = {} }: {
+  articlesByElement?: Record<string, ArticleMeta[]>
+}) {
   const [form, setForm] = useState({
     year: '', month: '1', day: '', hour: '-1', gender: 'F',
     timeMode: 'branch', h24: '12', min: '0',
@@ -404,6 +414,13 @@ export default function BaziCalculator() {
   const [linkCopied, setLinkCopied] = useState(false)
   const [detail, setDetail] = useState<DetailLevel>('simple')
   const [daYunPick, setDaYunPick] = useState<number | null>(null)
+  const [saving, setSaving] = useState(false)
+  const [saveName, setSaveName] = useState('')
+  const [savedFlash, setSavedFlash] = useState(false)
+  const saveInputRef = useRef<HTMLInputElement>(null)
+  const resultRef = useRef<HTMLDivElement>(null)
+  const [exporting, setExporting] = useState(false)
+  const { charts, save: saveChart, remove: removeChart, rename: renameChart } = useChartLibrary()
 
   const currentYear = new Date().getFullYear()
 
@@ -415,7 +432,7 @@ export default function BaziCalculator() {
     const exact = f.timeMode === 'exact'
     const h24 = parseInt(f.h24) || 0
     const mi  = parseInt(f.min) || 0
-    const h = f.timeMode === 'unknown' ? -1 : (exact ? hourBranchOf(h24, mi) : parseInt(f.hour))
+    const h = f.timeMode === 'unknown' ? -1 : (exact ? hourBranchOf(h24 ?? 0, mi ?? 0) : parseInt(f.hour))
 
     if (!y || y < 1900 || y > currentYear) return setError('請輸入有效出生年份（1900 至今）')
     if (!d || d < 1 || d > 31)             return setError('請輸入有效日期')
@@ -493,6 +510,57 @@ export default function BaziCalculator() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const handlePrint = useCallback(() => window.print(), [])
+
+  const handleExportPng = useCallback(async () => {
+    if (!resultRef.current) return
+    setExporting(true)
+    try {
+      const h2c = (await import('html2canvas')).default as typeof html2canvasType
+      const canvas = await h2c(resultRef.current, {
+        backgroundColor: '#F4EEE1',
+        scale: 2,
+        useCORS: true,
+        logging: false,
+      })
+      const link = document.createElement('a')
+      const label = form.year && form.day
+        ? `bazi_${form.year}_${form.month}_${form.day}`
+        : 'bazi_chart'
+      link.download = `${label}.png`
+      link.href = canvas.toDataURL('image/png')
+      link.click()
+    } catch {
+      // silently fail — user can screenshot manually
+    } finally {
+      setExporting(false)
+    }
+  }, [form])
+
+  const handleSaveChart = useCallback(() => {
+    saveChart(saveName || `${form.year}/${form.month}/${form.day} ${form.gender === 'F' ? '女' : '男'}`, {
+      year: form.year, month: form.month, day: form.day, hour: form.hour,
+      gender: form.gender, timeMode: form.timeMode, h24: form.h24, min: form.min,
+      trueSolar: form.trueSolar, place: form.place, customLon: form.customLon, zishi: form.zishi,
+    })
+    setSaving(false)
+    setSaveName('')
+    setSavedFlash(true)
+    setTimeout(() => setSavedFlash(false), 2000)
+  }, [form, saveName, saveChart])
+
+  const handleLoadChart = useCallback((chart: import('./useChartLibrary').SavedChart) => {
+    const restored = {
+      year: chart.year, month: chart.month, day: chart.day, hour: chart.hour,
+      gender: chart.gender as 'F' | 'M',
+      timeMode: chart.timeMode as 'branch' | 'exact' | 'unknown',
+      h24: chart.h24, min: chart.min,
+      trueSolar: chart.trueSolar, place: chart.place, customLon: chart.customLon, zishi: chart.zishi,
+    }
+    setForm(restored)
+    doCalculate(restored, true)
+  }, [doCalculate])
+
   const handleCopyLink = useCallback(() => {
     if (typeof window === 'undefined') return
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -562,6 +630,13 @@ export default function BaziCalculator() {
   const birthYear  = parseInt(form.year) || 0
   const currentAge = birthYear ? currentYear - birthYear : -1
 
+  const kong = result ? Array.from(emptyBranches(result.day.stem, result.day.branch)) : []
+  const kongLabel = result
+    ? `旬空：${kong.map(b => BRANCHES[b]).join('')}（${xunName(result.day.stem, result.day.branch)}）`
+    : ''
+  const shensha = result ? computeShenSha(result) : []
+  const selectedDaYun = (result && daYunPick !== null) ? result.daYuns[daYunPick] : null
+
   const pillars = result ? [
     { pillar: result.year,  label: '年柱', isDay: false },
     { pillar: result.month, label: '月柱', isDay: false },
@@ -572,7 +647,7 @@ export default function BaziCalculator() {
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       {/* 表單 */}
-      <div className="rounded-lg border border-[color:var(--border-card)] shadow-[var(--shadow-card)] bg-[#FBF7EE]/[0.02] p-5 sm:p-6 space-y-5">
+      <div className="no-print rounded-lg border border-[color:var(--border-card)] shadow-[var(--shadow-card)] bg-[#FBF7EE]/[0.02] p-5 sm:p-6 space-y-5">
         <div className="flex flex-wrap gap-3 items-end">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="bazi-year" className="text-[10px] text-[#B23E26] tracking-widest">出生年份</label>
@@ -666,20 +741,55 @@ export default function BaziCalculator() {
             ? <p className="text-[10px] text-[#6B6155]">⚠ {result.boundaryNote}</p>
             : null}
         </div>
+
+        <ChartLibrary
+          charts={charts}
+          onLoad={handleLoadChart}
+          onRemove={removeChart}
+          onRename={renameChart}
+        />
       </div>
 
       {/* 結果 */}
       {result && (
-        <>
+        <div ref={resultRef}>
+          {/* 顯示詳細度 */}
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] text-[#8A8071] tracking-widest">顯示詳細度：</span>
+            {DETAIL_OPTIONS.map(opt => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setDetail(opt.value)}
+                aria-pressed={detail === opt.value}
+                className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
+                  detail === opt.value
+                    ? 'bg-[#B23E26] border-[#B23E26] text-[#F7F1E5] font-bold'
+                    : 'bg-[#2B241C]/[0.05] border-[#2B241C]/15 text-[#5A5247] hover:border-[#B23E26]/50'
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+
           {/* 四柱 */}
           <section>
             <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-4">四 柱 命 盤</h2>
             <div className={`grid gap-3 ${result.hour ? 'grid-cols-4' : 'grid-cols-3'}`}>
               {pillars.map(({ pillar, label, isDay }) => (
-                <PillarCard key={label} pillar={pillar} label={label} isDay={isDay} />
+                <PillarCard
+                  key={label} pillar={pillar} label={label} isDay={isDay}
+                  detail={detail} dayStem={result!.day.stem} kong={kong}
+                />
               ))}
             </div>
           </section>
+
+          {/* 神煞與空亡（標準和完整模式） */}
+          {detail !== 'simple' && (
+            <ShenShaPanel hits={shensha} detail={detail} kongLabel={kongLabel} />
+          )}
 
           {/* 大運 */}
           <section>
@@ -696,13 +806,27 @@ export default function BaziCalculator() {
                 <DaYunCard
                   key={i} dy={dy}
                   isCurrent={currentAge >= dy.startAge && currentAge < dy.startAge + 10}
+                  isSelected={daYunPick === i}
+                  tenGod={tenGodOf(result.day.stem, dy.stem)}
+                  stage={twelveStage(result.day.stem, dy.branch)}
+                  onSelect={() => setDaYunPick(daYunPick === i ? null : i)}
                 />
               ))}
             </div>
           </section>
 
-          {/* 複製按鈕 */}
-          <div className="flex justify-center gap-3">
+          {/* 時間軸（標準和完整模式） */}
+          {detail !== 'simple' && (
+            <TimelinePanel
+              result={result}
+              birthYear={birthYear}
+              daYun={selectedDaYun}
+              currentYear={currentYear}
+            />
+          )}
+
+          {/* 複製 / 儲存按鈕 */}
+          <div className="flex flex-wrap justify-center gap-3">
             <button
               onClick={handleCopy}
               className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
@@ -723,6 +847,41 @@ export default function BaziCalculator() {
             >
               {linkCopied ? '✓ 已複製連結' : '複製連結'}
             </button>
+            {!saving ? (
+              <button
+                onClick={() => { setSaving(true); setTimeout(() => saveInputRef.current?.focus(), 30) }}
+                className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
+                  savedFlash
+                    ? 'border-green-500/60 text-green-400 bg-green-500/10'
+                    : 'border-[#B23E26]/40 text-[#B23E26] hover:bg-[#B23E26]/10'
+                }`}
+              >
+                {savedFlash ? '✓ 已儲存' : '儲存命盤'}
+              </button>
+            ) : (
+              <div className="flex items-center gap-2">
+                <input
+                  ref={saveInputRef}
+                  value={saveName}
+                  onChange={e => setSaveName(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') handleSaveChart(); if (e.key === 'Escape') { setSaving(false); setSaveName('') } }}
+                  placeholder={`${form.year}/${form.month}/${form.day} ${form.gender === 'F' ? '女' : '男'}`}
+                  className="w-44 bg-[#2B241C]/[0.05] border border-[#B23E26]/40 text-[#2B241C] rounded-full px-4 py-2 text-sm outline-none"
+                />
+                <button
+                  onClick={handleSaveChart}
+                  className="px-4 py-2 rounded-full text-sm bg-[#B23E26] text-[#F7F1E5] font-bold hover:bg-[#C9461F] transition-colors"
+                >
+                  確認
+                </button>
+                <button
+                  onClick={() => { setSaving(false); setSaveName('') }}
+                  className="px-4 py-2 rounded-full text-sm border border-[#2B241C]/15 text-[#6B6155] hover:border-[#B23E26]/40 transition-colors"
+                >
+                  取消
+                </button>
+              </div>
+            )}
           </div>
 
           {/* CTA */}
@@ -735,7 +894,50 @@ export default function BaziCalculator() {
               預約深度命盤分析
             </a>
           </div>
-        </>
+
+          {/* 按日主五行推薦文章 */}
+          {(() => {
+            const element = STEM_ELEMENT[result.day.stem]
+            const recs = articlesByElement[element] ?? []
+            if (recs.length === 0) return null
+            return (
+              <div className="no-print">
+                <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-3">
+                  日主屬{element}，推薦深讀
+                </p>
+                <div className="space-y-2">
+                  {recs.map(a => (
+                    <Link
+                      key={a.slug}
+                      href={`/articles/${a.slug}`}
+                      className="flex items-center gap-3 rounded border border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02] px-4 py-3 hover:border-[#B23E26]/40 transition-colors group"
+                    >
+                      <span className="text-[#8A8071] text-[10px] tracking-wider shrink-0">{a.category}</span>
+                      <span className="text-[#2B241C] text-sm flex-1 min-w-0 truncate group-hover:text-[#B23E26] transition-colors">{a.title}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )
+          })()}
+
+          {/* 匯出 */}
+          <div className="flex flex-wrap justify-center gap-3 no-print">
+            <button
+              onClick={handlePrint}
+              className="px-5 py-2 rounded-full text-sm border border-[#2B241C]/20 text-[#6B6155] hover:border-[#B23E26]/40 hover:text-[#B23E26] transition-colors"
+            >
+              列印 / 儲存 PDF
+            </button>
+            <button
+              onClick={handleExportPng}
+              disabled={exporting}
+              className="px-5 py-2 rounded-full text-sm border border-[#2B241C]/20 text-[#6B6155] hover:border-[#B23E26]/40 hover:text-[#B23E26] transition-colors disabled:opacity-50"
+            >
+              {exporting ? '生成中⋯' : '下載命盤圖片'}
+            </button>
+          </div>
+        </div>
       )}
     </div>
   )

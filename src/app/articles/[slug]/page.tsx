@@ -18,6 +18,7 @@ import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
 import { PERSON, PUBLISHER } from '@/lib/site'
+import { linkGlossaryTerms } from '@/lib/glossary'
 
 const BASE_URL = 'https://www.destinysolver.com'
 
@@ -164,7 +165,7 @@ function normalizeHeadings(html: string): string {
 
 async function markdownToHtml(markdown: string): Promise<string> {
   const result = await remark().use(remarkGfm).use(remarkHtml, { sanitize: false }).process(markdown)
-  return normalizeHeadings(result.toString())
+  return linkGlossaryTerms(normalizeHeadings(result.toString()))
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -335,6 +336,21 @@ export default async function ArticlePage({ params }: Props) {
       {/* Body */}
       <div id="article-content">
         <ArticleBody html={html} />
+      </div>
+
+      {/* 用你的命盤看這篇 */}
+      <div className="mt-10 flex items-center gap-4 rounded border border-[#2B241C]/10 bg-[#FBF7EE] px-5 py-4">
+        <span className="text-2xl select-none" aria-hidden="true">🔢</span>
+        <div className="flex-1 min-w-0">
+          <p className="text-[#2B241C] text-sm font-semibold mb-0.5">用你的命盤解讀這篇文章</p>
+          <p className="text-[#6B6155] text-xs">先排出四柱八字，再對照文中概念，理解更立體。</p>
+        </div>
+        <Link
+          href="/bazi"
+          className="shrink-0 text-xs bg-[#B23E26] hover:bg-[#9E3520] text-white font-semibold px-4 py-2 rounded transition-colors"
+        >
+          免費排盤
+        </Link>
       </div>
 
       {/* Tags */}

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { MessageCircle, Mail, CheckCircle, Clock, Star, XCircle } from 'lucide-react'
 import { SITE_URL, PERSON } from '@/lib/site'
-import PricingTiers, { PRICING_TIERS } from '@/components/home/PricingTiers'
+import PricingTiers, { CONSULTATION_PRICE } from '@/components/home/PricingTiers'
 
 export const metadata: Metadata = {
   title: '預約諮詢',
@@ -146,15 +146,14 @@ const serviceJsonLd = {
     { '@type': 'ServiceChannel', name: 'Threads 私訊', serviceUrl: THREADS_DM_URL },
     { '@type': 'ServiceChannel', name: 'Email 預約', serviceUrl: 'mailto:michaelchan.gezi@gmail.com' },
   ],
-  // 三層定價（P2-1）。與頁面上的價格卡同源，確保結構化資料與可見內容一致。
-  offers: PRICING_TIERS.map((tier) => ({
+  offers: {
     '@type': 'Offer',
-    name: tier.name,
-    price: tier.price,
+    name: '一對一命理諮詢',
+    price: CONSULTATION_PRICE,
     priceCurrency: 'HKD',
     availability: 'https://schema.org/InStock',
     url: `${SITE_URL}/consultation`,
-  })),
+  },
   review: testimonials.map((t) => ({
     '@type': 'Review',
     author: { '@type': 'Person', name: t.tag },

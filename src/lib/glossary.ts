@@ -500,3 +500,35 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
 export function getGlossaryTerm(slug: string): GlossaryTerm | null {
   return GLOSSARY_TERMS.find((t) => t.slug === slug) ?? null
 }
+
+/**
+ * Post-process article HTML: wrap the first occurrence of each glossary term
+ * (outside existing <a> tags) with a /glossary/{slug} link.
+ * Terms are sorted longest-first to avoid partial sub-term matches.
+ */
+export function linkGlossaryTerms(html: string): string {
+  const terms = [...GLOSSARY_TERMS].sort((a, b) => b.term.length - a.term.length)
+  const linked = new Set<string>()
+  let inAnchor = 0
+
+  return html.replace(/(<\/a[^>]*>|<a[^>]*>|<[^>]*>|[^<]+)/g, (match) => {
+    if (/^<a[\s>]/i.test(match)) { inAnchor++; return match }
+    if (/^<\/a/i.test(match)) { if (inAnchor > 0) inAnchor--; return match }
+    if (match.startsWith('<')) return match
+    if (inAnchor > 0) return match
+
+    let text = match
+    for (const { term, slug } of terms) {
+      if (linked.has(slug)) continue
+      const idx = text.indexOf(term)
+      if (idx === -1) continue
+      linked.add(slug)
+      text =
+        text.slice(0, idx) +
+        `<a href="/glossary/${slug}" class="glossary-link">${term}</a>` +
+        text.slice(idx + term.length)
+      break // one replacement per text node keeps complexity low
+    }
+    return text
+  })
+}
