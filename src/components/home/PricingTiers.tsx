@@ -32,24 +32,24 @@ function PricingCard({ label, price, suffix, items }: {
 
 export default function PricingTiers() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
       <PricingCard
-        label="命格分析報告"
+        label="人生定位分析報告"
         price="500"
         suffix=""
-        items={['命格整體解讀', '性格與天賦', '當前大運分析', '僅提供報告（不包括命理師一對一諮詢）']}
+        items={['命格整體分析', '性格優勢與潛能', '事業、財運、感情發展方向', '現階段大運重點', 'PDF 完整分析報告', '不包含一對一策略諮詢']}
       />
       <PricingCard
-        label="個人命盤諮詢"
+        label="人生策略諮詢"
         price={CONSULTATION_PRICE}
         suffix="起"
-        items={['命格整體解讀', '性格與天賦', '當前大運分析', '1-2 個人生議題深入解答']}
+        items={['命格整體分析', '性格與能力分析', '大運趨勢解析', '針對 1 至 2 個人生議題深入分析', '一對一線上諮詢']}
       />
       <PricingCard
-        label="雙人合盤諮詢"
+        label="雙人關係分析"
         price="2000"
         suffix=""
-        items={['兩命盤干支結構配合分析', '六合、沖剋、刑害關係解讀', '關係能量模式與互動盲點', '共同重要時間節點建議']}
+        items={['雙方命盤交叉分析', '關係互動模式', '性格互補與磨合重點', '關係中的優勢與風險', '未來重要時間節點分析', '一對一深入解說']}
       />
     </div>
   )

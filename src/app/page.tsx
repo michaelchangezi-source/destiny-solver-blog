@@ -141,7 +141,7 @@ export default function HomePage() {
           <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">PRICING</p>
           <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-3">命理諮詢方案</h2>
           <p className="text-[#6B6155] text-sm leading-relaxed max-w-lg mx-auto">
-            個人或雙人，按你的需要選擇，詳細說明與預約方式見諮詢頁。
+            透過命盤分析，協助你看清方向，做出更適合自己的決策。
           </p>
         </div>
         <PricingTiers />
