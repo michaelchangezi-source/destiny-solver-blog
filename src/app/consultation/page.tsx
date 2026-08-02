@@ -171,7 +171,6 @@ const serviceJsonLd = {
       bestRating: '5',
       worstRating: '1',
     },
-    itemReviewed: { '@type': 'Service', '@id': SERVICE_ID },
   })),
 }
 
