@@ -1,6 +1,4 @@
 import { ImageResponse } from 'next/og'
-import { readFileSync } from 'fs'
-import { join } from 'path'
 import { loadGoogleFont } from '@/lib/og-font'
 
 // 首頁與所有未自訂 OG 圖的頁面共用這張品牌分享圖（文章頁有自己的封面，會覆蓋）。
@@ -25,16 +23,9 @@ const LATIN = 'DESTINY · SOLVER'
 const DOMAIN = 'www.destinysolver.com'
 const SUBSET = Array.from(new Set((TITLE + SUB + LATIN + DOMAIN + '命').split(''))).join('')
 
-export default async function OpengraphImage() {
-  // 讀取公仔頭像（public/images/avatar.png → base64 data URI）
-  let avatarSrc: string | null = null
-  try {
-    const buf = readFileSync(join(process.cwd(), 'public/images/avatar.png'))
-    avatarSrc = `data:image/png;base64,${buf.toString('base64')}`
-  } catch {
-    avatarSrc = null
-  }
+const AVATAR_URL = 'https://www.destinysolver.com/images/avatar.png'
 
+export default async function OpengraphImage() {
   // 字型載入失敗（例如離線 build）時，退回拉丁字版面，確保 build 不中斷。
   let serif900: ArrayBuffer | null = null
   let serif400: ArrayBuffer | null = null
@@ -136,23 +127,8 @@ export default async function OpengraphImage() {
               flexShrink: 0,
             }}
           >
-            {avatarSrc ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={avatarSrc} width={220} height={220} alt="" style={{ objectFit: 'cover' }} />
-            ) : (
-              <div
-                style={{
-                  width: 220,
-                  height: 220,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: CINNABAR,
-                }}
-              >
-                <span style={{ fontSize: 120, fontWeight: 900, color: PAPER, lineHeight: 1 }}>命</span>
-              </div>
-            )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={AVATAR_URL} width={220} height={220} alt="" style={{ objectFit: 'cover' }} />
           </div>
 
           {/* 文字塊 */}
