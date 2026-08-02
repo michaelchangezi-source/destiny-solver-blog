@@ -111,7 +111,7 @@ const wontAccept = [
 //   · 可否追問：諮詢後多長時間內可以追問、次數限制
 const serviceDetails = [
   { label: '諮詢形式', value: '透過 Threads / IG 私訊、Email 或 WhatsApp 進行' },
-  { label: '諮詢語言', value: '廣東話或普通話' },
+  { label: '諮詢語言', value: '廣東話 / 中文' },
   { label: '回覆時間', value: '工作日 24 小時內' },
   { label: '交付物', value: '' },
   { label: '諮詢時長', value: '' },
