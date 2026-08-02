@@ -32,7 +32,13 @@ function PricingCard({ label, price, suffix, items }: {
 
 export default function PricingTiers() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl">
+      <PricingCard
+        label="命格分析報告"
+        price="500"
+        suffix=""
+        items={['命格整體解讀', '性格與天賦', '當前大運分析', '僅提供報告（不包括命理師一對一諮詢）']}
+      />
       <PricingCard
         label="個人命盤諮詢"
         price={CONSULTATION_PRICE}

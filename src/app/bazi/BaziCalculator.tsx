@@ -825,65 +825,6 @@ export default function BaziCalculator({ articlesByElement = {} }: {
             />
           )}
 
-          {/* 複製 / 儲存按鈕 */}
-          <div className="flex flex-wrap justify-center gap-3">
-            <button
-              onClick={handleCopy}
-              className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
-                copied
-                  ? 'border-green-500/60 text-green-400 bg-green-500/10'
-                  : 'border-[#B23E26]/40 text-[#B23E26] hover:bg-[#B23E26]/10'
-              }`}
-            >
-              {copied ? '✓ 已複製命盤' : '複製命盤文字'}
-            </button>
-            <button
-              onClick={handleCopyLink}
-              className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
-                linkCopied
-                  ? 'border-green-500/60 text-green-400 bg-green-500/10'
-                  : 'border-[#B23E26]/40 text-[#B23E26] hover:bg-[#B23E26]/10'
-              }`}
-            >
-              {linkCopied ? '✓ 已複製連結' : '複製連結'}
-            </button>
-            {!saving ? (
-              <button
-                onClick={() => { setSaving(true); setTimeout(() => saveInputRef.current?.focus(), 30) }}
-                className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
-                  savedFlash
-                    ? 'border-green-500/60 text-green-400 bg-green-500/10'
-                    : 'border-[#B23E26]/40 text-[#B23E26] hover:bg-[#B23E26]/10'
-                }`}
-              >
-                {savedFlash ? '✓ 已儲存' : '儲存命盤'}
-              </button>
-            ) : (
-              <div className="flex items-center gap-2">
-                <input
-                  ref={saveInputRef}
-                  value={saveName}
-                  onChange={e => setSaveName(e.target.value)}
-                  onKeyDown={e => { if (e.key === 'Enter') handleSaveChart(); if (e.key === 'Escape') { setSaving(false); setSaveName('') } }}
-                  placeholder={`${form.year}/${form.month}/${form.day} ${form.gender === 'F' ? '女' : '男'}`}
-                  className="w-44 bg-[#2B241C]/[0.05] border border-[#B23E26]/40 text-[#2B241C] rounded-full px-4 py-2 text-sm outline-none"
-                />
-                <button
-                  onClick={handleSaveChart}
-                  className="px-4 py-2 rounded-full text-sm bg-[#B23E26] text-[#F7F1E5] font-bold hover:bg-[#C9461F] transition-colors"
-                >
-                  確認
-                </button>
-                <button
-                  onClick={() => { setSaving(false); setSaveName('') }}
-                  className="px-4 py-2 rounded-full text-sm border border-[#2B241C]/15 text-[#6B6155] hover:border-[#B23E26]/40 transition-colors"
-                >
-                  取消
-                </button>
-              </div>
-            )}
-          </div>
-
           {/* CTA */}
           <div className="rounded-lg border border-[#B23E26]/20 bg-[#B23E26]/[0.04] p-6 text-center space-y-3">
             <p className="text-[#6B6155] text-sm">想深入了解命盤的格局與能量流向？</p>
@@ -922,19 +863,12 @@ export default function BaziCalculator({ articlesByElement = {} }: {
           })()}
 
           {/* 匯出 */}
-          <div className="flex flex-wrap justify-center gap-3 no-print">
+          <div className="flex justify-center no-print">
             <button
               onClick={handlePrint}
-              className="px-5 py-2 rounded-full text-sm border border-[#2B241C]/20 text-[#6B6155] hover:border-[#B23E26]/40 hover:text-[#B23E26] transition-colors"
+              className="px-6 py-2.5 rounded-full text-sm border border-[#2B241C]/20 text-[#6B6155] hover:border-[#B23E26]/40 hover:text-[#B23E26] transition-colors"
             >
               列印 / 儲存 PDF
-            </button>
-            <button
-              onClick={handleExportPng}
-              disabled={exporting}
-              className="px-5 py-2 rounded-full text-sm border border-[#2B241C]/20 text-[#6B6155] hover:border-[#B23E26]/40 hover:text-[#B23E26] transition-colors disabled:opacity-50"
-            >
-              {exporting ? '生成中⋯' : '下載命盤圖片'}
             </button>
           </div>
         </div>

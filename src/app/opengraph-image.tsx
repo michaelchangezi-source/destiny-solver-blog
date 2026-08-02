@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/og'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 import { loadGoogleFont } from '@/lib/og-font'
 
 // 首頁與所有未自訂 OG 圖的頁面共用這張品牌分享圖（文章頁有自己的封面，會覆蓋）。
@@ -24,6 +26,15 @@ const DOMAIN = 'www.destinysolver.com'
 const SUBSET = Array.from(new Set((TITLE + SUB + LATIN + DOMAIN + '命').split(''))).join('')
 
 export default async function OpengraphImage() {
+  // 讀取公仔頭像（public/images/avatar.png → base64 data URI）
+  let avatarSrc: string | null = null
+  try {
+    const buf = readFileSync(join(process.cwd(), 'public/images/avatar.png'))
+    avatarSrc = `data:image/png;base64,${buf.toString('base64')}`
+  } catch {
+    avatarSrc = null
+  }
+
   // 字型載入失敗（例如離線 build）時，退回拉丁字版面，確保 build 不中斷。
   let serif900: ArrayBuffer | null = null
   let serif400: ArrayBuffer | null = null
@@ -110,24 +121,38 @@ export default async function OpengraphImage() {
           {hasFont ? '命' : ''}
         </div>
 
-        {/* 主體：朱砂印 + 文字 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 48 }}>
-          {/* 朱砂印章 */}
+        {/* 主體：公仔頭像 + 文字 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 56 }}>
+          {/* 圓形頭像 */}
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 210,
-              height: 210,
-              borderRadius: 18,
-              backgroundColor: CINNABAR,
+              width: 220,
+              height: 220,
+              borderRadius: 110,
+              overflow: 'hidden',
+              border: `5px solid rgba(178,62,38,0.35)`,
               boxShadow: `0 20px 50px -20px ${DEEP}`,
+              flexShrink: 0,
             }}
           >
-            <span style={{ fontSize: 150, fontWeight: 900, color: PAPER, lineHeight: 1 }}>
-              {hasFont ? '命' : 'DS'}
-            </span>
+            {avatarSrc ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={avatarSrc} width={220} height={220} alt="" style={{ objectFit: 'cover' }} />
+            ) : (
+              <div
+                style={{
+                  width: 220,
+                  height: 220,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: CINNABAR,
+                }}
+              >
+                <span style={{ fontSize: 120, fontWeight: 900, color: PAPER, lineHeight: 1 }}>命</span>
+              </div>
+            )}
           </div>
 
           {/* 文字塊 */}
