@@ -154,24 +154,6 @@ const serviceJsonLd = {
     availability: 'https://schema.org/InStock',
     url: `${SITE_URL}/consultation`,
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5',
-    bestRating: '5',
-    worstRating: '1',
-    reviewCount: testimonials.length,
-  },
-  review: testimonials.map((t) => ({
-    '@type': 'Review',
-    author: { '@type': 'Person', name: t.tag },
-    reviewBody: t.content.replace(/\s*\n+\s*/g, ' ').trim(),
-    reviewRating: {
-      '@type': 'Rating',
-      ratingValue: '5',
-      bestRating: '5',
-      worstRating: '1',
-    },
-  })),
 }
 
 const faqJsonLd = {
