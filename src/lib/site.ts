@@ -47,14 +47,21 @@ export const PERSON = {
   disambiguatingDescription:
     '網名「命運解決師（Destiny Solver）」的香港八字命理師與命理內容創作者；與其他同名公眾人物並非同一人。',
   description:
-    '香港八字命理師，網名「命運解決師」。前財經媒體編輯（明報、經濟日報），著有獲第四屆香港出版雙年獎（2023年）的科技趨勢作品，以做功、去向、能量交換三維度解析八字與大運流年。',
+    '香港八字命理師，網名「命運解決師」。前財經媒體編輯（明報、經濟日報），主修經濟統計學（HKUST 碩士、CUHK 學士），著有七本財經科技著作，其中兩本獲香港出版雙年獎及誠品年度暢銷書；現以做功、去向、能量交換三維度解析八字與大運流年。',
   jobTitle: '八字命理師',
   hasOccupation: {
     '@type': 'Occupation',
     name: '命理師',
   },
   knowsAbout: ['八字命理', '盲派命理', '十神', '大運流年', '吠陀占星', '五行哲學'],
-  award: ['第四屆香港出版雙年獎（2023年，商業及管理類）'],
+  award: [
+    '第四屆香港出版雙年獎（2023年，商業及管理類）',
+    '2022年度香港誠品書店年度暢銷書 TOP100',
+  ],
+  alumniOf: [
+    { '@type': 'EducationalOrganization', name: '香港科技大學', alternateName: 'HKUST', sameAs: 'https://www.hkust.edu.hk' },
+    { '@type': 'EducationalOrganization', name: '香港中文大學', alternateName: 'CUHK', sameAs: 'https://www.cuhk.edu.hk' },
+  ],
   homeLocation: { '@type': 'Place', name: '香港' },
   url: `${SITE_URL}/about`,
   mainEntityOfPage: `${SITE_URL}/about`,

@@ -7,7 +7,7 @@ import { SITE_URL, PERSON, PERSON_ID } from '@/lib/site'
 export const metadata: Metadata = {
   title: { absolute: '關於陳卓賢｜命運解決師．香港八字命理師' },
   description:
-    '陳卓賢，網名「命運解決師」，香港八字命理師、前財經媒體資深編輯，著有獲第四屆香港出版雙年獎（2023年）作品。深入八字、十神、大運流年與盲派命理，用命理幫助你認識真實的自己。',
+    '陳卓賢，網名「命運解決師」，香港八字命理師、前財經媒體資深編輯，著有七本財經科技著作，兩度獲香港出版雙年獎及誠品年度暢銷書肯定，主修經濟統計學。深入八字、十神、大運流年，用命理幫助你認識真實的自己。',
   alternates: { canonical: '/about' },
 }
 
@@ -28,7 +28,7 @@ const profileJsonLd = {
 const aboutFaq = [
   {
     q: '陳卓賢（命運解決師）是誰？',
-    a: '陳卓賢是香港的八字命理師，網名「命運解決師（Destiny Solver）」。他曾任職香港財經媒體逾十年（明報、經濟日報），著有獲第四屆香港出版雙年獎（2023年，商業及管理類）的科技趨勢著作，其後深入八字、十神、大運流年與盲派命理，主張命理是認識自己的工具，而非預測命運的水晶球。',
+    a: '陳卓賢是香港的八字命理師，網名「命運解決師（Destiny Solver）」。他曾任職香港財經媒體逾十年（明報、經濟日報），主修經濟統計學（HKUST 碩士、CUHK 學士），著有七本財經科技著作，兩度獲香港出版雙年獎及誠品年度暢銷書肯定，其後深入八字、十神、大運流年與盲派命理，主張命理是認識自己的工具，而非預測命運的水晶球。',
   },
   {
     q: '陳卓賢提供什麼命理服務？',
@@ -70,6 +70,16 @@ const booksJsonLd = [
     genre: ['商業', '科技趨勢'],
     award: '第四屆香港出版雙年獎（2023年，商業及管理類）',
     url: 'https://www.hkpba.org/awards/2023/4',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Book',
+    name: '投資理財超入門！',
+    author: { '@id': PERSON_ID },
+    publisher: { '@type': 'Organization', name: '格子盒作室' },
+    inLanguage: 'zh-HK',
+    genre: ['投資', '財經'],
+    award: '2022年度香港誠品書店年度暢銷書 TOP100',
   },
   {
     '@context': 'https://schema.org',
@@ -165,8 +175,9 @@ export default function AboutPage() {
             <p className="text-[#5A5247] leading-relaxed text-[15px]">
               在投入命理研究之前，我曾任職香港財經媒體逾十年，先後於《明報》及《經濟日報》擔任編輯，
               並持續為《資本雜誌》撰寫專欄，亦主編超過七十本書籍，涵蓋財經、商管與科普領域。
-              個人著作包括《股票投資 All-in-1》（2016年）及《22世紀不再七不思議之科技經濟與產業趨勢》，
-              後者獲第四屆香港出版雙年獎（2023年，商業及管理類）。
+              個人著作共七本，橫跨投資、科技與產業趨勢，其中《投資理財超入門！》獲
+              2022年度香港誠品書店年度暢銷書 TOP100，《22世紀不再七不思議之科技經濟與產業趨勢》
+              獲第四屆香港出版雙年獎（2023年，商業及管理類）。
             </p>
           </div>
           <div className="border-l border-[#2B241C]/10 pl-6">
@@ -195,15 +206,28 @@ export default function AboutPage() {
 
       {/* ── Publications ── */}
       <div className="mb-14">
-        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-8">出版著作</h2>
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-2">出版著作</h2>
+        <p className="text-[#8A8071] text-sm mb-8">個人著作共七本，以下為獲獎書目。</p>
         <div className="space-y-4">
           <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#B23E26] bg-[#B23E26]/[0.08] px-3 py-1 rounded-full mb-4">
-              ▲ 第四屆香港出版雙年獎（商業及管理類）2023
-            </span>
+            <a
+              href="https://www.hkpba.org/awards/2023/4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#B23E26] bg-[#B23E26]/[0.08] hover:bg-[#B23E26]/[0.14] px-3 py-1 rounded-full mb-4 transition-colors"
+            >
+              ▲ 第四屆香港出版雙年獎（商業及管理類）2023 ↗
+            </a>
             <h3 className="text-[#2B241C] font-bold text-lg leading-snug mt-1">
               《22世紀不再七不思議之科技經濟與產業趨勢》
             </h3>
+            <p className="text-[#6B6155] text-sm mt-2">格子盒作室出版</p>
+          </div>
+          <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#6B6155] bg-[#6B6155]/[0.08] px-3 py-1 rounded-full mb-4">
+              ★ 2022年度香港誠品書店年度暢銷書 TOP100
+            </span>
+            <h3 className="text-[#2B241C] font-bold text-lg leading-snug mt-1">《投資理財超入門！》</h3>
             <p className="text-[#6B6155] text-sm mt-2">格子盒作室出版</p>
           </div>
           <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
