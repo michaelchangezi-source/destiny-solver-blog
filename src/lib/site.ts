@@ -47,13 +47,14 @@ export const PERSON = {
   disambiguatingDescription:
     '網名「命運解決師（Destiny Solver）」的香港八字命理師與命理內容創作者；與其他同名公眾人物並非同一人。',
   description:
-    '香港八字命理師，網名「命運解決師」。以做功、去向、能量交換三維度解析八字、十神與大運流年，主張命理是認識自己的工具，而非預測命運的水晶球。',
+    '香港八字命理師，網名「命運解決師」。前財經媒體編輯（明報、經濟日報），著有獲第四屆香港出版雙年獎（2023年）的科技趨勢作品，以做功、去向、能量交換三維度解析八字與大運流年。',
   jobTitle: '八字命理師',
   hasOccupation: {
     '@type': 'Occupation',
     name: '命理師',
   },
   knowsAbout: ['八字命理', '盲派命理', '十神', '大運流年', '吠陀占星', '五行哲學'],
+  award: ['第四屆香港出版雙年獎（2023年，商業及管理類）'],
   homeLocation: { '@type': 'Place', name: '香港' },
   url: `${SITE_URL}/about`,
   mainEntityOfPage: `${SITE_URL}/about`,

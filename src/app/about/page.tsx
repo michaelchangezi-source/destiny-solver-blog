@@ -2,12 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail, Instagram, Linkedin } from 'lucide-react'
-import { SITE_URL, PERSON } from '@/lib/site'
+import { SITE_URL, PERSON, PERSON_ID } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: { absolute: '關於陳卓賢｜命運解決師．香港八字命理師' },
   description:
-    '陳卓賢，網名「命運解決師」，香港八字命理師。深入八字、十神、大運流年與盲派命理，用命理幫助你認識真實的自己。',
+    '陳卓賢，網名「命運解決師」，香港八字命理師、前財經媒體資深編輯，著有獲第四屆香港出版雙年獎（2023年）作品。深入八字、十神、大運流年與盲派命理，用命理幫助你認識真實的自己。',
   alternates: { canonical: '/about' },
 }
 
@@ -28,7 +28,7 @@ const profileJsonLd = {
 const aboutFaq = [
   {
     q: '陳卓賢（命運解決師）是誰？',
-    a: '陳卓賢是香港的八字命理師，網名「命運解決師（Destiny Solver）」。他深入八字、十神、大運流年與盲派命理，主張命理是認識自己的工具，而非預測命運的水晶球。',
+    a: '陳卓賢是香港的八字命理師，網名「命運解決師（Destiny Solver）」。他曾任職香港財經媒體逾十年（明報、經濟日報），著有獲第四屆香港出版雙年獎（2023年，商業及管理類）的科技趨勢著作，其後深入八字、十神、大運流年與盲派命理，主張命理是認識自己的工具，而非預測命運的水晶球。',
   },
   {
     q: '陳卓賢提供什麼命理服務？',
@@ -59,6 +59,31 @@ const breadcrumbJsonLd = {
   ],
 }
 
+const booksJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Book',
+    name: '22世紀不再七不思議之科技經濟與產業趨勢',
+    author: { '@id': PERSON_ID },
+    publisher: { '@type': 'Organization', name: '格子盒作室' },
+    inLanguage: 'zh-HK',
+    genre: ['商業', '科技趨勢'],
+    award: '第四屆香港出版雙年獎（2023年，商業及管理類）',
+    url: 'https://www.hkpba.org/awards/2023/4',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Book',
+    name: '股票投資 All-in-1',
+    author: { '@id': PERSON_ID },
+    publisher: { '@type': 'Organization', name: '格子盒' },
+    isbn: '9789881436832',
+    datePublished: '2016-11',
+    inLanguage: 'zh-HK',
+    genre: ['投資', '財經'],
+  },
+]
+
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
@@ -74,6 +99,13 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {booksJsonLd.map((book, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(book) }}
+        />
+      ))}
 
       {/* ── Header ── */}
       <div className="mb-16">
@@ -132,8 +164,9 @@ export default function AboutPage() {
             <p className="text-[#B23E26] text-xs font-semibold tracking-[0.25em] uppercase mb-3">起點</p>
             <p className="text-[#5A5247] leading-relaxed text-[15px]">
               在投入命理研究之前，我曾任職香港財經媒體逾十年，先後於《明報》及《經濟日報》擔任編輯，
-              並持續為《資本雜誌》撰寫專欄，亦主編超過七十本書籍，涵蓋財經、商管與科普領域，
-              自己亦出版過數本探討股票投資與科技產業趨勢的著作。
+              並持續為《資本雜誌》撰寫專欄，亦主編超過七十本書籍，涵蓋財經、商管與科普領域。
+              個人著作包括《股票投資 All-in-1》（2016年）及《22世紀不再七不思議之科技經濟與產業趨勢》，
+              後者獲第四屆香港出版雙年獎（2023年，商業及管理類）。
             </p>
           </div>
           <div className="border-l border-[#2B241C]/10 pl-6">
@@ -156,6 +189,26 @@ export default function AboutPage() {
                 幫助學員和客戶看見自身的能量結構、格局層次，以及如何在人生不同的時間節點做出更好的決策。
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Publications ── */}
+      <div className="mb-14">
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-8">出版著作</h2>
+        <div className="space-y-4">
+          <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#B23E26] bg-[#B23E26]/[0.08] px-3 py-1 rounded-full mb-4">
+              ▲ 第四屆香港出版雙年獎（商業及管理類）2023
+            </span>
+            <h3 className="text-[#2B241C] font-bold text-lg leading-snug mt-1">
+              《22世紀不再七不思議之科技經濟與產業趨勢》
+            </h3>
+            <p className="text-[#6B6155] text-sm mt-2">格子盒作室出版</p>
+          </div>
+          <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
+            <h3 className="text-[#2B241C] font-bold text-lg">《股票投資 All-in-1》</h3>
+            <p className="text-[#6B6155] text-sm mt-2">格子盒出版 · 2016年</p>
           </div>
         </div>
       </div>
