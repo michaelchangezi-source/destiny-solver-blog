@@ -59,6 +59,15 @@ const faqJsonLd = {
   })),
 }
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首頁', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: '八字速算', item: `${SITE_URL}/bazi` },
+  ],
+}
+
 export default function BaziPage() {
   const articlesByElement: Record<string, ArticleMeta[]> = {
     '木': getArticlesByElement('木', undefined, 3),
@@ -76,6 +85,10 @@ export default function BaziPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <div className="max-w-6xl mx-auto">

@@ -50,6 +50,15 @@ const aboutFaqJsonLd = {
   })),
 }
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首頁', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: '關於陳卓賢', item: `${SITE_URL}/about` },
+  ],
+}
+
 export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
@@ -60,6 +69,10 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutFaqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* ── Header ── */}

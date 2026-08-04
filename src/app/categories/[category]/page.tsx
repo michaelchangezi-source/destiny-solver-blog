@@ -52,11 +52,25 @@ export default async function CategoryPage({ params }: Props) {
     },
   }
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: '學習路徑', item: `${SITE_URL}/categories` },
+      { '@type': 'ListItem', position: 3, name, item: `${SITE_URL}/categories/${category}` },
+    ],
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Link
         href="/categories"

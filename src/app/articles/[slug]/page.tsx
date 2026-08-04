@@ -17,7 +17,7 @@ import ShareButtons from '@/components/blog/ShareButtons'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
-import { PERSON, PUBLISHER } from '@/lib/site'
+import { PERSON, PERSON_ID, PUBLISHER } from '@/lib/site'
 import { linkGlossaryTerms } from '@/lib/glossary'
 
 const BASE_URL = 'https://www.destinysolver.com'
@@ -31,6 +31,18 @@ function stripMarkdown(text: string): string {
     .replace(/\[(.*?)\]\(.*?\)/g, '$1') // 連結
     .replace(/~~(.*?)~~/g, '$1')        // 刪除線
     .trim()
+}
+
+/** H2 標題文字轉 URL-safe id，供頁面錨點與目錄連結使用 */
+function slugifyHeading(inner: string): string {
+  return (
+    inner
+      .replace(/<[^>]+>/g, '')  // 去除行內 HTML 標籤
+      .replace(/[，、。：；！？《》「」【】\-\s]+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+      .slice(0, 80) || 'h'
+  )
 }
 
 /**
@@ -159,7 +171,9 @@ function normalizeHeadings(html: string): string {
     while (stack.length && stack[stack.length - 1] >= L) stack.pop()
     const assigned = Math.min(6, stack.length + 2)
     stack.push(L)
-    return `<h${assigned}${attrs}>${inner}</h${assigned}>`
+    // P1-2: 為 h2 加上 id 屬性，供目錄錨點與 TableOfContents 連結使用
+    const idAttr = assigned === 2 && !/\bid=/.test(attrs) ? ` id="${slugifyHeading(inner)}"` : ''
+    return `<h${assigned}${attrs}${idAttr}>${inner}</h${assigned}>`
   })
 }
 
@@ -219,7 +233,7 @@ export default async function ArticlePage({ params }: Props) {
     dateModified: article.updatedAt,
     url: `https://www.destinysolver.com/articles/${article.slug}`,
     inLanguage: 'zh-TW',
-    author: PERSON,
+    author: { '@id': PERSON_ID },
     publisher: PUBLISHER,
     mainEntityOfPage: {
       '@type': 'WebPage',

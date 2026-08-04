@@ -33,11 +33,24 @@ export default function LatestPage() {
     },
   }
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: '最新文章', item: `${SITE_URL}/latest` },
+    ],
+  }
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Header */}
       <div className="mb-10">

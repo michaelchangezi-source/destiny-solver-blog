@@ -12,6 +12,15 @@ export const metadata: Metadata = {
 
 const DEFINED_TERM_SET_ID = `${SITE_URL}/glossary#definedTermSet`
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首頁', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: '命理詞彙表', item: `${SITE_URL}/glossary` },
+  ],
+}
+
 export default function GlossaryIndexPage() {
   const definedTermSetJsonLd = {
     '@context': 'https://schema.org',
@@ -25,6 +34,7 @@ export default function GlossaryIndexPage() {
       '@type': 'DefinedTerm',
       name: t.term,
       url: `${SITE_URL}/glossary/${t.slug}`,
+      description: t.definition,
     })),
   }
 
@@ -48,6 +58,10 @@ export default function GlossaryIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
 
       <div className="mb-10">
         <p className="text-[#B23E26] text-sm font-semibold tracking-widest mb-3">詞彙表</p>
@@ -62,12 +76,15 @@ export default function GlossaryIndexPage() {
           <Link
             key={t.slug}
             href={`/glossary/${t.slug}`}
-            className="group flex items-center justify-between gap-3 rounded border border-[#2B241C]/10 bg-[#FBF7EE] p-5 hover:border-[#B23E26]/40 transition-colors"
+            className="group flex flex-col gap-2 rounded border border-[#2B241C]/10 bg-[#FBF7EE] p-5 hover:border-[#B23E26]/40 transition-colors"
           >
-            <span className="text-[#2B241C] font-bold text-lg group-hover:text-[#B23E26] transition-colors">
-              {t.term}
-            </span>
-            <ArrowRight size={16} className="text-[#6B6155] group-hover:text-[#B23E26] transition-colors shrink-0" />
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-[#2B241C] font-bold text-lg group-hover:text-[#B23E26] transition-colors">
+                {t.term}
+              </span>
+              <ArrowRight size={16} className="text-[#6B6155] group-hover:text-[#B23E26] transition-colors shrink-0" />
+            </div>
+            <p className="text-[#6B6155] text-sm leading-relaxed line-clamp-2">{t.definition}</p>
           </Link>
         ))}
       </div>

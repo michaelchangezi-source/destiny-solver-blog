@@ -166,6 +166,15 @@ const faqJsonLd = {
   })),
 }
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首頁', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: '預約諮詢', item: `${SITE_URL}/consultation` },
+  ],
+}
+
 export default function ConsultationPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
@@ -176,6 +185,10 @@ export default function ConsultationPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       {/* Header：公仔頭像 + 「真人一對一諮詢」文案並列（§2） */}

@@ -60,6 +60,15 @@ const faqJsonLd = {
   })),
 }
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '首頁', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: '日運能量', item: `${SITE_URL}/daily` },
+  ],
+}
+
 // §7 五行固定色（規格指定）
 const BAR_COLOR: Record<Element, string> = {
   木: '#5E7355',
@@ -334,6 +343,10 @@ export default function DailyPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-6">

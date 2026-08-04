@@ -5,7 +5,7 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration'
 import { Analytics } from '@vercel/analytics/next'
-import { SITE_URL, PERSON, PUBLISHER, personJsonLd } from '@/lib/site'
+import { SITE_URL, PERSON_ID, PUBLISHER, personJsonLd } from '@/lib/site'
 
 // 字重收斂到實際大量使用嗰幾級（正文 400／粗體 700／黑體 900）。
 // font-medium(500) 僅 8 處次要標籤、font-semibold(600) 一向靠合成（站已如此運作且觀感良好），
@@ -82,7 +82,7 @@ const websiteJsonLd = {
   url: SITE_URL,
   description: '用命理讀懂你這個人：不是預測命運，是認識自己。香港八字命理師陳卓賢的命理知識平台。',
   inLanguage: 'zh-TW',
-  author: PERSON,
+  author: { '@id': PERSON_ID },
   publisher: PUBLISHER,
   potentialAction: {
     '@type': 'SearchAction',
@@ -98,6 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="zh-TW" className={`${notoSansTC.variable} ${notoSerifTC.variable}`}>
       <head>
+        <link rel="alternate" type="text/plain" href="/llms.txt" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
