@@ -567,6 +567,60 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       '常見誤解以為財星多代表有錢。其實財星多而無力駕馭，或財星被劫，反而漏財難留；關鍵是命局能否掌控財星，而非財星數量多寡。',
     relatedSlugs: ['post-20260627-05', 'post-20260613-06', 'topic-08', 'topic-03'],
   },
+  {
+    slug: 'dizhiliuchong',
+    term: '地支六沖',
+    definition:
+      '地支六沖是子午、丑未、寅申、卯酉、辰戌、巳亥六組對沖關係，代表兩股能量正面衝突，引發動盪、變動或力量釋放，是命局中變化的核心動力之一。',
+    misconception:
+      '常見誤解以為地支相沖一定是壞事。其實沖代表動，庫逢沖開財才能釋放；關鍵是命局需不需要這個動，動在有用的位置才是好沖。',
+    relatedSlugs: ['topic-20', 'topic-04', 'topic-15', 'post-20260620-05'],
+  },
+  {
+    slug: 'tianganhe',
+    term: '天干合',
+    definition:
+      '天干合是甲己、乙庚、丙辛、丁壬、戊癸五組天干之間的合化關係，代表兩股力量相互牽絆或轉化，影響天干的流通與作用方向。',
+    misconception:
+      '常見誤解以為天干合就是好事，代表有緣有合。其實天干合可能是「貪合忘剋」，令原本應發揮功能的天干被牽絆，反而阻礙了命局正常運作。',
+    relatedSlugs: ['topic-17', 'post-20260724-07', 'post-20260627-02', 'topic-03'],
+  },
+  {
+    slug: 'dizhisanxing',
+    term: '地支三刑',
+    definition:
+      '地支三刑包括寅巳申無恩之刑、丑戌未持勢之刑、子卯無禮之刑，代表內在的衝突、是非與壓力，主官非、健康問題或人際摩擦。',
+    misconception:
+      '常見誤解以為地支三刑都是凶象。其實刑代表切割與壓力，在特定格局下能激發潛能，「刑出」反而讓命局的能量得到釋放，非全凶。',
+    relatedSlugs: ['topic-21', 'topic-04', 'topic-11', 'topic-20'],
+  },
+  {
+    slug: 'dizhiliuhe',
+    term: '地支六合',
+    definition:
+      '地支六合是子丑、寅亥、卯戌、辰酉、巳申、午未六組合化關係，代表兩種能量相互牽絆或穩定，合力強時影響地支的五行屬性與流動方向。',
+    misconception:
+      '常見誤解以為地支六合都代表和諧美滿。其實六合也主「合絆」，令地支被牽住無法正常流通，在命局中可能是停滯或被束縛的象。',
+    relatedSlugs: ['topic-19', 'topic-04', 'post-20260621-05', 'topic-16'],
+  },
+  {
+    slug: 'tonggentougan',
+    term: '通根與透干',
+    definition:
+      '通根指天干的五行在地支藏干中找到同類支撐，令天干力量落實有根；透干指地支藏干的力量浮現於天干，使隱性力量顯化為可見的象。',
+    misconception:
+      '常見誤解以為天干有字就有力量。其實天干必須通根才有根基，浮干無根則力量虛浮，遇制即潰；透干則讓藏干的象顯現出來，影響人生事件的顯露時機。',
+    relatedSlugs: ['topic-03', 'topic-24', 'post-20260620-07', 'topic-10'],
+  },
+  {
+    slug: 'kaikurumu',
+    term: '開庫與入墓',
+    definition:
+      '開庫指辰戌丑未四個庫墓地支被沖、刑、破、害等方式打開，令庫藏的五行力量釋放；入墓則指五行力量進入庫地支被收藏，代表能量的收斂或財官的延遲兌現。',
+    misconception:
+      '常見誤解以為庫逢沖一定大吉，財庫必然打開。其實開庫需命局有根有氣配合，庫若空虛則沖開也無財可出；入墓亦非全凶，是積蓄待時的象。',
+    relatedSlugs: ['topic-15', 'post-20260627-05', 'topic-20', 'topic-11'],
+  },
 ]
 
 export function getGlossaryTerm(slug: string): GlossaryTerm | null {
