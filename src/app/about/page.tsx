@@ -86,11 +86,12 @@ const booksJsonLd = [
     '@type': 'Book',
     name: '股票投資 All-in-1',
     author: { '@id': PERSON_ID },
-    publisher: { '@type': 'Organization', name: '格子盒' },
+    publisher: { '@type': 'Organization', name: '格子盒作室' },
     isbn: '9789881436832',
     datePublished: '2016-11',
     inLanguage: 'zh-HK',
     genre: ['投資', '財經'],
+    url: 'https://www.mybookone.com.hk/page/detail_w/1242679994238484482/%E8%82%A1%E7%A5%A8%E6%8A%95%E8%B3%87All_in_1.html',
   },
 ]
 
@@ -232,7 +233,15 @@ export default function AboutPage() {
           </div>
           <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
             <h3 className="text-[#2B241C] font-bold text-lg">《股票投資 All-in-1》</h3>
-            <p className="text-[#6B6155] text-sm mt-2">格子盒出版 · 2016年</p>
+            <p className="text-[#6B6155] text-sm mt-2">格子盒作室出版 · 2016年</p>
+            <a
+              href="https://www.mybookone.com.hk/page/detail_w/1242679994238484482/%E8%82%A1%E7%A5%A8%E6%8A%95%E8%B3%87All_in_1.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-[#6B6155] hover:text-[#B23E26] mt-3 transition-colors"
+            >
+              在 MyBookOne 查看書目 ↗
+            </a>
           </div>
         </div>
       </div>
