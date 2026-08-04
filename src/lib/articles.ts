@@ -67,6 +67,7 @@ export function getArticleBySlug(slug: string): Article | null {
 }
 
 export function getAllArticles(): ArticleMeta[] {
+  const now = new Date()
   const slugs = getArticleSlugs()
   return slugs
     .map((slug) => {
@@ -75,7 +76,7 @@ export function getAllArticles(): ArticleMeta[] {
       const { content: _content, ...meta } = article
       return meta
     })
-    .filter((a): a is ArticleMeta => a !== null)
+    .filter((a): a is ArticleMeta => a !== null && new Date(a.publishedAt) <= now)
     .sort((a, b) => {
       if (a.order !== undefined && b.order !== undefined) {
         return a.order - b.order

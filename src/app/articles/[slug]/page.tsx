@@ -112,6 +112,8 @@ function extractFaqPairs(markdown: string): Array<{ question: string; answer: st
   return faqs.slice(0, 6) // 每篇最多 6 個 FAQ
 }
 
+export const revalidate = 3600
+
 interface Props {
   params: Promise<{ slug: string }>
 }
@@ -186,6 +188,7 @@ export default async function ArticlePage({ params }: Props) {
   const { slug } = await params
   const article = getArticleBySlug(slug)
   if (!article) notFound()
+  if (new Date(article.publishedAt) > new Date()) notFound()
 
   const html = await markdownToHtml(article.content)
   const related = getRelatedArticles(slug, article.category, 3)
