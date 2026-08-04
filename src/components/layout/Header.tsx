@@ -34,7 +34,7 @@ export default function Header() {
             <Link
               href="/latest"
               className={`flex items-center gap-1 text-sm tracking-wide transition-colors duration-200 ${
-                isActive('/latest') || isActive('/articles') || isActive('/categories')
+                isActive('/latest') || isActive('/articles') || isActive('/categories') || isActive('/glossary')
                   ? 'text-[#B23E26]'
                   : 'text-[#5A5247] hover:text-[#B23E26]'
               }`}
@@ -51,12 +51,20 @@ export default function Header() {
                   {cat}
                 </Link>
               ))}
-              <Link
-                href="/latest"
-                className="col-span-2 border-t border-[#2B241C]/10 mt-1.5 pt-2.5 text-center font-bold text-[#B23E26] text-[13px]"
-              >
-                全部最新文章 →
-              </Link>
+              <div className="col-span-2 border-t border-[#2B241C]/10 mt-1.5 pt-2.5 grid grid-cols-2 gap-1">
+                <Link
+                  href="/latest"
+                  className="text-center font-bold text-[#B23E26] text-[13px] hover:underline"
+                >
+                  全部最新文章 →
+                </Link>
+                <Link
+                  href="/glossary"
+                  className="text-center font-bold text-[#B23E26] text-[13px] hover:underline"
+                >
+                  命理詞彙表 →
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -146,6 +154,9 @@ export default function Header() {
               </Link>
             ))}
           </div>
+          <Link href="/glossary" onClick={() => setOpen(false)} className="text-[13px] text-[#B23E26] font-semibold pl-3 hover:underline transition-colors">
+            命理詞彙表 →
+          </Link>
 
           <Link href="/daily" onClick={() => setOpen(false)} className="text-base tracking-wide text-[#5A5247] hover:text-[#B23E26] transition-colors">
             每日能量
