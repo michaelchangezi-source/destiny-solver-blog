@@ -257,15 +257,24 @@ export default function AboutPage() {
             <p className="text-[#6B6155] text-sm mt-2">格子盒作室出版</p>
           </div>
           <div className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
-            <h3 className="text-[#2B241C] font-bold text-lg">《股票投資 All-in-1》</h3>
-            <p className="text-[#6B6155] text-sm mt-2">格子盒作室出版 · 2016年</p>
+            <div className="space-y-1.5 mb-3">
+              {[
+                '《股票投資 All-in-1》',
+                '《從股壇初哥，到投資高手！》',
+                '《自賺不賠小股神》',
+                '《專為初學者設計的股市致富系統》',
+                '《冠軍經理人的趨勢發現＆投資觀念》',
+              ].map((title) => (
+                <h3 key={title} className="text-[#2B241C] font-bold text-[15px] leading-snug">{title}</h3>
+              ))}
+            </div>
             <a
-              href="https://www.mybookone.com.hk/page/detail_w/1242679994238484482/%E8%82%A1%E7%A5%A8%E6%8A%95%E8%B3%87All_in_1.html"
+              href="https://gezistore.company.site/%E6%9C%AC%E5%BA%97%E6%8E%A8%E4%BB%8B%EF%BD%9C%E8%82%A1%E7%A5%A8%E6%8A%95%E8%B3%873%E9%83%A8%E6%9B%B2-%E3%80%8A%E8%82%A1%E7%A5%A8%E6%8A%95%E8%B3%87All-in-1%E3%80%8B%EF%BD%9C%E7%B7%A8%E8%91%97%EF%BC%9A%E9%99%B3%E5%8D%93%E8%B3%A2-p75494143"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs text-[#6B6155] hover:text-[#B23E26] mt-3 transition-colors"
+              className="inline-flex items-center gap-1 text-xs text-[#6B6155] hover:text-[#B23E26] transition-colors"
             >
-              在 MyBookOne 查看書目 ↗
+              格子盒作室出版 ↗
             </a>
           </div>
         </div>
