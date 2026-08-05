@@ -268,14 +268,24 @@ export default function AboutPage() {
                 <h3 key={title} className="text-[#2B241C] font-bold text-[15px] leading-snug">{title}</h3>
               ))}
             </div>
-            <a
-              href="https://gezistore.company.site/%E6%9C%AC%E5%BA%97%E6%8E%A8%E4%BB%8B%EF%BD%9C%E8%82%A1%E7%A5%A8%E6%8A%95%E8%B3%873%E9%83%A8%E6%9B%B2-%E3%80%8A%E8%82%A1%E7%A5%A8%E6%8A%95%E8%B3%87All-in-1%E3%80%8B%EF%BD%9C%E7%B7%A8%E8%91%97%EF%BC%9A%E9%99%B3%E5%8D%93%E8%B3%A2-p75494143"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs text-[#6B6155] hover:text-[#B23E26] transition-colors"
-            >
-              格子盒作室出版 ↗
-            </a>
+            <div className="flex items-center gap-3 flex-wrap">
+              <a
+                href="https://gezistore.company.site/%E6%9C%AC%E5%BA%97%E6%8E%A8%E4%BB%8B%EF%BD%9C%E8%82%A1%E7%A5%A8%E6%8A%95%E8%B3%873%E9%83%A8%E6%9B%B2-%E3%80%8A%E8%82%A1%E7%A5%A8%E6%8A%95%E8%B3%87All-in-1%E3%80%8B%EF%BD%9C%E7%B7%A8%E8%91%97%EF%BC%9A%E9%99%B3%E5%8D%93%E8%B3%A2-p75494143"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs text-[#6B6155] hover:text-[#B23E26] transition-colors"
+              >
+                格子盒作室出版 ↗
+              </a>
+              <a
+                href="https://search.books.com.tw/search/query/key/%E9%99%B3%E5%8D%93%E8%B3%A2/adv_author/1/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs text-[#6B6155] hover:text-[#B23E26] transition-colors"
+              >
+                博客來 ↗
+              </a>
+            </div>
           </div>
         </div>
       </div>
