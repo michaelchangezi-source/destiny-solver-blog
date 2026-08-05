@@ -341,7 +341,7 @@ export default function AboutPage() {
         <div className="space-y-4">
           {aboutFaq.map((item, i) => (
             <div key={i} className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
-              <h3 className="text-[#2B241C] font-semibold mb-3">{('displayQ' in item ? item.displayQ : item.q) as string}</h3>
+              <h3 className="text-[#2B241C] font-semibold mb-3">{item.displayQ}</h3>
               <p className="text-[#6B6155] text-sm leading-relaxed">{('displayA' in item ? item.displayA : item.a) as string}</p>
             </div>
           ))}
