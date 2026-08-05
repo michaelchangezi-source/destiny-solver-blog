@@ -3,7 +3,7 @@ import { analyzeDays } from '@/lib/bazi-daily'
 import type { DayAnalysis, Element } from '@/lib/bazi-daily'
 import { SITE_URL } from '@/lib/site'
 
-export const revalidate = 3600
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: '日運能量｜今日及未來一週八字流日分析',

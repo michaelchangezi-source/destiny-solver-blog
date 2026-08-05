@@ -5,7 +5,7 @@ import { getLatestArticles } from '@/lib/articles'
 import LatestCard from '@/components/blog/LatestCard'
 import { SITE_URL } from '@/lib/site'
 
-export const revalidate = 3600
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: '最新文章',

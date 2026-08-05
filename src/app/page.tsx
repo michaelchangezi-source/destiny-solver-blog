@@ -12,7 +12,7 @@ import PricingTiers from '@/components/home/PricingTiers'
 import SelfQualification from '@/components/home/SelfQualification'
 import Commitments from '@/components/home/Commitments'
 
-export const revalidate = 3600
+export const revalidate = 300
 
 export default function HomePage() {
   const articles = getAllArticles()
