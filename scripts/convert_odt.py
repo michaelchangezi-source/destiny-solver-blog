@@ -24,6 +24,16 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
 # ── Category mapping (by topic number) ────────────────────
+# ⚠️ 呢個按編號派分類嘅機制唔可靠，只可以做「全新檔案」嘅臨時預設值。
+#
+# 2026-08-05 檢討：呢個 map 完全冇讀過文章內容，純粹按主題編號嘅數字範圍派分類，
+# 而且下面幾個 range 互相重疊（29、35、37 三個編號同時命中兩條規則，實際結果由
+# 先後次序決定）。後果係 38 篇 topic-* 文章嘅分類系統性錯位，例如講壽夭疾病嘅
+# 一篇被標成「風水地理」，講地支六沖嘅被標成「十神應用」。呢批分類已經人手按
+# 內容重新判過，唔好再信呢個 map。
+#
+# 所以 convert_all() 而家會優先沿用目標檔案現有嘅 category（見 existing_category），
+# 只有全新檔案先會 fallback 落呢度。將來新增文章，轉換完之後必須人手覆核分類。
 CATEGORY_MAP = [
     (range(1, 4),   "八字基礎"),
     (range(4, 8),   "干支詳解"),
@@ -42,6 +52,19 @@ def get_category(order: int) -> str:
         if order in r:
             return cat
     return "八字基礎"
+
+
+def existing_category(path):
+    """讀返目標檔案現有嘅 category，冇檔案或者讀唔到就返 None。
+
+    作用：呢個 script 會無條件覆寫輸出檔，如果每次都用 get_category(order)
+    重新派分類，就會冚走人手按內容修正過嘅分類。所以已存在嘅檔案一律沿用
+    佢自己嗰個，唔好用編號猜出嚟嘅值蓋過去。
+    """
+    if not path.exists():
+        return None
+    m = re.search(r'^category:\s*"([^"]+)"', path.read_text(encoding="utf-8"), re.M)
+    return m.group(1) if m else None
 
 
 def extract_topic_number(folder_name: str):
@@ -203,7 +226,9 @@ def convert_all():
         excerpt = excerpt.replace('"', '\\"')
         title_safe = title.replace('"', '\\"')
 
-        category = get_category(order)
+        out_file = OUTPUT_DIR / f"{slug}.md"
+        # 已存在嘅檔案沿用佢現有分類（可能係人手按內容修正過），唔好用編號猜嘅值蓋走
+        category = existing_category(out_file) or get_category(order)
         tags_list = '["八字", "命理", "' + category + '"]'
 
         md = f"""---
@@ -220,7 +245,6 @@ isPaid: false
 
 {body_text}
 """
-        out_file = OUTPUT_DIR / f"{slug}.md"
         out_file.write_text(md, encoding='utf-8')
         print(f"  [OK] {out_file.name}")
         converted += 1

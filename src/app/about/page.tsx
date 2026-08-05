@@ -26,7 +26,12 @@ const profileJsonLd = {
 // 實體型 FAQ：直接回答「陳卓賢是誰」一類查詢，把「陳卓賢＋命運解決師＋命理＋八字」
 // 的共現寫進結構化資料，利於 AI 引用與同名區分。需與頁面可見問答一致。
 // q / a 保持全名，供 FAQPage JSON-LD 實體識別；displayQ / displayA 供頁面可見顯示
-const aboutFaq = [
+// 型別要明寫：唔寫嘅話 TS 會由實際資料逐個元素推斷出唔同嘅物件型別，
+// 令下面用 `'X' in item` 做收窄時，分支有機會被推斷成 never 而報錯
+// （2026-08-05 就係咁 build fail 咗）。明寫型別之後，displayQ／displayA
+// 屬選填，將來加一條冇 displayA 嘅 FAQ 都唔會再爆。
+type AboutFaqItem = { q: string; a: string; displayQ?: string; displayA?: string }
+const aboutFaq: AboutFaqItem[] = [
   {
     q: '陳卓賢（命運解決師）是誰？',
     displayQ: '命運解決師是誰？',

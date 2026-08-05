@@ -173,13 +173,24 @@ CANONICAL_CATEGORIES = {
     "八字基礎", "干支詳解", "十神應用", "命盤格局", "實戰斷命",
     "大運流年", "感情格局", "事業財運", "健康命理", "風水地理",
 }
+# 週六批次嘅內部三分類（兩性／職場／基礎）有機會原封不動寫入 manifest，
+# 呢度要三條齊全。2026-08-05 之前漏咗「兩性關係」一條，導致所有漏轉嘅感情題
+# 文章（三分類入面最多產嗰類）跌落未登記分支，再被靜默退回「八字基礎」。
 CATEGORY_ALIASES = {
     "基礎知識": "八字基礎",
     "職場現象": "事業財運",
+    "兩性關係": "感情格局",
 }
 
 
-def normalize_category(raw: str) -> str:
+def normalize_category(raw: str, title: str = "") -> str:
+    """把分類收斂回十個正式名稱。收斂唔到就直接中止，唔准靜靜退回預設值。
+
+    歷史教訓（2026-08-05）：舊版喺收唔到分類時會靜靜退回「八字基礎」，
+    只印一行警告。因為週六批次係自動跑、冇人望 console，結果一批感情題
+    文章被錯標成八字基礎，過咗幾個星期先發現。靜默 fallback 係呢個 bug
+    嘅根源，所以而家一律 fail fast：寧願出文中止，都好過分類靜靜錯。
+    """
     name = (raw or "").strip()
     if name in CANONICAL_CATEGORIES:
         return name
@@ -187,13 +198,24 @@ def normalize_category(raw: str) -> str:
     if mapped:
         print(f"  [!] 分類「{name}」未登記，已自動歸入「{mapped}」")
         return mapped
-    print(f"  [!] 分類「{name}」未登記且無對應，退回「八字基礎」，請補 CATEGORY_SLUGS 或 CATEGORY_ALIASES")
-    return "八字基礎"
+
+    where = f"（文章：{title}）" if title else ""
+    if not name:
+        raise SystemExit(
+            f"[中止] manifest 有一篇冇填 category{where}。\n"
+            f"       category 係必填欄，唔可以留空。\n"
+            f"       可選分類：{'、'.join(sorted(CANONICAL_CATEGORIES))}"
+        )
+    raise SystemExit(
+        f"[中止] 分類「{name}」未登記{where}。\n"
+        f"       可選分類：{'、'.join(sorted(CANONICAL_CATEGORIES))}\n"
+        f"       如果呢個係新同義寫法，去 CATEGORY_ALIASES 補一條對應再跑。"
+    )
 
 
 def build_article(entry: dict, seq: int, date_str: str) -> Path:
     title = entry["title"].strip()
-    category = normalize_category(entry.get("category", "八字基礎"))
+    category = normalize_category(entry.get("category", ""), title)
     body_file = Path(entry["body_file"])
     cover_file = Path(entry["cover_file"])
 
@@ -289,9 +311,15 @@ def main():
         print("manifest 為空，無事可做。")
         return
 
+    # 前置檢查：先驗晒全部分類，全部過先開始寫檔。
+    # 唔做呢步嘅話，第 5 篇分類出錯中止時，頭 4 篇已經落咗檔，要人手清理。
+    for i, entry in enumerate(entries, start=1):
+        normalize_category(entry.get("category", ""), entry.get("title", f"第 {i} 篇"))
+    print(f"分類檢查通過：{len(entries)} 篇全部有合法分類。")
+
     today = datetime.now().strftime("%Y-%m-%d")
     print(f"同步 {len(entries)} 篇最新文章至網站…")
-    written, slugs = [], []
+    written, slugs, failed = [], [], []
     for i, entry in enumerate(entries, start=1):
         date_str = entry.get("date", today)
         try:
@@ -299,10 +327,26 @@ def main():
             written.append(path)
             slugs.append(slug)
         except Exception as e:
+            title = entry.get("title", "")
+            failed.append((i, title, str(e)))
             print(f"  [!] 第 {i} 篇失敗：{e}")
 
     if not written:
         print("沒有成功生成任何文章。")
+        sys.exit(1)
+
+    # 有任何一篇失敗就中止，唔好靜靜出半批上線。
+    # 舊版只印一行警告然後照 commit + push，7 篇死咗 3 篇都會照出 4 篇，
+    # 而週六批次係自動跑冇人望 console，等於靜默漏文。同 2026-08-05 嗰個
+    # 分類靜默 fallback 係同一類病，一併收拾。
+    if failed:
+        print(f"\n[中止] {len(entries)} 篇之中有 {len(failed)} 篇生成失敗，唔會 commit／push：")
+        for i, title, err in failed:
+            print(f"       第 {i} 篇「{title}」：{err}")
+        print(f"\n       已寫入 {len(written)} 個檔案，需要人手決定保留定刪除：")
+        for p in written:
+            print(f"       - {p}")
+        print("\n       修好 manifest 之後重跑；已寫入嘅檔案會被覆蓋，唔會重複。")
         sys.exit(1)
 
     if args.no_push:
