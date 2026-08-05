@@ -25,17 +25,22 @@ const profileJsonLd = {
 
 // 實體型 FAQ：直接回答「陳卓賢是誰」一類查詢，把「陳卓賢＋命運解決師＋命理＋八字」
 // 的共現寫進結構化資料，利於 AI 引用與同名區分。需與頁面可見問答一致。
+// q / a 保持全名，供 FAQPage JSON-LD 實體識別；displayQ / displayA 供頁面可見顯示
 const aboutFaq = [
   {
     q: '陳卓賢（命運解決師）是誰？',
+    displayQ: '命運解決師是誰？',
     a: '陳卓賢是香港的八字命理師，網名「命運解決師（Destiny Solver）」。他曾任職香港財經媒體逾十年（明報、經濟日報），主修經濟統計學（HKUST 碩士、CUHK 學士），著有七本財經科技著作，兩度獲香港出版雙年獎及誠品年度暢銷書肯定，其後深入八字、十神、大運流年與盲派命理，主張命理是認識自己的工具，而非預測命運的水晶球。',
   },
   {
     q: '陳卓賢提供什麼命理服務？',
+    displayQ: '提供什麼命理服務？',
     a: '陳卓賢提供一對一八字命理諮詢，涵蓋命格整體解讀、性格與天賦、大運流年時機，以及事業、感情、健康等人生議題的深度分析，並在個人網站、Threads 與 Instagram 持續發表命理文章。',
+    displayA: '提供一對一八字命理諮詢，涵蓋命格整體解讀、性格與天賦、大運流年時機，以及事業、感情、健康等人生議題的深度分析，並在個人網站、Threads 與 Instagram 持續發表命理文章。',
   },
   {
     q: '陳卓賢的八字分析方法有什麼特色？',
+    displayQ: '八字分析方法有什麼特色？',
     a: '他以「做功、去向、能量交換」三個維度解讀命局，重視類象思維與格局結構，不使用模稜兩可的說法，主張清醒的認識比模糊的安慰更有價值。',
   },
 ]
@@ -202,6 +207,21 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
+          <div className="border-l border-[#2B241C]/10 pl-6">
+            <p className="text-[#B23E26] text-xs font-semibold tracking-[0.25em] uppercase mb-3">自研命理 OS</p>
+            <div className="space-y-4 text-[#5A5247] leading-relaxed text-[15px]">
+              <p>
+                在多年研究累積之後，我著手建立一套自研的命理推算系統，內部稱為「樞衡推算 OS」。
+                這套系統以八字學理為核心框架，引入統計回測機制，對大量歷史命例進行系統性交叉驗證，
+                再以 AI 輔助歸納規律，將傳統命理的經驗判斷轉化為可重複、可追溯的結構化分析流程。
+              </p>
+              <p>
+                我的目標不是以科學取代命理的智慧，而是為它提供一個可以自我驗證的容器。
+                每一個命理結論，都應該有清晰的推導路徑，而不只是依賴感應或記憶。
+                這套工具目前用於諮詢實務與內容創作，是我整套研究方法的技術底層。
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -321,8 +341,8 @@ export default function AboutPage() {
         <div className="space-y-4">
           {aboutFaq.map((item, i) => (
             <div key={i} className="border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6">
-              <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
-              <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
+              <h3 className="text-[#2B241C] font-semibold mb-3">{('displayQ' in item ? item.displayQ : item.q) as string}</h3>
+              <p className="text-[#6B6155] text-sm leading-relaxed">{('displayA' in item ? item.displayA : item.a) as string}</p>
             </div>
           ))}
         </div>
