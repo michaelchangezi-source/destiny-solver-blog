@@ -228,8 +228,8 @@ def build_article(entry: dict, seq: int, date_str: str) -> Path:
     date_compact = date_str.replace("-", "")
     slug = f"post-{date_compact}-{seq:02d}"
     # 發佈時間：同日內依序遞減，確保 seq=1 排最前
-    base = datetime.strptime(date_str, "%Y-%m-%d").replace(hour=15, minute=0)
-    published = (base - timedelta(minutes=seq - 1)).strftime("%Y-%m-%dT%H:%M:%S+08:00")
+    base = datetime.strptime(date_str, "%Y-%m-%d").replace(hour=0, minute=0, second=0)
+    published = base.strftime("%Y-%m-%dT%H:%M:%S+08:00")
 
     # 複製封面圖（支援本機路徑或 http(s) URL）
     COVERS_DIR.mkdir(parents=True, exist_ok=True)
