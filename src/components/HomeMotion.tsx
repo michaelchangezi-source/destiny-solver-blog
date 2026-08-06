@@ -20,7 +20,10 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText)
 export default function HomeMotion() {
   useGSAP(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) return // 不縮減動效：保持內容原狀可見，不做任何動畫
+    // P0-4（2026-08-06 審核）：手機首屏先出靜態內容，減少非合成動畫元素同進場動畫
+    // 佔用嘅首屏繪製時間；桌面維持原有進場效果
+    const isMobile = window.matchMedia('(max-width: 767px)').matches
+    if (reduce || isMobile) return // 不縮減動效：保持內容原狀可見，不做任何動畫
 
     // ── 1. Hero 入場（取代 .hero-in；標題用 SplitText 逐字浮現）──
     const heroLeft = document.querySelector<HTMLElement>('.hero-left')

@@ -9,7 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // P0-1: 過濾未來日期文章，避免把尚未發佈的 URL 寫進 sitemap
   const now = new Date()
   const allArticles = getAllArticles()
-  const articles = allArticles.filter((a) => new Date(a.publishedAt) <= now)
+  // P0-2（2026-08-06 審核）：noindex 文章不進 sitemap，避免向搜尋引擎遞交要求排除的頁面
+  const articles = allArticles.filter((a) => new Date(a.publishedAt) <= now && !a.noindex)
 
   // 只從已發佈文章衍生分類清單，避免「只有未來文章的分類」出現在 sitemap
   const categories = [...new Set(articles.map((a) => a.category))]
@@ -54,6 +55,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/daily`, lastModified: new Date('2026-01-01'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/latest`, lastModified: new Date('2025-10-15'), changeFrequency: 'daily', priority: 0.7 },
     { url: `${BASE_URL}/articles`, lastModified: new Date('2025-10-01'), changeFrequency: 'daily', priority: 0.7 },
+    { url: `${BASE_URL}/privacy`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/terms`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/disclaimer`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
     ...articleUrls,
     ...categoryUrls,
     ...glossaryTermUrls,

@@ -14,6 +14,7 @@ import ReadingProgress from '@/components/blog/ReadingProgress'
 import TableOfContents from '@/components/blog/TableOfContents'
 import SubscribeForm from '@/components/SubscribeForm'
 import ShareButtons from '@/components/blog/ShareButtons'
+import HealthDisclaimer from '@/components/blog/HealthDisclaimer'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
@@ -134,6 +135,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: article.tags,
     authors: [{ name: '陳卓賢', url: `${BASE_URL}/about` }],
     alternates: { canonical: url },
+    // P0-2（2026-08-06 審核）：未經醫療審閱的高風險內容先撤出索引，頁面仍可透過直接連結瀏覽
+    ...(article.noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       type: 'article',
       url,
@@ -193,7 +196,9 @@ export default async function ArticlePage({ params }: Props) {
   const html = await markdownToHtml(article.content)
   const related = getRelatedArticles(slug, article.category, 3)
   const { prev, next } = getAdjacentArticles(slug)
-  const faqPairs = extractFaqPairs(article.content)
+  // P0-2（2026-08-06 審核）：noindex 文章（未經醫療審閱的健康內容）不生成 FAQ，
+  // 避免把未經證實的醫療／生死判斷句子機器化放大成 FAQPage schema
+  const faqPairs = article.noindex ? [] : extractFaqPairs(article.content)
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -352,6 +357,7 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* Body */}
       <div id="article-content">
+        {article.category === '健康命理' && <HealthDisclaimer />}
         <ArticleBody html={html} />
       </div>
 

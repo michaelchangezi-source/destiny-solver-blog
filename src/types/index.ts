@@ -12,6 +12,7 @@ export interface Article {
   readingTime: string
   order?: number
   isPaid?: boolean
+  noindex?: boolean
 }
 
 export interface ArticleMeta {
@@ -27,6 +28,7 @@ export interface ArticleMeta {
   readingTime: string
   order?: number
   isPaid?: boolean
+  noindex?: boolean
 }
 
 export type Category =

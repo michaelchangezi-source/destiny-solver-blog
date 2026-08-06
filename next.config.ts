@@ -24,6 +24,10 @@ const nextConfig: NextConfig = {
         destination: 'https://www.destinysolver.com/:path*',
         permanent: true,
       },
+      // P0-3（2026-08-06 審核）：內容重疊嘅教學文合併，舊 slug 301 去合併後嘅目標文章
+      { source: '/articles/topic-14', destination: '/articles/topic-07', permanent: true },
+      { source: '/articles/topic-18', destination: '/articles/topic-08', permanent: true },
+      { source: '/articles/topic-36', destination: '/articles/topic-30', permanent: true },
     ]
   },
 

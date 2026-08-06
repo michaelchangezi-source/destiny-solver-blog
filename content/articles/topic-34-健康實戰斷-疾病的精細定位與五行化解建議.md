@@ -9,6 +9,7 @@ coverImage: "/images/covers/topic-34.jpg"
 publishedAt: "2024-08-19T00:00:00Z"
 order: 34
 isPaid: false
+noindex: true
 ---
 
 #### 健康實戰斷：疾病的精細定位與五行化解建議

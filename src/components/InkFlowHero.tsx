@@ -59,7 +59,10 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
   useGSAP(
     () => {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      if (reduce) return
+      // P0-4（2026-08-06 審核）：手機首屏先出靜態內容，唔等 SplitText 逐字動畫先顯示，
+      // 減少手機 FCP/LCP 要等嘅非合成動畫時間
+      const isMobile = window.matchMedia('(max-width: 767px)').matches
+      if (reduce || isMobile) return
 
       const scope = root.current
       if (!scope) return

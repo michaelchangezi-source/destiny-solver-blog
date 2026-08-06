@@ -63,6 +63,7 @@ export function getArticleBySlug(slug: string): Article | null {
     readingTime: stats.text,
     order: data.order,
     isPaid: data.isPaid ?? false,
+    noindex: data.noindex ?? false,
   }
 }
 

@@ -121,7 +121,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-[#2B241C]/10 mt-10 pt-6 text-center text-[#6B6155] text-xs space-y-1">
+        <div className="border-t border-[#2B241C]/10 mt-10 pt-6 text-center text-[#6B6155] text-xs space-y-3">
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <Link href="/privacy" className="hover:text-[#B23E26] transition-colors">私隱政策</Link>
+            <Link href="/terms" className="hover:text-[#B23E26] transition-colors">服務條款</Link>
+            <Link href="/disclaimer" className="hover:text-[#B23E26] transition-colors">免責聲明</Link>
+          </div>
           <p>© {new Date().getFullYear()} 命運解決師｜陳卓賢. All rights reserved.</p>
           <p>本站所有文章為陳卓賢原創，版權所有。歡迎引用，惟須註明作者及原文連結，未經授權不得全文轉載。</p>
         </div>

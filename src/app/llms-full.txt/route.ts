@@ -9,7 +9,8 @@ const BASE_URL = 'https://www.destinysolver.com'
 export const dynamic = 'force-static'
 
 export function GET(): Response {
-  const metas = getAllArticles()
+  // P0-2（2026-08-06 審核）：未經醫療審閱的 noindex 健康內容不列入 AI 全文索引
+  const metas = getAllArticles().filter((a) => !a.noindex)
 
   const sections = CATEGORY_ORDER.flatMap((cat) => {
     const items = metas.filter((a) => a.category === cat)
