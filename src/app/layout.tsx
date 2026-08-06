@@ -16,7 +16,6 @@ const notoSansTC = Noto_Sans_TC({
   weight: ['400', '700'],
   variable: '--font-noto',
   display: 'swap',
-  preload: false,
 })
 
 const notoSerifTC = Noto_Serif_TC({
