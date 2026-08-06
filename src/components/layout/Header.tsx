@@ -23,7 +23,7 @@ export default function Header() {
           </span>
           <div className="leading-tight">
             <p className="text-[#2B241C] text-sm font-semibold tracking-widest">命運解決師</p>
-            <p className="text-[#8A8071] text-[10px] tracking-widest uppercase">Destiny Solver</p>
+            <p className="text-[#6B6155] text-[10px] tracking-widest uppercase">Destiny Solver</p>
           </div>
         </Link>
 
@@ -39,7 +39,7 @@ export default function Header() {
                   : 'text-[#5A5247] hover:text-[#B23E26]'
               }`}
             >
-              文章 <span className="text-[10px] text-[#8A8071]">▾</span>
+              文章 <span className="text-[10px] text-[#6B6155]">▾</span>
             </Link>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[color:var(--border-card)] rounded-lg p-2.5 grid grid-cols-2 gap-0.5 w-[300px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
               {CATEGORY_ORDER.map((cat) => (
@@ -85,7 +85,7 @@ export default function Header() {
                 isActive('/bazi') || isActive('/compat') ? 'text-[#B23E26]' : 'text-[#5A5247] hover:text-[#B23E26]'
               }`}
             >
-              排盤工具 <span className="text-[10px] text-[#8A8071]">▾</span>
+              排盤工具 <span className="text-[10px] text-[#6B6155]">▾</span>
             </Link>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[color:var(--border-card)] rounded-lg p-2.5 flex flex-col gap-0.5 w-[180px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
               <Link href="/bazi" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">

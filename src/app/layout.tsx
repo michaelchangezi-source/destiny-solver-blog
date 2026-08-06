@@ -16,6 +16,7 @@ const notoSansTC = Noto_Sans_TC({
   weight: ['400', '700'],
   variable: '--font-noto',
   display: 'swap',
+  preload: false,
 })
 
 const notoSerifTC = Noto_Serif_TC({
@@ -23,6 +24,7 @@ const notoSerifTC = Noto_Serif_TC({
   weight: ['400', '700', '900'],
   variable: '--font-noto-serif',
   display: 'swap',
+  preload: false,
 })
 
 export const metadata: Metadata = {
