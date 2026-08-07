@@ -1,12 +1,12 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '服務條款',
   description: '命運解決師網站的使用條款：內容版權、免費工具的使用範圍，以及一對一諮詢服務的說明。',
-  alternates: { canonical: '/terms' },
-}
+  path: '/terms',
+})
 
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',

@@ -1,14 +1,14 @@
-import type { Metadata } from 'next'
 import BaziCalculator from './BaziCalculator'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 import { getArticlesByElement } from '@/lib/articles'
 import type { ArticleMeta } from '@/types'
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '八字速算｜免費四柱大運排盤',
   description: '輸入出生年月日時，即時計算四柱命盤、十神及十個大運。destiny.solver 免費八字排盤工具。',
-  alternates: { canonical: '/bazi' },
-}
+  path: '/bazi',
+})
 
 const faq = [
   {

@@ -1,12 +1,12 @@
-import type { Metadata } from 'next'
 import CompatCalculator from './CompatCalculator'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '八字合盤｜干支互動分析',
   description: '輸入兩人出生資料，即時分析雙方四柱的天干五合、地支六合、三合、六沖、六害、相破、三刑等干支互動關係，並提供雙向視角說明。destiny.solver 免費合盤工具。',
-  alternates: { canonical: '/compat' },
-}
+  path: '/compat',
+})
 
 const faq = [
   {

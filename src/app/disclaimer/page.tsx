@@ -1,12 +1,12 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '免責聲明',
   description: '命運解決師網站內容性質說明：命理觀點整理與個人心得分享，不構成醫療、法律、財務或心理健康專業意見。',
-  alternates: { canonical: '/disclaimer' },
-}
+  path: '/disclaimer',
+})
 
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',

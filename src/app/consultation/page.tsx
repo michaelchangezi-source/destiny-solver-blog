@@ -1,14 +1,14 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import { MessageCircle, Mail, CheckCircle, Clock, Star, XCircle } from 'lucide-react'
 import { SITE_URL, PERSON } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 import PricingTiers, { CONSULTATION_PRICE } from '@/components/home/PricingTiers'
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '預約諮詢',
   description: '預約一對一八字命理深度諮詢，解讀你的格局、時機與人生方向。',
-  alternates: { canonical: '/consultation' },
-}
+  path: '/consultation',
+})
 
 const testimonials = [
   {

@@ -1,15 +1,15 @@
-import type { Metadata } from 'next'
 import { analyzeDays } from '@/lib/bazi-daily'
 import type { DayAnalysis, Element } from '@/lib/bazi-daily'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
 export const revalidate = 300
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '日運能量｜今日及未來一週八字流日分析',
   description: '根據流年、流月、流日三柱六字五行計分，分析每日大環境能量，提供宜忌參考。非個人命盤，適用所有人。',
-  alternates: { canonical: '/daily' },
-}
+  path: '/daily',
+})
 
 const faq = [
   {

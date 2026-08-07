@@ -1,15 +1,17 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, BookOpen, Users, CalendarDays, MessageCircle, Mail, Instagram, Linkedin } from 'lucide-react'
 import { SITE_URL, PERSON, PERSON_ID } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: { absolute: '關於陳卓賢｜命運解決師．香港八字命理師' },
+export const metadata = buildMetadata({
+  absoluteTitle: '關於陳卓賢｜命運解決師．香港八字命理師',
+  title: '關於陳卓賢',
   description:
     '陳卓賢，網名「命運解決師」，香港八字命理師、前財經媒體資深編輯，著有七本財經科技著作，兩度獲香港出版雙年獎及誠品年度暢銷書肯定，主修經濟統計學。深入八字、十神、大運流年，用命理幫助你認識真實的自己。',
-  alternates: { canonical: '/about' },
-}
+  path: '/about',
+  type: 'profile',
+})
 
 // ProfilePage 是 Google 為「人物／創作者個人頁」建議的型別，
 // mainEntity 指向 lib/site 的統一 Person 實體，是 Google／AI 認識「陳卓賢是誰」的權威頁。

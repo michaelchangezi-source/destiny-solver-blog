@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# font subset 來源字型快取（15 MB，唔入 git，script 會自動下載）
+/scripts/.fontcache

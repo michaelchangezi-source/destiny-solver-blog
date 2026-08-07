@@ -66,7 +66,13 @@ export const PERSON = {
   url: `${SITE_URL}/about`,
   mainEntityOfPage: `${SITE_URL}/about`,
   image: `${SITE_URL}/images/avatar.png`,
-  email: 'michaelchan.gezi@gmail.com',
+  // 唔再放明碼 email：JSON-LD 係公開文字，爬蟲會收割去寄垃圾郵件。
+  // 改用 contactPoint 指向諮詢頁，對搜尋引擎同 AI 一樣係有效聯絡訊號。
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    url: `${SITE_URL}/consultation`,
+  },
   worksFor: PUBLISHER,
   sameAs: SAME_AS,
 } as const

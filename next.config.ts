@@ -47,6 +47,14 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        // 自託管字型檔名帶內容雜湊（scripts/build_font_subset.py 生成），
+        // 內容一改就換名，可以安全設一年 immutable。
+        source: '/fonts/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
     ]
   },
 }

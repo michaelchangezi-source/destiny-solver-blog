@@ -17,7 +17,23 @@ node C:\Users\micha\Documents\destiny.solver\tools\solarterm-test.mjs
 
 背景：兩實作已升級天文精算節氣（Meeus 太陽視黃經），立春／月柱／起運按真實交節時刻連時辰判邊界，詳見 memory project_bazi_paipan_system。
 
+## 字型鐵律（改 font-serif 標題文案前必讀）
+
+全站唔用 next/font（佢對 Noto CJK 無效，會塞 536 條 `@font-face`／2.17 MB）。
+內文行系統 CJK 字；標題行自行 subset 嘅自託管 woff2，字表由 build 出嚟嘅 HTML 掃返嚟。
+
+**改咗任何 `font-serif` 標題文案、或加新嘅 serif UI 文字，要重跑一次 subset：**
+
+```
+npm run build && py -3 scripts\build_font_subset.py && npm run build
+```
+
+之後 commit `public\fonts\`、`src\app\fonts.css`、`src\lib\font-preload.ts`（三者由 script 一齊生成，唔好人手改）。
+唔重跑唔會爆版（有 ext 層同系統宋體兜底），但嗰隻新字字型會同隔籬字唔一樣。
+出新文章唔需要重跑（文章標題同正文都唔行 serif）。詳見 `docs\交接_效能與SEO_2026-08-07.md`。
+
 ## 其他
 
 - 出文自動 ping IndexNow；SEO/AEO 結構（canonical＋Article schema＋llms.txt）已極致化，改版面唔好順手動呢啲位
+- 非文章頁嘅 metadata 一律用 `src\lib\metadata.ts` 的 `buildMetadata()`，唔好逐頁抄 openGraph（會再次出現 89 頁 OG 指向首頁嘅問題）
 - 網站文章第一段第一句必須直接陳述結論（答案優先規則，詳見 destiny-solver skill「網站文章版本規則」）

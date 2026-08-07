@@ -1,15 +1,15 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
 import { CATEGORY_SLUGS, CATEGORY_GLYPHS, CATEGORY_ORDER } from '@/types'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '學習路徑',
   description: '從零開始系統學習八字命理：天干地支→十神體系→格局判斷→大運流年，循序漸進。',
-  alternates: { canonical: '/categories' },
-}
+  path: '/categories',
+})
 
 const CATEGORY_DESC: Record<string, string> = {
   '八字基礎': '十天干、十二地支的陰陽五行與文化類象，理解八字的基本字母表。',

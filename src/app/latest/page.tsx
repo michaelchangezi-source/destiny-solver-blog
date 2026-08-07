@@ -1,17 +1,17 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { getLatestArticles } from '@/lib/articles'
 import LatestCard from '@/components/blog/LatestCard'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
 export const revalidate = 300
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '最新文章',
   description: '每週更新的命理新文章，涵蓋兩性、職場與八字基礎，附原創配圖。',
-  alternates: { canonical: 'https://www.destinysolver.com/latest' },
-}
+  path: '/latest',
+})
 
 export default function LatestPage() {
   const articles = getLatestArticles()

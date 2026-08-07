@@ -6,6 +6,7 @@ import { getArticlesByCategory, getAllCategories } from '@/lib/articles'
 import { CATEGORY_SLUGS, SLUG_TO_CATEGORY } from '@/types'
 import ArticleCard from '@/components/blog/ArticleCard'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
 interface Props {
   params: Promise<{ category: string }>
@@ -21,11 +22,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params
   const name = SLUG_TO_CATEGORY[category] ?? category
-  return {
+  return buildMetadata({
     title: name,
     description: `所有關於「${name}」的八字命理深度文章。`,
-    alternates: { canonical: `/categories/${category}` },
-  }
+    path: `/categories/${category}`,
+  })
 }
 
 export default async function CategoryPage({ params }: Props) {

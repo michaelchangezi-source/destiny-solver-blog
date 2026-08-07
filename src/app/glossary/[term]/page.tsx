@@ -5,6 +5,7 @@ import { ChevronRight } from 'lucide-react'
 import { GLOSSARY_TERMS, getGlossaryTerm } from '@/lib/glossary'
 import { getArticleBySlug } from '@/lib/articles'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
 interface Props {
   params: Promise<{ term: string }>
@@ -20,12 +21,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { term: slug } = await params
   const entry = getGlossaryTerm(slug)
   if (!entry) return {}
-  const url = `/glossary/${entry.slug}`
-  return {
+  return buildMetadata({
     title: `${entry.term}是什麼意思？八字命理詞彙定義`,
     description: entry.definition,
-    alternates: { canonical: url },
-  }
+    path: `/glossary/${entry.slug}`,
+    type: 'article',
+  })
 }
 
 export default async function GlossaryTermPage({ params }: Props) {

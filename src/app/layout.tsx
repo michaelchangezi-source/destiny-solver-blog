@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import { Noto_Sans_TC, Noto_Serif_TC } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -7,24 +6,10 @@ import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration'
 import { Analytics } from '@vercel/analytics/next'
 import { SITE_URL, PERSON_ID, PUBLISHER, personJsonLd } from '@/lib/site'
 
-// 字重收斂到實際大量使用嗰幾級（正文 400／粗體 700／黑體 900）。
-// font-medium(500) 僅 8 處次要標籤、font-semibold(600) 一向靠合成（站已如此運作且觀感良好），
-// 維持合成可少載一個 CJK 字重切片組。next/font 本身已按 unicode-range 切片＋display:swap，
-// 首屏文字即時以系統字頂上、唔等字體（已過「webfont load 期間文字可見」）。
-const notoSansTC = Noto_Sans_TC({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-noto',
-  display: 'swap',
-})
-
-const notoSerifTC = Noto_Serif_TC({
-  subsets: ['latin'],
-  weight: ['400', '700', '900'],
-  variable: '--font-noto-serif',
-  display: 'swap',
-  preload: false,
-})
+// 字型唔再經 next/font/google：佢對 Noto CJK 嘅 subsets 參數無效，兩個字族會塞 536 條
+// @font-face 落渲染阻塞 CSS（89 KB 壓縮後）＋首載 2.17 MB woff2，係手機效能 55 分嘅主因。
+// 現行做法：內文用系統 CJK 字（零下載），標題用 scripts/build_font_subset.py 切出嚟嘅
+// 自託管 woff2（見 src/app/fonts.css）。字型堆疊定義喺 globals.css。
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.destinysolver.com'),
@@ -35,7 +20,9 @@ export const metadata: Metadata = {
   description:
     '用命理讀懂你這個人：不是預測命運，是認識自己。香港八字命理師陳卓賢，深度解析八字、十神、大運流年，讓命理成為你的自我認識工具。',
   keywords: ['八字命理', '八字', '十神', '大運流年', '命理', '香港命理師', '自我認識'],
-  authors: [{ name: '陳卓賢', url: 'https://www.destinysolver.com' }],
+  // rel="author" 全站統一指向 /about（作者實體頁），唔好指返首頁：
+  // 文章頁本身已指 /about，非文章頁指首頁會令同一作者出兩個作者網址。
+  authors: [{ name: '陳卓賢', url: `${SITE_URL}/about` }],
   creator: '陳卓賢',
   openGraph: {
     type: 'website',
@@ -97,7 +84,7 @@ const websiteJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-TW" className={`${notoSansTC.variable} ${notoSerifTC.variable}`}>
+    <html lang="zh-TW">
       <head>
         <link rel="alternate" type="text/plain" href="/llms.txt" />
         <script

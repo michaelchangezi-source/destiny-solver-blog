@@ -1,13 +1,13 @@
-import type { Metadata } from 'next'
 import { getAllArticles, getAllCategories } from '@/lib/articles'
 import ArticleSearch from '@/components/blog/ArticleSearch'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '搜尋文章',
   description: '搜尋命運解決師的八字命理文章：十神、大運流年、格局、感情與事業財運，輸入關鍵詞即時找到相關文章。',
-  alternates: { canonical: '/articles' },
-}
+  path: '/articles',
+})
 
 export const revalidate = 300
 

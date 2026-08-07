@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./fonts.css";
 @plugin "@tailwindcss/typography";
 
 :root {
@@ -18,8 +19,17 @@
   --border-card: rgba(43, 36, 28, 0.14);
   --shadow-card: 0 1px 2px rgba(43, 36, 28, .04), 0 4px 12px rgba(43, 36, 28, .06);
   --shadow-lift: 0 2px 4px rgba(43, 36, 28, .06), 0 12px 28px rgba(43, 36, 28, .10);
-  --font-sans: var(--font-noto), 'Noto Sans TC', sans-serif;
-  --font-serif: var(--font-noto-serif), 'Noto Serif TC', serif;
+  /* ── 字型策略（2026-08-07 重寫，見 scripts/build_font_subset.py 檔頭）──
+     內文：完全用系統 CJK 字，零下載。iOS/macOS 落 PingFang TC、Windows 落微軟正黑、
+     Android 本身就係 Noto Sans CJK，三邊觀感同原本 Noto Sans TC 幾乎一致，
+     但省返 1,123 KB 同 211 條 @font-face。
+     標題：保留 Noto Serif TC，改用自行 subset 嘅自託管 woff2（core 每字重 ~62 KB），
+     後面仍然掛系統宋體做兜底，萬一有字未入 subset 都唔會出豆腐方格。 */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'PingFang HK',
+    'Hiragino Sans TC', 'Microsoft JhengHei', 'Noto Sans TC', 'Noto Sans CJK TC',
+    'Heiti TC', system-ui, sans-serif;
+  --font-serif: 'Noto Serif TC Subset', 'Songti TC', 'Songti SC', 'Noto Serif CJK TC',
+    'PMingLiU', 'MingLiU', serif;
 }
 
 /* ── Dark mode：跟隨系統 prefers-color-scheme，唔加手動 toggle 掣 ──
@@ -86,8 +96,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-noto), 'Noto Sans TC', sans-serif;
-  --font-serif: var(--font-noto-serif), 'Noto Serif TC', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'PingFang HK',
+    'Hiragino Sans TC', 'Microsoft JhengHei', 'Noto Sans TC', 'Noto Sans CJK TC',
+    'Heiti TC', system-ui, sans-serif;
+  --font-serif: 'Noto Serif TC Subset', 'Songti TC', 'Songti SC', 'Noto Serif CJK TC',
+    'PMingLiU', 'MingLiU', serif;
 }
 
 .font-serif { font-family: var(--font-serif); }

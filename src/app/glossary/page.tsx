@@ -1,14 +1,14 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { GLOSSARY_TERMS } from '@/lib/glossary'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '命理詞彙表',
   description: '八字命理核心詞彙的定義速查：十神、大運、流年、用神、藏干、格局、日主、做功、去向、比劫、食傷、官殺，每個詞彙皆附延伸閱讀。',
-  alternates: { canonical: '/glossary' },
-}
+  path: '/glossary',
+})
 
 const DEFINED_TERM_SET_ID = `${SITE_URL}/glossary#definedTermSet`
 

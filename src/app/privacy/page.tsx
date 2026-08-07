@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/site'
+import { buildMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: '私隱政策',
   description: '命運解決師網站如何處理你的個人資料：電子報訂閱、網站流量統計，以及排盤工具的資料處理方式。',
-  alternates: { canonical: '/privacy' },
-}
+  path: '/privacy',
+})
 
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',

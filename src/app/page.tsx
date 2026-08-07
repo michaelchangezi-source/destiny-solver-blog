@@ -1,20 +1,73 @@
 import Link from 'next/link'
+import { preload } from 'react-dom'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
+import { SITE_URL } from '@/lib/site'
+import { CRITICAL_FONT } from '@/lib/font-preload'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
 import { getSolarTermOnDate } from '@/lib/bazi-calc'
 import CategoryWheel from '@/components/ui/CategoryWheel'
 import LatestCard from '@/components/blog/LatestCard'
 import HomeMotion from '@/components/HomeMotion'
 import InkFlowHero from '@/components/InkFlowHero'
-import PricingTiers from '@/components/home/PricingTiers'
+import PricingTiers, { CONSULTATION_PRICE } from '@/components/home/PricingTiers'
 import SelfQualification from '@/components/home/SelfQualification'
 import Commitments from '@/components/home/Commitments'
 
 export const revalidate = 300
 
+// P3-4（2026-08-07 審核）：首頁本身只有 WebSite + Person schema，冇 FAQPage。
+// 首頁係品牌詞入口，加 FAQ 係搶 AI Overview／AI 摘要最抵嘅一步。
+// q 用完整問法（帶「陳卓賢」全名，供實體識別同同名區分），displayQ 係頁面可見嘅短問法。
+// 鐵律：答案必須同頁面可見內容一致，唔可以只寫喺 schema，否則違反 Google 結構化資料規範。
+type HomeFaqItem = { q: string; displayQ: string; a: string }
+const homeFaq: HomeFaqItem[] = [
+  {
+    q: '命運解決師（陳卓賢）是誰？',
+    displayQ: '命運解決師是誰？',
+    a: '陳卓賢是香港的八字命理師，網名「命運解決師（Destiny Solver）」。他曾任職香港財經媒體逾十年，主修經濟統計學，著有七本財經科技著作，其後轉入八字命理，主張命理是認識自己的工具，而不是預測命運的水晶球。',
+  },
+  {
+    q: '八字命理可以看到什麼？',
+    displayQ: '八字命理可以看到什麼？',
+    a: '八字看到的是一個人的能量結構：性格傾向、天賦所在、精力容易往哪裡流、以及不同階段的環境氣候。它解釋你為何一再遇上同一類處境，而不是替你預告某年某月會發生某件事。',
+  },
+  {
+    q: '「做功、去向、能量交換」三個維度是什麼？',
+    displayQ: '「做功、去向、能量交換」是什麼？',
+    a: '這是本站解讀命局的三個維度。做功是問命局有沒有在辦事，去向是問這股能量最後流去哪一顆星，能量交換是問付出與收穫之間換到了什麼。三者合起來，可以說明一個命為何有力或無力，而不只是替五行點算數量。',
+  },
+  {
+    q: '這套方法和坊間常說的「身旺身弱」有什麼分別？',
+    displayQ: '和坊間「身旺身弱」有什麼分別？',
+    a: '身旺身弱把命局化約成一條強弱刻度，容易得出「補某個五行就好」的結論。本站不從強弱入手，而是看命局實際在做什麼功、能量交去哪裡，因此同樣一組八字在不同格局下會有完全不同的解讀。',
+  },
+  {
+    q: '收費諮詢怎樣預約？',
+    displayQ: '收費諮詢怎樣預約？',
+    a: `一對一深度諮詢每節港幣 ${CONSULTATION_PRICE} 元，可於諮詢頁以 Threads 私訊或電郵預約，提供出生年月日時與所在地即可安排。預約前建議先閱讀諮詢頁的適合與未必適合對照。`,
+  },
+]
+
+const homeFaqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${SITE_URL}/#faq`,
+  inLanguage: 'zh-TW',
+  mainEntity: homeFaq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+}
+
 export default function HomePage() {
+  // 首頁 LCP 元素＝hero H1（font-serif font-black＝900），提早取字型，唔使等 CSS 解析完先發現要載。
+  // 只喺首頁 preload：其他頁（例如 68 個詞條頁）根本冇 serif 文字，全站 preload 等於白載 63 KB。
+  // 用 react-dom 的 preload 而唔係喺 <head> 寫 <link>，因為 Next 會將 head 內嘅 link 再 hoist 一次，出兩條重複標籤。
+  preload(CRITICAL_FONT, { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' })
+
   const articles = getAllArticles()
   const categories = getAllCategories()
   const latestArticles = getLatestArticles(6)
@@ -174,6 +227,36 @@ export default function HomePage() {
           <h2 className="font-serif text-[#2B241C] text-2xl font-bold">我的三個承諾</h2>
         </div>
         <Commitments />
+      </section>
+
+      {/* ── 常見問題（P3-4：與上方 homeFaqJsonLd 逐字一致，供 AI 摘要引用）── */}
+      <section className="reveal border-t border-[#2B241C]/10 bg-[#F4EEE1] py-16">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd) }}
+        />
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <h2 className="font-serif text-[#2B241C] text-2xl font-bold">常見問題</h2>
+          </div>
+          <div className="space-y-3">
+            {homeFaq.map((item, i) => (
+              <details
+                key={i}
+                open={i === 0}
+                className="group rounded-md border border-[color:var(--border-card)] bg-[#FBF7EE] shadow-[var(--shadow-card)] px-5 py-4"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-[#2B241C] font-semibold text-[0.95rem]">
+                  {item.displayQ}
+                  <span className="text-[#B23E26] text-lg leading-none transition-transform group-open:rotate-45">
+                    ＋
+                  </span>
+                </summary>
+                <p className="mt-3 text-[#5A5247] text-sm leading-[1.9]">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
       </section>
 
     </>

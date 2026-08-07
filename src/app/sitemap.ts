@@ -17,7 +17,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const articleUrls: MetadataRoute.Sitemap = articles.map((a) => ({
     url: `${BASE_URL}/articles/${a.slug}`,
-    lastModified: new Date(a.publishedAt),
+    // 用 updatedAt（無 frontmatter 覆寫時本身 fallback 去 publishedAt），
+    // 與 Article schema 的 dateModified 一致，改舊文即反映真實更新日
+    lastModified: new Date(a.updatedAt),
     changeFrequency: 'monthly',
     priority: 0.8,
   }))
@@ -43,18 +45,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
+  // P3-3（2026-08-07 審核）：列表頁原本寫死歷史日期（首頁 2025-09-01），但首頁／最新文章／
+  // 文章總覽／學習路徑每次出新文都會變。Google 見到明顯唔準的 lastmod 會整欄忽略，
+  // 連文章頁正確嘅 lastmod 都白費。改為取其下最新一篇已發佈文章嘅日期。
+  const latestArticleMs = articles.length
+    ? Math.max(...articles.map((a) => new Date(a.updatedAt).getTime()))
+    : Date.now()
+  const listPageDate = new Date(latestArticleMs)
+
   return [
-    // P0-2: 靜態頁使用固定歷史日期，徹底消除 build 時間戳重複問題（最多 2 個同日期）
-    { url: BASE_URL, lastModified: new Date('2025-09-01'), changeFrequency: 'weekly', priority: 1 },
-    { url: `${BASE_URL}/categories`, lastModified: new Date('2025-09-01'), changeFrequency: 'weekly', priority: 0.9 },
+    // 列表頁：跟最新文章日期走
+    { url: BASE_URL, lastModified: listPageDate, changeFrequency: 'weekly', priority: 1 },
+    { url: `${BASE_URL}/categories`, lastModified: listPageDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/latest`, lastModified: listPageDate, changeFrequency: 'daily', priority: 0.7 },
+    { url: `${BASE_URL}/articles`, lastModified: listPageDate, changeFrequency: 'daily', priority: 0.7 },
+    // 內容相對穩定嘅頁：保留固定歷史日期，避免 build 時間戳重複
     { url: `${BASE_URL}/glossary`, lastModified: new Date('2025-10-01'), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/about`, lastModified: new Date('2025-09-15'), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/consultation`, lastModified: new Date('2025-09-15'), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/bazi`, lastModified: new Date('2025-11-01'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/compat`, lastModified: new Date('2025-12-01'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/daily`, lastModified: new Date('2026-01-01'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/latest`, lastModified: new Date('2025-10-15'), changeFrequency: 'daily', priority: 0.7 },
-    { url: `${BASE_URL}/articles`, lastModified: new Date('2025-10-01'), changeFrequency: 'daily', priority: 0.7 },
     { url: `${BASE_URL}/privacy`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/terms`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/disclaimer`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
