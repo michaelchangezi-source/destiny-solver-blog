@@ -36,4 +36,5 @@ npm run build && py -3 scripts\build_font_subset.py && npm run build
 
 - 出文自動 ping IndexNow；SEO/AEO 結構（canonical＋Article schema＋llms.txt）已極致化，改版面唔好順手動呢啲位
 - 非文章頁嘅 metadata 一律用 `src\lib\metadata.ts` 的 `buildMetadata()`，唔好逐頁抄 openGraph（會再次出現 89 頁 OG 指向首頁嘅問題）
+- 改 `public\sw.js` 嘅快取策略，一定要順手 bump cache 名（現時 `ds-v2`），否則舊訪客一直食舊策略。SW 永遠唔准 cache-first HTML 或 RSC payload：曾經因此每次部署後「撳連結冇反應」，詳見 `docs\交接_效能與SEO_2026-08-07.md` 第五節
 - 網站文章第一段第一句必須直接陳述結論（答案優先規則，詳見 destiny-solver skill「網站文章版本規則」）
