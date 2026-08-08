@@ -7,6 +7,10 @@ import { CATEGORY_ELEMENT } from '@/types'
 
 const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles')
 
+// Module-level cache: avoids re-reading 100+ markdown files per ISR render.
+// Cache is warm for the lifetime of the server instance.
+let _allArticlesCache: ArticleMeta[] | null = null
+
 // 從檔名提取 ASCII-only slug（例如 "topic-01-十天干..." → "topic-01"）
 // 確保 URL 不含中文字符，避免靜態路由 404
 function extractSlug(filename: string): string {
@@ -68,9 +72,10 @@ export function getArticleBySlug(slug: string): Article | null {
 }
 
 export function getAllArticles(): ArticleMeta[] {
+  if (_allArticlesCache) return _allArticlesCache
   const now = new Date()
   const slugs = getArticleSlugs()
-  return slugs
+  const result = slugs
     .map((slug) => {
       const article = getArticleBySlug(slug)
       if (!article) return null
@@ -84,6 +89,8 @@ export function getAllArticles(): ArticleMeta[] {
       }
       return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     })
+  _allArticlesCache = result
+  return result
 }
 
 // 每週自動發佈的「最新文章」（slug 以 post- 開頭），按發佈時間新到舊排序

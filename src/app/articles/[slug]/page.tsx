@@ -113,7 +113,7 @@ function extractFaqPairs(markdown: string): Array<{ question: string; answer: st
   return faqs.slice(0, 6) // 每篇最多 6 個 FAQ
 }
 
-export const revalidate = 300
+export const revalidate = false
 
 interface Props {
   params: Promise<{ slug: string }>
