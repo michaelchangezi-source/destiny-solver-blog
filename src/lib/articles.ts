@@ -102,7 +102,9 @@ export function getLatestArticles(limit?: number): ArticleMeta[] {
 }
 
 export function getArticlesByCategory(category: string): ArticleMeta[] {
-  return getAllArticles().filter((a) => a.category === category)
+  return getAllArticles()
+    .filter((a) => a.category === category)
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
 }
 
 export function getArticlesByElement(element: string, exclude?: string, limit = 3): ArticleMeta[] {
