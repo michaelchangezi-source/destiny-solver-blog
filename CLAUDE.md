@@ -30,7 +30,12 @@ npm run build && py -3 scripts\build_font_subset.py && npm run build
 
 之後 commit `public\fonts\`、`src\app\fonts.css`、`src\lib\font-preload.ts`（三者由 script 一齊生成，唔好人手改）。
 唔重跑唔會爆版（有 ext 層同系統宋體兜底），但嗰隻新字字型會同隔籬字唔一樣。
-出新文章唔需要重跑（文章標題同正文都唔行 serif）。詳見 `docs\交接_效能與SEO_2026-08-07.md`。
+出新文章唔需要重跑（文章標題同正文都唔行 serif）。
+
+⚠️ **加任何「每日／每次輸入都會變」嘅 serif 內容（例如新嘅 energyTitle、新六十甲子文案），
+一定要同時加落 `build_font_subset.py` 嘅 `collect_dynamic()`**。core 字表係掃 build 當日
+嘅 HTML 快照，捉唔到第二日先出現嘅字；2026-08-08 就係為咗兩隻字（「擴」「張」）令瀏覽器
+拉咗 299 KB ext，PSI 手機由 90+ 跌返 72。詳見 `docs\交接_效能與SEO_2026-08-07.md`。
 
 ## 其他
 

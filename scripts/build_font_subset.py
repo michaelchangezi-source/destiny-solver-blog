@@ -51,6 +51,9 @@ SERIF_SRC = os.path.join(CACHE, "NotoSerifTC-VF.otf")
 
 WEIGHTS = [400, 700, 900]
 FAMILY = "Noto Serif TC Subset"
+# ext 安全網切幾多塊：塊數越多，漏字時付出嘅代價越細，但 CSS 嘅 unicode-range 越長。
+# 10 塊＝每塊約 140 字／30 KB，CSS 只多約 3 KB（壓縮後）。
+EXT_CHUNKS = 10
 
 # 拉丁字母、數字、常用標點：Serif 標題會夾雜英文同數字，必須一齊入 core
 LATIN = (
@@ -184,6 +187,34 @@ def collect_core() -> set[str]:
     return {c for c in serif if is_cjk(c)}
 
 
+# ── 1b. 動態字表：每日／每次輸入都會變，build HTML 快照捉唔到 ──────────────────
+#
+# 2026-08-08 踩過嘅坑：core 字表只掃 build 當日嘅 HTML，但首頁 hero 有三格係每日變嘅
+# serif 內容 —— 今日天干（900）、地支（700）、今日能量標題（900）。嗰日 build 出嚟啱好
+# 係「金木相剋」，第二日變咗「木火相生，擴張之日」，「擴」「張」兩隻字唔喺 core，
+# 結果瀏覽器為咗兩隻字拉咗成個 299 KB 嘅 ext-900，卡死 LCP，PSI 手機由 90+ 跌返落 72。
+#
+# 呢批字係可以窮舉嘅（干支固定 22 個、五行 5 個、energyTitle 得 15 個組合），
+# 所以一律硬性收入 core，唔靠 HTML 快照。
+# 對應嘅 serif 位置：InkFlowHero 天干/地支/energyTitle、daily 頁 stem/branch/五行條/h2、
+# BaziCalculator 同 CompatCalculator 嘅四柱天干地支藏干。
+
+STEMS_BRANCHES = "甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥木火土金水"
+
+
+def collect_dynamic() -> set[str]:
+    chars = set(STEMS_BRANCHES)
+    daily = os.path.join(ROOT, "src", "lib", "bazi-daily.ts")
+    if os.path.exists(daily):
+        t = open(daily, encoding="utf-8", errors="ignore").read()
+        titles = re.findall(r"^\s*title:\s*'([^']*)'", t, re.M)
+        if not titles:
+            sys.exit("collect_dynamic：喺 bazi-daily.ts 搵唔到任何 title:，格式可能改咗，唔好靜靜哋放行")
+        for s in titles:
+            chars.update(c for c in s if is_cjk(c))
+    return chars
+
+
 # ── 2. ext 字表：所有可能日後行到 serif 嘅字（安全網，平時唔下載）──────────────
 
 def collect_ext() -> set[str]:
@@ -277,15 +308,29 @@ def to_ranges(chars: set[str]) -> str:
     return ",".join(parts)
 
 
+def face_rule(family: str, weight: int, filename: str, urange: str) -> list[str]:
+    return [
+        "@font-face {",
+        f"  font-family: '{family}';",
+        "  font-style: normal;",
+        f"  font-weight: {weight};",
+        "  font-display: swap;",
+        f"  src: url('/fonts/{filename}') format('woff2');",
+        f"  unicode-range: {urange};",
+        "}",
+    ]
+
+
 def main() -> None:
     print("1. 收集字表")
-    core = collect_core()
+    html_core = collect_core()
+    dynamic = collect_dynamic()
+    core = html_core | dynamic
     ext = collect_ext() - core
-    print(f"  core（實際 serif 算繪）: {len(core)} 字")
-    print(f"  ext （安全網）        : {len(ext)} 字")
+    print(f"  core = HTML 快照 {len(html_core)} 字 ＋ 動態詞彙 {len(dynamic)} 字 = {len(core)} 字")
+    print(f"  ext （安全網）: {len(ext)} 字，切 {EXT_CHUNKS} 塊")
 
     core_text = "".join(sorted(core)) + LATIN
-    ext_text = "".join(sorted(ext))
 
     print("2. 準備來源字型")
     ensure_source()
@@ -297,55 +342,51 @@ def main() -> None:
 
     print("3. 切字型")
     core_faces = make_faces(core_text, "core")
-    ext_faces = make_faces(ext_text, "ext")
     for w in WEIGHTS:
-        print(f"  core {w}: {core_faces[w][1] / 1024:6.1f} KB   ext {w}: {ext_faces[w][1] / 1024:7.1f} KB")
+        print(f"  core {w}: {core_faces[w][1] / 1024:6.1f} KB")
+
+    # ext 切細：原本一整塊 299 KB，只要有一隻字唔喺 core 就要全塊落嚟，代價太重
+    # （2026-08-08 就係咁跌返落 72 分）。切細之後同樣情況只付一塊約 30 KB。
+    ext_sorted = sorted(ext)
+    size = -(-len(ext_sorted) // EXT_CHUNKS) if ext_sorted else 0
+    chunks = [ext_sorted[i:i + size] for i in range(0, len(ext_sorted), size)] if size else []
+    chunk_faces = []
+    for idx, chunk in enumerate(chunks):
+        faces = make_faces("".join(chunk), f"ext{idx}")
+        chunk_faces.append((faces, to_ranges(set(chunk))))
+        print(f"  ext{idx} ({len(chunk)} 字): " + "／".join(f"{faces[w][1] / 1024:.0f} KB" for w in WEIGHTS))
 
     core_range = to_ranges(set(core_text))
-    # ext 用闊 range 圈住整個 CJK 區：檔案入面冇嘅字，瀏覽器會自動跌落系統宋體，
-    # 唔會出現豆腐方格。core 排喺後面，重疊字元由 core 勝出（CSS 後定義者優先）。
-    ext_range = "U+2E80-2FFF,U+3000-303F,U+3100-312F,U+3200-33FF,U+3400-4DBF,U+4E00-9FFF,U+F900-FAFF,U+FE30-FE4F,U+FF00-FFEF"
 
     lines = [
         "/* 由 scripts/build_font_subset.py 自動生成，唔好人手改。",
-        f"   core {len(core)} 字 / ext {len(ext)} 字；改完標題文案要重跑 script 再 commit。 */",
+        f"   core {len(core)} 字（HTML 快照＋動態詞彙）/ ext {len(ext)} 字切 {len(chunks)} 塊。",
+        "   改完 font-serif 標題文案要重跑 script 再 commit。 */",
         "",
     ]
+    # ext 排前、core 排後：重疊時 CSS 後定義者優先，確保 core 有嘅字唔會去攞 ext
+    for faces, urange in chunk_faces:
+        for w in WEIGHTS:
+            lines += face_rule(FAMILY, w, faces[w][0], urange)
     for w in WEIGHTS:
-        lines += [
-            "@font-face {",
-            f"  font-family: '{FAMILY}';",
-            "  font-style: normal;",
-            f"  font-weight: {w};",
-            "  font-display: swap;",
-            f"  src: url('/fonts/{ext_faces[w][0]}') format('woff2');",
-            f"  unicode-range: {ext_range};",
-            "}",
-        ]
-    for w in WEIGHTS:
-        lines += [
-            "@font-face {",
-            f"  font-family: '{FAMILY}';",
-            "  font-style: normal;",
-            f"  font-weight: {w};",
-            "  font-display: swap;",
-            f"  src: url('/fonts/{core_faces[w][0]}') format('woff2');",
-            f"  unicode-range: {core_range};",
-            "}",
-        ]
+        lines += face_rule(FAMILY, w, core_faces[w][0], core_range)
     open(OUT_CSS, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
 
-    # 首頁 LCP 元素係 hero H1（font-serif font-black＝900），preload 佢一個就夠；
+    # 首頁首屏 serif：hero H1／天干／能量標題係 900，地支係 700，兩個都喺 above-the-fold，
+    # 唔 preload 就要等 CSS 解析完先發現要攞（PSI 量到 core-700 排喺關鍵鏈 725ms）。
     # 檔名帶內容雜湊，所以由 script 一齊生成，避免人手同 CSS 脫節。
     open(OUT_PRELOAD, "w", encoding="utf-8", newline="\n").write(
         "// 由 scripts/build_font_subset.py 自動生成，唔好人手改。\n"
-        "// 首屏 LCP（首頁 hero H1）用嘅字重，layout 會 <link rel=preload> 佢。\n"
-        f"export const CRITICAL_FONT = '/fonts/{core_faces[900][0]}'\n"
+        "// 首頁 above-the-fold 用到嘅字重，page.tsx 會 preload 佢哋。\n"
+        f"export const CRITICAL_FONTS = [\n"
+        f"  '/fonts/{core_faces[900][0]}',\n"
+        f"  '/fonts/{core_faces[700][0]}',\n"
+        f"] as const\n"
     )
 
     total = sum(core_faces[w][1] for w in WEIGHTS)
     print(f"4. 完成 — 常態下載總量 {total / 1024:.0f} KB（core ×3 字重）")
-    print(f"   preload 目標：/fonts/{core_faces[900][0]}")
+    print(f"   preload：core-900 ＋ core-700")
     print("   記得再跑一次 npm run build，然後 commit public/fonts 同 src/app/fonts.css")
 
 

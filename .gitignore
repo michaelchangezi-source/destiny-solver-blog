@@ -43,3 +43,6 @@ next-env.d.ts
 
 # font subset 來源字型快取（15 MB，唔入 git，script 會自動下載）
 /scripts/.fontcache
+
+# python 匯入 scripts 時產生嘅快取
+/scripts/__pycache__

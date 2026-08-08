@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
 import { SITE_URL } from '@/lib/site'
-import { CRITICAL_FONT } from '@/lib/font-preload'
+import { CRITICAL_FONTS } from '@/lib/font-preload'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
 import { getSolarTermOnDate } from '@/lib/bazi-calc'
 import CategoryWheel from '@/components/ui/CategoryWheel'
@@ -63,10 +63,13 @@ const homeFaqJsonLd = {
 }
 
 export default function HomePage() {
-  // 首頁 LCP 元素＝hero H1（font-serif font-black＝900），提早取字型，唔使等 CSS 解析完先發現要載。
-  // 只喺首頁 preload：其他頁（例如 68 個詞條頁）根本冇 serif 文字，全站 preload 等於白載 63 KB。
+  // 首頁 above-the-fold 嘅 serif：hero H1／今日天干／今日能量標題係 900，今日地支係 700。
+  // 兩個都要 preload，唔係要等 CSS 解析完先發現要攞（PSI 量到 core-700 排喺關鍵鏈 725ms）。
+  // 只喺首頁 preload：其他頁（例如 68 個詞條頁）根本冇 serif 文字，全站 preload 等於白載。
   // 用 react-dom 的 preload 而唔係喺 <head> 寫 <link>，因為 Next 會將 head 內嘅 link 再 hoist 一次，出兩條重複標籤。
-  preload(CRITICAL_FONT, { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' })
+  for (const href of CRITICAL_FONTS) {
+    preload(href, { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' })
+  }
 
   const articles = getAllArticles()
   const categories = getAllCategories()
