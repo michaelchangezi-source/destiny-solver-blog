@@ -93,8 +93,9 @@ function solarTermJD(year: number, targetLong: number): number {
   return jd
 }
 // 若指定日期（香港時間 UTC+8）為某節氣，回傳節氣名；否則回傳 null
+// date 應為 UTC 午夜所構造（new Date(Date.UTC(y,m,d))），以保證跨時區一致
 export function getSolarTermOnDate(date: Date): string | null {
-  const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate()
+  const y = date.getUTCFullYear(), m = date.getUTCMonth() + 1, d = date.getUTCDate()
   const jdStart = gregToJD(y, m, d, -8) // 香港午夜 = 前一天 16:00 UT
   const jdEnd = jdStart + 1
   for (const yr of [y - 1, y, y + 1]) {

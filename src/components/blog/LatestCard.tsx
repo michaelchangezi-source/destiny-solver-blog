@@ -17,7 +17,7 @@ export default function LatestCard({ article }: { article: ArticleMeta; priority
           <ArticleCover title={article.title} category={article.category} coverImage={article.coverImage} />
         </div>
         <div className="p-5">
-          <h3 className="text-[#2B241C] font-bold text-base leading-snug mb-2 group-hover:text-[#B23E26] transition-colors line-clamp-2">
+          <h3 className="text-[#2B241C] font-bold text-base leading-snug mb-2 group-hover:text-[#B23E26] transition-colors line-clamp-2 [text-wrap:balance]">
             {article.title}
           </h3>
           <p className="text-[#6B6155] text-sm leading-relaxed line-clamp-2 mb-4">{article.excerpt}</p>

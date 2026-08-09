@@ -77,7 +77,12 @@ export default function HomePage() {
 
   // 今日命盤（供 Hero 卡）
   const [today] = analyzeDays(1)
-  const solarTerm = getSolarTermOnDate(new Date())
+  // 必須轉 HKT 日期再查節氣：Vercel 伺服器在 UTC，new Date() 嘅 getDate() 返回 UTC 日，
+  // 但 analyzeDays 用 UTC+8 轉換，兩者需一致，否則 00:00-08:00 HKT 時段會查錯日期
+  const _nowHKT = new Date(Date.now() + 8 * 60 * 60 * 1000)
+  const solarTerm = getSolarTermOnDate(new Date(Date.UTC(
+    _nowHKT.getUTCFullYear(), _nowHKT.getUTCMonth(), _nowHKT.getUTCDate()
+  )))
 
   return (
     <>
