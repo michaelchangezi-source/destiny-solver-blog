@@ -9,8 +9,8 @@ import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
 import { getSolarTermOnDate } from '@/lib/bazi-calc'
 import CategoryWheel from '@/components/ui/CategoryWheel'
 import LatestCard from '@/components/blog/LatestCard'
-import HomeMotion from '@/components/HomeMotion'
 import InkFlowHero from '@/components/InkFlowHero'
+import HomeAnimations from '@/components/HomeAnimations'
 import PricingTiers, { CONSULTATION_PRICE } from '@/components/home/PricingTiers'
 import SelfQualification from '@/components/home/SelfQualification'
 import Commitments from '@/components/home/Commitments'
@@ -86,7 +86,7 @@ export default function HomePage() {
 
   return (
     <>
-      <HomeMotion />
+      <HomeAnimations />
 
       {/* ── Hero（淺色底 + 漣漪）── */}
       <InkFlowHero

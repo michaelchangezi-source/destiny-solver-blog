@@ -3,12 +3,7 @@
 import { useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-import { SplitText } from 'gsap/SplitText'
 import InkRippleMotif from './InkRippleMotif'
-
-gsap.registerPlugin(useGSAP, SplitText)
 
 export type HeroToday = {
   stem: string
@@ -39,7 +34,6 @@ const FALLBACK: HeroToday = {
  * 進場狀態一律由 GSAP from() 設定，無 JS / reduced-motion 下內容照樣可見。
  */
 export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday }) {
-  const root = useRef<HTMLElement>(null)
   const burstRef = useRef<((xPct: number, yPct: number) => void) | null>(null)
   const yi = (today.yi || []).slice(0, 3)
   const buYi = (today.buYi || []).slice(0, 2)
@@ -56,43 +50,10 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
     // 唔 preventDefault：連結／按鈕照常導航
   }, [])
 
-  useGSAP(
-    () => {
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      // P0-4（2026-08-06 審核）：手機首屏先出靜態內容，唔等 SplitText 逐字動畫先顯示，
-      // 減少手機 FCP/LCP 要等嘅非合成動畫時間
-      const isMobile = window.matchMedia('(max-width: 767px)').matches
-      if (reduce || isMobile) return
-
-      const scope = root.current
-      if (!scope) return
-
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-      const eyebrow = scope.querySelector('.hero-d-eyebrow')
-      const h1 = scope.querySelector<HTMLElement>('.hero-d-h1')
-      const rest = scope.querySelectorAll('.hero-d-sub, .hero-d-stats, .hero-d-cta')
-      const card = scope.querySelector('.hero-d-card')
-
-      let split: SplitText | null = null
-
-      if (eyebrow) tl.from(eyebrow, { opacity: 0, y: 14, duration: 0.6 })
-      if (h1) {
-        split = new SplitText(h1, { type: 'chars' })
-        tl.from(split.chars, { opacity: 0, yPercent: 60, duration: 0.6, stagger: 0.03 }, eyebrow ? '-=0.25' : 0)
-      }
-      if (rest.length) tl.from(rest, { opacity: 0, y: 18, duration: 0.7, stagger: 0.12 }, '-=0.2')
-      if (card) tl.from(card, { opacity: 0, x: 40, duration: 0.9 }, 0.35)
-
-      return () => split?.revert()
-    },
-    { scope: root }
-  )
-
   return (
     <section
-      ref={root}
       onClick={handleHeroClick}
-      className="relative w-full overflow-hidden bg-[#F7F5EE] text-[#2B241C] min-h-[calc(100vh-4rem)] border-b border-[#2B241C]/10"
+      className="ink-flow-hero relative w-full overflow-hidden bg-[#F7F5EE] text-[#2B241C] min-h-[calc(100vh-4rem)] border-b border-[#2B241C]/10"
     >
       <InkRippleMotif onReady={handleRippleReady} />
 
