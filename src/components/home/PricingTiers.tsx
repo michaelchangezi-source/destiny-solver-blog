@@ -14,7 +14,7 @@ function PricingCard({ label, price, suffix, items, exclusion }: {
       <p className="text-[#B23E26] text-xs font-semibold tracking-[0.25em] uppercase mb-3">
         {label}
       </p>
-      <p className="font-serif text-[#2B241C] text-4xl font-black mb-5">
+      <p className="font-serif text-[#B23E26] text-4xl font-black mb-5">
         <span className="text-xl font-bold text-[#6B6155] align-top mr-1">HK$</span>
         {Number(price).toLocaleString('en-US')}
         <span className="text-xl font-bold text-[#6B6155] ml-1">{suffix}</span>
