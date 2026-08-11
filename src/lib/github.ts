@@ -78,6 +78,23 @@ async function updateRef(commitSha: string, branch = 'main'): Promise<void> {
   })
 }
 
+async function createBinaryBlob(base64Content: string): Promise<string> {
+  const data = await ghFetch('/git/blobs', {
+    method: 'POST',
+    body: JSON.stringify({ content: base64Content, encoding: 'base64' }),
+  })
+  return data.sha
+}
+
+export async function createBinaryFile(filePath: string, base64Content: string, message: string): Promise<void> {
+  const headSha = await getRef()
+  const treeSha = await getCommitTree(headSha)
+  const blobSha = await createBinaryBlob(base64Content)
+  const newTreeSha = await createTree(treeSha, [{ path: filePath, sha: blobSha }])
+  const newCommitSha = await createCommit(newTreeSha, headSha, message)
+  await updateRef(newCommitSha)
+}
+
 export async function createFile(filePath: string, content: string, message: string): Promise<void> {
   const headSha = await getRef()
   const treeSha = await getCommitTree(headSha)
