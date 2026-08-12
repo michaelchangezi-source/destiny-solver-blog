@@ -43,7 +43,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       '流年是某一年份的天干地支組合，主一年吉凶，是引動命局或大運潛藏格局的年度催化劑，地支力量是根基，天干是事件顯現的外象。',
     misconception:
       '常見誤解只看流年天干代表的表面意義。其實流年地支才是力量根基，地支決定事件能否真正落地，天干只是「做了什麼、說了什麼」的外象。',
-    relatedSlugs: ['topic-14', 'topic-07', 'post-20260612-13'],
+    relatedSlugs: ['post-20260807-01', 'topic-14', 'topic-07', 'post-20260612-13'],
   },
   {
     slug: 'yongshen',
@@ -502,7 +502,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       '八字是出生的年月日時對應的天干地支組合，共四柱八個字，是東方命理學以天文節氣為座標、記錄人出生能量結構的系統。',
     misconception:
       '常見誤解以為八字是算命工具，可以預測未來發生的事。其實八字描述的是能量結構與模式，是幫助人認識自己的語言，而非命中注定的劇本。',
-    relatedSlugs: ['post-20260621-04', 'post-20260620-07', 'topic-05', 'topic-03'],
+    relatedSlugs: ['post-20260806-01', 'post-20260621-04', 'post-20260620-07', 'topic-05', 'topic-03'],
   },
   {
     slug: 'wuxing',

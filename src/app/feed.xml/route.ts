@@ -51,6 +51,12 @@ ${items}
     headers: {
       'Content-Type': 'application/rss+xml; charset=utf-8',
       'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+      // RSS 訂閱源本來就唔應該入搜尋結果。冇呢個 header 嘅話，GSC 會長期
+      // 把佢報做「已檢索 - 目前尚未建立索引」，令每次「驗證修正」都失敗
+      // （2026-08-08 就係因為咁失敗過一次）。noindex 唔阻爬取，
+      // RSS 閱讀器照讀，只係叫 Google 唔好當佢係一版搜尋結果。
+      // 注意：llms.txt 唔加呢個 header，佢存在嘅目的就係俾 AI 爬蟲讀。
+      'X-Robots-Tag': 'noindex',
     },
   })
 }
