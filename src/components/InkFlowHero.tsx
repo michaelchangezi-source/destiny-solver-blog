@@ -194,6 +194,14 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
               >
                 完整分析 <ArrowRight size={16} />
               </Link>
+
+              {/* 上面嗰張係大環境能量，人人一樣；呢條連去對照個人日柱嗰個版本 */}
+              <Link
+                href="/daily/me"
+                className="mt-2.5 flex items-center justify-center gap-1 text-[13px] text-[#6B6155] transition-colors duration-200 hover:text-[#B23E26]"
+              >
+                今日對你自己又點？ <ArrowRight size={13} />
+              </Link>
             </div>
           </div>
         </div>

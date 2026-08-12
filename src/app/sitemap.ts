@@ -66,6 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/bazi`, lastModified: new Date('2025-11-01'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/compat`, lastModified: new Date('2025-12-01'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/daily`, lastModified: new Date('2026-01-01'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/daily/me`, lastModified: new Date('2026-08-11'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/privacy`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/terms`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/disclaimer`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },

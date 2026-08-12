@@ -68,14 +68,25 @@ export default function Header() {
             </div>
           </div>
 
-          <Link
-            href="/daily"
-            className={`text-sm tracking-wide transition-colors duration-200 ${
-              isActive('/daily') ? 'text-[#B23E26]' : 'text-[#5A5247] hover:text-[#B23E26]'
-            }`}
-          >
-            每日能量
-          </Link>
+          {/* 每日能量：hover 單欄選單，同排盤工具同一個 pattern */}
+          <div className="group nav-dropdown-trigger relative flex items-center h-16">
+            <Link
+              href="/daily/me"
+              className={`flex items-center gap-1 text-sm tracking-wide transition-colors duration-200 ${
+                isActive('/daily') ? 'text-[#B23E26]' : 'text-[#5A5247] hover:text-[#B23E26]'
+              }`}
+            >
+              每日能量 <span className="text-[10px] text-[#6B6155]">▾</span>
+            </Link>
+            <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[color:var(--border-card)] rounded-lg p-2.5 flex flex-col gap-0.5 w-[180px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
+              <Link href="/daily/me" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
+                今日對你
+              </Link>
+              <Link href="/daily" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
+                日運能量
+              </Link>
+            </div>
+          </div>
 
           {/* 排盤工具：hover 單欄選單 */}
           <div className="group nav-dropdown-trigger relative flex items-center h-16">
@@ -158,9 +169,15 @@ export default function Header() {
             命理詞彙表 →
           </Link>
 
-          <Link href="/daily" onClick={() => setOpen(false)} className="text-base tracking-wide text-[#5A5247] hover:text-[#B23E26] transition-colors">
-            每日能量
-          </Link>
+          <span className="text-base tracking-wide text-[#5A5247] font-semibold">每日能量</span>
+          <div className="flex flex-col gap-2 pl-3">
+            <Link href="/daily/me" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
+              今日對你
+            </Link>
+            <Link href="/daily" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
+              日運能量
+            </Link>
+          </div>
 
           <span className="text-base tracking-wide text-[#5A5247] font-semibold">排盤工具</span>
           <div className="flex flex-col gap-2 pl-3">
