@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
 
 const CURRENT_YEAR = new Date().getFullYear()
 
@@ -95,6 +96,15 @@ export default function BirthInput({
 
       <p className="text-[#8A8071] text-xs leading-relaxed mt-5">
         出生於晚上十一時之後的話，日柱有可能屬於翌日。本功能一律以曆日計算，如結果與你已知的日柱不符，可把日期改為翌日再試一次。
+      </p>
+
+      {/* 主導覽「每日能量」指向本頁，不願輸入生日的訪客要有出口去大環境版本 */}
+      <p className="text-[#6B6155] text-xs mt-4 pt-4 border-t border-[#2B241C]/10">
+        不想輸入出生日期？
+        <Link href="/daily" className="text-[#B23E26] font-semibold hover:underline ml-1">
+          看今日的大環境能量
+        </Link>
+        ，那一版不需要任何資料，所有人看到的都一樣。
       </p>
     </form>
   )

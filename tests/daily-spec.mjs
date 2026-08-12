@@ -192,6 +192,28 @@ for (let i = 0; i < cellKeys.length; i++) {
 }
 ok(nearDup.length === 0, '定性句唔准共用 8 字以上片段', nearDup.slice(0, 3).join('  '))
 
+// 宜／不宜同樣要防重複。呢條係 2026-08-12 覆核時補上：原本淨係查 tone，
+// 結果宜忌嗰邊漏咗兩對明顯重複（「因為關係好就…」「放棄一個現有的…」）。
+// 宜忌本身短，門檻收窄到 6 字。只掃活格，唔可達嗰 35 格唔出街唔理。
+const SAME_POL = ['比肩', '食神', '偏財', '七殺', '偏印']
+const liveItems = []
+for (const g of relate.TEN_GODS) {
+  const rs = SAME_POL.includes(g) ? ['沖', '半合', '伏吟', '無關'] : ['六合', '刑', '穿害', '破', '無關']
+  for (const r of rs) {
+    const c = copy.CELLS[`${g}_${r}`]
+    c.yi.forEach((y, i) => liveItems.push([`${g}_${r}.宜${i + 1}`, y]))
+    liveItems.push([`${g}_${r}.不宜`, c.buYi])
+  }
+}
+const itemDup = []
+for (let i = 0; i < liveItems.length; i++) {
+  for (let k = i + 1; k < liveItems.length; k++) {
+    const s = longestCommon(liveItems[i][1], liveItems[k][1])
+    if (s.length >= 6) itemDup.push(`${liveItems[i][0]}×${liveItems[k][0]}「${s}」`)
+  }
+}
+ok(itemDup.length === 0, '活格宜忌唔准共用 6 字以上片段', itemDup.slice(0, 3).join('  '))
+
 // 全部六十甲子 × 六十甲子組合都取得到文案，不得拋錯
 let comboErr = 0
 const SEXAGENARY = []
