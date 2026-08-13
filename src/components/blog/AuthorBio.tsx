@@ -26,7 +26,7 @@ export default function AuthorBio() {
             <span className="text-[#B23E26] text-xs tracking-wider">命運解決師 · 香港八字命理師</span>
           </Link>
           <p className="text-[#5A5247] text-sm leading-relaxed mt-2">
-            深入八字、十神、大運流年與盲派命理，以「做功、去向、能量交換」三維度解讀命局。主張命理是認識自己的工具，而非預測命運的水晶球。
+            深入八字、十神、大運流年，以「做功、去向、能量交換」三維度解讀命局。主張命理是認識自己的工具，而非預測命運的水晶球。
           </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-3 text-sm">
             <a
