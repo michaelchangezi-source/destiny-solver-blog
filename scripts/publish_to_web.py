@@ -16,7 +16,10 @@ manifest.json 格式（陣列，每篇一個物件）：
     "category": "感情格局",          // 網站分類：感情格局／事業財運／八字基礎…
     "body_file": "C:/.../backup.md", // 帖文正文 .md（第一行為 hook）
     "cover_file": "C:/.../slide_01.jpg",
-    "date": "2026-06-20"             // 選填，預設今日
+    "date": "2026-08-17"             // ⚠️ 必填 Threads 發布日（非批次當日！）
+                                     // 週批次第 N 篇 = next_monday + N-1 天
+                                     // 此日期決定文章在網站的 publishedAt，
+                                     // 填錯（如填批次當日）會令 7 篇同日全部上線。
   }
 ]
 
@@ -213,6 +216,25 @@ def normalize_category(raw: str, title: str = "") -> str:
     )
 
 
+def clean_stale_for_slug(slug: str) -> None:
+    """寫入新文章前，清理同一 slug 前綴的舊殘留檔案。
+
+    問題根源（2026-08-15 教訓）：每次跑此 script 都根據 manifest 內容生成檔名。
+    若 manifest 中途改過（如修分類、改標題），再跑會生成不同檔名，但舊檔案不會
+    自動刪除，結果同一 slug（如 post-20260815-05）在 content/articles 和
+    public/images/covers 同時存在多個版本，網站顯示時出現重複文章。
+    此函式於每篇寫入前先刪舊，確保一個 slug 只對應一個檔案。
+    """
+    if ARTICLES_DIR.exists():
+        for old in ARTICLES_DIR.glob(f"{slug}-*.md"):
+            old.unlink()
+            print(f"  [clean] 刪舊殘留：{old.name}")
+    old_cover = COVERS_DIR / f"{slug}.jpg"
+    if old_cover.exists():
+        old_cover.unlink()
+        print(f"  [clean] 刪舊封面：{old_cover.name}")
+
+
 def build_article(entry: dict, seq: int, date_str: str) -> Path:
     title = entry["title"].strip()
     category = normalize_category(entry.get("category", ""), title)
@@ -227,6 +249,7 @@ def build_article(entry: dict, seq: int, date_str: str) -> Path:
 
     date_compact = date_str.replace("-", "")
     slug = f"post-{date_compact}-{seq:02d}"
+    clean_stale_for_slug(slug)  # 先清同 slug 的舊殘留，防多版本並存
     # 發佈時間：同日內依序遞減，確保 seq=1 排最前
     base = datetime.strptime(date_str, "%Y-%m-%d").replace(hour=0, minute=0, second=0)
     published = base.strftime("%Y-%m-%dT%H:%M:%S+08:00")
@@ -348,6 +371,21 @@ def main():
             print(f"       - {p}")
         print("\n       修好 manifest 之後重跑；已寫入嘅檔案會被覆蓋，唔會重複。")
         sys.exit(1)
+
+    # 出文前 checker：確認每篇 article 檔案＋封面圖都存在，唔存在即中止
+    missing = []
+    for p, slug in zip(written, slugs):
+        if not p.exists():
+            missing.append(f"文章檔案不存在：{p}")
+        cover_chk = COVERS_DIR / f"{slug}.jpg"
+        if not cover_chk.exists():
+            missing.append(f"封面圖不存在：{cover_chk}")
+    if missing:
+        print("[中止] Checker 發現以下問題，唔會 push：")
+        for m in missing:
+            print(f"       {m}")
+        sys.exit(1)
+    print(f"Checker 通過：{len(written)} 篇文章及封面圖全部到位。")
 
     if args.no_push:
         print(f"完成（--no-push）：已生成 {len(written)} 篇，未 push。")
