@@ -334,13 +334,29 @@ def main():
         print("manifest 為空，無事可做。")
         return
 
-    # 前置檢查：先驗晒全部分類，全部過先開始寫檔。
+    # 前置檢查 1：驗分類，全部過先開始寫檔。
     # 唔做呢步嘅話，第 5 篇分類出錯中止時，頭 4 篇已經落咗檔，要人手清理。
     for i, entry in enumerate(entries, start=1):
         normalize_category(entry.get("category", ""), entry.get("title", f"第 {i} 篇"))
     print(f"分類檢查通過：{len(entries)} 篇全部有合法分類。")
 
+    # 前置檢查 2：日期多元性。週批次 7 篇應各有不同日期（Threads 發布日）。
+    # 若 3 篇以上共用同一日期，通常意味 manifest 的 date 欄填了批次當日，
+    # 而非每篇各自的 Threads 發布日——此情況會令多篇同日同時在網站出現，
+    # 違反「發布當日才上線」原則（2026-08-15 教訓）。
     today = datetime.now().strftime("%Y-%m-%d")
+    from collections import Counter
+    date_counts = Counter(entry.get("date", today) for entry in entries)
+    if len(entries) >= 3:
+        for d, cnt in date_counts.items():
+            if cnt >= 3:
+                raise SystemExit(
+                    f"[中止] {cnt} 篇共用同一日期「{d}」。\n"
+                    f"       週批次每篇應填 Threads 發布日（next_monday + N-1 天），\n"
+                    f"       而非批次當日。請更新 manifest.json 各篇的 date 欄再重跑。\n"
+                    f"       範例：第 1 篇=週一日期、第 2 篇=週二日期……第 7 篇=週日日期。"
+                )
+
     print(f"同步 {len(entries)} 篇最新文章至網站…")
     written, slugs, failed = [], [], []
     for i, entry in enumerate(entries, start=1):
