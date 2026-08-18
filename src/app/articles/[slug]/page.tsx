@@ -130,7 +130,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `/articles/${article.slug}`
   const metaDescription = article.description || article.excerpt
   return {
-    title: article.title,
+    title: { absolute: article.title },
     description: metaDescription,
     keywords: article.tags,
     authors: [{ name: '陳卓賢', url: `${BASE_URL}/about` }],

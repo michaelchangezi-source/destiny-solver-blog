@@ -5,7 +5,7 @@ import { getArticlesByElement } from '@/lib/articles'
 import type { ArticleMeta } from '@/types'
 
 export const metadata = buildMetadata({
-  title: '免費八字排盤｜四柱大運速算 — 命運解決師陳卓賢',
+  title: '免費八字排盤｜四柱大運速算',
   description: '免費八字排盤工具，輸入出生年月日時即時算出四柱命盤、日主、十神、藏干及十個大運起運歲數。香港命運解決師陳卓賢出品，無需註冊。',
   path: '/bazi',
 })
