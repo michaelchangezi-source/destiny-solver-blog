@@ -1,5 +1,5 @@
 import { STEMS, BRANCHES } from './bazi-calc'
-import type { BaziResult } from './bazi-calc'
+import type { BaziResult, DaYun } from './bazi-calc'
 
 // ── 干支互動表 ───────────────────────────────────────────
 const TIANHE_PAIRS: [number, number][] = [[0,5],[1,6],[2,7],[3,8],[4,9]]
@@ -384,6 +384,146 @@ export function analyzeCompat(ca: BaziResult, cb: BaziResult): CompatResult {
     tensionCount:  interactions.filter(i => i.sentiment !== 'good').length,
     readingTags: deriveReadingTags(interactions, dayBranchNote),
   }
+}
+
+// ── 大運疊合分析 ──────────────────────────────────────────────────────────────
+
+export type DaYunHitKind =
+  | '天干合'
+  | '地支六合'
+  | '地支三合'
+  | '地支六沖'
+  | '地支六害'
+  | '地支相破'
+  | '地支三刑'
+  | '地支伏吟'
+
+export interface DaYunHit {
+  kind: DaYunHitKind
+  detail: string
+  targetLabel: string // 被引動的對方柱位，例如 '日柱'
+  targetChar: string  // 被引動的對方天干或地支字符
+  sentiment: Sentiment
+  isDayStem?: boolean  // 運干互動
+}
+
+export interface DaYunOverlap {
+  person: '甲' | '乙'
+  daYun: DaYun
+  hits: DaYunHit[]
+}
+
+export function getCurrentDaYun(result: BaziResult, currentYear: number): DaYun | null {
+  const active = result.daYuns.filter(d => d.startYear <= currentYear)
+  return active.length ? active[active.length - 1] : null
+}
+
+export function analyzeCompatDaYun(
+  ca: BaziResult,
+  cb: BaziResult,
+  currentYear: number,
+): DaYunOverlap[] {
+  const overlaps: DaYunOverlap[] = []
+
+  const pairs: { person: '甲' | '乙'; result: BaziResult; other: BaziResult }[] = [
+    { person: '甲', result: ca, other: cb },
+    { person: '乙', result: cb, other: ca },
+  ]
+
+  for (const { person, result, other } of pairs) {
+    const dy = getCurrentDaYun(result, currentYear)
+    if (!dy) continue
+
+    const otherPillars = [
+      { p: other.year,  lbl: '年柱' },
+      { p: other.month, lbl: '月柱' },
+      { p: other.day,   lbl: '日柱' },
+      ...(other.hour ? [{ p: other.hour, lbl: '時柱' }] : []),
+    ]
+
+    const hits: DaYunHit[] = []
+
+    // 運干 vs 對方各柱天干：天干五合
+    for (const { p, lbl } of otherPillars) {
+      const dyStem = dy.stem
+      const tStem = p.stem
+      if (TIANHE_PAIRS.some(([x, y]) => (dyStem === x && tStem === y) || (dyStem === y && tStem === x))) {
+        const hua = TIANHE_HUA[`${dyStem},${tStem}`] ?? TIANHE_HUA[`${tStem},${dyStem}`]
+        hits.push({
+          kind: '天干合',
+          detail: `合化${hua}`,
+          targetLabel: lbl,
+          targetChar: p.stemChar,
+          sentiment: 'good',
+          isDayStem: true,
+        })
+      }
+    }
+
+    // 運支 vs 對方各柱地支
+    const checked = new Set<string>()
+    for (const { p, lbl } of otherPillars) {
+      const db = dy.branch
+      const tb = p.branch
+      const key = `${db},${tb},${lbl}`
+      if (checked.has(key)) continue
+      checked.add(key)
+
+      if (db === tb) {
+        hits.push({ kind: '地支伏吟', detail: '伏吟（比和）', targetLabel: lbl, targetChar: p.branchChar, sentiment: 'complex' })
+        continue
+      }
+      if (BRANCH_LIUHE[db] === tb) {
+        hits.push({ kind: '地支六合', detail: '六合', targetLabel: lbl, targetChar: p.branchChar, sentiment: 'good' })
+        continue
+      }
+      if (pairHit(db, tb, LIUCHONG_PAIRS)) {
+        hits.push({ kind: '地支六沖', detail: '六沖', targetLabel: lbl, targetChar: p.branchChar, sentiment: 'tense' })
+        continue
+      }
+      // 三刑（寅巳申、丑戌未）
+      let sanxingHit = false
+      for (const { trio, kind } of SANXING_GROUPS) {
+        if (trio.includes(db) && trio.includes(tb)) {
+          hits.push({ kind: '地支三刑', detail: `三刑（${kind}）`, targetLabel: lbl, targetChar: p.branchChar, sentiment: 'tense' })
+          sanxingHit = true
+          break
+        }
+      }
+      if (sanxingHit) continue
+      // 子卯刑
+      if (pairHit(db, tb, [ZIMAO_PAIR])) {
+        hits.push({ kind: '地支三刑', detail: '子卯刑（無禮之刑）', targetLabel: lbl, targetChar: p.branchChar, sentiment: 'tense' })
+        continue
+      }
+      if (pairHit(db, tb, LIUHAI_PAIRS)) {
+        hits.push({ kind: '地支六害', detail: '六害', targetLabel: lbl, targetChar: p.branchChar, sentiment: 'tense' })
+        continue
+      }
+      if (pairHit(db, tb, XIANGPO_PAIRS)) {
+        hits.push({ kind: '地支相破', detail: '相破', targetLabel: lbl, targetChar: p.branchChar, sentiment: 'complex' })
+        continue
+      }
+      // 三合（運支與目標地支在同一三合局，不同支）
+      for (const { trio, elem, wang, label } of SANHE_GROUPS) {
+        if (trio.includes(db) && trio.includes(tb)) {
+          const hasWang = db === wang || tb === wang
+          hits.push({
+            kind: '地支三合',
+            detail: hasWang ? `半三合${elem}局（${label}）` : `拱合${elem}局（${label}，缺旺神）`,
+            targetLabel: lbl,
+            targetChar: p.branchChar,
+            sentiment: hasWang ? 'good' : 'complex',
+          })
+          break
+        }
+      }
+    }
+
+    overlaps.push({ person, daYun: dy, hits })
+  }
+
+  return overlaps
 }
 
 // 建議延伸閱讀分類：只出標籤字串，實際對應文章／詞彙表由另一模組接手

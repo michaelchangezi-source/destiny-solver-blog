@@ -2,9 +2,9 @@
 
 import { useState, useCallback } from 'react'
 import { calculate, stemColor, branchColor } from '@/lib/bazi-calc'
-import { analyzeCompat } from '@/lib/bazi-compat'
+import { analyzeCompat, analyzeCompatDaYun } from '@/lib/bazi-compat'
 import type { BaziResult, Pillar } from '@/lib/bazi-calc'
-import type { CompatResult, InteractionType, Sentiment } from '@/lib/bazi-compat'
+import type { CompatResult, InteractionType, Sentiment, DaYunOverlap, DaYunHitKind } from '@/lib/bazi-compat'
 
 // ── 常量 ─────────────────────────────────────────────────
 
@@ -23,6 +23,17 @@ const HOUR_OPTIONS = [
   { value: 10, label: '戌時 19-21' },
   { value: 11, label: '亥時 21-23' },
 ]
+
+const DYHIT_COLOR: Record<DaYunHitKind, string> = {
+  '天干合':   '#B23E26',
+  '地支六合': '#5da832',
+  '地支三合': '#4a9fd4',
+  '地支六沖': '#e05c2a',
+  '地支六害': '#a83020',
+  '地支相破': '#7a5a80',
+  '地支三刑': '#9c3f4c',
+  '地支伏吟': '#8a7a55',
+}
 
 const TYPE_COLOR: Record<InteractionType, string> = {
   '天干五合': '#B23E26',
@@ -160,6 +171,7 @@ export default function CompatCalculator() {
   const [resultA, setResultA] = useState<BaziResult | null>(null)
   const [resultB, setResultB] = useState<BaziResult | null>(null)
   const [compat, setCompat] = useState<CompatResult | null>(null)
+  const [dyOverlaps, setDyOverlaps] = useState<DaYunOverlap[] | null>(null)
   const [error, setError] = useState('')
 
   const handleCalc = useCallback(() => {
@@ -182,6 +194,7 @@ export default function CompatCalculator() {
       setResultA(ra)
       setResultB(rb)
       setCompat(analyzeCompat(ra, rb))
+      setDyOverlaps(analyzeCompatDaYun(ra, rb, new Date().getFullYear()))
     } catch {
       setError('計算出錯，請確認日期是否正確')
     }
@@ -302,6 +315,53 @@ export default function CompatCalculator() {
               })
             )}
           </div>
+
+          {/* 大運疊合 */}
+          {dyOverlaps && dyOverlaps.some(o => o.hits.length > 0) && (
+            <div className="rounded-lg border border-[color:var(--border-card)] shadow-[var(--shadow-card)] bg-[#FBF7EE]/[0.02] p-4 space-y-4">
+              <div>
+                <h2 className="text-[10px] text-[#B23E26] tracking-[0.25em]">大 運 疊 合</h2>
+                <p className="text-[10px] text-[#8A8071] mt-1">現行大運如何引動對方命盤，是關係深化的隱形變數</p>
+              </div>
+              {dyOverlaps.map(({ person, daYun, hits }) => {
+                const personName = person === '甲' ? (formA.name || '甲方') : (formB.name || '乙方')
+                return (
+                  <div key={person} className="space-y-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs font-medium text-[#3A332A]">{personName}現行大運</span>
+                      <span className="font-serif font-black text-lg text-[#B23E26] leading-none">{daYun.stemChar}{daYun.branchChar}</span>
+                      <span className="text-[10px] text-[#8A8071]">（{daYun.startYear} 年起）</span>
+                    </div>
+                    {hits.length === 0 ? (
+                      <p className="text-[11px] text-[#8A8071] pl-2">對方命盤無直接引動</p>
+                    ) : (
+                      <div className="space-y-1.5 pl-2">
+                        {hits.map((hit, idx) => {
+                          const col = DYHIT_COLOR[hit.kind]
+                          const st = SENTIMENT_STYLE[hit.sentiment]
+                          return (
+                            <div key={idx}
+                              className="flex items-center gap-1.5 flex-wrap rounded px-2 py-1.5 text-xs"
+                              style={{ background: st.bg, border: `1px solid ${st.border}` }}>
+                              <span className="text-[#8A8071]">{hit.isDayStem ? '運干' : '運支'}</span>
+                              <span className="font-serif font-bold" style={{ color: col }}>{daYun[hit.isDayStem ? 'stemChar' : 'branchChar']}</span>
+                              <span className="text-[#8A8071]">×</span>
+                              <span className="text-[#6B6155]">{person === '甲' ? (formB.name || '乙方') : (formA.name || '甲方')}{hit.targetLabel}</span>
+                              <span className="font-serif font-bold" style={{ color: col }}>{hit.targetChar}</span>
+                              <span className="ml-auto" style={{ color: st.text }}>→ {hit.detail}</span>
+                              <span className="text-[9px] px-1.5 py-0.5 rounded" style={{ color: col, background: `${col}20`, border: `1px solid ${col}40` }}>
+                                {hit.kind}
+                              </span>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          )}
 
           {/* CTA */}
           <div className="rounded-lg border border-[#B23E26]/20 bg-[#B23E26]/[0.04] p-6 text-center space-y-3">
