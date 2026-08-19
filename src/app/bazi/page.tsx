@@ -1,7 +1,7 @@
 import BaziCalculator from './BaziCalculator'
 import { SITE_URL } from '@/lib/site'
 import { buildMetadata } from '@/lib/metadata'
-import { getArticlesByElement } from '@/lib/articles'
+import { getArticlesByElement, getArticlesByCategory } from '@/lib/articles'
 import type { ArticleMeta } from '@/types'
 
 export const metadata = buildMetadata({
@@ -95,6 +95,15 @@ export default function BaziPage() {
     '金': getArticlesByElement('金', undefined, 3),
     '水': getArticlesByElement('水', undefined, 3),
   }
+  // 按十神類別預載文章，供客戶端根據命盤結果精準推薦
+  const articlesByCategory: Record<string, ArticleMeta[]> = {
+    '十神應用': getArticlesByCategory('十神應用').slice(0, 3),
+    '命盤格局': getArticlesByCategory('命盤格局').slice(0, 3),
+    '事業財運': getArticlesByCategory('事業財運').slice(0, 3),
+    '感情格局': getArticlesByCategory('感情格局').slice(0, 3),
+    '大運流年': getArticlesByCategory('大運流年').slice(0, 3),
+    '干支詳解': getArticlesByCategory('干支詳解').slice(0, 3),
+  }
   return (
     <main className="pt-24 pb-20 px-4">
       <script
@@ -118,7 +127,7 @@ export default function BaziPage() {
           </h1>
           <p className="text-[#6B6155] text-sm">輸入出生年月日時，即時排出四柱命盤、日主十神及十個大運</p>
         </div>
-        <BaziCalculator articlesByElement={articlesByElement} />
+        <BaziCalculator articlesByElement={articlesByElement} articlesByCategory={articlesByCategory} />
 
         {/* 工具說明 */}
         <div className="max-w-3xl mx-auto mt-16 space-y-10">

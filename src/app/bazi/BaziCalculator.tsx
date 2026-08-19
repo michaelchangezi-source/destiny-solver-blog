@@ -339,6 +339,30 @@ function TimelinePanel({ result, birthYear, daYun, currentYear }: {
           <p className="text-[10px] text-[#8A8071]">
             {months[monthIdx].jieName}交節：{activeYear} 年 {months[monthIdx].jieDate} {months[monthIdx].jieTime}
           </p>
+          {/* 流月引動原局 */}
+          {(() => {
+            const mActs = branchInteractions(months[monthIdx].branch, result)
+            return (
+              <div className="rounded-lg border border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02] p-4">
+                <p className="text-xs text-[#2B241C] font-semibold mb-2">
+                  {months[monthIdx].gz} 月（天干{months[monthIdx].tenGod}）引動原局
+                </p>
+                {mActs.length === 0 ? (
+                  <p className="text-[11px] text-[#6B6155]">此流月地支與原局四支無直接沖合刑害破。</p>
+                ) : (
+                  <ul className="space-y-1">
+                    {mActs.map((a, i) => (
+                      <li key={i} className="text-[11px] text-[#5A5247]">
+                        <span className="inline-block w-12 text-[#B23E26]">{a.pillarLabel}</span>
+                        <span className="inline-block w-8">{a.relation}</span>
+                        {a.detail}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )
+          })()}
         </div>
       )}
 
@@ -398,11 +422,66 @@ function TimelinePanel({ result, birthYear, daYun, currentYear }: {
   )
 }
 
+// ── 五行分佈橫條圖 ───────────────────────────────────────────
+const ELEM_NAMES = ['木', '火', '土', '金', '水'] as const
+const ELEM_COLORS = ['#5a8a4a', '#c8522a', '#9a7228', '#7070b8', '#3870a8']
+const _STEM_ELEM_IDX = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]
+const _BRANCH_ELEM_IDX = [4, 2, 0, 0, 2, 1, 1, 2, 3, 3, 2, 4]
+
+function WuxingChart({ result }: { result: BaziResult }) {
+  const pillars = [result.year, result.month, result.day, ...(result.hour ? [result.hour] : [])]
+  const counts = [0, 0, 0, 0, 0]
+  for (const p of pillars) {
+    counts[_STEM_ELEM_IDX[p.stem]]++
+    counts[_BRANCH_ELEM_IDX[p.branch]]++
+  }
+  const max = Math.max(...counts, 1)
+  return (
+    <div>
+      <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-3">五 行 分 佈</p>
+      <div className="space-y-1.5">
+        {ELEM_NAMES.map((name, i) => (
+          <div key={name} className="flex items-center gap-2">
+            <span className="text-[11px] text-[#5A5247] w-4 shrink-0 select-none">{name}</span>
+            <div className="flex-1 h-3.5 bg-[#2B241C]/[0.06] rounded-sm overflow-hidden">
+              <div
+                className="h-full rounded-sm transition-[width] duration-500"
+                style={{ width: `${(counts[i] / max) * 100}%`, backgroundColor: ELEM_COLORS[i] }}
+              />
+            </div>
+            <span className="text-[11px] text-[#8A8071] w-3 text-right shrink-0">{counts[i]}</span>
+          </div>
+        ))}
+      </div>
+      <p className="text-[9px] text-[#8A8071] mt-2">天干 + 地支本氣各計 1，藏干未計</p>
+    </div>
+  )
+}
+
 // Day stem index (0–9) to 五行
 const STEM_ELEMENT = ['木','木','火','火','土','土','金','金','水','水'] as const
 
-export default function BaziCalculator({ articlesByElement = {} }: {
+// 按命盤十神推算第二組文章類別
+const TG_CATEGORY: Record<string, string> = {
+  '正財': '事業財運', '偏財': '事業財運',
+  '正官': '命盤格局', '七殺': '命盤格局',
+  '食神': '十神應用', '傷官': '十神應用',
+  '正印': '干支詳解', '偏印': '干支詳解',
+  '比肩': '十神應用', '劫財': '十神應用',
+}
+
+function pickSecondaryCategory(result: BaziResult): string {
+  const pillars = [result.year, result.month, result.hour].filter(Boolean) as typeof result.year[]
+  for (const p of pillars) {
+    const cat = TG_CATEGORY[p.tenGod ?? '']
+    if (cat) return cat
+  }
+  return '大運流年'
+}
+
+export default function BaziCalculator({ articlesByElement = {}, articlesByCategory = {} }: {
   articlesByElement?: Record<string, ArticleMeta[]>
+  articlesByCategory?: Record<string, ArticleMeta[]>
 }) {
   const [form, setForm] = useState({
     year: '', month: '1', day: '', hour: '-1', gender: 'F',
@@ -846,6 +925,9 @@ export default function BaziCalculator({ articlesByElement = {} }: {
             </a>
           </div>
 
+          {/* 五行分佈 */}
+          <WuxingChart result={result} />
+
           {/* 按日主五行推薦文章 */}
           {(() => {
             const element = STEM_ELEMENT[result.day.stem]
@@ -858,6 +940,34 @@ export default function BaziCalculator({ articlesByElement = {} }: {
                 </p>
                 <div className="space-y-2">
                   {recs.map(a => (
+                    <Link
+                      key={a.slug}
+                      href={`/articles/${a.slug}`}
+                      className="flex items-center gap-3 rounded border border-[color:var(--border-card)] bg-[#FBF7EE]/[0.02] px-4 py-3 hover:border-[#B23E26]/40 transition-colors group"
+                    >
+                      <span className="text-[#8A8071] text-[10px] tracking-wider shrink-0">{a.category}</span>
+                      <span className="text-[#2B241C] text-sm flex-1 min-w-0 truncate group-hover:text-[#B23E26] transition-colors">{a.title}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )
+          })()}
+
+          {/* 按命盤十神精準推薦文章 */}
+          {(() => {
+            const cat = pickSecondaryCategory(result)
+            const recs2 = (articlesByCategory[cat] ?? []).filter(
+              a => !(articlesByElement[STEM_ELEMENT[result.day.stem]] ?? []).some(x => x.slug === a.slug)
+            )
+            if (recs2.length === 0) return null
+            return (
+              <div className="no-print">
+                <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-3">
+                  命盤相關：{cat}
+                </p>
+                <div className="space-y-2">
+                  {recs2.map(a => (
                     <Link
                       key={a.slug}
                       href={`/articles/${a.slug}`}
