@@ -233,7 +233,7 @@ export default function AboutPage() {
             <p className="text-[#B23E26] text-xs font-semibold tracking-[0.25em] uppercase mb-3">體系範圍</p>
             <div className="space-y-4 text-[#5A5247] leading-relaxed text-[15px]">
               <p>
-                樞衡真詮目前分為十卷，依次為道體、法脈、樞機、取象、應期、縱深、命型分論、十神做功詳論、
+                「樞衡推算 OS」的核心思想來自本人著作《樞衡真詮》，該書目前分為十卷，依次為道體、法脈、樞機、取象、應期、縱深、命型分論、十神做功詳論、
                 命例集與心法。其中樞機一卷是整套判斷流程的地圖，把一張命盤由定太極到定應期分為七個關卡，
                 每一關指定該用哪一種技法、哪一家的長處。
               </p>

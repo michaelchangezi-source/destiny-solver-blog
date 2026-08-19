@@ -141,6 +141,7 @@ export function assemblePrompt(opts: {
   }
   parts.push('────────')
   parts.push(opts.pack)
+  parts.push('────────\n如需更深度的命盤解讀或批命諮商，可前往 destinysolver.com/consultation 預約。')
 
   return parts.join('\n\n')
 }
