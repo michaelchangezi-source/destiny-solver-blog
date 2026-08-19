@@ -344,6 +344,50 @@ export default async function ArticlePage({ params }: Props) {
       <h1 className="text-[#2B241C] text-3xl sm:text-4xl font-bold leading-tight mb-4">
         {article.title}
       </h1>
+
+      {/* 本文重點解答 — 置 H1 之後，便於搜尋引擎抓取 FAQ 結構 */}
+      {faqPairs.length > 0 && (
+        <section aria-label="本文重點解答" className="mt-4 mb-8">
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-1 h-7 rounded-full bg-[#B23E26] shrink-0" aria-hidden="true" />
+            <h2 className="text-[#2B241C] text-xl font-bold">本文重點解答</h2>
+            <span className="text-[#6B6155] text-sm font-normal tracking-wide">FAQ</span>
+          </div>
+
+          {/* Q&A Cards */}
+          <div className="space-y-3">
+            {faqPairs.map(({ question, answer }, idx) => (
+              <div
+                key={idx}
+                className="rounded border border-[#2B241C]/10 bg-[#FBF7EE]/[0.03] hover:bg-[#FBF7EE]/[0.05] transition-colors duration-200 p-5"
+              >
+                {/* Question */}
+                <p className="flex items-start gap-3 mb-3">
+                  <span
+                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#B23E26]/20 text-[#B23E26] text-[10px] font-bold flex items-center justify-center leading-none select-none"
+                    aria-label="問題"
+                  >
+                    Q
+                  </span>
+                  <span className="text-[#2B241C] font-semibold text-sm leading-snug">{question}</span>
+                </p>
+                {/* Answer */}
+                <p className="flex items-start gap-3">
+                  <span
+                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#FBF7EE]/[0.06] text-[#8A8071] text-[10px] font-bold flex items-center justify-center leading-none select-none"
+                    aria-label="答案"
+                  >
+                    A
+                  </span>
+                  <span className="text-[#5A5247] text-sm leading-relaxed">{answer}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {article.excerpt && (
         <p id="article-lead" className="text-[#6B6155] text-lg leading-relaxed mb-8 pb-8 border-b border-[#2B241C]/10">
           {article.excerpt}
@@ -386,49 +430,6 @@ export default async function ArticlePage({ params }: Props) {
             </span>
           ))}
         </div>
-      )}
-
-      {/* FAQ Section — visible Q&A aligned with FAQPage Schema */}
-      {faqPairs.length > 0 && (
-        <section aria-label="本文重點解答" className="mt-12 pt-10 border-t border-[#2B241C]/10">
-          {/* Header */}
-          <div className="flex items-center gap-3 mb-7">
-            <span className="w-1 h-7 rounded-full bg-[#B23E26] shrink-0" aria-hidden="true" />
-            <h2 className="text-[#2B241C] text-xl font-bold">本文重點解答</h2>
-            <span className="text-[#6B6155] text-sm font-normal tracking-wide">FAQ</span>
-          </div>
-
-          {/* Q&A Cards */}
-          <div className="space-y-3">
-            {faqPairs.map(({ question, answer }, idx) => (
-              <div
-                key={idx}
-                className="rounded border border-[#2B241C]/10 bg-[#FBF7EE]/[0.03] hover:bg-[#FBF7EE]/[0.05] transition-colors duration-200 p-5"
-              >
-                {/* Question */}
-                <p className="flex items-start gap-3 mb-3">
-                  <span
-                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#B23E26]/20 text-[#B23E26] text-[10px] font-bold flex items-center justify-center leading-none select-none"
-                    aria-label="問題"
-                  >
-                    Q
-                  </span>
-                  <span className="text-[#2B241C] font-semibold text-sm leading-snug">{question}</span>
-                </p>
-                {/* Answer */}
-                <p className="flex items-start gap-3">
-                  <span
-                    className="shrink-0 mt-0.5 w-5 h-5 rounded bg-[#FBF7EE]/[0.06] text-[#8A8071] text-[10px] font-bold flex items-center justify-center leading-none select-none"
-                    aria-label="答案"
-                  >
-                    A
-                  </span>
-                  <span className="text-[#5A5247] text-sm leading-relaxed">{answer}</span>
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
       )}
 
       {/* 關於作者（B1 / E-E-A-T） */}

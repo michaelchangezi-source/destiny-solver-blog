@@ -57,7 +57,7 @@ export function GET(): Response {
 
 ## 免費工具
 
-- [八字速算](${BASE_URL}/bazi)：四柱大運排盤
+- [八字速算](${BASE_URL}/bazi)：四柱大運排盤，排完可一鍵生成結構化命盤資料包，交給 ChatGPT、Claude、Gemini 深度解讀
 - [八字合盤](${BASE_URL}/compat)：干支互動分析
 - [日運能量](${BASE_URL}/daily)：每日流日五行分析
 - [預約諮詢](${BASE_URL}/consultation)：一對一命盤深度解讀

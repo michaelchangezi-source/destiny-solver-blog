@@ -93,6 +93,17 @@ export function getAllArticles(): ArticleMeta[] {
   return result
 }
 
+// 教學系列文章（slug 以 topic- 開頭），按 topic 序號排序
+export function getTopicArticles(): ArticleMeta[] {
+  return getAllArticles()
+    .filter((a) => a.slug.startsWith('topic-'))
+    .sort((a, b) => {
+      const nA = parseInt(a.slug.replace('topic-', '')) || 0
+      const nB = parseInt(b.slug.replace('topic-', '')) || 0
+      return nA - nB
+    })
+}
+
 // 每週自動發佈的「最新文章」（slug 以 post- 開頭），按發佈時間新到舊排序
 export function getLatestArticles(limit?: number): ArticleMeta[] {
   const latest = getAllArticles()

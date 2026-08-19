@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { preload } from 'react-dom'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
-import { getAllArticles, getAllCategories, getLatestArticles } from '@/lib/articles'
+import { getAllArticles, getAllCategories, getLatestArticles, getTopicArticles } from '@/lib/articles'
 import { SITE_URL } from '@/lib/site'
 import { CRITICAL_FONTS } from '@/lib/font-preload'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
@@ -74,6 +74,9 @@ export default function HomePage() {
   const articles = getAllArticles()
   const categories = getAllCategories()
   const latestArticles = getLatestArticles(6)
+  const FEATURED_TOPIC_SLUGS = ['topic-03', 'topic-28', 'topic-29', 'topic-01', 'topic-04', 'topic-13', 'topic-32', 'topic-17']
+  const allTopics = getTopicArticles()
+  const featuredTopics = FEATURED_TOPIC_SLUGS.map(s => allTopics.find(t => t.slug === s)).filter(Boolean)
 
   // 今日命盤（供 Hero 卡）
   const [today] = analyzeDays(1)
@@ -175,6 +178,44 @@ export default function HomePage() {
             {latestArticles.map((article) => (
               <LatestCard key={article.slug} article={article} />
             ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── 系統學八字（精選 topic 教學）── */}
+      {featuredTopics.length > 0 && (
+        <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-12">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LEARN</p>
+              <h2 className="font-serif text-[#2B241C] text-2xl font-bold">系統學八字</h2>
+            </div>
+            <Link href="/latest#教學" className="text-[#8A8071] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-1">
+              全部教學 <ArrowRight size={13} />
+            </Link>
+          </div>
+          <div className="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {featuredTopics.map((topic) => {
+              if (!topic) return null
+              const num = topic.slug.replace('topic-', '').padStart(2, '0')
+              return (
+                <Link
+                  key={topic.slug}
+                  href={`/articles/${topic.slug}`}
+                  className="group flex gap-3 rounded-lg border border-[color:var(--border-card)] bg-[#FBF7EE] hover:border-[#B23E26]/40 hover:shadow-[0_2px_12px_rgba(178,62,38,0.08)] p-4 transition-all duration-200"
+                >
+                  <div className="flex-shrink-0 w-8 h-8 rounded-md bg-[#B23E26]/[0.08] flex items-center justify-center mt-0.5">
+                    <span className="text-[#B23E26] text-xs font-bold font-serif">{num}</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] text-[#B23E26] font-semibold tracking-widest mb-1 truncate">{topic.category}</p>
+                    <p className="text-[#2B241C] text-sm font-semibold leading-snug line-clamp-2 group-hover:text-[#B23E26] transition-colors">
+                      {topic.title}
+                    </p>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </section>
       )}
