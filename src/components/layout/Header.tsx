@@ -93,7 +93,7 @@ export default function Header() {
             <Link
               href="/bazi"
               className={`flex items-center gap-1 text-sm tracking-wide transition-colors duration-200 ${
-                isActive('/bazi') || isActive('/compat') ? 'text-[#B23E26]' : 'text-[#5A5247] hover:text-[#B23E26]'
+                isActive('/bazi') || isActive('/compat') || isActive('/ziwei') ? 'text-[#B23E26]' : 'text-[#5A5247] hover:text-[#B23E26]'
               }`}
             >
               排盤工具 <span className="text-[10px] text-[#6B6155]">▾</span>
@@ -104,6 +104,9 @@ export default function Header() {
               </Link>
               <Link href="/compat" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
                 八字合盤
+              </Link>
+              <Link href="/ziwei" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
+                紫微斗數排盤
               </Link>
             </div>
           </div>
@@ -186,6 +189,9 @@ export default function Header() {
             </Link>
             <Link href="/compat" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
               八字合盤
+            </Link>
+            <Link href="/ziwei" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
+              紫微斗數排盤
             </Link>
           </div>
 
