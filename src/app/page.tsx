@@ -2,12 +2,11 @@ import Link from 'next/link'
 import { preload } from 'react-dom'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
-import { getAllArticles, getAllCategories, getLatestArticles, getTopicArticles } from '@/lib/articles'
+import { getAllArticles, getLatestArticles, getTopicArticles } from '@/lib/articles'
 import { SITE_URL } from '@/lib/site'
 import { CRITICAL_FONTS } from '@/lib/font-preload'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
 import { getSolarTermOnDate } from '@/lib/bazi-calc'
-import CategoryWheel from '@/components/ui/CategoryWheel'
 import LatestCard from '@/components/blog/LatestCard'
 import InkFlowHero from '@/components/InkFlowHero'
 import HomeAnimations from '@/components/HomeAnimations'
@@ -72,7 +71,6 @@ export default function HomePage() {
   }
 
   const articles = getAllArticles()
-  const categories = getAllCategories()
   const latestArticles = getLatestArticles(6)
   const FEATURED_TOPIC_SLUGS = ['topic-03', 'topic-28', 'topic-29', 'topic-01', 'topic-04', 'topic-13', 'topic-32', 'topic-17']
   const allTopics = getTopicArticles()
@@ -216,23 +214,6 @@ export default function HomePage() {
                 </Link>
               )
             })}
-          </div>
-        </section>
-      )}
-
-      {/* ── Categories wheel（系統學習路徑入口）── */}
-      {categories.length > 0 && (
-        <section className="reveal border-y border-[#2B241C]/10 bg-[#F4EEE1] py-14">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="flex items-center justify-between mb-2">
-              <div>
-                <h2 className="font-serif text-[#2B241C] text-2xl font-bold">系統學習路徑</h2>
-              </div>
-              <Link href="/categories" className="text-[#8A8071] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-1">
-                全部分類 <ArrowRight size={13} />
-              </Link>
-            </div>
-            <CategoryWheel categories={categories} />
           </div>
         </section>
       )}
