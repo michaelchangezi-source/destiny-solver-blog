@@ -66,7 +66,8 @@ export default function LatestPage() {
         <p className="text-[#B23E26] text-xs font-semibold tracking-[0.3em] uppercase mb-2">LATEST</p>
         <h1 className="font-serif text-[#2B241C] text-3xl sm:text-4xl font-black mb-3">最新文章</h1>
         <p className="text-[#5A5247] text-sm leading-relaxed max-w-xl">
-          每週更新的命理短文，從兩性、職場到八字基礎，附原創配圖。想看系統教學，可前往
+          每週更新的命理短文，從兩性、職場到八字基礎，附原創配圖。<br />
+          想看系統教學，可前往
           <Link href="/categories" className="text-[#B23E26] hover:underline mx-1">學習路徑</Link>。
         </p>
       </div>
