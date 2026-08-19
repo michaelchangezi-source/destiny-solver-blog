@@ -137,27 +137,50 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Bazi Compat Calculator banner（§8 上移至最新文章之前）── */}
+      {/* ── 排盤工具四格（§8）── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <Link href="/compat" className="group block bg-[#F4EEE1] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)] hover:border-[#B23E26]/40 rounded-lg p-10 sm:p-14 relative overflow-hidden transition-colors duration-200">
-          <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
-            <ArrowRight size={20} className="text-[#B23E26]" />
-          </div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-8 relative">
-            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-lg flex flex-col items-center justify-center bg-[#B23E26]">
-              <span className="font-serif font-black text-4xl sm:text-5xl text-[#FBF7EE] leading-none">合</span>
-              <span className="text-[#FBF7EE]/70 text-[10px] tracking-widest mt-1">盤</span>
+        <div className="mb-8">
+          <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">FREE TOOLS</p>
+          <h2 className="font-serif text-[#2B241C] text-2xl font-bold">排盤工具</h2>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* 八字排盤 */}
+          <Link href="/bazi" className="group flex flex-col rounded-2xl p-6 sm:p-8 bg-[#B23E26] hover:opacity-90 transition-[opacity,transform] duration-200 active:scale-[0.98]">
+            <span className="font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">命</span>
+            <div className="mt-8">
+              <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Bazi</p>
+              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">八字排盤</h3>
+              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">排出四柱、格局、大運流年</p>
             </div>
-            <div className="flex-1">
-              <h2 className="font-serif text-[#2B241C] text-2xl sm:text-3xl font-black mb-3 group-hover:text-[#B23E26] transition-colors">
-                免費八字合盤
-              </h2>
-              <p className="text-[#6B6155] text-sm leading-relaxed max-w-lg">
-                輸入兩人出生年月日時，即時分析雙方四柱的天干五合、地支六合、六沖、六害等干支互動關係，看懂你們之間的命理契合度。
-              </p>
+          </Link>
+          {/* 八字合盤 */}
+          <Link href="/compat" className="group flex flex-col rounded-2xl p-6 sm:p-8 bg-[#7A5230] hover:opacity-90 transition-[opacity,transform] duration-200 active:scale-[0.98]">
+            <span className="font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">合</span>
+            <div className="mt-8">
+              <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Compatibility</p>
+              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">八字合盤</h3>
+              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">分析雙方干支合沖刑害</p>
             </div>
-          </div>
-        </Link>
+          </Link>
+          {/* 紫微斗數 */}
+          <Link href="/ziwei" className="group flex flex-col rounded-2xl p-6 sm:p-8 bg-[#2B4A6B] hover:opacity-90 transition-[opacity,transform] duration-200 active:scale-[0.98]">
+            <span className="font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">紫</span>
+            <div className="mt-8">
+              <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Zi Wei</p>
+              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">紫微斗數</h3>
+              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">飛星派十二宮命盤及四化</p>
+            </div>
+          </Link>
+          {/* 西洋占星 */}
+          <Link href="/western" className="group flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3D6B5C] hover:opacity-90 transition-[opacity,transform] duration-200 active:scale-[0.98]">
+            <span className="font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">星</span>
+            <div className="mt-8">
+              <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Western</p>
+              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">西洋占星</h3>
+              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">行星星座位置、上升點及相位</p>
+            </div>
+          </Link>
+        </div>
       </section>
 
       {/* ── 最新文章 ── */}
