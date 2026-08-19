@@ -82,8 +82,8 @@ export default function LatestPage() {
             <span className="text-[#8A8071] text-sm">{topics.length} 篇</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {topics.map((topic) => {
-              const num = topic.slug.replace('topic-', '').padStart(2, '0')
+            {topics.map((topic, index) => {
+              const num = String(index + 1).padStart(2, '0')
               return (
                 <Link
                   key={topic.slug}
