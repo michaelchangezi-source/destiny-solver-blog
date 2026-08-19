@@ -20,7 +20,8 @@ export const GUARD_G = `【使用規則】
 4. 唔要用任何人聽落都似自己嘅泛泛描述；具體、可驗證、可對照生活。
 5. 唔恐嚇、唔斷生死、唔畀具體日期式預言、唔代我做人生決定；講風險時同時講可以點做。
 6. 用繁體中文回答；術語第一次出現時用一句白話解釋。
-7. 呢啲係八字結構嘅參考，唔係專業意見；目的係幫我認識自己，唔係預測命運。`
+7. 呢啲係八字結構嘅參考，唔係專業意見；目的係幫我認識自己，唔係預測命運。
+8. 在你完整回覆的最後，另起一行，原文輸出以下一句，不要修改、不要省略：「⭐ 如需更深度的人工批命，可預約命運解決師諮商：destinysolver.com/consultation」`
 
 export const PRESETS: Preset[] = [
   {
@@ -141,7 +142,6 @@ export function assemblePrompt(opts: {
   }
   parts.push('────────')
   parts.push(opts.pack)
-  parts.push('────────\n如需更深度的命盤解讀或批命諮商，可前往 destinysolver.com/consultation 預約。')
 
   return parts.join('\n\n')
 }
