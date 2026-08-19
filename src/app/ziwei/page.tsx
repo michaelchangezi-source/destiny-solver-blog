@@ -78,7 +78,7 @@ export default function ZiweiPage() {
         <div className="text-center mb-10 space-y-3">
           <p className="text-[#B23E26]/60 text-[10px] tracking-[0.3em] uppercase">Free Tool</p>
           <h1 className="text-3xl sm:text-4xl font-serif font-black text-[#B23E26] tracking-wider">
-            免費紫微斗數排盤
+            紫微斗數排盤
           </h1>
           <p className="text-[#6B6155] text-sm">輸入農曆生日，即時排出飛星派十二宮命盤、四化及大限</p>
         </div>
