@@ -52,7 +52,7 @@ const faq = [
 const webApplicationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: '免費八字排盤 — 命運解決師',
+  name: '免費八字排盤｜命運解決師 陳卓賢',
   alternateName: '八字速算',
   url: `${SITE_URL}/bazi`,
   applicationCategory: 'LifestyleApplication',

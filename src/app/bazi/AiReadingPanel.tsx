@@ -121,6 +121,11 @@ export default function AiReadingPanel({ result, form, currentYear, articles = [
         <p className="text-sm text-[#6B665C] mt-1">
           排好盤，下一步係問對問題。揀一個方向，複製去你慣用嘅 ChatGPT、Claude、Gemini，佢就會照呢張盤答你。免費、免登入。
         </p>
+        {form.timeMode === 'unknown' && (
+          <p className="text-xs text-[#6B665C] mt-2">
+            時辰不詳：資料包只有三柱，AI 解讀會較粗。
+          </p>
+        )}
       </div>
 
       {/* Preset chips */}
@@ -163,21 +168,32 @@ export default function AiReadingPanel({ result, form, currentYear, articles = [
       </div>
 
       {/* Copy buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <button
-          onClick={() => doCopy(promptText, setCopiedAll)}
-          disabled={selectedPreset.needsQuestion && !question.trim()}
-          className="min-h-[44px] rounded-xl bg-[#8B3A2F] hover:bg-[#7A3128] disabled:opacity-40 text-white font-semibold text-sm transition-colors"
-        >
-          {copiedAll ? '已複製 ✓' : '複製 Prompt＋資料包'}
-        </button>
-        <button
-          onClick={() => doCopy(pack, setCopiedPack)}
-          className="min-h-[44px] rounded-xl border border-[#8B3A2F] text-[#8B3A2F] hover:bg-[#8B3A2F]/5 font-semibold text-sm transition-colors"
-        >
-          {copiedPack ? '已複製 ✓' : '只複製資料包'}
-        </button>
-      </div>
+      {(() => {
+        const freeAndEmpty = preset === 'free' && !question.trim()
+        return (
+          <div className="space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                onClick={() => doCopy(promptText, setCopiedAll)}
+                disabled={selectedPreset.needsQuestion && !question.trim()}
+                className="min-h-[44px] rounded-xl bg-[#8B3A2F] hover:bg-[#7A3128] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors"
+              >
+                {copiedAll ? '已複製 ✓' : '複製 Prompt＋資料包'}
+              </button>
+              <button
+                onClick={() => { if (!freeAndEmpty) doCopy(pack, setCopiedPack) }}
+                disabled={freeAndEmpty}
+                className="min-h-[44px] rounded-xl border border-[#8B3A2F] text-[#8B3A2F] hover:bg-[#8B3A2F]/5 disabled:opacity-40 disabled:cursor-not-allowed font-semibold text-sm transition-colors"
+              >
+                {copiedPack ? '已複製 ✓' : '只複製資料包'}
+              </button>
+            </div>
+            {freeAndEmpty && (
+              <p className="text-xs text-[#8B3A2F] text-center">請先寫低你想問乜</p>
+            )}
+          </div>
+        )
+      })()}
 
       {/* Level radio */}
       <div className="flex gap-4 text-sm text-[#6B665C]">

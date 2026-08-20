@@ -53,7 +53,7 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
   return (
     <section
       onClick={handleHeroClick}
-      className="ink-flow-hero relative w-full overflow-hidden bg-[#F7F5EE] text-[#2B241C] min-h-[calc(100vh-4rem)] border-b border-[#2B241C]/10"
+      className="ink-flow-hero relative w-full overflow-hidden bg-[#F7F5EE] text-[#2B241C] border-b border-[#2B241C]/10"
     >
       <InkRippleMotif onReady={handleRippleReady} />
 
@@ -68,11 +68,11 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
       </div>
 
       {/* 內容 */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] max-w-6xl items-center px-4 py-20 sm:px-6">
-        <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
+      <div className="relative z-10 mx-auto flex max-w-6xl items-center px-4 py-16 sm:py-20 lg:py-24 sm:px-6 lg:min-h-[680px]">
+        <div className="flex w-full flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
           {/* 左：文字 */}
-          <div className="flex-1">
-            <p className="hero-d-eyebrow mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-[#B23E26]">
+          <div className="flex-1 min-w-0">
+            <p className="hero-d-eyebrow mb-6 text-xs font-semibold uppercase tracking-[0.15em] sm:tracking-[0.35em] text-[#B23E26]">
               命運解決師 · DESTINY SOLVER · 陳卓賢
             </p>
 
@@ -84,36 +84,39 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
               這個人
             </h1>
 
-            <p className="hero-d-sub mb-10 max-w-lg text-lg leading-relaxed text-[#6B6155]">
+            <p className="hero-d-sub mb-8 max-w-lg text-base sm:text-lg leading-relaxed text-[#6B6155]">
               不是預測命運，是認識自己。
               <br />
               透過八字框架，看見你的能量結構、格局與時勢。
             </p>
 
-            <div className="hero-d-stats mb-10 flex flex-wrap items-center gap-7 text-sm text-[#6B6155]">
-              <div>
-                <span className="mr-1.5 text-2xl font-bold text-[#2B241C]">每周更新</span>命理文章
+            <div className="hero-d-stats mb-8 grid grid-cols-3 sm:flex sm:flex-wrap sm:items-center sm:gap-7 gap-2 text-sm text-[#6B6155]">
+              <div className="text-center sm:text-left">
+                <div className="text-lg sm:text-2xl font-bold text-[#2B241C]">每周更新</div>
+                <div className="text-[11px] sm:inline sm:text-sm sm:ml-0">命理文章</div>
               </div>
-              <div className="h-5 w-px bg-[#2B241C]/15" />
-              <div>
-                <span className="mr-1.5 text-2xl font-bold text-[#2B241C]">100萬+</span>每月 Threads 瀏覽量
+              <div className="hidden sm:block h-5 w-px bg-[#2B241C]/15" />
+              <div className="text-center sm:text-left">
+                <div className="text-lg sm:text-2xl font-bold text-[#2B241C]">100萬+</div>
+                <div className="text-[11px] sm:inline sm:text-sm">每月 Threads 觸及</div>
               </div>
-              <div className="h-5 w-px bg-[#2B241C]/15" />
-              <div>
-                <span className="mr-1.5 text-2xl font-bold text-[#2B241C]">免費</span>開放閱讀
+              <div className="hidden sm:block h-5 w-px bg-[#2B241C]/15" />
+              <div className="text-center sm:text-left">
+                <div className="text-lg sm:text-2xl font-bold text-[#2B241C]">免費</div>
+                <div className="text-[11px] sm:inline sm:text-sm">開放閱讀</div>
               </div>
             </div>
 
-            <div className="hero-d-cta flex flex-wrap gap-4">
+            <div className="hero-d-cta flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link
                 href="/bazi"
-                className="flex items-center gap-2 rounded-lg bg-[#E0552C] px-7 py-3.5 font-bold text-[#FBF7EE] shadow-[0_10px_24px_-10px_rgba(224,85,44,0.45)] transition-[background-color,transform] duration-200 hover:bg-[#C9461F] active:scale-[0.97]"
+                className="flex items-center justify-center gap-2 rounded-lg bg-[#E0552C] px-7 py-4 sm:py-3.5 font-bold text-[#FBF7EE] shadow-[0_10px_24px_-10px_rgba(224,85,44,0.45)] transition-[background-color,transform] duration-200 hover:bg-[#C9461F] active:scale-[0.97]"
               >
                 免費排盤，讀你的命局 <ArrowRight size={18} />
               </Link>
               <Link
                 href="/consultation"
-                className="flex items-center gap-2 rounded-lg border border-[#2B241C]/20 px-7 py-3.5 font-medium text-[#2B241C] transition-[color,border-color,transform] duration-200 hover:border-[#B23E26] hover:text-[#B23E26] active:scale-[0.97]"
+                className="flex items-center justify-center gap-2 rounded-lg border border-[#2B241C]/20 px-7 py-4 sm:py-3.5 font-medium text-[#2B241C] transition-[color,border-color,transform] duration-200 hover:border-[#B23E26] hover:text-[#B23E26] active:scale-[0.97]"
               >
                 預約諮詢
               </Link>

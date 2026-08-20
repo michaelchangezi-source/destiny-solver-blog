@@ -366,6 +366,9 @@ export default function CompatCalculator() {
           {/* CTA */}
           <div className="rounded-lg border border-[#B23E26]/20 bg-[#B23E26]/[0.04] p-6 text-center space-y-3">
             <p className="text-[#6B6155] text-sm">
+              合盤不提供 AI 資料包：干支互動只係第一層，兩人格局、大運交疊同取捨要人手判斷。
+            </p>
+            <p className="text-[#6B6155] text-sm">
               合盤只是第一步，真正的緣分深度需要結合各自格局、大運才能判斷
             </p>
             <a href="/consultation"

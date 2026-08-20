@@ -144,37 +144,99 @@ export default function HomePage() {
           <h2 className="font-serif text-[#2B241C] text-2xl font-bold">排盤工具</h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* 八字排盤 */}
-          <Link href="/bazi" className="group flex flex-col rounded-2xl p-6 sm:p-8 bg-[#B23E26] hover:opacity-90 transition-[opacity,transform] duration-200 active:scale-[0.98]">
-            <span className="font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">命</span>
-            <div className="mt-8">
+          {/* 八字排盤 — 羅盤線稿 */}
+          <Link href="/bazi" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#B23E26] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+            <svg aria-hidden="true" className="pointer-events-none absolute -right-5 -top-5 opacity-[0.14]" width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="65" cy="65" r="60" stroke="white" strokeWidth="1.5"/>
+              <circle cx="65" cy="65" r="46" stroke="white" strokeWidth="1"/>
+              <circle cx="65" cy="65" r="32" stroke="white" strokeWidth="1"/>
+              <circle cx="65" cy="65" r="9" stroke="white" strokeWidth="1.5"/>
+              <line x1="65" y1="5" x2="65" y2="125" stroke="white" strokeWidth="0.75"/>
+              <line x1="5" y1="65" x2="125" y2="65" stroke="white" strokeWidth="0.75"/>
+              <line x1="22" y1="22" x2="108" y2="108" stroke="white" strokeWidth="0.5"/>
+              <line x1="108" y1="22" x2="22" y2="108" stroke="white" strokeWidth="0.5"/>
+              <line x1="65" y1="5" x2="95" y2="18" stroke="white" strokeWidth="0.5"/>
+              <line x1="65" y1="5" x2="35" y2="18" stroke="white" strokeWidth="0.5"/>
+              <line x1="125" y1="65" x2="112" y2="95" stroke="white" strokeWidth="0.5"/>
+              <line x1="125" y1="65" x2="112" y2="35" stroke="white" strokeWidth="0.5"/>
+            </svg>
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">命</span>
+            <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Bazi</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">八字排盤</h3>
               <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">排出四柱、格局、大運流年</p>
             </div>
           </Link>
-          {/* 八字合盤 */}
-          <Link href="/compat" className="group flex flex-col rounded-2xl p-6 sm:p-8 bg-[#7A5230] hover:opacity-90 transition-[opacity,transform] duration-200 active:scale-[0.98]">
-            <span className="font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">合</span>
-            <div className="mt-8">
+          {/* 八字合盤 — 雙環線稿 */}
+          <Link href="/compat" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#7A5230] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+            <svg aria-hidden="true" className="pointer-events-none absolute -right-8 -top-4 opacity-[0.15]" width="130" height="110" viewBox="0 0 130 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="55" r="42" stroke="white" strokeWidth="1.5"/>
+              <circle cx="80" cy="55" r="42" stroke="white" strokeWidth="1.5"/>
+              <circle cx="50" cy="55" r="28" stroke="white" strokeWidth="0.75"/>
+              <circle cx="80" cy="55" r="28" stroke="white" strokeWidth="0.75"/>
+              <circle cx="50" cy="55" r="5" stroke="white" strokeWidth="1"/>
+              <circle cx="80" cy="55" r="5" stroke="white" strokeWidth="1"/>
+            </svg>
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">合</span>
+            <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Compatibility</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">八字合盤</h3>
               <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">分析雙方干支合沖刑害</p>
             </div>
           </Link>
-          {/* 紫微斗數 */}
-          <Link href="/ziwei" className="group flex flex-col rounded-2xl p-6 sm:p-8 bg-[#2B4A6B] hover:opacity-90 transition-[opacity,transform] duration-200 active:scale-[0.98]">
-            <span className="font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">紫</span>
-            <div className="mt-8">
+          {/* 紫微斗數 — 北斗七星線稿 */}
+          <Link href="/ziwei" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#2B4A6B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+            <svg aria-hidden="true" className="pointer-events-none absolute right-2 top-2 opacity-[0.18]" width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="10" y1="72" x2="30" y2="68" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+              <line x1="30" y1="68" x2="52" y2="62" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+              <line x1="52" y1="62" x2="68" y2="52" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+              <line x1="68" y1="52" x2="72" y2="36" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+              <line x1="52" y1="62" x2="55" y2="44" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+              <line x1="55" y1="44" x2="72" y2="36" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+              <line x1="72" y1="36" x2="88" y2="22" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+              <line x1="88" y1="22" x2="100" y2="10" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+              <circle cx="10" cy="72" r="2.5" fill="white"/>
+              <circle cx="30" cy="68" r="2.5" fill="white"/>
+              <circle cx="52" cy="62" r="3" fill="white"/>
+              <circle cx="55" cy="44" r="2.5" fill="white"/>
+              <circle cx="68" cy="52" r="2" fill="white"/>
+              <circle cx="72" cy="36" r="2.5" fill="white"/>
+              <circle cx="88" cy="22" r="2" fill="white"/>
+              <circle cx="100" cy="10" r="2" fill="white"/>
+            </svg>
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">紫</span>
+            <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Zi Wei</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">紫微斗數</h3>
               <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">飛星派十二宮命盤及四化</p>
             </div>
           </Link>
-          {/* 西洋占星 */}
-          <Link href="/western" className="group flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3D6B5C] hover:opacity-90 transition-[opacity,transform] duration-200 active:scale-[0.98]">
-            <span className="font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">星</span>
-            <div className="mt-8">
+          {/* 西洋占星 — 十二宮星盤線稿 */}
+          <Link href="/western" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3D6B5C] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+            <svg aria-hidden="true" className="pointer-events-none absolute -right-5 -top-5 opacity-[0.14]" width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="65" cy="65" r="60" stroke="white" strokeWidth="1.5"/>
+              <circle cx="65" cy="65" r="46" stroke="white" strokeWidth="1"/>
+              <circle cx="65" cy="65" r="32" stroke="white" strokeWidth="0.75"/>
+              {Array.from({length: 12}).map((_, i) => {
+                const a = (i * 30 - 90) * Math.PI / 180
+                const x1 = 65 + 46 * Math.cos(a)
+                const y1 = 65 + 46 * Math.sin(a)
+                const x2 = 65 + 60 * Math.cos(a)
+                const y2 = 65 + 60 * Math.sin(a)
+                return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="1.2"/>
+              })}
+              {Array.from({length: 12}).map((_, i) => {
+                const a = (i * 30 + 15 - 90) * Math.PI / 180
+                const x1 = 65 + 46 * Math.cos(a)
+                const y1 = 65 + 46 * Math.sin(a)
+                const x2 = 65 + 53 * Math.cos(a)
+                const y2 = 65 + 53 * Math.sin(a)
+                return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" strokeWidth="0.75"/>
+              })}
+              <circle cx="65" cy="65" r="5" stroke="white" strokeWidth="1"/>
+            </svg>
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">星</span>
+            <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Western</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">西洋占星</h3>
               <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">行星星座位置、上升點及相位</p>

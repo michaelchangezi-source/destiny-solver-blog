@@ -62,7 +62,7 @@ export function buildBaziPack(input: BaziPackInput): string {
 
   // ── 標頭 ──────────────────────────────────────────────────
   lines.push('═══ 八字命盤資料包（給 AI 解讀用）═══')
-  lines.push(`來源：命運解決師 陳卓賢 · destinysolver.com ｜ 格式：ds-bazi-pack/1.0 ｜ 生成：${generatedOn}`)
+  lines.push(`來源：命運解決師 陳卓賢 · destinysolver.com ｜ 格式：ds-bazi-pack/1.1 ｜ 生成：${generatedOn}`)
   lines.push(`重開此盤：${permalink}`)
 
   // ── 排盤口徑 ──────────────────────────────────────────────
@@ -179,7 +179,7 @@ export function buildBaziPack(input: BaziPackInput): string {
 
   // ── 原局干支互動 ──────────────────────────────────────────
   lines.push('')
-  lines.push('■ 原局干支互動（只列結構；貼鄰者力度較實、隔位者較虛，輕重由解讀者判）')
+  lines.push('■ 原局干支互動（只列結構；貼鄰者力度較實、隔位者較虛，輕重由解讀者判；六合／半合所標化五行只係化氣名，是否合化由解讀層判斷）')
   const interactions = computeInteractions(result)
 
   const stemInts = interactions.filter((i) => i.type === '天干')
@@ -324,7 +324,7 @@ export function buildBaziPack(input: BaziPackInput): string {
         else if (dynHit.detail.includes('三合')) dynRelLabel = '三合'
         else dynRelLabel = '半合'
       }
-      const dynStr = dynHit ? `（運支${curDaYun.branchChar}–年支${curGZ.gz[1]} ${dynRelLabel}）` : '（運年無直接引動）'
+      const dynStr = dynHit ? `（運支${curDaYun.branchChar}–流年支${curGZ.gz[1]} ${dynRelLabel}）` : '（運年無直接引動）'
       lines.push(`- 現行大運與流年：${dayunGZ} 運上見 ${curGZ.gz} 年${dynStr}`)
     }
   }
