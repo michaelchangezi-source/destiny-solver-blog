@@ -403,6 +403,33 @@ def main():
         sys.exit(1)
     print(f"Checker 通過：{len(written)} 篇文章及封面圖全部到位。")
 
+    # 出文前 checker 2：批次內封面圖重複偵測（2026-08-20 加）
+    # 病因：gen_html 批量生成時若某篇 cover_file 路徑重複，複數篇會拿到同一張圖，
+    # 導致網站上多篇文章共用同一封面，視覺上完全看不出來，只有 hash 比對才能察覺。
+    # 此 checker 只比對本次批次的封面，不影響跨批次同款模板（屬正常設計）。
+    import hashlib
+    def _md5(path: Path) -> str:
+        return hashlib.md5(path.read_bytes()).hexdigest()
+
+    cover_hashes: dict[str, str] = {}  # hash → slug
+    dup_covers = []
+    for slug in slugs:
+        cover_path = COVERS_DIR / f"{slug}.jpg"
+        if cover_path.exists():
+            h = _md5(cover_path)
+            if h in cover_hashes:
+                dup_covers.append((cover_hashes[h], slug, h[:8]))
+            else:
+                cover_hashes[h] = slug
+    if dup_covers:
+        print("\n[中止] 批次內發現重複封面圖，唔會 push：")
+        for s1, s2, h in dup_covers:
+            print(f"       {s1}.jpg 同 {s2}.jpg 內容完全相同（MD5 前綴 {h}）")
+        print("\n       根本原因通常係 manifest 內有兩篇 cover_file 指向同一個檔案。")
+        print("       修好 manifest 重新生成封面後重跑。")
+        sys.exit(1)
+    print(f"封面重複偵測通過：本批次 {len(slugs)} 張封面全部唯一。")
+
     if args.no_push:
         print(f"完成（--no-push）：已生成 {len(written)} 篇，未 push。")
         return
