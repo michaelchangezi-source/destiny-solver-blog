@@ -72,9 +72,8 @@ export default function HomePage() {
 
   const articles = getAllArticles()
   const latestArticles = getLatestArticles(6)
-  const FEATURED_TOPIC_SLUGS = ['topic-03', 'topic-28', 'topic-29', 'topic-01', 'topic-04', 'topic-13', 'topic-32', 'topic-17']
   const allTopics = getTopicArticles()
-  const featuredTopics = FEATURED_TOPIC_SLUGS.map(s => allTopics.find(t => t.slug === s)).filter(Boolean)
+  const featuredTopics = allTopics.slice(0, 8)
 
   // 今日命盤（供 Hero 卡）
   const [today] = analyzeDays(1)
@@ -278,9 +277,9 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {featuredTopics.map((topic) => {
+            {featuredTopics.map((topic, index) => {
               if (!topic) return null
-              const num = topic.slug.replace('topic-', '').padStart(2, '0')
+              const num = String(index + 1).padStart(2, '0')
               return (
                 <Link
                   key={topic.slug}
