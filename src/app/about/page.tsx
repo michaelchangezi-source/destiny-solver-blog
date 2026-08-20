@@ -254,34 +254,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* ── Free Tools ── */}
-      <div className="mb-14">
-        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-2">免費排盤工具</h2>
-        <p className="text-[#8A8071] text-sm mb-8">以下工具均免費使用，無需註冊，計算結果可一鍵生成結構化資料包，交給 ChatGPT、Claude 或 Gemini 深度解讀。</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <a href="/bazi" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
-            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">八字命理</p>
-            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">免費八字排盤</h3>
-            <p className="text-[#6B6155] text-sm leading-relaxed">輸入出生年月日時，即時算出四柱命盤、日主十神、藏干及十個大運。排好盤可一鍵生成 AI 資料包，交給 ChatGPT 深度解讀。</p>
-          </a>
-          <a href="/compat" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
-            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">八字合盤</p>
-            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">八字合盤分析</h3>
-            <p className="text-[#6B6155] text-sm leading-relaxed">輸入兩人生日，即時分析雙方天干五合、地支六合、三合、六沖、六害、相破、三刑互動，並顯示現行大運對對方命盤的引動。</p>
-          </a>
-          <a href="/ziwei" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
-            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">紫微斗數</p>
-            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">紫微斗數排盤</h3>
-            <p className="text-[#6B6155] text-sm leading-relaxed">輸入農曆生日，即時排出飛星派十二宮命盤、主星強度、生年四化及大限。排好盤可一鍵生成 AI 資料包深度解讀。</p>
-          </a>
-          <a href="/western" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
-            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">西洋占星</p>
-            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">西洋占星排盤</h3>
-            <p className="text-[#6B6155] text-sm leading-relaxed">輸入陽曆生日及出生地，即時計算十顆行星星座位置、上升點及主要相位。排好盤可一鍵生成 AI 資料包深度解讀。</p>
-          </a>
-        </div>
-      </div>
-
       {/* ── Publications ── */}
       <div className="mb-14">
         <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-2">出版著作</h2>
@@ -470,6 +442,34 @@ export default function AboutPage() {
           >
             <Mail size={16} />
             michaelchan.gezi@gmail.com
+          </a>
+        </div>
+      </div>
+
+      {/* ── Free Tools ── */}
+      <div className="mb-14">
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-2">免費排盤工具</h2>
+        <p className="text-[#8A8071] text-sm mb-8">以下工具均免費使用，無需註冊，計算結果可一鍵生成結構化資料包，交給 ChatGPT、Claude 或 Gemini 深度解讀。</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <a href="/bazi" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
+            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">八字命理</p>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">免費八字排盤</h3>
+            <p className="text-[#6B6155] text-sm leading-relaxed">輸入出生年月日時，即時算出四柱命盤、日主十神、藏干及十個大運。排好盤可一鍵生成 AI 資料包，交給 ChatGPT 深度解讀。</p>
+          </a>
+          <a href="/compat" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
+            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">八字合盤</p>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">八字合盤分析</h3>
+            <p className="text-[#6B6155] text-sm leading-relaxed">輸入兩人生日，即時分析雙方天干五合、地支六合、三合、六沖、六害、相破、三刑互動，並顯示現行大運對對方命盤的引動。</p>
+          </a>
+          <a href="/ziwei" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
+            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">紫微斗數</p>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">紫微斗數排盤</h3>
+            <p className="text-[#6B6155] text-sm leading-relaxed">輸入農曆生日，即時排出飛星派十二宮命盤、主星強度、生年四化及大限。排好盤可一鍵生成 AI 資料包深度解讀。</p>
+          </a>
+          <a href="/western" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
+            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">西洋占星</p>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">西洋占星排盤</h3>
+            <p className="text-[#6B6155] text-sm leading-relaxed">輸入陽曆生日及出生地，即時計算十顆行星星座位置、上升點及主要相位。排好盤可一鍵生成 AI 資料包深度解讀。</p>
           </a>
         </div>
       </div>
