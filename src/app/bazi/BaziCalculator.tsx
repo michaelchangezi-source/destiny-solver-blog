@@ -10,7 +10,6 @@ import type { ShenShaHit } from '@/lib/bazi-shensha'
 import { monthCells, dayCells, hourCells, yearGanZhi, branchInteractions, lifeTable } from '@/lib/bazi-timeline'
 import { useChartLibrary } from './useChartLibrary'
 import ChartLibrary from './ChartLibrary'
-import AiReadingPanel from './AiReadingPanel'
 import type html2canvasType from 'html2canvas'
 
 // 常用出生地經度與時區標準經線（真太陽時校正用）
@@ -870,15 +869,6 @@ export default function BaziCalculator({ articlesByElement = {}, articlesByCateg
           {detail !== 'simple' && (
             <ShenShaPanel hits={shensha} detail={detail} kongLabel={kongLabel} />
           )}
-
-          {/* 交給 AI 解讀 */}
-          <AiReadingPanel
-            result={result}
-            form={form}
-            currentYear={currentYear}
-            articles={articlesByElement[STEM_ELEMENT[result.day.stem]] ?? []}
-            nearSolarTermWarning={result.boundaryNote || undefined}
-          />
 
           {/* 大運 */}
           <section>

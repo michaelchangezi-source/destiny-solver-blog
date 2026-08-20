@@ -6,9 +6,6 @@ import {
   type ZiweiResult, type ZiweiPalace, type SihuaType,
   getStrength,
 } from '@/lib/ziwei-calc'
-import dynamic from 'next/dynamic'
-
-const ZiweiAiPanel = dynamic(() => import('./ZiweiAiPanel'), { ssr: false })
 
 const HOUR_LABELS = [
   '子時（23–1時）','丑時（1–3時）','寅時（3–5時）','卯時（5–7時）',
@@ -368,8 +365,6 @@ export default function ZiweiCalculator() {
             </div>
           </div>
 
-          {/* AI Pack */}
-          <ZiweiAiPanel result={result} />
         </div>
       )}
     </div>

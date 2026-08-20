@@ -4,7 +4,7 @@ import { buildMetadata } from '@/lib/metadata'
 
 export const metadata = buildMetadata({
   title: '免費西洋占星排盤｜本命盤速算',
-  description: '免費西洋占星本命盤排盤工具，輸入陽曆生日及出生地，即時計算太陽、月亮、水星等十顆行星的星座位置、上升點及主要相位。排好盤可一鍵生成 AI 解讀資料包，交給 ChatGPT、Claude 或 Gemini 深度分析。香港命運解決師出品，無需註冊。',
+  description: '免費西洋占星本命盤排盤工具，輸入陽曆生日及出生地，即時計算太陽、月亮、水星等十顆行星的星座位置、上升點及主要相位。元素型態分佈一覽，香港命運解決師出品，無需註冊。',
   path: '/western',
 })
 
@@ -42,8 +42,8 @@ const webApplicationJsonLd = {
   url: `${SITE_URL}/western`,
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'Any',
-  description: '香港免費西洋占星本命盤排盤工具，輸入陽曆生日及出生地即時計算行星位置、上升點及相位，並一鍵生成 AI 解讀資料包。',
-  featureList: ['十顆行星星座位置', '上升點與天頂', '主要相位計算', '元素型態分佈', '逆行狀態標示', 'AI 解讀資料包'],
+  description: '香港免費西洋占星本命盤排盤工具，輸入陽曆生日及出生地即時計算行星位置、上升點、相位及元素型態分佈。',
+  featureList: ['十顆行星星座位置', '上升點與天頂', '主要相位計算', '元素型態分佈', '逆行狀態標示'],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'HKD' },
   author: { '@type': 'Person', name: '陳卓賢', url: `${SITE_URL}/about` },
 }
@@ -91,13 +91,6 @@ export default function WesternPage() {
             <h2 className="text-[#2B241C] text-xl font-bold mb-4">西洋占星本命盤計算甚麼</h2>
             <p className="text-[#5A5247] text-sm leading-relaxed">
               本命盤（Natal Chart）是以出生時刻為基準，記錄天空中各行星在黃道十二星座的位置。工具計算太陽（代表核心自我與人生目的）、月亮（情感本能與內在需求）、水星（思維溝通）、金星（感情與審美）、火星（行動慾望），以及木星、土星、天王星、海王星、冥王星等外行星的星座位置，另附北交點（業力方向）。輸入出生地後，系統進一步計算上升點（ASC）與天頂（MC），完整呈現四個軸點，令命盤分析更精準。主要相位（合、六分、四分、三分、對分）則反映各行星能量如何互動。
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-[#2B241C] text-xl font-bold mb-4">如何把本命盤交給 AI 分析</h2>
-            <p className="text-[#5A5247] text-sm leading-relaxed">
-              排盤完成後，頁面下方的「交給 AI 解讀」面板會整理一份結構化資料包，涵蓋所有行星位置、上升點、天頂、元素分佈及主要相位。選擇分析方向（命格全覽、感情關係、事業財運或自由提問），按「複製 Prompt＋資料包」，貼入 ChatGPT、Claude 或 Gemini，AI 即可根據本命盤內容進行深度解讀。所有計算在瀏覽器本地完成，資料不會傳送至任何伺服器。
             </p>
           </section>
 

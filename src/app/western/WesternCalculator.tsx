@@ -1,10 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import dynamic from 'next/dynamic'
 import { calcWestern, ZODIAC_CN, type WesternInput, type WesternResult, type PlanetKey, type HouseSystem } from '@/lib/western-calc'
-
-const WesternAiPanel = dynamic(() => import('./WesternAiPanel'), { ssr: false })
 
 // ── 常用城市資料 ──────────────────────────────────────────
 
@@ -348,8 +345,6 @@ export default function WesternCalculator() {
             </div>
           )}
 
-          {/* AI Pack */}
-          <WesternAiPanel result={result} />
         </div>
       )}
     </div>

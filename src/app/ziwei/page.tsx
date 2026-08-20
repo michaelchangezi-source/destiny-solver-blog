@@ -4,7 +4,7 @@ import { buildMetadata } from '@/lib/metadata'
 
 export const metadata = buildMetadata({
   title: '免費紫微斗數排盤｜飛星派命盤速算',
-  description: '免費紫微斗數排盤工具（飛星派），輸入農曆生日即時排出十二宮命盤、主星強度、生年四化及大限。排好盤可一鍵生成 AI 解讀資料包，交給 ChatGPT、Claude 或 Gemini 深度分析。香港命運解決師出品，無需註冊。',
+  description: '免費紫微斗數排盤工具（飛星派），輸入農曆生日即時排出十二宮命盤、主星強度、生年四化及大限。宮干四化飛星一覽，香港命運解決師出品，無需註冊。',
   path: '/ziwei',
 })
 
@@ -42,8 +42,8 @@ const webApplicationJsonLd = {
   url: `${SITE_URL}/ziwei`,
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'Any',
-  description: '香港免費紫微斗數排盤工具（飛星派），輸入農曆生日即時排出十二宮命盤及一鍵生成 AI 解讀資料包。',
-  featureList: ['十二宮命盤', '主星廟旺利平陷', '生年四化', '宮干四化飛星', '大限排列', 'AI 解讀資料包'],
+  description: '香港免費紫微斗數排盤工具（飛星派），輸入農曆生日即時排出十二宮命盤、主星強度、生年四化及宮干四化飛星。',
+  featureList: ['十二宮命盤', '主星廟旺利平陷', '生年四化', '宮干四化飛星', '大限排列'],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'HKD' },
   author: { '@type': 'Person', name: '陳卓賢', url: `${SITE_URL}/about` },
 }
@@ -98,13 +98,6 @@ export default function ZiweiPage() {
             <h2 className="text-[#2B241C] text-xl font-bold mb-4">飛星派宮干四化如何使用</h2>
             <p className="text-[#5A5247] text-sm leading-relaxed">
               點擊命盤任何一個宮格，下方會顯示該宮的宮干四化飛向——即此宮天干所化的祿、權、科、忌各自飛入哪個宮位。例如命宮宮干飛祿入財帛，代表主動追求財富；命宮宮干飛忌入疾厄，則需留意健康或工作壓力。宮干四化是飛星派分析感情、事業、財運的主要工具，亦可追蹤連串飛化形成的宮位鏈，了解能量最終落在何處。
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-[#2B241C] text-xl font-bold mb-4">如何把紫微命盤交給 AI 分析</h2>
-            <p className="text-[#5A5247] text-sm leading-relaxed">
-              排盤完成後，命盤下方的「交給 AI 解讀」面板會生成一份結構化資料包，包含十二宮主星、輔星、生年四化落宮、宮干四化飛向及大限資料。選好分析方向（命格全覽、宮位深度、大限流年或自由提問），按「複製 Prompt＋資料包」，貼上 ChatGPT、Claude 或 Gemini，AI 即可根據命盤內容作答。所有計算在本地瀏覽器完成，本站不會傳送任何資料到第三方伺服器。
             </p>
           </section>
 
