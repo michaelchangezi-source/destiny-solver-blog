@@ -292,9 +292,27 @@ export default function ZiweiCalculator() {
           {/* 十二宮格 */}
           <div>
             <div className="text-xs text-[#8A8071] mb-2 font-semibold tracking-wider px-1">十二宮命盤（點擊宮格可查看宮干四化）</div>
-            <div className="grid grid-cols-4 grid-rows-4 gap-1.5">
+            <div className="grid grid-cols-4 gap-1.5">
               {GRID_DZ.map((dz, gi) => {
-                if (dz === 99) return <div key={gi} />
+                if (dz === 99) {
+                  // gi=5：第一個中宮空位，inline 渲染中宮（2列×2行）
+                  if (gi === 5) {
+                    return (
+                      <div key="center" className="col-span-2 row-span-2 rounded-lg border border-[#E3DBC9] bg-[#F9F5EE] flex flex-col items-center justify-center text-center p-4 gap-2">
+                        <div className="text-lg font-serif font-black text-[#B23E26]">紫微斗數</div>
+                        <div className="text-xs text-[#8A8071]">
+                          {result.yearTG}{result.yearDZ}年<br />
+                          {result.gender === 'M' ? '男命' : '女命'}<br />
+                          農曆{result.lunarMonth}月{result.lunarDay}日
+                        </div>
+                        <div className="text-sm text-[#2B2A28] font-semibold">{result.juName}</div>
+                        <div className="text-xs text-[#8A8071]">紫微在{DZ[result.zDz]}</div>
+                      </div>
+                    )
+                  }
+                  // gi=6,9,10：中宮已佔位，不渲染
+                  return null
+                }
                 const palace = result.palaces.find(p => p.dzIndex === dz)!
                 return (
                   <div key={gi} className={`cursor-pointer transition-all ${selectedDz === dz ? 'ring-2 ring-[#B23E26] ring-offset-1 rounded-lg' : ''}`}
@@ -303,17 +321,6 @@ export default function ZiweiCalculator() {
                   </div>
                 )
               })}
-              {/* 中宮（明確放在 row 2-3, col 2-3）*/}
-              <div className="col-start-2 col-end-4 row-start-2 row-end-4 rounded-lg border border-[#E3DBC9] bg-[#F9F5EE] flex flex-col items-center justify-center text-center p-4 gap-2">
-                <div className="text-lg font-serif font-black text-[#B23E26]">紫微斗數</div>
-                <div className="text-xs text-[#8A8071]">
-                  {result.yearTG}{result.yearDZ}年<br />
-                  {result.gender === 'M' ? '男命' : '女命'}<br />
-                  農曆{result.lunarMonth}月{result.lunarDay}日
-                </div>
-                <div className="text-sm text-[#2B2A28] font-semibold">{result.juName}</div>
-                <div className="text-xs text-[#8A8071]">紫微在{DZ[result.zDz]}</div>
-              </div>
             </div>
           </div>
 
