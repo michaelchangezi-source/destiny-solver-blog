@@ -35,6 +35,18 @@ export function buildWesternPack(result: WesternResult): string {
   }
   lines.push(``)
 
+  // 宮位
+  if (result.houses) {
+    const sysLabel = result.input.houseSystem === 'whole-sign' ? 'Whole Sign（整宮制）' : 'Placidus'
+    lines.push(`### 十二宮位（${sysLabel}）`)
+    const houseLabels: Record<number, string> = { 1: 'ASC', 4: 'IC', 7: 'DSC', 10: 'MC' }
+    for (const h of result.houses) {
+      const tag = houseLabels[h.num] ? ` (${houseLabels[h.num]})` : ''
+      lines.push(`- 第${h.num}宮${tag}：${h.sign} ${h.degree}°${h.minute}'`)
+    }
+    lines.push(``)
+  }
+
   // 元素分佈
   const elements = { '火象': 0, '土象': 0, '風象': 0, '水象': 0 }
   const elemMap = [0,1,2,3,0,1,2,3,0,1,2,3] // 牡羊=火, 金牛=土, 雙子=風, 巨蟹=水...

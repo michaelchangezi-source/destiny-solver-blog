@@ -24,6 +24,7 @@ export interface WesternInput {
   tzOffset: number // timezone offset in hours (e.g. 8 for HKT, -5 for EST)
   lat: number     // latitude in decimal degrees (+N, -S)
   lon: number     // longitude in decimal degrees (+E, -W)
+  houseSystem?: HouseSystem
 }
 
 export type PlanetKey = 'sun'|'moon'|'mercury'|'venus'|'mars'|'jupiter'|'saturn'|'uranus'|'neptune'|'pluto'|'node'
@@ -47,6 +48,7 @@ export interface WesternResult {
   ascendant: { lon: number; sign: string; signIndex: number; degree: number; minute: number } | null
   mc: { lon: number; sign: string; signIndex: number; degree: number; minute: number } | null
   aspects: Aspect[]
+  houses: HouseCusp[] | null
 }
 
 export interface Aspect {
@@ -55,6 +57,17 @@ export interface Aspect {
   type: string
   orb: number   // degrees
   applying: boolean
+}
+
+export type HouseSystem = 'placidus' | 'whole-sign'
+
+export interface HouseCusp {
+  num: number
+  lon: number
+  sign: string
+  signIndex: number
+  degree: number
+  minute: number
 }
 
 // ── 資料表 ──────────────────────────────────────────────
@@ -309,7 +322,7 @@ function calcAscendant(lstDeg: number, lat: number, eps: number): number {
   const ramc = lstDeg // RAMC = local sidereal time in degrees
   const y = -cosd(ramc)
   const x = sind(eps) * tand(lat) + cosd(eps) * sind(ramc)
-  return mod360(atan2d(y, x))
+  return mod360(atan2d(y, x) + 180)
 }
 
 // Midheaven (MC) ecliptic longitude
@@ -377,6 +390,58 @@ function lonToSign(lon: number): { sign: string; signIndex: number; degree: numb
   }
 }
 
+// ── 宮位計算 ──────────────────────────────────────────────
+
+function placidusCuspIter(
+  ramc: number, lat: number, eps: number,
+  fraction: number, aboveHorizon: boolean
+): number {
+  let dec = 0
+  let lon = 0
+  for (let i = 0; i < 50; i++) {
+    const tp = tand(lat) * tand(dec)
+    const ad = Math.asin(Math.max(-1, Math.min(1, tp))) * DEG
+    const dsa = 90 + ad
+    const nsa = 90 - ad
+    const ra = aboveHorizon
+      ? mod360(ramc + fraction * dsa)
+      : mod360(ramc + dsa + fraction * nsa)
+    lon = mod360(atan2d(sind(ra), cosd(ra) * cosd(eps)))
+    const newDec = Math.asin(sind(eps) * sind(lon)) * DEG
+    if (Math.abs(newDec - dec) < 0.0001) break
+    dec = newDec
+  }
+  return lon
+}
+
+function calcHouseCusps(
+  system: HouseSystem,
+  ascLon: number, mcLon: number,
+  ramc: number, lat: number, eps: number
+): HouseCusp[] {
+  const lons: number[] = new Array(12)
+  if (system === 'whole-sign') {
+    const ascSign = Math.floor(ascLon / 30)
+    for (let i = 0; i < 12; i++) {
+      lons[i] = ((ascSign + i) % 12) * 30
+    }
+  } else {
+    lons[0] = ascLon
+    lons[3] = mod360(mcLon + 180)
+    lons[6] = mod360(ascLon + 180)
+    lons[9] = mcLon
+    lons[10] = placidusCuspIter(ramc, lat, eps, 1 / 3, true)
+    lons[11] = placidusCuspIter(ramc, lat, eps, 2 / 3, true)
+    lons[1] = placidusCuspIter(ramc, lat, eps, 1 / 3, false)
+    lons[2] = placidusCuspIter(ramc, lat, eps, 2 / 3, false)
+    lons[4] = mod360(lons[10] + 180)
+    lons[5] = mod360(lons[11] + 180)
+    lons[7] = mod360(lons[1] + 180)
+    lons[8] = mod360(lons[2] + 180)
+  }
+  return lons.map((l, i) => ({ num: i + 1, lon: l, ...lonToSign(l) }))
+}
+
 // ── 主計算函數 ──────────────────────────────────────────────
 
 export function calcWestern(input: WesternInput): WesternResult {
@@ -426,6 +491,8 @@ export function calcWestern(input: WesternInput): WesternResult {
   let ascendant: WesternResult['ascendant'] = null
   let mc: WesternResult['mc'] = null
 
+  let houses: HouseCusp[] | null = null
+
   if (lat !== 0 || lon !== 0) {
     const eps = obliquity(T)
     const lst = lmst(jd, lon)
@@ -433,13 +500,14 @@ export function calcWestern(input: WesternInput): WesternResult {
     const mcLon  = calcMC(lst, eps)
     ascendant = { lon: ascLon, ...lonToSign(ascLon) }
     mc = { lon: mcLon, ...lonToSign(mcLon) }
+    houses = calcHouseCusps(input.houseSystem || 'placidus', ascLon, mcLon, lst, lat, eps)
   }
 
   const posMap = {} as Record<PlanetKey, number>
   for (const p of planets) posMap[p.key] = p.lon
   const aspects = calcAspects(posMap)
 
-  return { input, jd, planets, ascendant, mc, aspects }
+  return { input, jd, planets, ascendant, mc, aspects, houses }
 }
 
 // ── AI Pack 用：格式化輸出 ──────────────────────────────────

@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import dynamic from 'next/dynamic'
-import { calcWestern, ZODIAC_CN, type WesternInput, type WesternResult, type PlanetKey } from '@/lib/western-calc'
+import { calcWestern, ZODIAC_CN, type WesternInput, type WesternResult, type PlanetKey, type HouseSystem } from '@/lib/western-calc'
 
 const WesternAiPanel = dynamic(() => import('./WesternAiPanel'), { ssr: false })
 
@@ -87,6 +87,7 @@ export default function WesternCalculator() {
   const [manualLat, setManualLat] = useState('')
   const [manualLon, setManualLon] = useState('')
   const [manualTz, setManualTz] = useState(8)
+  const [houseSystem, setHouseSystem] = useState<HouseSystem>('placidus')
   const [result, setResult] = useState<WesternResult | null>(null)
   const [error, setError] = useState('')
 
@@ -107,14 +108,14 @@ export default function WesternCalculator() {
 
       const input: WesternInput = {
         year, month, day, hour, minute,
-        tzOffset: tz, lat, lon,
+        tzOffset: tz, lat, lon, houseSystem,
       }
       setResult(calcWestern(input))
     } catch (e) {
       setError('計算發生錯誤，請檢查輸入')
       console.error(e)
     }
-  }, [year, month, day, hour, minute, cityIdx, manualLat, manualLon, manualTz, isManual])
+  }, [year, month, day, hour, minute, cityIdx, manualLat, manualLon, manualTz, isManual, houseSystem])
 
   const yearOpts = Array.from({ length: 101 }, (_, i) => 1924 + i)
   const monthOpts = Array.from({ length: 12 }, (_, i) => i + 1)
@@ -209,6 +210,21 @@ export default function WesternCalculator() {
           )}
         </div>
 
+        {/* 宮位系統 */}
+        <div>
+          <label className="block text-[#6B6155] text-xs font-semibold tracking-widest mb-2 uppercase">宮位系統</label>
+          <div className="flex gap-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="house" value="placidus" checked={houseSystem === 'placidus'} onChange={() => setHouseSystem('placidus')} className="accent-[#B23E26]" />
+              <span className="text-sm text-[#2B241C]">Placidus</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="house" value="whole-sign" checked={houseSystem === 'whole-sign'} onChange={() => setHouseSystem('whole-sign')} className="accent-[#B23E26]" />
+              <span className="text-sm text-[#2B241C]">Whole Sign（整宮制）</span>
+            </label>
+          </div>
+        </div>
+
         {error && <p className="text-[#B23E26] text-sm">{error}</p>}
 
         <button
@@ -243,6 +259,33 @@ export default function WesternCalculator() {
                     <p className="text-[#9B9089] text-xs">{result.mc.degree}°{result.mc.minute}'</p>
                   </div>
                 )}
+              </div>
+            </div>
+          )}
+
+          {/* 十二宮位 */}
+          {result.houses && (
+            <div className="bg-[#FFFDF8] rounded-2xl border border-[#2B241C]/10 shadow-sm p-5">
+              <h2 className="text-[#2B241C] font-bold text-sm mb-3">
+                十二宮位
+                <span className="text-[#9B9089] text-xs font-normal ml-2">
+                  {result.input.houseSystem === 'whole-sign' ? 'Whole Sign' : 'Placidus'}
+                </span>
+              </h2>
+              <div className="grid grid-cols-2 gap-1.5">
+                {result.houses.map(h => {
+                  const elem = SIGN_ELEMENT[h.signIndex]
+                  const label = h.num === 1 ? 'ASC' : h.num === 4 ? 'IC' : h.num === 7 ? 'DSC' : h.num === 10 ? 'MC' : ''
+                  return (
+                    <div key={h.num} className={`flex items-center gap-2 px-3 py-2 rounded-lg ${ELEMENT_BG[elem]}`}>
+                      <span className="text-[#9B9089] text-xs font-semibold w-10">
+                        {label ? `${h.num}宮 ${label}` : `第${h.num}宮`}
+                      </span>
+                      <span className={`text-sm font-semibold ${ELEMENT_COLOR[elem]}`}>{h.sign}</span>
+                      <span className="text-[#9B9089] text-xs ml-auto">{h.degree}°{h.minute}&apos;</span>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           )}
