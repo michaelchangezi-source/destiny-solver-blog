@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
+import { track } from '@vercel/analytics'
 import { calculate, stemColor, branchColor, BRANCHES, hourBranchOf, tenGodOf } from '@/lib/bazi-calc'
 import type { BaziResult, Pillar, DaYun } from '@/lib/bazi-calc'
 import type { ArticleMeta } from '@/types'
@@ -530,6 +531,7 @@ export default function BaziCalculator({ articlesByElement = {}, articlesByCateg
 
     try {
       setResult(calculate(y, m, d, h, f.gender as 'M' | 'F', opts))
+      track('tool_cast', { tool: 'bazi' })
       setDaYunPick(null)
       if (updateUrl && typeof window !== 'undefined') {
         const params = new URLSearchParams()
@@ -909,6 +911,7 @@ export default function BaziCalculator({ articlesByElement = {}, articlesByCateg
             <p className="text-[#6B6155] text-sm">想深入了解命盤的格局與能量流向？</p>
             <a
               href="/consultation"
+              onClick={() => track('consult_click', { source: 'bazi' })}
               className="inline-block bg-[#E0552C] hover:bg-[#C9461F] text-[#F7F1E5] font-bold px-8 py-3 rounded-full text-sm transition-colors"
             >
               預約深度命盤分析

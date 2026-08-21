@@ -141,6 +141,13 @@ export default function BaziPage() {
           </section>
 
           <section>
+            <h2 className="text-[#2B241C] text-xl font-bold mb-4">八字命盤可以直接交給 AI 分析嗎？</h2>
+            <p className="text-[#5A5247] text-sm leading-relaxed">
+              AI 適合一事一問的問事類分析，本站的問事工具（<a href="/liuyao" className="text-[#B23E26] hover:underline">六爻排盤</a>、<a href="/qimen" className="text-[#B23E26] hover:underline">奇門遁甲</a>、<a href="/tarot" className="text-[#B23E26] hover:underline">塔羅占卜</a>、<a href="/lenormand" className="text-[#B23E26] hover:underline">雷諾曼占卜</a>）全部附有 AI 資料包功能，可一鍵複製結構化排盤結果，直接貼入 ChatGPT、Claude 或 Gemini 解讀。八字命盤則不同：命盤呈現的是命主完整的先天能量結構，涵蓋格局、十神、藏干與大運交疊，是一盤人生的全貌，而非針對單一事件的判斷，不建議僅靠 AI 解讀，以免遺漏關鍵格局或產生斷章取義的結論。若需深入了解命盤的格局走向，歡迎<a href="/consultation" className="text-[#B23E26] hover:underline">預約人手深度諮詢</a>，由命理師綜合分析。
+            </p>
+          </section>
+
+          <section>
             <h2 className="text-[#2B241C] text-xl font-bold mb-6">常見問題</h2>
             <div className="space-y-4">
               {faq.map((item, i) => (

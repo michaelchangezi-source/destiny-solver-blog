@@ -93,20 +93,36 @@ export default function Header() {
             <Link
               href="/bazi"
               className={`flex items-center gap-1 text-sm tracking-wide transition-colors duration-200 ${
-                isActive('/bazi') || isActive('/compat') || isActive('/ziwei') || isActive('/western') ? 'text-[#B23E26]' : 'text-[#5A5247] hover:text-[#B23E26]'
+                isActive('/bazi') || isActive('/liuyao') || isActive('/qimen') || isActive('/compat') || isActive('/ziwei') || isActive('/western') || isActive('/tarot') || isActive('/lenormand') || isActive('/tools') ? 'text-[#B23E26]' : 'text-[#5A5247] hover:text-[#B23E26]'
               }`}
             >
               排盤工具 <span className="text-[10px] text-[#6B6155]">▾</span>
             </Link>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[color:var(--border-card)] rounded-lg p-2.5 flex flex-col gap-0.5 w-[180px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
+              <Link href="/tools" className="px-3.5 py-2 rounded-lg text-[13.5px] font-semibold text-[#B23E26] whitespace-nowrap hover:bg-[#F4EEE1] transition-colors">
+                所有排盤工具
+              </Link>
+              <div className="border-t border-[#2B241C]/10 my-0.5" />
               <Link href="/bazi" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
                 八字排盤
+              </Link>
+              <Link href="/liuyao" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
+                六爻排盤
+              </Link>
+              <Link href="/qimen" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
+                奇門遁甲
+              </Link>
+              <Link href="/ziwei" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
+                紫微斗數排盤
               </Link>
               <Link href="/compat" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
                 八字合盤
               </Link>
-              <Link href="/ziwei" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
-                紫微斗數排盤
+              <Link href="/tarot" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
+                塔羅占卜
+              </Link>
+              <Link href="/lenormand" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
+                雷諾曼占卜
               </Link>
               <Link href="/western" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
                 西洋占星排盤
@@ -187,14 +203,29 @@ export default function Header() {
 
           <span className="text-base tracking-wide text-[#5A5247] font-semibold">排盤工具</span>
           <div className="flex flex-col gap-2 pl-3">
+            <Link href="/tools" onClick={() => setOpen(false)} className="text-[13px] font-semibold text-[#B23E26] hover:text-[#B23E26] transition-colors">
+              所有排盤工具
+            </Link>
             <Link href="/bazi" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
               八字排盤
+            </Link>
+            <Link href="/liuyao" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
+              六爻排盤
+            </Link>
+            <Link href="/qimen" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
+              奇門遁甲
+            </Link>
+            <Link href="/ziwei" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
+              紫微斗數排盤
             </Link>
             <Link href="/compat" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
               八字合盤
             </Link>
-            <Link href="/ziwei" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
-              紫微斗數排盤
+            <Link href="/tarot" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
+              塔羅占卜
+            </Link>
+            <Link href="/lenormand" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
+              雷諾曼占卜
             </Link>
             <Link href="/western" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
               西洋占星排盤

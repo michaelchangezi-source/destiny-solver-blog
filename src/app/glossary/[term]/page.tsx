@@ -81,9 +81,20 @@ export default async function GlossaryTermPage({ params }: Props) {
 
       <h1 className="text-[#2B241C] text-4xl font-bold mb-6">{entry.term}</h1>
 
-      <p id="glossary-definition" className="text-[#2B241C] text-lg leading-relaxed mb-10 pb-8 border-b border-[#2B241C]/10">
+      <p id="glossary-definition" className="text-[#2B241C] text-lg leading-relaxed mb-4">
         {entry.definition}
       </p>
+      {entry.toolHref && (
+        <p className="mb-10 pb-8 border-b border-[#2B241C]/10">
+          <Link
+            href={entry.toolHref}
+            className="inline-flex items-center gap-1 text-sm font-semibold text-[#B23E26] hover:underline"
+          >
+            用免費工具實排一次 →
+          </Link>
+        </p>
+      )}
+      {!entry.toolHref && <div className="mb-10 pb-8 border-b border-[#2B241C]/10" />}
 
       <section className="mb-10">
         <h2 className="text-[#2B241C] text-xl font-bold mb-3">常見誤解</h2>

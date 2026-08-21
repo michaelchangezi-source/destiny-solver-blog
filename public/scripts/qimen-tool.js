@@ -1,0 +1,437 @@
+﻿/* ═══════════════ DS-ENGINE-START：排盤引擎（置入時一個字都唔准改） ═══════════════ */
+/* DS-SUN 太陽視黃經 v1.0 · VSOP87D 截斷級數＋章動＋光行差
+   驗證：香港天文台 2026–2028 全部 72 個節氣時刻，誤差全部 < 1 分鐘。 */
+var DSSUN=(function(){
+  var L0=[[175347046,0,0],[3341656,4.6692568,6283.07585],[34894,4.6261,12566.1517],[3497,2.7441,5753.3849],[3418,2.8289,3.5231],[3136,3.6277,77713.7715],[2676,4.4181,7860.4194],[2343,6.1352,3930.2097],[1324,0.7425,11506.7698],[1273,2.0371,529.691],[1199,1.1096,1577.3435],[990,5.233,5884.927],[902,2.045,26.298],[857,3.508,398.149],[780,1.179,5223.694],[753,2.533,5507.553],[505,4.583,18849.228],[492,4.205,775.523],[357,2.92,0.067],[317,5.849,11790.629],[284,1.899,796.298],[271,0.315,10977.079],[243,0.345,5486.778],[206,4.806,2544.314],[205,1.869,5573.143],[202,2.458,6069.777],[156,0.833,213.299],[132,3.411,2942.463],[126,1.083,20.775],[115,0.645,0.98],[103,0.636,4694.003],[102,0.976,15720.839],[102,4.267,7.114],[99,6.21,2146.17],[98,0.68,155.42],[86,5.98,161000.69]];
+  var L1=[[628331966747,0,0],[206059,2.678235,6283.07585],[4303,2.6351,12566.1517],[425,1.59,3.523],[119,5.796,26.298],[109,2.966,1577.344],[93,2.59,18849.23],[72,1.14,529.69],[68,1.87,398.15],[67,4.41,5507.55],[59,2.89,5223.69],[56,2.17,155.42],[45,0.4,796.3],[36,0.47,775.52],[29,2.65,7.11],[21,5.34,0.98],[19,1.85,5486.78],[19,4.97,213.3],[17,2.99,6275.96],[16,0.03,2544.31]];
+  var L2=[[52919,0,0],[8720,1.0721,6283.0758],[309,0.867,12566.152],[27,0.05,3.52],[16,5.19,26.3],[16,3.68,155.42],[10,0.76,18849.23],[9,2.06,77713.77],[7,0.83,775.52],[5,4.66,1577.34]];
+  var L3=[[289,5.844,6283.076],[35,0,0],[17,5.49,12566.15]];
+  var L4=[[114,3.142,0],[8,4.13,6283.08]];var L5=[[1,3.14,0]];
+  var R0=[[100013989,0,0],[1670700,3.0984635,6283.07585],[13956,3.05525,12566.1517],[3084,5.1985,77713.7715],[1628,1.1739,5753.3849],[1576,2.8469,7860.4194],[925,5.453,11506.77],[542,4.564,3930.21]];
+  var R1=[[103019,1.10749,6283.07585],[1721,1.0644,12566.1517]];
+  function ss(S,tau){var s=0;for(var i=0;i<S.length;i++)s+=S[i][0]*Math.cos(S[i][1]+S[i][2]*tau);return s;}
+  var D2R=Math.PI/180;
+  function n360(x){x=x%360;return x<0?x+360:x;}
+  function dT(y){var t;
+    if(y>=2015){t=y-2015;return 67.62+0.3645*t+0.0039755*t*t;}
+    if(y>=2005){t=y-2000;return 62.92+0.32217*t+0.005589*t*t;}
+    if(y>=1986){t=y-2000;return 63.86+0.3345*t-0.060374*t*t+0.0017275*t*t*t+0.000651814*t*t*t*t+0.00002373599*t*t*t*t*t;}
+    if(y>=1961){t=y-1975;return 45.45+1.067*t-t*t/260-t*t*t/718;}
+    if(y>=1941){t=y-1950;return 29.07+0.407*t-t*t/233+t*t*t/2547;}
+    if(y>=1920){t=y-1920;return 21.20+0.84493*t-0.0761*t*t+0.0020936*t*t*t;}
+    t=y-1900;return -2.79+1.494119*t-0.0598939*t*t+0.0061966*t*t*t-0.000197*t*t*t*t;}
+  function apparentLon(jdUT){
+    var y=(jdUT-2451545)/365.25+2000;
+    var jde=jdUT+dT(y)/86400;
+    var tau=(jde-2451545)/365250;var T=tau*10;
+    var Lh=(ss(L0,tau)+ss(L1,tau)*tau+ss(L2,tau)*tau*tau+ss(L3,tau)*Math.pow(tau,3)+ss(L4,tau)*Math.pow(tau,4)+ss(L5,tau)*Math.pow(tau,5))/1e8;
+    var R=(ss(R0,tau)+ss(R1,tau)*tau)/1e8;
+    var th=n360(Lh/D2R+180)-0.09033/3600;
+    var om=(125.04452-1934.136261*T)*D2R,Ls=(280.4665+36000.7698*T)*D2R,Lm=(218.3165+481267.8813*T)*D2R;
+    var dpsi=-17.2*Math.sin(om)-1.32*Math.sin(2*Ls)-0.23*Math.sin(2*Lm)+0.21*Math.sin(2*om);
+    return n360(th+(dpsi-20.4898/R)/3600);}
+  function solveTerm(deg,guess){var t=guess;
+    for(var i=0;i<80;i++){var lon=apparentLon(t/86400000+2440587.5);var df=lon-deg;
+      if(df>180)df-=360;if(df<-180)df+=360;
+      if(Math.abs(df)<1e-8)break;t-=df/0.9856473*86400000;}
+    return Math.round(t/1000)*1000;}
+  return {apparentLon:apparentLon,solveTerm:solveTerm};
+})();
+/* DS-CAL 曆法核心 v1.0 · 干支四柱＋節氣＋旬空
+   口徑：香港時間 UTC+8；年柱立春換年、月柱節氣換月；日柱 23:00 換日（早子時）。
+   驗證錨點：2026-08-21 09:08＝丙午 丙申 丁卯 乙巳；1990-11-08 14:30＝庚午 丁亥 丁丑 丁未；
+   2000-01-01 23:30＝己卯 丙子 己未 甲子（早子時換日）。 */
+var DSCAL=(function(){
+  var GAN=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+  var ZHI=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  var TERMS=['立春','雨水','驚蟄','春分','清明','穀雨','立夏','小滿','芒種','夏至','小暑','大暑','立秋','處暑','白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至','小寒','大寒'];
+  var TERM_LON=[315,330,345,0,15,30,45,60,75,90,105,120,135,150,165,180,195,210,225,240,255,270,285,300];
+  var ORDER=['小寒','大寒','立春','雨水','驚蟄','春分','清明','穀雨','立夏','小滿','芒種','夏至','小暑','大暑','立秋','處暑','白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至'];
+  var _tc={};
+  function termsOfGregorianYear(y){
+    if(_tc[y])return _tc[y];
+    var out=[];
+    for(var i=0;i<24;i++){
+      var name=ORDER[i],lon=TERM_LON[TERMS.indexOf(name)];
+      var guess=Date.UTC(y,0,6)+i*15.218*86400000;
+      out.push({name:name,lon:lon,utcMs:DSSUN.solveTerm(lon,guess)});}
+    _tc[y]=out;return out;}
+  var TZ=8*3600000;
+  function hkParts(u){var d=new Date(u+TZ);return {y:d.getUTCFullYear(),mo:d.getUTCMonth()+1,d:d.getUTCDate(),h:d.getUTCHours(),mi:d.getUTCMinutes()};}
+  function hkToUtc(y,mo,d,h,mi){return Date.UTC(y,mo-1,d,h||0,mi||0)-TZ;}
+  function pad(n){return (n<10?'0':'')+n;}
+  function fmtHK(u){var p=hkParts(u);return p.y+'-'+pad(p.mo)+'-'+pad(p.d)+' '+pad(p.h)+':'+pad(p.mi);}
+  function toJD(ms){return ms/86400000+2440587.5;}
+  var AJDN=2451550.5; /* 2000-01-07＝甲子日 */
+  function dayIndexFromHK(y,mo,d){var j=Math.floor(toJD(Date.UTC(y,mo-1,d))-AJDN+0.5);return ((j%60)+60)%60;}
+  function ganzhiName(i){return GAN[i%10]+ZHI[i%12];}
+  function fourPillars(y,mo,d,h,mi){
+    var utc=hkToUtc(y,mo,d,h,mi);
+    var dy=y,dmo=mo,dd=d;
+    if(h>=23){var nx=new Date(Date.UTC(y,mo-1,d)+86400000);dy=nx.getUTCFullYear();dmo=nx.getUTCMonth()+1;dd=nx.getUTCDate();}
+    var dayIdx=dayIndexFromHK(dy,dmo,dd);
+    var hz=h>=23?0:Math.floor((h+1)/2)%12;
+    var hg=(((dayIdx%10)%5)*2+hz)%10;
+    var terms=termsOfGregorianYear(y).concat(termsOfGregorianYear(y-1),termsOfGregorianYear(y+1));
+    var JIE=['立春','驚蟄','清明','立夏','芒種','小暑','立秋','白露','寒露','立冬','大雪','小寒'];
+    var lastJie=null,nextJie=null;
+    for(var i=0;i<terms.length;i++){var t=terms[i];
+      if(JIE.indexOf(t.name)<0)continue;
+      if(t.utcMs<=utc){if(!lastJie||t.utcMs>lastJie.utcMs)lastJie=t;}
+      else{if(!nextJie||t.utcMs<nextJie.utcMs)nextJie=t;}}
+    var mz=(JIE.indexOf(lastJie.name)+2)%12;
+    var lichun=null;var ty=termsOfGregorianYear(y);
+    for(var j2=0;j2<ty.length;j2++)if(ty[j2].name==='立春')lichun=ty[j2].utcMs;
+    var yn=(utc>=lichun)?y:y-1;
+    var yg=((yn-4)%10+10)%10,yz=((yn-4)%12+12)%12;
+    var mg=((((yg%5)*2+2)%10)+((mz-2+12)%12))%10;
+    return {year:{gan:GAN[yg],zhi:ZHI[yz],ganIdx:yg,zhiIdx:yz},month:{gan:GAN[mg],zhi:ZHI[mz],ganIdx:mg,zhiIdx:mz},day:{gan:GAN[dayIdx%10],zhi:ZHI[dayIdx%12],ganIdx:dayIdx%10,zhiIdx:dayIdx%12,sixtyIdx:dayIdx},hour:{gan:GAN[hg],zhi:ZHI[hz],ganIdx:hg,zhiIdx:hz},monthJie:lastJie,nextJie:nextJie,yearNum:yn};}
+  function xunKong(si){var s=si-(si%10);var z=s%12;return [ZHI[(z+10)%12],ZHI[(z+11)%12]];}
+  function sixtyIndexOf(g,z){for(var i=0;i<60;i++)if(i%10===g&&i%12===z)return i;return -1;}
+  function currentTerm(u){
+    var p=hkParts(u);
+    var all=termsOfGregorianYear(p.y-1).concat(termsOfGregorianYear(p.y),termsOfGregorianYear(p.y+1));
+    all.sort(function(a,b){return a.utcMs-b.utcMs;});
+    var cur=null,nx=null;
+    for(var i=0;i<all.length;i++){if(all[i].utcMs<=u)cur=all[i];else{nx=all[i];break;}}
+    return {current:cur,next:nx};}
+  function yearGanzhi(yn){return GAN[((yn-4)%10+10)%10]+ZHI[((yn-4)%12+12)%12];}
+  return {GAN:GAN,ZHI:ZHI,fourPillars:fourPillars,xunKong:xunKong,sixtyIndexOf:sixtyIndexOf,ganzhiName:ganzhiName,dayIndexFromHK:dayIndexFromHK,termsOfGregorianYear:termsOfGregorianYear,fmtHK:fmtHK,hkToUtc:hkToUtc,currentTerm:currentTerm,hkParts:hkParts,pad:pad,yearGanzhi:yearGanzhi};
+})();
+/* DS-QIMEN 排盤引擎 v1.0 · 轉盤時家 · 拆補 · 中五寄坤
+   驗證：2026-08-21 09:08 陰遁二局上元五層 40 格對照獨立排盤引擎全中；
+   2026-12-25 10:00 陽遁七局人手推盤全中；兩年 2428 時點結構不變量掃描通過。 */
+var DSQM=(function(){
+  var TERM_JU={'冬至':[1,1,7,4],'小寒':[1,2,8,5],'大寒':[1,3,9,6],'立春':[1,8,5,2],'雨水':[1,9,6,3],'驚蟄':[1,1,7,4],'春分':[1,3,9,6],'清明':[1,4,1,7],'穀雨':[1,5,2,8],'立夏':[1,4,1,7],'小滿':[1,5,2,8],'芒種':[1,6,3,9],'夏至':[-1,9,3,6],'小暑':[-1,8,2,5],'大暑':[-1,7,1,4],'立秋':[-1,2,5,8],'處暑':[-1,1,4,7],'白露':[-1,9,3,6],'秋分':[-1,7,1,4],'寒露':[-1,6,9,3],'霜降':[-1,5,8,2],'立冬':[-1,6,9,3],'小雪':[-1,5,8,2],'大雪':[-1,4,7,1]};
+  var YI_SEQ=['戊','己','庚','辛','壬','癸','丁','丙','乙'];
+  var XUN_YI={0:'戊',10:'己',20:'庚',30:'辛',40:'壬',50:'癸'};
+  var XUN_NAME={0:'甲子',10:'甲戌',20:'甲申',30:'甲午',40:'甲辰',50:'甲寅'};
+  var RING=[1,8,3,4,9,2,7,6];
+  var STAR_HOME={1:'天蓬',8:'天任',3:'天沖',4:'天輔',9:'天英',2:'天芮',7:'天柱',6:'天心'};
+  var DOOR_HOME={1:'休門',8:'生門',3:'傷門',4:'杜門',9:'景門',2:'死門',7:'驚門',6:'開門'};
+  var GODS=['值符','螣蛇','太陰','六合','白虎','玄武','九地','九天'];
+  var PALACE_NAME={1:'坎一',2:'坤二',3:'震三',4:'巽四',5:'中五',6:'乾六',7:'兌七',8:'艮八',9:'離九'};
+  var PALACE_DIR={1:'北',2:'西南',3:'東',4:'東南',5:'中',6:'西北',7:'西',8:'東北',9:'南'};
+  var PALACE_ELEM={1:'水',2:'土',3:'木',4:'木',6:'金',7:'金',8:'土',9:'火'};
+  var PALACE_ZHI={1:['子'],8:['丑','寅'],3:['卯'],4:['辰','巳'],9:['午'],2:['未','申'],7:['酉'],6:['戌','亥']};
+  var DOOR_ELEM={'休門':'水','生門':'土','傷門':'木','杜門':'木','景門':'火','死門':'土','驚門':'金','開門':'金'};
+  var KE={'木':'土','土':'水','水':'火','火':'金','金':'木'};
+  var JIXING={'戊':3,'己':2,'庚':8,'辛':9,'壬':4,'癸':4};
+  var MU_GONG={'甲':2,'乙':6,'丙':6,'丁':8,'戊':6,'己':8,'庚':8,'辛':4,'壬':4,'癸':2};
+  var YIMA={'申':'寅','子':'寅','辰':'寅','寅':'申','午':'申','戌':'申','巳':'亥','酉':'亥','丑':'亥','亥':'巳','卯':'巳','未':'巳'};
+  function nextPalace(p,dir){p+=dir;if(p>9)p-=9;if(p<1)p+=9;return p;}
+  function ringIdx(p){return RING.indexOf(p);}
+  function cast(y,mo,d,h,mi){
+    var utc=DSCAL.hkToUtc(y,mo,d,h,mi);
+    var fp=DSCAL.fourPillars(y,mo,d,h,mi);
+    var ti=DSCAL.currentTerm(utc);
+    var term=ti.current;
+    var tj=TERM_JU[term.name];
+    var dun=tj[0];
+    var dayIdx=fp.day.sixtyIdx,ganIdx=dayIdx%10;
+    var futouIdx=(dayIdx-(ganIdx%5)+60)%60;
+    var futouZhi=DSCAL.ZHI[futouIdx%12];
+    var yuan='子午卯酉'.indexOf(futouZhi)>=0?0:('寅申巳亥'.indexOf(futouZhi)>=0?1:2);
+    var ju=tj[1+yuan];
+    var earth={},p=ju;
+    for(var i=0;i<9;i++){earth[p]=YI_SEQ[i];p=nextPalace(p,dun);}
+    var epo={};for(var g in earth)epo[earth[g]]=+g;
+    var hourSixty=DSCAL.sixtyIndexOf(fp.hour.ganIdx,fp.hour.zhiIdx);
+    var xunStart=hourSixty-(hourSixty%10);
+    var yi=XUN_YI[xunStart];
+    var yiPalace=epo[yi];
+    var yiPalaceEff=yiPalace===5?2:yiPalace;
+    var zhifuStar=yiPalace===5?'天禽':STAR_HOME[yiPalace];
+    var zhishiDoor=DOOR_HOME[yiPalaceEff];
+    var fuGan=fp.hour.gan==='甲'?yi:fp.hour.gan;
+    var zhifuPalaceRaw=epo[fuGan];
+    var zhifuPalace=zhifuPalaceRaw===5?2:zhifuPalaceRaw;
+    var stepN=(hourSixty-xunStart+60)%60;
+    var q=yiPalace;
+    for(var s=0;s<stepN;s++)q=nextPalace(q,dun);
+    var zhishiPalaceRaw=q,zhishiPalace=q===5?2:q;
+    var homeRingPos=ringIdx(yiPalaceEff);
+    var targetRingPos=ringIdx(zhifuPalace);
+    var shift=(targetRingPos-homeRingPos+8)%8;
+    var sky={},stars={},qinCarry={};
+    for(var r=0;r<8;r++){
+      var homePal=RING[r];
+      var pal=RING[(r+shift)%8];
+      stars[pal]=STAR_HOME[homePal];
+      sky[pal]=earth[homePal];
+      if(homePal===2)qinCarry[pal]=earth[5];}
+    var dShift=(ringIdx(zhishiPalace)-ringIdx(yiPalaceEff)+8)%8;
+    var doors={};
+    for(var r2=0;r2<8;r2++){var pal2=RING[(r2+dShift)%8];doors[pal2]=DOOR_HOME[RING[r2]];}
+    var gods={};
+    var sp=ringIdx(zhifuPalace);
+    for(var gi=0;gi<8;gi++){var pos=((sp+dun*gi)%8+8)%8;gods[RING[pos]]=GODS[gi];}
+    var dayKong=DSCAL.xunKong(dayIdx),hourKong=DSCAL.xunKong(hourSixty);
+    var horse=YIMA[fp.hour.zhi];
+    var marks={};
+    RING.forEach(function(pal){
+      var m=[],zs=PALACE_ZHI[pal];
+      if(zs.some(function(z){return hourKong.indexOf(z)>=0;}))m.push('空');
+      if(zs.indexOf(horse)>=0)m.push('馬');
+      var tg=sky[pal];
+      if(JIXING[tg]===pal)m.push('刑');
+      if(MU_GONG[tg]===pal)m.push('墓');
+      var qg=qinCarry[pal];
+      if(qg&&MU_GONG[qg]===pal)m.push('寄干墓');
+      if(KE[DOOR_ELEM[doors[pal]]]===PALACE_ELEM[pal])m.push('迫');
+      marks[pal]=m;});
+    return {pillars:fp,term:term,nextTerm:ti.next,dun:dun,ju:ju,yuanName:['上元','中元','下元'][yuan],futou:DSCAL.ganzhiName(futouIdx),xunName:XUN_NAME[xunStart],yi:yi,zhifuStar:zhifuStar,zhifuPalace:zhifuPalace,zhishiDoor:zhishiDoor,zhishiPalace:zhishiPalace,earth:earth,sky:sky,stars:stars,doors:doors,gods:gods,qinCarry:qinCarry,marks:marks,dayKong:dayKong,hourKong:hourKong,horse:horse,PALACE_NAME:PALACE_NAME,PALACE_DIR:PALACE_DIR,PALACE_ZHI:PALACE_ZHI};}
+  return {cast:cast,PALACE_NAME:PALACE_NAME,PALACE_DIR:PALACE_DIR,PALACE_ZHI:PALACE_ZHI};
+})();
+/* ═══════════════ DS-ENGINE-END ═══════════════ */
+
+/* ═══════════════ DS-PACK-START：資料包＋Prompt（文字改動要升版本號 ds-qimen-pack） ═══════════════ */
+var PACK_VER='ds-qimen-pack/1.0';
+function buildPermalink(st){
+  var base=location.origin&&location.origin!=='null'?location.origin+location.pathname:'https://www.destinysolver.com/qimen';
+  var p=[];
+  p.push('t='+st.tstr);
+  if(st.q)p.push('q='+encodeURIComponent(st.q.slice(0,120)));
+  if(st.ny)p.push('ny='+st.ny+(st.nyb?'&nyb=1':''));
+  if(st.oy)p.push('oy='+st.oy+(st.oyb?'&oyb=1':''));
+  return base+'?'+p.join('&');
+}
+function buildPack(c,st){
+  var L=[];
+  var fp=c.pillars;
+  function pillarStr(){return fp.year.gan+fp.year.zhi+'年 '+fp.month.gan+fp.month.zhi+'月 '+fp.day.gan+fp.day.zhi+'日 '+fp.hour.gan+fp.hour.zhi+'時';}
+  var today=new Date();
+  var gen=today.getFullYear()+'-'+DSCAL.pad(today.getMonth()+1)+'-'+DSCAL.pad(today.getDate());
+  L.push('═══ 奇門遁甲起局資料包（給 AI 解讀用）═══');
+  L.push('來源：命運解決師 陳卓賢 · destinysolver.com ｜ 格式：'+PACK_VER+' ｜ 生成：'+gen);
+  L.push('重開此局：'+buildPermalink(st));
+  L.push('');
+  L.push('■ 排盤口徑');
+  L.push('- 轉盤時家奇門；定局法：拆補（按日柱符頭定三元）；中五寄坤二宮；天禽寄天芮。');
+  L.push('- 曆法：香港時間（UTC+8）；子時由 23:00 起入翌日；未用真太陽時；節氣按天文算法（與天文台公佈誤差一分鐘內）。');
+  L.push('- 標記口徑：空＝時柱旬空所在宮；馬＝時支驛馬所在宮；刑＝六儀擊刑；墓＝十干墓（甲墓坤二、乙丙戊墓乾六、丁己庚墓艮八、辛壬墓巽四、癸墓坤二）；迫＝門克宮。奇門流派口徑有異，本包一律以上述口徑為準。');
+  L.push('');
+  L.push('■ 所占之事');
+  L.push(st.q?('- '+st.q):'-（未填寫；請解讀者先問清楚想問乜，或按整體局勢解讀）');
+  L.push('');
+  L.push('■ 起局');
+  L.push('- 起局時刻：'+st.disp+'（'+fp.hour.zhi+'時）');
+  L.push('- 四柱：'+pillarStr());
+  L.push('- 節氣：'+c.term.name+'（'+DSCAL.fmtHK(c.term.utcMs)+' 交節）'+(c.nextTerm?('；下一節氣：'+c.nextTerm.name+'（'+DSCAL.fmtHK(c.nextTerm.utcMs)+'）'):''));
+  L.push('- 定局：'+(c.dun===1?'陽遁':'陰遁')+['','一','二','三','四','五','六','七','八','九'][c.ju]+'局 '+c.yuanName+'（符頭'+c.futou+'）');
+  L.push('- 旬首：'+c.xunName+'（儀：'+c.yi+'）');
+  L.push('- 值符：'+c.zhifuStar+'星，落'+DSQM.PALACE_NAME[c.zhifuPalace]+'宮 ｜ 值使：'+c.zhishiDoor+'，落'+DSQM.PALACE_NAME[c.zhishiPalace]+'宮');
+  L.push('- 日旬空亡：'+c.dayKong.join('')+' ｜ 時旬空亡：'+c.hourKong.join('')+' ｜ 時馬：'+c.horse);
+  L.push('');
+  L.push('■ 九宮盤（每宮依次：地盤干／天盤干／九星／八門／八神／標記）');
+  [1,2,3,4,5,6,7,8,9].forEach(function(pal){
+    if(pal===5){
+      L.push('- 中五宮：寄坤二宮；地盤'+c.earth[5]+'；九星天禽（寄天芮）；天地盤與門星神以坤二宮為準');
+      return;}
+    var m=c.marks[pal]||[];
+    var row='- '+DSQM.PALACE_NAME[pal]+'宮（'+DSQM.PALACE_DIR[pal]+'，'+DSQM.PALACE_ZHI[pal].join('')+'）：地盤'+c.earth[pal]+'；天盤'+c.sky[pal]+(c.qinCarry[pal]?('（寄干'+c.qinCarry[pal]+'）'):'')+'；'+c.stars[pal]+'；'+c.doors[pal]+'；'+c.gods[pal];
+    if(m.length)row+='；標記：'+m.join('、');
+    L.push(row);});
+  var nm=[];
+  if(st.ny){var nyn=st.nyb?st.ny-1:st.ny;var ng=DSCAL.yearGanzhi(nyn);var nz=ng[1];var npal=null;for(var pk in DSQM.PALACE_ZHI){if(DSQM.PALACE_ZHI[pk].indexOf(nz)>=0)npal=pk;}
+    nm.push('- 當事人年命：'+ng+'（'+st.ny+' 年生'+(st.nyb?'，立春前，作前一年計':'')+'）；年命支'+nz+'落'+DSQM.PALACE_NAME[npal]+'宮');}
+  if(st.oy){var oyn=st.oyb?st.oy-1:st.oy;var og=DSCAL.yearGanzhi(oyn);var oz=og[1];var opal=null;for(var pk2 in DSQM.PALACE_ZHI){if(DSQM.PALACE_ZHI[pk2].indexOf(oz)>=0)opal=pk2;}
+    nm.push('- 對方年命：'+og+'（'+st.oy+' 年生'+(st.oyb?'，立春前，作前一年計':'')+'）；年命支'+oz+'落'+DSQM.PALACE_NAME[opal]+'宮');}
+  if(nm.length){L.push('');L.push('■ 年命（用戶提供，作對照參考，唔係完整命盤）');nm.forEach(function(x){L.push(x);});}
+  L.push('');
+  L.push('■ 給 AI 嘅使用說明');
+  L.push('- 以【所占之事】為中心解讀。本包只含此刻定局同九宮結構，冇時間推移層（流盤、走勢、候選時間）。');
+  L.push('- 本包係唯一盤面事實：唔好自行改局、重排九宮，或者補算任何未列出嘅字段；缺乜就直接講明「此層資料未提供」。');
+  L.push('- 基於已列字段嘅分析同判斷唔受限，請照常深入；每個判斷標明依據（邊個宮、邊個門星神干）。');
+  L.push('');
+  L.push('本資料包由 destinysolver.com 排盤引擎生成，只含結構事實，不含吉凶斷語；判斷由解讀者作出。不構成專業意見。');
+  return L.join('\n');
+}
+var GUARD=['【使用規則】',
+'1. 下方資料包由排盤引擎計算，係唯一盤面事實：不要自行改局、重排九宮，或改動補算任何干支、門星神。',
+'2. 資料包冇列出嘅層級（流盤走勢、其他時辰、候選日期）不要自行推算；如我問到，請直接講「資料包未包含」，並建議我返 destinysolver.com/qimen 用新時刻再起一局。',
+'3. 你揀嘅用神（邊個宮、邊個門星代表我問嘅事）係解讀層假設，唔係引擎輸出：要講明你取咗乜、點解。',
+'4. 每一個判斷都要標明盤面依據（邊一宮、乜嘢門星神干組合、乜嘢標記）；講唔出依據嘅判斷，直接省略。',
+'5. 唔恐嚇、唔斷生死、唔畀具體日期式預言、唔代我做決定；講風險時同時講可以點做。',
+'6. 用繁體中文回答；術語第一次出現時用一句白話解釋。',
+'7. 呢啲係奇門局勢嘅參考，唔係專業意見；目的係幫我睇清形勢、自己做決定。',
+'8. 在你第一次完整回覆的最後，另起一行，原文輸出以下一句（之後的追問回覆不必重複）：⭐ 如需更深度的人工批盤，可預約命運解決師諮商：destinysolver.com/consultation'].join('\n');
+var PRESETS=[
+{id:'overview',label:'整體局勢',blurb:'第一次用、想睇成件事嘅局？由呢個開始。',body:['你係一位熟悉轉盤時家奇門嘅顧問，請用下方資料包，就我所占之事做一次完整嘅局勢解讀。',
+'',
+'分析順序（內部用，唔使逐條覆述）：',
+'一、先立所占之事：確認問題主體同類型（求財、事業、感情、出行、人事……）。如果資料包冇寫問事，先用一兩句問返我想問乜，或者就整體局勢講。',
+'二、定局骨架：陰陽遁、局數、三元、節氣講呢個時空嘅大氣候；值符落宮講事情主氣所在，值使落宮講人事同行動點走。',
+'三、取用神：按事類講明你取邊個做用神（邊個門、邊個星、邊個干、邊個宮），同點解咁取。日干宮代表我，時干宮代表所問之事，呢兩個宮必睇。',
+'四、逐宮組合：用神宮、日干宮、時干宮嘅天地盤干組合、門星神配置，互相之間嘅生克關係。',
+'五、空馬刑墓迫：邊個關鍵宮落空（虛、未實）、邊度有馬（動意）、刑墓迫（阻滯受制），逐個講對事情嘅影響。',
+'六、落地：綜合上面，講形勢係利定唔利、著力點喺邊、乜嘢方向或者做法較順、乜嘢要避。',
+'',
+'輸出格式（第一次回覆）：',
+'1. 一句話講呢個局對所問之事嘅整體態勢',
+'2. 關鍵依據：3 至 5 點（每點標明宮位同組合）',
+'3. 對我有利嘅位、唔利嘅位：各 2 至 3 點',
+'4. 具體可行嘅建議：2 至 3 點（貼住問事，唔好空泛）',
+'約七成講結論同做法，三成講盤理依據。最後問我最想跟進邊一項。'].join('\n')},
+{id:'career',label:'事業謀事',blurb:'求職、簽約、開展計劃：件事成唔成、點入手。',body:['你係一位熟悉轉盤時家奇門嘅顧問，請用下方資料包，只針對事業／謀事作答。',
+'',
+'判斷框架：',
+'一、以日干宮為我、時干宮為所謀之事；謀事類用神可參開門（事業職位）、生門（生意財源）、值使門（行動走勢），你揀邊個做主就講明點解。',
+'二、我宮同事宮嘅關係：相生（順）、相克（阻）、比和（平），邊個生邊個好重要：我生事係我追件事，事生我係件事就我。',
+'三、事宮嘅門星神組合：門吉唔吉、星旺唔旺、神係扶助定阻滯；再睇有冇空（未實）、馬（有變動）、刑墓迫（受制）。',
+'四、值符值使：主氣喺邊、行動線點走，同我宮事宮有冇呼應。',
+'',
+'輸出：',
+'1. 一句話：呢件事而家嘅局勢同成事機會（用「順／有阻但可為／宜緩」呢類講法，唔好報百分比）',
+'2. 點解：3 至 4 點依據（標宮位組合）',
+'3. 點入手：具體建議 2 至 3 點（例如主動定等、搵邊類人幫、避開乜）',
+'4. 一個最要留意嘅風險位',
+'唔好報「邊一日成事」呢類日期式預言；如講時機，只可以講盤面依據（例如空待填實、馬主動）。'].join('\n')},
+{id:'love',label:'感情人際',blurb:'關係現狀、對方心態、行唔行得埋。',body:['你係一位熟悉轉盤時家奇門嘅顧問，請用下方資料包，只針對感情／人際關係作答。',
+'',
+'判斷框架：',
+'一、以日干宮為我；對方用時干宮或年命宮（資料包如有對方年命就用埋佢），講明你點取。',
+'二、兩宮關係：相生邊個生邊個（邊個主動、邊個付出多）、相克（張力喺邊）、比和（平淡定穩定）。',
+'三、六合落宮同佢嘅組合（六合主緣份聚合）；再睇兩宮有冇空（心未實）、馬（想走想變）、刑墓迫（困局）。',
+'四、乙庚（日月奇儀）如落我宮對宮可作輔助參考，但要講明係輔助。',
+'',
+'輸出：',
+'1. 一句話講呢段關係此刻嘅狀態',
+'2. 我嘅位置、對方嘅位置：各 2 點（標宮位依據）',
+'3. 呢段關係最實在嘅一個課題',
+'4. 點相處／點行落去：具體建議 2 點',
+'唔判「一定成／一定散」；講傾向要帶依據，最終點揀係我自己嘅事。'].join('\n')},
+{id:'free',label:'自由提問',blurb:'有具體問題？淨帶護欄，問乜答乜。',body:['請用下方資料包回答我嘅問題。先答問題本身，再補少量盤面依據；如果問題涉及資料包冇嘅層級，請直接講明，再就已有資料答到嘅部分作答。',
+'',
+'【我的問題】',
+'{{question}}'].join('\n')}];
+/* ═══════════════ DS-PACK-END ═══════════════ */
+
+/* ═══ UI 層（置入時可按 codebase 組件重造，邏輯照搬） ═══ */
+window.__qimenInit = function(){
+  var $=function(id){return document.getElementById(id);};
+  var state=null, chart=null, curPreset='overview';
+  function two(n){return (n<10?'0':'')+n;}
+  function setNow(){
+    var n=new Date();
+    $('dt').value=n.getFullYear()+'-'+two(n.getMonth()+1)+'-'+two(n.getDate())+'T'+two(n.getHours())+':'+two(n.getMinutes());}
+  function doCast(){
+    var v=$('dt').value;
+    if(!v){setNow();v=$('dt').value;}
+    var m=v.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+    if(!m)return;
+    var y=+m[1],mo=+m[2],d=+m[3],h=+m[4],mi=+m[5];
+    chart=DSQM.cast(y,mo,d,h,mi);
+    state={q:$('q').value.trim(),tstr:''+m[1]+m[2]+m[3]+m[4]+m[5],disp:m[1]+'-'+m[2]+'-'+m[3]+' '+m[4]+':'+m[5],
+      ny:parseInt($('ny').value)||null,nyb:$('nyb').checked,oy:parseInt($('oy').value)||null,oyb:$('oyb').checked};
+    render();updatePanel();
+    $('chartCard').style.display='';$('aiCard').style.display='';
+    $('chartCard').scrollIntoView({behavior:'smooth'});}
+  function render(){
+    var c=chart;
+    var num=['','一','二','三','四','五','六','七','八','九'];
+    $('juInfo').innerHTML=
+      '<dt>四柱</dt><dd>'+c.pillars.year.gan+c.pillars.year.zhi+'年 '+c.pillars.month.gan+c.pillars.month.zhi+'月 '+c.pillars.day.gan+c.pillars.day.zhi+'日 '+c.pillars.hour.gan+c.pillars.hour.zhi+'時</dd>'+
+      '<dt>定局</dt><dd>'+(c.dun===1?'陽遁':'陰遁')+num[c.ju]+'局 '+c.yuanName+'（'+c.term.name+'，符頭'+c.futou+'，拆補）</dd>'+
+      '<dt>旬首</dt><dd>'+c.xunName+'（儀'+c.yi+'）</dd>'+
+      '<dt>值符</dt><dd>'+c.zhifuStar+' 落'+DSQM.PALACE_NAME[c.zhifuPalace]+'宮</dd>'+
+      '<dt>值使</dt><dd>'+c.zhishiDoor+' 落'+DSQM.PALACE_NAME[c.zhishiPalace]+'宮</dd>'+
+      '<dt>空亡</dt><dd>日空'+c.dayKong.join('')+' · 時空'+c.hourKong.join('')+' · 時馬'+c.horse+'</dd>';
+    var order=[4,9,2,3,5,7,8,1,6];
+    var html='';
+    order.forEach(function(pal){
+      if(pal===5){
+        html+='<div class="gcell center"><span class="pn">5 中</span><div style="margin-top:20px">寄坤二宮<br>地盤 '+c.earth[5]+'<br>天禽（寄芮）</div></div>';
+        return;}
+      var role='';
+      if(pal===c.zhifuPalace)role='<span class="role">符</span>';
+      else if(pal===c.zhishiPalace)role='<span class="role" style="background:var(--ember)">使</span>';
+      var m=c.marks[pal]||[];
+      html+='<div class="gcell">'+role+'<span class="pn">'+pal+' '+DSQM.PALACE_NAME[pal][0]+'</span>'+
+        '<div class="stems" style="margin-top:18px">地 <b>'+c.earth[pal]+'</b>　天 <b>'+c.sky[pal]+'</b>'+(c.qinCarry[pal]?'<span class="hint">（寄'+c.qinCarry[pal]+'）</span>':'')+'</div>'+
+        '<div class="stargod">'+c.stars[pal]+' · '+c.gods[pal]+'</div>'+
+        '<div class="door">'+c.doors[pal]+'</div>'+
+        (m.length?'<div class="mk">'+m.join(' · ')+'</div>':'')+
+        '</div>';});
+    $('grid9').innerHTML=html;}
+  function currentPack(){return buildPack(chart,state);}
+  function currentPrompt(){
+    var p=PRESETS.find(function(x){return x.id===curPreset;});
+    var body=p.body;
+    var q=$('q').value.trim();
+    if(p.id==='free')body=body.replace('{{question}}',q||'（未填寫）');
+    var mid=(p.id!=='free'&&q)?('\n\n【我的問題】\n'+q):'';
+    return body+mid+'\n\n'+GUARD;}
+  function fullText(){return currentPrompt()+'\n\n────────\n\n'+currentPack();}
+  function updatePanel(){
+    if(!chart)return;
+    state.q=$('q').value.trim();
+    var p=PRESETS.find(function(x){return x.id===curPreset;});
+    $('blurb').textContent=p.blurb;
+    var isFreeEmpty=(curPreset==='free'&&!$('q').value.trim());
+    $('copyAll').disabled=isFreeEmpty;
+    $('freeWarn').style.display=isFreeEmpty?'':'none';
+    $('preview').textContent=fullText();}
+  function copy(text,btn){
+    function ok(){
+      var o=btn.textContent;btn.textContent='已複製 ✓';
+      var t=$('toast');t.classList.add('show');
+      setTimeout(function(){btn.textContent=o;t.classList.remove('show');},2200);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(ok,function(){fallback();});}
+    else fallback();
+    function fallback(){
+      var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);
+      ta.select();try{document.execCommand('copy');ok();}catch(e){}
+      document.body.removeChild(ta);}}
+  // 面板 chips
+  var chipsEl=$('chips');
+  PRESETS.forEach(function(p,i){
+    var b=document.createElement('button');
+    b.type='button';b.className='chip'+(i===0?' on':'');b.textContent=p.label;
+    b.addEventListener('click',function(){
+      chipsEl.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');curPreset=p.id;updatePanel();});
+    chipsEl.appendChild(b);});
+  $('castBtn').addEventListener('click',doCast);
+  $('nowBtn').addEventListener('click',function(){setNow();});
+  $('q').addEventListener('input',function(){if(chart)updatePanel();});
+  $('copyAll').addEventListener('click',function(e){if(chart)copy(fullText(),e.target);});
+  $('copyPack').addEventListener('click',function(e){if(chart)copy(currentPack(),e.target);});
+  setNow();
+  // permalink 重開：?t=YYYYMMDDHHMM&q=&ny=&nyb=1&oy=&oyb=1
+  var sp=new URLSearchParams(location.search);
+  if(sp.get('t')&&/^\d{12}$/.test(sp.get('t'))){
+    var t=sp.get('t');
+    $('dt').value=t.slice(0,4)+'-'+t.slice(4,6)+'-'+t.slice(6,8)+'T'+t.slice(8,10)+':'+t.slice(10,12);
+    if(sp.get('q'))$('q').value=sp.get('q').slice(0,300);
+    if(sp.get('ny'))$('ny').value=sp.get('ny');
+    if(sp.get('nyb'))$('nyb').checked=true;
+    if(sp.get('oy'))$('oy').value=sp.get('oy');
+    if(sp.get('oyb'))$('oyb').checked=true;
+    doCast();}
+};
+
+/* ═══ DS-GOLDEN-TEST：置入後喺 console 行 __DS_TEST.run()，必須回 ALL PASS ═══ */
+window.__DS_TEST={run:function(){
+  var errs=[];
+  var c=DSQM.cast(2026,8,21,9,8);
+  var fp=c.pillars;
+  if(fp.year.gan+fp.year.zhi+fp.month.gan+fp.month.zhi+fp.day.gan+fp.day.zhi+fp.hour.gan+fp.hour.zhi!=='丙午丙申丁卯乙巳')errs.push('四柱');
+  if(c.dun!==-1||c.ju!==2||c.yuanName!=='上元'||c.term.name!=='立秋')errs.push('定局');
+  if(c.xunName!=='甲辰'||c.zhifuStar!=='天柱'||c.zhifuPalace!==3||c.zhishiDoor!=='驚門'||c.zhishiPalace!==6)errs.push('值符值使');
+  var exp={earth:{1:'己',2:'戊',3:'乙',4:'丙',5:'丁',6:'癸',7:'壬',8:'辛',9:'庚'},
+    sky:{1:'庚',2:'辛',3:'壬',4:'癸',6:'丙',7:'乙',8:'戊',9:'己'},
+    stars:{1:'天英',2:'天任',3:'天柱',4:'天心',6:'天輔',7:'天沖',8:'天芮',9:'天蓬'},
+    doors:{1:'開門',2:'景門',3:'生門',4:'傷門',6:'驚門',7:'死門',8:'休門',9:'杜門'},
+    gods:{1:'太陰',2:'玄武',3:'值符',4:'九天',6:'六合',7:'白虎',8:'螣蛇',9:'九地'}};
+  ['earth','sky','stars','doors','gods'].forEach(function(layer){
+    for(var k in exp[layer])if(c[layer][k]!==exp[layer][k])errs.push(layer+k);});
+  if(c.dayKong.join('')!=='戌亥'||c.hourKong.join('')!=='寅卯'||c.horse!=='亥')errs.push('空馬');
+  if(c.qinCarry[8]!=='丁')errs.push('寄干');
+  var c2=DSQM.cast(2026,12,25,10,0);
+  if(c2.dun!==1||c2.ju!==7||c2.yuanName!=='中元'||c2.zhifuStar!=='天沖'||c2.zhifuPalace!==4||c2.zhishiDoor!=='傷門'||c2.zhishiPalace!==6)errs.push('陽遁盤');
+  var fp3=DSCAL.fourPillars(2000,1,1,23,30);
+  if(fp3.year.gan+fp3.year.zhi+fp3.month.gan+fp3.month.zhi+fp3.day.gan+fp3.day.zhi+fp3.hour.gan+fp3.hour.zhi!=='己卯丙子己未甲子')errs.push('早子時換日');
+  return errs.length?('FAIL: '+errs.join(', ')):'ALL PASS ✓ (qimen golden)';
+}};

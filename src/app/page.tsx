@@ -138,9 +138,14 @@ export default function HomePage() {
 
       {/* ── 排盤工具四格（§8）── */}
       <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="mb-8">
-          <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">FREE TOOLS</p>
-          <h2 className="font-serif text-[#2B241C] text-2xl font-bold">排盤工具</h2>
+        <div className="mb-8 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">FREE TOOLS</p>
+            <h2 className="font-serif text-[#2B241C] text-2xl font-bold">免費排盤工具箱</h2>
+          </div>
+          <Link href="/tools" className="text-sm text-[#B23E26] font-semibold hover:underline whitespace-nowrap">
+            睇晒所有工具 →
+          </Link>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {/* 八字排盤 — 羅盤線稿 */}

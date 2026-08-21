@@ -1,5 +1,6 @@
 'use client'
 import { useState, useMemo, useCallback } from 'react'
+import { track } from '@vercel/analytics'
 import type { BaziResult } from '@/lib/bazi-calc'
 import type { ArticleMeta } from '@/types'
 import { buildBaziPack } from '@/lib/bazi/pack/buildBaziPack'
@@ -174,14 +175,14 @@ export default function AiReadingPanel({ result, form, currentYear, articles = [
           <div className="space-y-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <button
-                onClick={() => doCopy(promptText, setCopiedAll)}
+                onClick={() => { doCopy(promptText, setCopiedAll); track('pack_copy', { tool: 'bazi', type: 'full', preset }) }}
                 disabled={selectedPreset.needsQuestion && !question.trim()}
                 className="min-h-[44px] rounded-xl bg-[#8B3A2F] hover:bg-[#7A3128] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold text-sm transition-colors"
               >
                 {copiedAll ? '已複製 ✓' : '複製 Prompt＋資料包'}
               </button>
               <button
-                onClick={() => { if (!freeAndEmpty) doCopy(pack, setCopiedPack) }}
+                onClick={() => { if (!freeAndEmpty) { doCopy(pack, setCopiedPack); track('pack_copy', { tool: 'bazi', type: 'pack', preset }) } }}
                 disabled={freeAndEmpty}
                 className="min-h-[44px] rounded-xl border border-[#8B3A2F] text-[#8B3A2F] hover:bg-[#8B3A2F]/5 disabled:opacity-40 disabled:cursor-not-allowed font-semibold text-sm transition-colors"
               >
