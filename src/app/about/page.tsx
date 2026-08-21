@@ -447,7 +447,7 @@ export default function AboutPage() {
       </div>
 
       {/* ── Free Tools ── */}
-      <div className="mb-14">
+      <div className="mb-10">
         <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-2">免費排盤工具</h2>
         <p className="text-[#8A8071] text-sm mb-8">以下工具均免費使用，無需註冊，即時計算、即時顯示完整排盤結果。</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -471,6 +471,42 @@ export default function AboutPage() {
             <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">西洋占星排盤</h3>
             <p className="text-[#6B6155] text-sm leading-relaxed">輸入陽曆生日及出生地，即時計算十顆行星星座位置、上升點及主要相位。</p>
           </a>
+        </div>
+      </div>
+
+      {/* ── Free Divination Tools ── */}
+      <div className="mb-14">
+        <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-2">免費占卜工具</h2>
+        <p className="text-[#8A8071] text-sm mb-6">以下工具均附 AI 資料包，排盤後一鍵複製，貼到 ChatGPT 或 Claude 即可取得參考解讀。全部免費、免登入。</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <a href="/liuyao" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
+            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">六爻占卜</p>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">六爻排盤</h3>
+            <p className="text-[#6B6155] text-sm leading-relaxed">親手搖卦錄入或線上起卦，即時排出本卦變卦、納甲六親、六獸世應、旬空月破伏神。</p>
+          </a>
+          <a href="/qimen" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
+            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">奇門遁甲</p>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">奇門遁甲</h3>
+            <p className="text-[#6B6155] text-sm leading-relaxed">盤時家、拆補定局，一鍵排出陰陽遁局數、值符值使、九宮天地盤星門星神。</p>
+          </a>
+          <a href="/tarot" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
+            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">塔羅占卜</p>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">塔羅占卜</h3>
+            <p className="text-[#6B6155] text-sm leading-relaxed">78 張韋特牌、正逆位、五種牌陣，可線上抽牌或錄入實體牌，一鍵複製 AI 解讀資料包。</p>
+          </a>
+          <a href="/lenormand" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
+            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">雷諾曼占卜</p>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">雷諾曼占卜</h3>
+            <p className="text-[#6B6155] text-sm leading-relaxed">36 張 Petit Lenormand、六種牌陣，可線上抽牌或錄入實體牌，一鍵複製 AI 解讀資料包。</p>
+          </a>
+        </div>
+        <div className="border-l-2 border-[#B23E26]/20 pl-5 text-[#6B6155] text-sm leading-relaxed space-y-3">
+          <p>
+            提供這兩類工具，理由很簡單。排盤工具計算先天能量結構，呈現的是客觀數據，適合自行研究或在諮詢前備料；它回答的問題是「你是怎樣一個人」。占卜工具則面對你此刻遇上的一件具體的事，提供結構化的分析框架；它回答的問題是「這件事現在怎樣」。
+          </p>
+          <p>
+            兩類工具各有用場，並不重疊。排盤工具的結果是靜態的、可反覆查閱的；占卜工具的結果與你起卦或抽牌的當下時空有關，每次問的事不同，答案也不同。如果你想用 AI 深入解讀，占卜工具附有一鍵複製的 AI 資料包，貼到 ChatGPT 或 Claude 即可，網站本身不提供 AI 解讀。
+          </p>
         </div>
       </div>
 
