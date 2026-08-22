@@ -15,7 +15,7 @@ const faq = [
   },
   {
     q: '需要登入才能使用嗎？',
-    a: '不需要，全部工具免登入即用，排出的結果只在你自己的裝置上，不會上傳或儲存。',
+    a: '不需要，全部工具免登入即用，排出的結果只在您的裝置上，不會上傳或儲存。',
   },
   {
     q: '排出來的結果可以交給 AI 解讀嗎？',
@@ -31,6 +31,25 @@ const faqJsonLd = {
     name: q,
     acceptedAnswer: { '@type': 'Answer', text: a },
   })),
+}
+
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: '免費命理排盤與占卜工具箱｜命運解決師 陳卓賢',
+  description: '八個免費命理工具一站齊備：四柱八字、八字合盤、六爻占卜、奇門遁甲、紫微斗數、西洋占星、塔羅占卜、雷諾曼占卜。占卜類工具支援複製 AI 解讀資料包，免登入、免安裝。',
+  url: `${SITE_URL}/tools`,
+  numberOfItems: 8,
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '四柱八字排盤', url: `${SITE_URL}/bazi`, description: '免費八字排盤工具，即時算出四柱命盤、十神、藏干及大運。' },
+    { '@type': 'ListItem', position: 2, name: '八字合盤', url: `${SITE_URL}/compat`, description: '免費八字合盤工具，輸入兩人生辰即時對照五行能量結構。' },
+    { '@type': 'ListItem', position: 3, name: '紫微斗數排盤', url: `${SITE_URL}/ziwei`, description: '免費紫微斗數排盤（飛星派），即時排出十二宮命盤、主星強度與大限。' },
+    { '@type': 'ListItem', position: 4, name: '西洋占星排盤', url: `${SITE_URL}/western`, description: '免費西洋占星排盤，即時生成本命盤，列出十大行星星座與宮位。' },
+    { '@type': 'ListItem', position: 5, name: '六爻占卜', url: `${SITE_URL}/liuyao`, description: '免費六爻排盤，附 AI 解讀資料包，可複製給 ChatGPT、Claude 或 Gemini 解讀。' },
+    { '@type': 'ListItem', position: 6, name: '奇門遁甲排盤', url: `${SITE_URL}/qimen`, description: '免費奇門遁甲排局，附 AI 解讀資料包，可複製給 ChatGPT、Claude 或 Gemini 解讀。' },
+    { '@type': 'ListItem', position: 7, name: '塔羅占卜', url: `${SITE_URL}/tarot`, description: '免費線上塔羅占卜，78 張韋特塔羅、五種牌陣，附 AI 解讀資料包。' },
+    { '@type': 'ListItem', position: 8, name: '雷諾曼占卜', url: `${SITE_URL}/lenormand`, description: '免費線上雷諾曼占卜，36 張六種牌陣，附 AI 解讀資料包。' },
+  ],
 }
 
 const breadcrumbJsonLd = {
@@ -115,6 +134,10 @@ const DIVINATION_TOOLS = [
 export default function ToolsPage() {
   return (
     <main className="pt-24 pb-20 px-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
