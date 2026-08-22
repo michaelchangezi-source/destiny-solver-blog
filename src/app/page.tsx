@@ -144,7 +144,7 @@ export default function HomePage() {
             <h2 className="font-serif text-[#2B241C] text-2xl font-bold">免費排盤工具</h2>
           </div>
           <Link href="/tools" className="text-sm text-[#B23E26] font-semibold hover:underline whitespace-nowrap">
-            睇晒所有工具 →
+            查看全部工具 →
           </Link>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -257,7 +257,7 @@ export default function HomePage() {
             <h2 className="font-serif text-[#2B241C] text-2xl font-bold">免費占卜工具</h2>
           </div>
           <Link href="/tools" className="text-sm text-[#B23E26] font-semibold hover:underline whitespace-nowrap">
-            睇晒所有工具 →
+            查看全部工具 →
           </Link>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
