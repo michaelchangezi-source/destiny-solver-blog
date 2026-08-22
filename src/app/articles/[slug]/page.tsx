@@ -53,11 +53,15 @@ function slugifyHeading(inner: string): string {
  * ## 層級只在標題本身已經是問句時採用：本站多數文章用 ## 分節，
  * 若一律改寫成問句會把陳述句硬拗成問題，反而製造與內文不符的 FAQ。
  */
-function extractFaqPairs(markdown: string): Array<{ question: string; answer: string }> {
+function extractFaqPairs(markdown: string): {
+  faqs: Array<{ question: string; answer: string }>
+  cleanedMarkdown: string
+} {
   const faqs: Array<{ question: string; answer: string }> = []
   // 內容檔多為 CRLF；必須連 \r 一併切走。JS 正則的 . 不匹配 \r，
   // 殘留的 \r 會令 /^#{2,6}\s+(.+)$/ 整條標題比對失敗，FAQ 因而完全抽不出來。
   const lines = markdown.split(/\r?\n/)
+  const faqRanges: Array<[number, number]> = []
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i]
@@ -85,6 +89,12 @@ function extractFaqPairs(markdown: string): Array<{ question: string; answer: st
       question += '？'
     }
 
+    // 段落結尾（下一個標題或 EOF），用於從正文剔除整段 FAQ
+    let sectionEnd = i + 1
+    while (sectionEnd < lines.length && !lines[sectionEnd].match(/^#{2,6}\s/)) {
+      sectionEnd++
+    }
+
     // 收集緊跟的段落文字作為答案
     // 包含普通段落與 markdown 列表項（- 開頭），跳過表格行（| 開頭）
     let answer = ''
@@ -107,10 +117,19 @@ function extractFaqPairs(markdown: string): Array<{ question: string; answer: st
     answer = answer.trim().replace(/\s+/g, ' ')
     if (answer.length > 20) {
       faqs.push({ question, answer: answer.slice(0, 420) })
+      faqRanges.push([i, sectionEnd])
     }
   }
 
-  return faqs.slice(0, 6) // 每篇最多 6 個 FAQ
+  const keptFaqs = faqs.slice(0, 6) // 每篇最多 6 個 FAQ
+  const keptRanges = faqRanges.slice(0, 6)
+  const removeSet = new Set<number>()
+  for (const [start, end] of keptRanges) {
+    for (let k = start; k < end; k++) removeSet.add(k)
+  }
+  const cleanedMarkdown = lines.filter((_, idx) => !removeSet.has(idx)).join('\n')
+
+  return { faqs: keptFaqs, cleanedMarkdown }
 }
 
 export const revalidate = 3600
@@ -193,12 +212,14 @@ export default async function ArticlePage({ params }: Props) {
   if (!article) notFound()
   if (new Date(article.publishedAt) > new Date()) notFound()
 
-  const html = await markdownToHtml(article.content)
-  const related = getRelatedArticles(slug, article.category, 3)
-  const { prev, next } = getAdjacentArticles(slug)
   // P0-2（2026-08-06 審核）：noindex 文章（未經醫療審閱的健康內容）不生成 FAQ，
   // 避免把未經證實的醫療／生死判斷句子機器化放大成 FAQPage schema
-  const faqPairs = article.noindex ? [] : extractFaqPairs(article.content)
+  const { faqs: faqPairs, cleanedMarkdown } = article.noindex
+    ? { faqs: [] as Array<{ question: string; answer: string }>, cleanedMarkdown: article.content }
+    : extractFaqPairs(article.content)
+  const html = await markdownToHtml(cleanedMarkdown)
+  const related = getRelatedArticles(slug, article.category, 3)
+  const { prev, next } = getAdjacentArticles(slug)
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
