@@ -27,33 +27,33 @@ const faqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Q1　六爻要唔要輸入出生時間？',
-      acceptedAnswer: { '@type': 'Answer', text: '唔需要。六爻以起卦時刻同卦象為準，唔使任何出生資料，所問之事先係主角。' },
+      name: 'Q1　六爻需要輸入出生時間嗎？',
+      acceptedAnswer: { '@type': 'Answer', text: '不需要。六爻以起卦時刻與卦象為準，不需要任何出生資料，所問之事方為主角。' },
     },
     {
       '@type': 'Question',
-      name: 'Q2　我未搖過卦，點入手？',
-      acceptedAnswer: { '@type': 'Answer', text: '搵三枚一樣嘅硬幣，心入面諗定件事，兩手冚住啲硬幣搖勻擲落枱，記低有幾多個背面；重複六次，按先後次序由初爻錄到上爻。唔方便用硬幣，可以用「線上模擬搖卦」。' },
+      name: 'Q2　本人未曾搖過卦，如何入門？',
+      acceptedAnswer: { '@type': 'Answer', text: '準備三枚相同的硬幣，心中默想一事，雙手覆著硬幣搖勻後擲於桌上，記錄背面的數量；重複六次，按先後次序由初爻錄至上爻。不便使用硬幣者，可使用「線上模擬搖卦」。' },
     },
     {
       '@type': 'Question',
-      name: 'Q3　乜嘢係世應？',
-      acceptedAnswer: { '@type': 'Answer', text: '世爻代表自己（問事人），應爻代表對方或所問之事嘅另一方。工具按京房八宮構造法自動標出世應位置。' },
+      name: 'Q3　什麼是世應？',
+      acceptedAnswer: { '@type': 'Answer', text: '世爻代表自身（問事人），應爻代表對方或所問之事的另一方。工具按京房八宮構造法自動標出世應位置。' },
     },
     {
       '@type': 'Question',
-      name: 'Q4　乜嘢係伏神？',
-      acceptedAnswer: { '@type': 'Answer', text: '當卦中六親唔齊（例如問財但卦中無財爻），就要去本宮首卦搵返所缺嘅六親，叫做伏神。資料包會列明伏神干支、伏喺邊一爻之下、飛神係乜。' },
+      name: 'Q4　什麼是伏神？',
+      acceptedAnswer: { '@type': 'Answer', text: '當卦中六親不齊（例如問財但卦中無財爻），須至本宮首卦找回所缺的六親，稱為伏神。資料包將列明伏神干支、伏於哪一爻之下、飛神為何。' },
     },
     {
       '@type': 'Question',
-      name: 'Q5　資料包貼畀 AI 之後，AI 會唔會亂補嘢？',
-      acceptedAnswer: { '@type': 'Answer', text: '資料包附有使用規則：以資料包為唯一卦面事實、唔准重新裝卦、未列出嘅資料要直接講明。如果 AI 輸出嘅卦面同資料包唔一致，以資料包為準。' },
+      name: 'Q5　將資料包貼給 AI 之後，AI 會否隨意補充？',
+      acceptedAnswer: { '@type': 'Answer', text: '資料包附有使用規則：以資料包為唯一卦面事實、不得重新裝卦、未列出的資料須直接說明。若 AI 輸出的卦面與資料包不一致，以資料包為準。' },
     },
     {
       '@type': 'Question',
-      name: 'Q6　呢個工具需要付費嗎？',
-      acceptedAnswer: { '@type': 'Answer', text: '唔需要。六爻排盤同 AI 資料包全部免費，免登入免安裝。' },
+      name: 'Q6　此工具需要付費嗎？',
+      acceptedAnswer: { '@type': 'Answer', text: '不需要。六爻排盤與 AI 資料包全部免費，免登入、免安裝。' },
     },
   ],
 }

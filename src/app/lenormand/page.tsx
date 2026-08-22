@@ -27,33 +27,33 @@ const faqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Q1　雷諾曼有冇逆位？',
-      acceptedAnswer: { '@type': 'Answer', text: '傳統雷諾曼唔用逆位，本工具全部以正位論，牌嘅色彩由組合同脈絡決定。' },
+      name: 'Q1　雷諾曼有沒有逆位？',
+      acceptedAnswer: { '@type': 'Answer', text: '傳統雷諾曼不使用逆位，本工具全部以正位論，牌的色彩由組合與脈絡決定。' },
     },
     {
       '@type': 'Question',
-      name: 'Q2　我有自己副實體牌，可唔可以用？',
-      acceptedAnswer: { '@type': 'Answer', text: '可以。揀「錄入實體抽牌」，按你抽出嘅先後順序逐張點選，工具會照你嘅結果排陣同生成資料包（大藍圖除外）。' },
+      name: 'Q2　本人有實體牌，是否可以使用？',
+      acceptedAnswer: { '@type': 'Answer', text: '可以。選擇「錄入實體抽牌」，按抽出的先後順序逐張點選，工具將按您的結果排陣並生成資料包（大藍圖除外）。' },
     },
     {
       '@type': 'Question',
-      name: 'Q3　大藍圖係乜？',
-      acceptedAnswer: { '@type': 'Answer', text: '大藍圖（Grand Tableau）係雷諾曼最完整嘅讀法：36 張牌全部鋪出，9 列 4 行，由指示牌（代表你嘅牌）嘅位置、周圍嘅牌同宮位對應讀出全局。適合想全面睇一段時期運勢嘅時候用。' },
+      name: 'Q3　大藍圖是什麼？',
+      acceptedAnswer: { '@type': 'Answer', text: '大藍圖（Grand Tableau）是雷諾曼最完整的讀法：36 張牌全部鋪開，9 列 4 行，由指示牌（代表問卜人的牌）的位置、周圍的牌及宮位對應讀出全局。適合全面審視一段時期運勢時使用。' },
     },
     {
       '@type': 'Question',
-      name: 'Q4　乜嘢係指示牌？',
-      acceptedAnswer: { '@type': 'Answer', text: '指示牌（Significator）係代表問卜人嘅牌，傳統上男性用男人（28）、女性用女人（29），亦可以自選。大藍圖會以指示牌位置做解讀中心。' },
+      name: 'Q4　什麼是指示牌？',
+      acceptedAnswer: { '@type': 'Answer', text: '指示牌（Significator）是代表問卜人的牌，傳統上男性用男人（28）、女性用女人（29），亦可自行選擇。大藍圖將以指示牌位置作為解讀中心。' },
     },
     {
       '@type': 'Question',
-      name: 'Q5　點問先問得好？',
-      acceptedAnswer: { '@type': 'Answer', text: '一次聚焦一件事，問開放式問題會比是非題有層次：與其問「我應唔應該辭職」，不如問「如果我留低，接落嚟會點發展」。問題越具體，連讀越貼身。' },
+      name: 'Q5　如何提問才有效？',
+      acceptedAnswer: { '@type': 'Answer', text: '一次聚焦一件事，開放式問題比是非題更有層次：與其問「我應否辭職」，不如問「若繼續留下，接下來將如何發展」。問題越具體，連讀越貼身。' },
     },
     {
       '@type': 'Question',
-      name: 'Q6　呢個工具需要付費嗎？',
-      acceptedAnswer: { '@type': 'Answer', text: '唔需要。雷諾曼占卜同 AI 資料包全部免費，免登入免安裝。' },
+      name: 'Q6　此工具需要付費嗎？',
+      acceptedAnswer: { '@type': 'Answer', text: '不需要。雷諾曼占卜與 AI 資料包全部免費，免登入、免安裝。' },
     },
   ],
 }

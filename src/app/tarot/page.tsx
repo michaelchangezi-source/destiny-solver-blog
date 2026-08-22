@@ -27,33 +27,33 @@ const faqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Q1　塔羅同雷諾曼有咩分別？',
-      acceptedAnswer: { '@type': 'Answer', text: '塔羅重原型同心理歷程，適合探索「我點面對呢件事」；雷諾曼重具體事象同組合連讀，適合問日常實事。兩套系統讀法唔同，本站兩個工具都有。' },
+      name: 'Q1　塔羅與雷諾曼有何分別？',
+      acceptedAnswer: { '@type': 'Answer', text: '塔羅著重原型與心理歷程，適合探索「如何面對此事」；雷諾曼著重具體事象與組合連讀，適合詢問日常實事。兩套系統讀法各異，本站兩個工具均備。' },
     },
     {
       '@type': 'Question',
-      name: 'Q2　我有自己副實體塔羅，可唔可以用？',
-      acceptedAnswer: { '@type': 'Answer', text: '可以。揀「錄入實體抽牌」，按抽出先後逐張點選，再喺名單度切換正逆位，工具會照你嘅結果排陣同生成資料包。' },
+      name: 'Q2　本人有實體塔羅牌，是否可以使用？',
+      acceptedAnswer: { '@type': 'Answer', text: '可以。選擇「錄入實體抽牌」，按抽出先後逐張點選，再於名單中切換正逆位，工具將按您的結果排陣並生成資料包。' },
     },
     {
       '@type': 'Question',
-      name: 'Q3　凱爾特十字係乜？',
-      acceptedAnswer: { '@type': 'Answer', text: '凱爾特十字（Celtic Cross）係最經典嘅十張牌陣：現況、挑戰、根源、過去、目標、未來、自身態度、外在環境、希望與恐懼、可能結果，適合想全面睇一件事嘅時候用。' },
+      name: 'Q3　凱爾特十字是什麼？',
+      acceptedAnswer: { '@type': 'Answer', text: '凱爾特十字（Celtic Cross）是最經典的十張牌陣：現況、挑戰、根源、過去、目標、未來、自身態度、外在環境、希望與恐懼、可能結果，適合全面審視一件事時使用。' },
     },
     {
       '@type': 'Question',
-      name: 'Q4　一定要用逆位嗎？',
-      acceptedAnswer: { '@type': 'Answer', text: '唔一定。逆位增加細節但都增加複雜度，初學者可以喺抽牌前閂咗「使用逆位」，全部以正位論。' },
+      name: 'Q4　一定要使用逆位嗎？',
+      acceptedAnswer: { '@type': 'Answer', text: '不一定。逆位增加細節，同時亦增加複雜度，初學者可於抽牌前關閉「使用逆位」，全部以正位論。' },
     },
     {
       '@type': 'Question',
-      name: 'Q5　資料包貼畀 AI 之後，AI 會唔會亂咁嚇我？',
-      acceptedAnswer: { '@type': 'Answer', text: '資料包附有使用規則：唔准恐嚇、唔准斷生死、牌反映嘅係當下能量唔係命定，每個判斷要標明牌面依據。如果 AI 輸出嘅牌同資料包唔一致，以資料包為準。' },
+      name: 'Q5　將資料包貼給 AI 之後，AI 會否隨意恐嚇？',
+      acceptedAnswer: { '@type': 'Answer', text: '資料包附有使用規則：不得恐嚇、不得斷言生死、牌面反映的是當下能量而非命定，每個判斷須標明牌面依據。若 AI 輸出的牌與資料包不一致，以資料包為準。' },
     },
     {
       '@type': 'Question',
-      name: 'Q6　呢個工具需要付費嗎？',
-      acceptedAnswer: { '@type': 'Answer', text: '唔需要。塔羅占卜同 AI 資料包全部免費，免登入免安裝。' },
+      name: 'Q6　此工具需要付費嗎？',
+      acceptedAnswer: { '@type': 'Answer', text: '不需要。塔羅占卜與 AI 資料包全部免費，免登入、免安裝。' },
     },
   ],
 }

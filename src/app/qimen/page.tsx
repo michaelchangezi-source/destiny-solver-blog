@@ -27,33 +27,33 @@ const faqJsonLd = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'Q1　奇門遁甲要唔要輸入出生時間？',
-      acceptedAnswer: { '@type': 'Answer', text: '唔需要。奇門以起局時刻定盤，唔使出生資料；如果想喺盤中對照自己，可以選填出生年做年命參照。' },
+      name: 'Q1　奇門遁甲需要輸入出生時間嗎？',
+      acceptedAnswer: { '@type': 'Answer', text: '不需要。奇門以起局時刻定盤，不需要出生資料；若希望在盤中對照自身，可選填出生年作為年命參照。' },
     },
     {
       '@type': 'Question',
-      name: 'Q2　乜嘢係值符值使？',
-      acceptedAnswer: { '@type': 'Answer', text: '值符係當旬旬首所帶嘅九星，代表事情嘅主氣所在；值使係同宮嘅八門，多與人事同行動相關。工具會列明兩者落喺邊一宮。' },
+      name: 'Q2　什麼是值符值使？',
+      acceptedAnswer: { '@type': 'Answer', text: '值符是當旬旬首所配之九星，代表事情的主氣所在；值使是同宮的八門，多與人事及行動相關。工具將列明兩者所落之宮位。' },
     },
     {
       '@type': 'Question',
-      name: 'Q3　拆補定局係乜？',
-      acceptedAnswer: { '@type': 'Answer', text: '拆補以起局日嘅符頭（最近嘅甲日或己日）地支定上中下元：子午卯酉為上元、寅申巳亥為中元、辰戌丑未為下元，再按節氣查局數。本工具固定用拆補，並喺資料包寫明。' },
+      name: 'Q3　拆補定局是什麼？',
+      acceptedAnswer: { '@type': 'Answer', text: '拆補以起局日的符頭（最近的甲日或己日）地支定上中下元：子午卯酉為上元、寅申巳亥為中元、辰戌丑未為下元，再按節氣查局數。本工具固定使用拆補，並於資料包中說明。' },
     },
     {
       '@type': 'Question',
-      name: 'Q4　點解中五宮無門星神？',
-      acceptedAnswer: { '@type': 'Answer', text: '轉盤奇門中五宮唔安門星神，寄於坤二宮；天禽星寄天芮。工具喺中宮同資料包都會標明「寄坤二宮」。' },
+      name: 'Q4　為何中五宮沒有門星神？',
+      acceptedAnswer: { '@type': 'Answer', text: '轉盤奇門中五宮不安門星神，寄於坤二宮；天禽星寄天芮。工具在中宮及資料包中均會標明「寄坤二宮」。' },
     },
     {
       '@type': 'Question',
-      name: 'Q5　資料包貼畀 AI 之後，AI 會唔會亂補嘢？',
-      acceptedAnswer: { '@type': 'Answer', text: '資料包附有使用規則：以資料包為唯一盤面事實、唔准改局重排、未列出嘅層級要直接講明。實測主流模型會照跟；如果 AI 輸出嘅盤面同資料包唔一致，以資料包為準。' },
+      name: 'Q5　將資料包貼給 AI 之後，AI 會否隨意補充？',
+      acceptedAnswer: { '@type': 'Answer', text: '資料包附有使用規則：以資料包為唯一盤面事實、不得改局重排、未列出的層級須直接說明。實測主流模型均會遵從；若 AI 輸出的盤面與資料包不一致，以資料包為準。' },
     },
     {
       '@type': 'Question',
-      name: 'Q6　呢個工具需要付費嗎？',
-      acceptedAnswer: { '@type': 'Answer', text: '唔需要。奇門排盤同 AI 資料包全部免費，免登入免安裝。' },
+      name: 'Q6　此工具需要付費嗎？',
+      acceptedAnswer: { '@type': 'Answer', text: '不需要。奇門排盤與 AI 資料包全部免費，免登入、免安裝。' },
     },
   ],
 }
