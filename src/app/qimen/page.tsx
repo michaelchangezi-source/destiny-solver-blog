@@ -58,6 +58,19 @@ const faqJsonLd = {
   ],
 }
 
+const howToJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: '如何用奇門遁甲排盤搭配 AI 分析',
+  description: '輸入起局時刻，由本工具自動排出奇門九宮盤，再複製資料包給 ChatGPT、Claude 或 Gemini 解讀，不需出生時間，全程免費。',
+  step: [
+    { '@type': 'HowToStep', position: 1, name: '輸入起局時刻', text: '在「起局」面板輸入您起念或起事的日期與時辰；如需對照自身可選填出生年。' },
+    { '@type': 'HowToStep', position: 2, name: '確認九宮盤', text: '工具自動計算陰陽遁局數、拆補三元、值符值使落宮，並排出九宮天地盤、門星神及各類標記。' },
+    { '@type': 'HowToStep', position: 3, name: '複製 AI 解讀資料包', text: '在「交給 AI 解讀」面板點擊複製，資料包包含完整盤面結構、排盤口徑說明及 AI 使用規則。' },
+    { '@type': 'HowToStep', position: 4, name: '貼至 AI 獲得解讀', text: '將資料包貼至 ChatGPT、Claude 或 Gemini，AI 會以資料包為唯一盤面事實，不得改局重排，缺少的層級會如實說明。' },
+  ],
+}
+
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -72,6 +85,7 @@ export default function QimenPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <QimenTool />
     </>

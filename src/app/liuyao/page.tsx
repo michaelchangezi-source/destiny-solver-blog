@@ -58,6 +58,19 @@ const faqJsonLd = {
   ],
 }
 
+const howToJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: '如何用六爻排盤搭配 AI 分析',
+  description: '親手搖卦或線上起卦，由本工具排出完整卦象，再複製資料包給 ChatGPT、Claude 或 Gemini 解讀，不需出生時間，全程免費。',
+  step: [
+    { '@type': 'HowToStep', position: 1, name: '起卦', text: '心中默想一事，以三枚硬幣搖擲六次，記錄每次背面數量，或點擊「線上模擬搖卦」。' },
+    { '@type': 'HowToStep', position: 2, name: '錄入爻象', text: '按由初爻至上爻的順序，逐一錄入每次搖出的結果（老陰老陽動爻會自動標記）。' },
+    { '@type': 'HowToStep', position: 3, name: '確認卦象並複製資料包', text: '工具自動排出本卦變卦、納甲六親六獸、世應旬空月破伏神。點擊「複製資料包」。' },
+    { '@type': 'HowToStep', position: 4, name: '貼至 AI 獲得解讀', text: '將資料包貼至 ChatGPT、Claude 或 Gemini，AI 會以資料包為唯一卦面事實進行解讀，不會重新裝卦或補填未列資料。' },
+  ],
+}
+
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -72,6 +85,7 @@ export default function LiuyaoPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <LiuyaoTool />
     </>

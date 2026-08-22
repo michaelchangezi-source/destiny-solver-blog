@@ -58,6 +58,19 @@ const faqJsonLd = {
   ],
 }
 
+const howToJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: '如何用塔羅牌搭配 AI 解讀',
+  description: '在命運解決師平台抽塔羅牌，再複製資料包給 ChatGPT、Claude 或 Gemini 深入解讀，全程免費、免登入。',
+  step: [
+    { '@type': 'HowToStep', position: 1, name: '選擇牌陣', text: '從單張指引、三張時間線、愛情牌陣、二擇一、凱爾特十字五種牌陣中選擇一種，並決定是否啟用逆位。' },
+    { '@type': 'HowToStep', position: 2, name: '抽牌或錄入實體牌', text: '點擊「線上抽牌」讓工具以加密隨機數洗牌，或選擇「錄入實體抽牌」按自己抽出的順序點選各牌並切換正逆位。' },
+    { '@type': 'HowToStep', position: 3, name: '複製 AI 解讀資料包', text: '抽牌完成後，選擇解讀方向，點擊「複製資料包」，資料包包含牌陣結構、各位置意義、每張牌的正逆位與關鍵詞，以及 AI 使用規則。' },
+    { '@type': 'HowToStep', position: 4, name: '貼至 AI 獲得解讀', text: '將資料包貼至 ChatGPT、Claude 或 Gemini，AI 會按位置連讀成故事，不會逐張獨立交代，亦不會隨意恐嚇。' },
+  ],
+}
+
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -72,6 +85,7 @@ export default function TarotPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <TarotTool />
     </>

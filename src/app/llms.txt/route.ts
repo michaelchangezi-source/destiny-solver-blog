@@ -59,10 +59,10 @@ export function GET(): Response {
 
 - [八字速算](${BASE_URL}/bazi)：四柱大運排盤，深度分析建議人手諮詢
 - [八字合盤](${BASE_URL}/compat)：干支互動分析，不提供 AI 資料包，合盤深度分析建議人手諮詢
-- [六爻排盤](${BASE_URL}/liuyao)：三錢起卦京房納甲，附 AI 資料包可複製給 ChatGPT／Claude／Gemini 解讀
-- [奇門遁甲](${BASE_URL}/qimen)：轉盤時家拆補定局，附 AI 資料包
-- [塔羅占卜](${BASE_URL}/tarot)：韋特 78 張正逆位五種牌陣，附 AI 資料包
-- [雷諾曼占卜](${BASE_URL}/lenormand)：36 張六種牌陣，附 AI 資料包
+- [六爻排盤](${BASE_URL}/liuyao)：想問一件具體之事的當下走向與進退，三錢起卦、京房納甲，自動排出本卦變卦、六親六獸、旬空月破伏神，附 AI 資料包可複製給 ChatGPT／Claude／Gemini 解讀，不需出生時間
+- [奇門遁甲](${BASE_URL}/qimen)：想看一件事此刻的局勢與行動方向，轉盤時家拆補定局，自動排出九宮天地盤、門星神、值符值使，附 AI 資料包，不需出生時間
+- [塔羅占卜](${BASE_URL}/tarot)：想透過圖像系統探索內心處境或抉擇方向，韋特 78 張正逆位、五種牌陣（單張至凱爾特十字），附 AI 解讀資料包，免登入
+- [雷諾曼占卜](${BASE_URL}/lenormand)：想問日常具體實事，36 張組合連讀、六種牌陣（每日一張至大藍圖），附 AI 解讀資料包，免登入
 - [日運能量](${BASE_URL}/daily)：每日流日五行分析
 - [預約諮詢](${BASE_URL}/consultation)：一對一命盤深度解讀
 

@@ -58,6 +58,19 @@ const faqJsonLd = {
   ],
 }
 
+const howToJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: '如何用雷諾曼牌搭配 AI 解讀',
+  description: '在命運解決師平台抽雷諾曼牌，再複製資料包給 ChatGPT、Claude 或 Gemini 進行組合連讀，全程免費、免登入。',
+  step: [
+    { '@type': 'HowToStep', position: 1, name: '選擇牌陣', text: '從每日一張、三張連讀、五張連讀、九宮格、二選一、大藍圖六種牌陣中選擇一種；大藍圖需選擇指示牌。' },
+    { '@type': 'HowToStep', position: 2, name: '抽牌或錄入實體牌', text: '點擊「線上抽牌」讓工具隨機抽出，或選擇「錄入實體抽牌」按抽出順序逐張點選。' },
+    { '@type': 'HowToStep', position: 3, name: '複製 AI 解讀資料包', text: '抽牌完成後點擊「複製資料包」，資料包列明牌陣結構、每個位置的意義及各牌傳統關鍵詞，並指明 AI 須組合連讀。' },
+    { '@type': 'HowToStep', position: 4, name: '貼至 AI 獲得解讀', text: '將資料包貼至 ChatGPT、Claude 或 Gemini，AI 會按雷諾曼組合連讀邏輯解析，而非逐張獨立交代。' },
+  ],
+}
+
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -72,6 +85,7 @@ export default function LenormandPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <LenormandTool />
     </>
