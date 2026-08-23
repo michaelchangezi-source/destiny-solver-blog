@@ -109,10 +109,10 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
 
             <div className="hero-d-cta flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link
-                href="/bazi"
+                href="/tools"
                 className="flex items-center justify-center gap-2 rounded-lg bg-[#E0552C] px-7 py-4 sm:py-3.5 font-bold text-[#FBF7EE] shadow-[0_10px_24px_-10px_rgba(224,85,44,0.45)] transition-[background-color,transform] duration-200 hover:bg-[#C9461F] active:scale-[0.97]"
               >
-                免費排盤，讀你的命局 <ArrowRight size={18} />
+                免費排盤占卜，立即體驗 <ArrowRight size={18} />
               </Link>
               <Link
                 href="/consultation"
