@@ -101,6 +101,13 @@ export default async function GlossaryTermPage({ params }: Props) {
         <p className="text-[#5A5247] leading-relaxed">{entry.misconception}</p>
       </section>
 
+      {entry.example && (
+        <section className="mb-10 rounded-lg bg-[#F4EEE1] p-5">
+          <h2 className="text-[#2B241C] text-base font-bold mb-3">實例說明</h2>
+          <p className="text-[#5A5247] text-sm leading-relaxed">{entry.example}</p>
+        </section>
+      )}
+
       {relatedArticles.length > 0 && (
         <section>
           <h2 className="text-[#2B241C] text-xl font-bold mb-4">延伸閱讀</h2>
