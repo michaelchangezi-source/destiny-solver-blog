@@ -53,7 +53,15 @@ export const PERSON = {
     '@type': 'Occupation',
     name: '命理師',
   },
-  knowsAbout: ['八字命理', '八字格局', '十神', '大運流年', '吠陀占星', '五行哲學'],
+  knowsAbout: ['八字命理', '八字格局', '十神', '大運流年', '吠陀占星', '五行哲學', '紫微斗數', '西洋占星', '六爻', '奇門遁甲', '塔羅', '雷諾曼'],
+  hasCredential: [
+    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'degree', name: '經濟統計學碩士', recognizedBy: { '@type': 'EducationalOrganization', name: '香港科技大學', sameAs: 'https://www.hkust.edu.hk' } },
+    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'degree', name: '經濟學學士', recognizedBy: { '@type': 'EducationalOrganization', name: '香港中文大學', sameAs: 'https://www.cuhk.edu.hk' } },
+  ],
+  workedFor: [
+    { '@type': 'Organization', name: '明報', description: '香港主流報章' },
+    { '@type': 'Organization', name: '經濟日報', description: '香港財經報章' },
+  ],
   award: [
     '第四屆香港出版雙年獎（2023年，商業及管理類）',
     '2022年度香港誠品書店年度暢銷書 TOP100',

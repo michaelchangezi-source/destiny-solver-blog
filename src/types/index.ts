@@ -120,6 +120,21 @@ export const CATEGORY_GLYPHS: Record<string, string> = {
   '風水地理': '風',
 }
 
+// 概念路徑：每個分類的「基礎概念」（先讀）同「進階延伸」（後讀），
+// 用於文章底部的語義導航，形成 Topic Graph。
+export const CONCEPT_PATH: Record<string, { foundations: string[]; advanced: string[] }> = {
+  '八字基礎': { foundations: [], advanced: ['干支詳解', '十神應用'] },
+  '干支詳解': { foundations: ['八字基礎'], advanced: ['十神應用', '命盤格局'] },
+  '十神應用': { foundations: ['八字基礎', '干支詳解'], advanced: ['命盤格局', '大運流年'] },
+  '命盤格局': { foundations: ['十神應用'], advanced: ['實戰斷命', '大運流年'] },
+  '實戰斷命': { foundations: ['命盤格局', '大運流年'], advanced: [] },
+  '大運流年': { foundations: ['十神應用', '命盤格局'], advanced: ['實戰斷命'] },
+  '感情格局': { foundations: ['十神應用', '大運流年'], advanced: ['實戰斷命'] },
+  '事業財運': { foundations: ['十神應用', '大運流年'], advanced: ['實戰斷命'] },
+  '健康命理': { foundations: ['八字基礎', '十神應用'], advanced: [] },
+  '風水地理': { foundations: ['八字基礎'], advanced: [] },
+}
+
 // Category display order (01-10)
 export const CATEGORY_ORDER: string[] = [
   '八字基礎',

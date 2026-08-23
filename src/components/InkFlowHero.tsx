@@ -203,7 +203,7 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
                 href="/daily/me"
                 className="mt-2.5 flex items-center justify-center gap-1 text-[13px] text-[#6B6155] transition-colors duration-200 hover:text-[#B23E26]"
               >
-                今日對你自己又點？ <ArrowRight size={13} />
+                今日對你有什麼影響？ <ArrowRight size={13} />
               </Link>
             </div>
           </div>

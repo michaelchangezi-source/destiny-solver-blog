@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Clock, Calendar, Tag, ChevronRight } from 'lucide-react'
 import { getArticleBySlug, getArticleSlugs, getRelatedArticles, getAdjacentArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/utils'
-import { CATEGORY_SLUGS } from '@/types'
+import { CATEGORY_SLUGS, CONCEPT_PATH } from '@/types'
 import ArticleBody from '@/components/blog/ArticleBody'
 import ArticleCard from '@/components/blog/ArticleCard'
 import CopyAttribution from '@/components/blog/CopyAttribution'
@@ -526,6 +526,51 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </div>
       )}
+
+      {/* 學習路徑：語義化概念導航 */}
+      {(() => {
+        const path = CONCEPT_PATH[article.category]
+        if (!path || (path.foundations.length === 0 && path.advanced.length === 0)) return null
+        return (
+          <div className="mt-12 border border-[#2B241C]/10 rounded-lg p-6 bg-[#FBF7EE]">
+            <h2 className="text-[#2B241C] text-base font-bold mb-4">學習路徑</h2>
+            <div className="flex flex-col sm:flex-row gap-6">
+              {path.foundations.length > 0 && (
+                <div className="flex-1">
+                  <p className="text-[#6B6155] text-xs tracking-widest mb-3">基礎概念</p>
+                  <div className="flex flex-wrap gap-2">
+                    {path.foundations.map((cat) => (
+                      <Link
+                        key={cat}
+                        href={`/categories/${CATEGORY_SLUGS[cat] ?? cat}`}
+                        className="text-sm text-[#5A5247] border border-[#2B241C]/12 rounded-full px-3 py-1 hover:border-[#B23E26]/40 hover:text-[#B23E26] transition-colors"
+                      >
+                        ← {cat}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {path.advanced.length > 0 && (
+                <div className="flex-1">
+                  <p className="text-[#6B6155] text-xs tracking-widest mb-3">進階延伸</p>
+                  <div className="flex flex-wrap gap-2">
+                    {path.advanced.map((cat) => (
+                      <Link
+                        key={cat}
+                        href={`/categories/${CATEGORY_SLUGS[cat] ?? cat}`}
+                        className="text-sm text-[#5A5247] border border-[#2B241C]/12 rounded-full px-3 py-1 hover:border-[#B23E26]/40 hover:text-[#B23E26] transition-colors"
+                      >
+                        {cat} →
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      })()}
         </article>
 
         {/* 長文 sticky 目錄（C3）：有子標題先顯示，xl 闊屏限定 */}
