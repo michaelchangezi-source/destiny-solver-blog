@@ -6,8 +6,8 @@ import { buildMetadata } from '@/lib/metadata'
 export const revalidate = 3600
 
 export const metadata = buildMetadata({
-  title: '日運能量｜今日及未來一週八字流日分析',
-  description: '根據流年、流月、流日三柱六字五行計分，分析每日大環境能量，提供宜忌參考。非個人命盤，適用所有人。',
+  title: '今日運勢｜每日八字流日能量分析',
+  description: '根據流年、流月、流日三柱六字五行計分，分析每日大環境能量及今日運勢，提供宜忌參考。非個人命盤，每日更新，適用所有人。',
   path: '/daily',
 })
 

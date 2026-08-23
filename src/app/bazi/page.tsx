@@ -5,8 +5,8 @@ import { getArticlesByElement, getArticlesByCategory } from '@/lib/articles'
 import type { ArticleMeta } from '@/types'
 
 export const metadata = buildMetadata({
-  title: '免費八字排盤｜四柱大運速算',
-  description: '免費八字排盤工具，即時算出四柱命盤、十神、藏干及大運。支援真太陽時校正、神煞查詢、流年流月時間軸。香港命運解決師陳卓賢出品，無需註冊。',
+  title: '免費八字排盤算命｜四柱命盤大運速算',
+  description: '免費八字排盤算命工具，輸入生辰八字即時算出四柱命盤、十神、藏干及大運。支援真太陽時校正、神煞查詢、流年流月時間軸。生辰八字查詢、八字算命免費，香港命運解決師陳卓賢出品，無需註冊。',
   path: '/bazi',
 })
 

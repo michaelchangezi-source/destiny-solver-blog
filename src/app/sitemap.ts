@@ -3,7 +3,7 @@ import { getAllArticles } from '@/lib/articles'
 import { CATEGORY_SLUGS } from '@/types'
 import { GLOSSARY_TERMS } from '@/lib/glossary'
 
-const BASE_URL = 'https://www.destinysolver.com'
+const BASE_URL = 'https://destinysolver.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // P0-1: 過濾未來日期文章，避免把尚未發佈的 URL 寫進 sitemap
@@ -71,8 +71,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/compat`, lastModified: new Date('2025-12-01'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/tools`, lastModified: new Date('2026-08-21'), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE_URL}/tools-guide`, lastModified: new Date('2026-08-21'), changeFrequency: 'yearly', priority: 0.8 },
-    { url: `${BASE_URL}/daily`, lastModified: new Date('2026-01-01'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/daily/me`, lastModified: new Date('2026-08-11'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/daily`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE_URL}/daily/me`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${BASE_URL}/privacy`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/terms`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/disclaimer`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },

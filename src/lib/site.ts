@@ -3,7 +3,7 @@
 // 一律由此匯出，供 layout / about / 文章頁共用，確保 Google 與 AI 把散落各地盤的
 // 帳號縫合成「同一個人」，並與其他同名公眾人物區分開來。
 
-export const SITE_URL = 'https://www.destinysolver.com'
+export const SITE_URL = 'https://destinysolver.com'
 
 // 統一節點 ID：WebSite.author、Article.author、ProfilePage.mainEntity 全部指向
 // 同一個 @id，方便搜尋引擎合併成單一知識圖譜實體。

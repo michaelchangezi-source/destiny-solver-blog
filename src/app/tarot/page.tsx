@@ -3,7 +3,7 @@ import { SITE_URL } from '@/lib/site'
 import { buildMetadata } from '@/lib/metadata'
 
 export const metadata = buildMetadata({
-  title: '免費塔羅占卜｜78 張正逆位牌陣',
+  title: '免費塔羅牌占卜｜78 張正逆位牌陣',
   description: '免費線上塔羅占卜：78 張韋特塔羅、正逆位、五種牌陣（單張、三張、愛情、二擇一、凱爾特十字），可線上抽牌或錄入實體牌，一鍵複製 AI 解讀資料包貼去 ChatGPT／Claude／Gemini。免登入。',
   path: '/tarot',
 })
