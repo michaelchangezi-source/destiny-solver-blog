@@ -42,11 +42,11 @@ const itemListJsonLd = {
   numberOfItems: 8,
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: '四柱八字排盤', url: `${SITE_URL}/bazi`, description: '免費八字排盤工具，即時算出四柱命盤、十神、藏干及大運。' },
-    { '@type': 'ListItem', position: 2, name: '八字合盤', url: `${SITE_URL}/compat`, description: '免費八字合盤工具，輸入兩人生辰即時對照五行能量結構。' },
+    { '@type': 'ListItem', position: 2, name: '八字合婚配對', url: `${SITE_URL}/compat`, description: '免費八字合婚配對工具，輸入兩人生辰即時對照雙方四柱八字的合婚關係。' },
     { '@type': 'ListItem', position: 3, name: '紫微斗數排盤', url: `${SITE_URL}/ziwei`, description: '免費紫微斗數排盤（飛星派），即時排出十二宮命盤、主星強度與大限。' },
     { '@type': 'ListItem', position: 4, name: '西洋占星排盤', url: `${SITE_URL}/western`, description: '免費西洋占星排盤，即時生成本命盤，列出十大行星星座與宮位。' },
-    { '@type': 'ListItem', position: 5, name: '六爻占卜', url: `${SITE_URL}/liuyao`, description: '免費六爻排盤，附 AI 解讀資料包，可複製給 ChatGPT、Claude 或 Gemini 解讀。' },
-    { '@type': 'ListItem', position: 6, name: '奇門遁甲排盤', url: `${SITE_URL}/qimen`, description: '免費奇門遁甲排局，附 AI 解讀資料包，可複製給 ChatGPT、Claude 或 Gemini 解讀。' },
+    { '@type': 'ListItem', position: 5, name: '六爻占卜排盤', url: `${SITE_URL}/liuyao`, description: '免費六爻占卜排盤，線上起卦問事，附 AI 解讀資料包，可複製給 ChatGPT、Claude 或 Gemini 解讀。' },
+    { '@type': 'ListItem', position: 6, name: '奇門遁甲占卜排盤', url: `${SITE_URL}/qimen`, description: '免費奇門遁甲占卜排盤，線上起局問事，附 AI 解讀資料包，可複製給 ChatGPT、Claude 或 Gemini 解讀。' },
     { '@type': 'ListItem', position: 7, name: '塔羅占卜', url: `${SITE_URL}/tarot`, description: '免費線上塔羅占卜，78 張韋特塔羅、五種牌陣，附 AI 解讀資料包。' },
     { '@type': 'ListItem', position: 8, name: '雷諾曼占卜', url: `${SITE_URL}/lenormand`, description: '免費線上雷諾曼占卜，36 張六種牌陣，附 AI 解讀資料包。' },
   ],
@@ -73,10 +73,10 @@ const PAIPAN_TOOLS = [
   {
     href: '/compat',
     label: 'Compat',
-    name: '八字合盤',
+    name: '八字合婚配對',
     char: '合',
     bg: 'bg-[#7A3A26]',
-    desc: '免費八字合盤工具，輸入兩人生辰即時對照五行能量結構，查看干支相生相剋與宮位互動。',
+    desc: '免費八字合婚配對工具，輸入兩人生辰即時對照雙方四柱八字，分析合婚關係與干支互動。',
   },
   {
     href: '/ziwei',

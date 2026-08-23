@@ -3,19 +3,19 @@ import { SITE_URL } from '@/lib/site'
 import { buildMetadata } from '@/lib/metadata'
 
 export const metadata = buildMetadata({
-  title: '免費奇門遁甲排盤｜轉盤時家一鍵起局',
-  description: '免費奇門遁甲排盤：轉盤時家、拆補定局、中五寄坤，一鍵排出陰陽遁局數、值符值使、九宮天地盤門星神，並生成可複製給 ChatGPT／Claude／Gemini 的 AI 解讀資料包。免登入、免安裝。',
+  title: '免費奇門遁甲占卜排盤｜線上起局問事',
+  description: '免費奇門遁甲占卜排盤工具，轉盤時家拆補定局，一鍵排出陰陽遁局數、值符值使、九宮天地盤門星神，並一鍵複製 AI 解讀資料包貼去 ChatGPT／Claude／Gemini 深入分析。奇門遁甲占卜免費，免登入、免安裝。',
   path: '/qimen',
 })
 
 const webApplicationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: '免費奇門遁甲排盤｜命運解決師 陳卓賢',
+  name: '免費奇門遁甲占卜排盤｜命運解決師 陳卓賢',
   url: `${SITE_URL}/qimen`,
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'Any',
-  description: '免費奇門遁甲排盤：轉盤時家、拆補定局、中五寄坤，一鍵排出陰陽遁局數、值符值使、九宮天地盤門星神，並生成可複製給 ChatGPT／Claude／Gemini 的 AI 解讀資料包。免登入、免安裝。',
+  description: '免費奇門遁甲占卜排盤工具，轉盤時家拆補定局，一鍵排出陰陽遁局數、值符值使、九宮天地盤門星神，並一鍵複製 AI 解讀資料包貼去 ChatGPT／Claude／Gemini 深入分析。奇門遁甲占卜免費，免登入、免安裝。',
   featureList: ['轉盤時家奇門', '拆補定局', '陰陽遁判斷', '值符值使落宮', '九宮天地盤門星神', '空馬刑墓迫標記', '選填年命參照', 'AI 解讀資料包複製', 'Permalink 重現此局'],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'HKD' },
   author: { '@type': 'Person', name: '陳卓賢', url: `${SITE_URL}/about` },

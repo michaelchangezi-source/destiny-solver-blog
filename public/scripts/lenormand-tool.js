@@ -57,7 +57,7 @@ function cryptoShuffleDraw(count){
 var PACK_VER='ds-lenormand-pack/1.0';
 function cardStr(n){var c=CARDS[n-1];return '#'+(n<10?'0':'')+n+' '+c.zh+' '+c.en+'（'+c.pk+'）';}
 function buildPermalink(st){
-  var base=location.origin&&location.origin!=='null'?location.origin+location.pathname:'https://www.destinysolver.com/lenormand';
+  var base=location.origin&&location.origin!=='null'?location.origin+location.pathname:'https://destinysolver.com/lenormand';
   var p=['s='+st.spread.id,'c='+st.cards.join('.')];
   if(st.sig)p.push('sig='+st.sig);
   if(st.q)p.push('q='+encodeURIComponent(st.q.slice(0,120)));

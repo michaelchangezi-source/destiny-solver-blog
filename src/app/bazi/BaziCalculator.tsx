@@ -692,7 +692,7 @@ export default function BaziCalculator({ articlesByElement = {}, articlesByCateg
       yunLine,
       ``,
       `由 destiny.solver 八字速算工具生成`,
-      `https://www.destinysolver.com/bazi`,
+      `https://destinysolver.com/bazi`,
     ].join('\n')
 
     const doConfirm = () => { setCopied(true); setTimeout(() => setCopied(false), 2000) }

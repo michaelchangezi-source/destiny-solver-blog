@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'destiny-solver-blog.vercel.app' }],
-        destination: 'https://www.destinysolver.com/:path*',
+        destination: 'https://destinysolver.com/:path*',
         permanent: true,
       },
       // P0-3（2026-08-06 審核）：內容重疊嘅教學文合併，舊 slug 301 去合併後嘅目標文章

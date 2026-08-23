@@ -67,7 +67,7 @@ var PACK_VER='ds-tarot-pack/1.0';
 function pad2(n){return (n<10?'0':'')+n;}
 function cardStr(c){var d=CARDS[c.id];return d.zh+' '+d.en+'（'+(c.rev?'逆位':'正位')+'）';}
 function buildPermalink(st){
-  var base=location.origin&&location.origin!=='null'?location.origin+location.pathname:'https://www.destinysolver.com/tarot';
+  var base=location.origin&&location.origin!=='null'?location.origin+location.pathname:'https://destinysolver.com/tarot';
   var p=['s='+st.spread.id,'c='+st.cards.map(function(c){return c.id+(c.rev?'r':'u');}).join('.')];
   if(st.q)p.push('q='+encodeURIComponent(st.q.slice(0,120)));
   if(st.optA)p.push('a='+encodeURIComponent(st.optA.slice(0,40)));

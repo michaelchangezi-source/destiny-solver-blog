@@ -12,7 +12,7 @@ import { SITE_URL, PERSON_ID, PUBLISHER, personJsonLd } from '@/lib/site'
 // 自託管 woff2（見 src/app/fonts.css）。字型堆疊定義喺 globals.css。
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.destinysolver.com'),
+  metadataBase: new URL('https://destinysolver.com'),
   title: {
     default: '命運解決師 陳卓賢｜八字命理深度解析',
     template: '%s｜命運解決師 陳卓賢',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'zh_TW',
-    url: 'https://www.destinysolver.com',
+    url: 'https://destinysolver.com',
     siteName: '命運解決師｜陳卓賢',
     title: '命運解決師｜八字命理深度解析',
     description: '用命理讀懂你這個人：不是預測命運，是認識自己。',

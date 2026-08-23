@@ -20,10 +20,10 @@ const FAINT = '#6B6155'
 const TITLE = '命運解決師'
 const SUB = '八字命理深度解析'
 const LATIN = 'DESTINY · SOLVER'
-const DOMAIN = 'www.destinysolver.com'
+const DOMAIN = 'destinysolver.com'
 const SUBSET = Array.from(new Set((TITLE + SUB + LATIN + DOMAIN + '命').split(''))).join('')
 
-const AVATAR_URL = 'https://www.destinysolver.com/images/avatar.png'
+const AVATAR_URL = 'https://destinysolver.com/images/avatar.png'
 
 export default async function OpengraphImage() {
   // 字型載入失敗（例如離線 build）時，退回拉丁字版面，確保 build 不中斷。

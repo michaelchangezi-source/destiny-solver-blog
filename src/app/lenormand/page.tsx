@@ -3,8 +3,8 @@ import { SITE_URL } from '@/lib/site'
 import { buildMetadata } from '@/lib/metadata'
 
 export const metadata = buildMetadata({
-  title: '免費雷諾曼占卜｜36 張牌陣連讀',
-  description: '免費線上雷諾曼占卜：36 張 Petit Lenormand，六種牌陣（每日一張、三張、五張、九宮格、二選一、大藍圖），可線上抽牌或錄入實體牌，一鍵複製 AI 解讀資料包貼去 ChatGPT／Claude／Gemini。免登入。',
+  title: '免費雷諾曼占卜｜36 張線上抽牌問事',
+  description: '免費線上雷諾曼占卜：36 張 Petit Lenormand，六種牌陣（每日一張、三張、五張、九宮格、二選一、大藍圖），可線上抽牌或錄入實體牌，一鍵複製 AI 解讀資料包貼去 ChatGPT／Claude／Gemini 深入分析。免費占卜，免登入、免安裝。',
   path: '/lenormand',
 })
 
@@ -15,7 +15,7 @@ const webApplicationJsonLd = {
   url: `${SITE_URL}/lenormand`,
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'Any',
-  description: '免費線上雷諾曼占卜：36 張 Petit Lenormand，六種牌陣（每日一張、三張、五張、九宮格、二選一、大藍圖），可線上抽牌或錄入實體牌，一鍵複製 AI 解讀資料包貼去 ChatGPT／Claude／Gemini。免登入。',
+  description: '免費線上雷諾曼占卜：36 張 Petit Lenormand，六種牌陣（每日一張、三張、五張、九宮格、二選一、大藍圖），可線上抽牌或錄入實體牌，一鍵複製 AI 解讀資料包貼去 ChatGPT／Claude／Gemini 深入分析。免費占卜，免登入、免安裝。',
   featureList: ['Petit Lenormand 36 張', '六種牌陣（每日一張至大藍圖）', '線上加密隨機抽牌', '實體牌手動錄入', '大藍圖 9×4 宮位排列', '指示牌選擇', 'AI 解讀資料包複製', 'Permalink 重現此局'],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'HKD' },
   author: { '@type': 'Person', name: '陳卓賢', url: `${SITE_URL}/about` },

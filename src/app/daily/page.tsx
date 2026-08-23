@@ -6,8 +6,8 @@ import { buildMetadata } from '@/lib/metadata'
 export const revalidate = 3600
 
 export const metadata = buildMetadata({
-  title: '今日運勢｜每日八字流日能量分析',
-  description: '根據流年、流月、流日三柱六字五行計分，分析每日大環境能量及今日運勢，提供宜忌參考。非個人命盤，每日更新，適用所有人。',
+  title: '今日運勢運程｜每日五行能量分析',
+  description: '每日運勢運程免費更新：根據流年、流月、流日三柱五行計分，分析今日運勢及大環境能量，提供每日宜忌參考。非個人命盤，每日自動更新，適用所有人，免費免登入。',
   path: '/daily',
 })
 
@@ -41,12 +41,12 @@ const faq = [
 const webApplicationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: '日運能量',
+  name: '今日運勢運程｜命運解決師 陳卓賢',
   url: `${SITE_URL}/daily`,
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'Any',
   description:
-    '根據流年、流月、流日三柱六字五行計分，分析每日大環境能量並提供宜忌參考的免費線上工具。',
+    '每日運勢運程免費更新：根據流年、流月、流日三柱五行計分，分析今日運勢及大環境能量，提供每日宜忌參考。',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'HKD' },
 }
 

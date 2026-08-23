@@ -188,7 +188,7 @@ var DSQM=(function(){
 /* ═══════════════ DS-PACK-START：資料包＋Prompt（文字改動要升版本號 ds-qimen-pack） ═══════════════ */
 var PACK_VER='ds-qimen-pack/1.0';
 function buildPermalink(st){
-  var base=location.origin&&location.origin!=='null'?location.origin+location.pathname:'https://www.destinysolver.com/qimen';
+  var base=location.origin&&location.origin!=='null'?location.origin+location.pathname:'https://destinysolver.com/qimen';
   var p=[];
   p.push('t='+st.tstr);
   if(st.q)p.push('q='+encodeURIComponent(st.q.slice(0,120)));

@@ -216,7 +216,7 @@ var DSLY=(function(){
 var PACK_VER='ds-liuyao-pack/1.0';
 var POS_NAME=['初爻','二爻','三爻','四爻','五爻','上爻'];
 function buildPermalink(st){
-  var base=location.origin&&location.origin!=='null'?location.origin+location.pathname:'https://www.destinysolver.com/liuyao';
+  var base=location.origin&&location.origin!=='null'?location.origin+location.pathname:'https://destinysolver.com/liuyao';
   var p=['l='+st.values.join(''),'t='+st.tstr,'m='+st.mode];
   if(st.q)p.push('q='+encodeURIComponent(st.q.slice(0,120)));
   return base+'?'+p.join('&');

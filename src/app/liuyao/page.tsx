@@ -3,19 +3,19 @@ import { SITE_URL } from '@/lib/site'
 import { buildMetadata } from '@/lib/metadata'
 
 export const metadata = buildMetadata({
-  title: '免費六爻排盤｜三錢起卦京房納甲',
-  description: '免費六爻排盤：親手搖卦錄入或線上起卦，即時排出本卦變卦、納甲六親、六獸世應、旬空月破伏神，並生成可複製給 ChatGPT／Claude／Gemini 的 AI 解讀資料包。免登入、免安裝。',
+  title: '免費六爻占卜排盤｜線上起卦問事',
+  description: '免費六爻占卜排盤工具，一事一問，線上起卦或親手搖卦錄入，即時排出本卦變卦、納甲六親、六獸世應、旬空月破伏神，並一鍵複製 AI 解讀資料包貼去 ChatGPT／Claude／Gemini 深入分析。六爻占卜免費，免登入、免安裝。',
   path: '/liuyao',
 })
 
 const webApplicationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: '免費六爻排盤｜命運解決師 陳卓賢',
+  name: '免費六爻占卜排盤｜命運解決師 陳卓賢',
   url: `${SITE_URL}/liuyao`,
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'Any',
-  description: '免費六爻排盤：親手搖卦錄入或線上起卦，即時排出本卦變卦、納甲六親、六獸世應、旬空月破伏神，並生成可複製給 ChatGPT／Claude／Gemini 的 AI 解讀資料包。免登入、免安裝。',
+  description: '免費六爻占卜排盤工具，一事一問，線上起卦或親手搖卦錄入，即時排出本卦變卦、納甲六親、六獸世應、旬空月破伏神，並一鍵複製 AI 解讀資料包貼去 ChatGPT／Claude／Gemini 深入分析。六爻占卜免費，免登入、免安裝。',
   featureList: ['古法三錢起卦', '線上模擬搖卦', '本卦變卦自動裝卦', '納甲六親六獸', '世應旬空月破伏神標記', '伏神自動搵出', 'AI 解讀資料包複製', 'Permalink 重現卦象'],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'HKD' },
   author: { '@type': 'Person', name: '陳卓賢', url: `${SITE_URL}/about` },
