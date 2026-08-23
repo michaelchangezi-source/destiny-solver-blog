@@ -1,0 +1,71 @@
+name: IndexNow — Ping Bing on Article Publish
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/articles/**'
+
+jobs:
+  ping-indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Collect changed article slugs
+        id: slugs
+        run: |
+          # Get added/modified .md files in content/articles/
+          CHANGED=$(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- 'content/articles/*.md' 2>/dev/null || \
+                    git diff --name-only --diff-filter=AM $(git hash-object -t tree /dev/null) HEAD -- 'content/articles/*.md')
+
+          URLS=""
+          for f in $CHANGED; do
+            # Extract slug from frontmatter
+            SLUG=$(grep '^slug:' "$f" | head -1 | sed 's/slug: *"//' | sed 's/".*//' | tr -d '"' | tr -d "'")
+            # Skip future articles (publishedAt > today)
+            PUB=$(grep '^publishedAt:' "$f" | head -1 | sed 's/publishedAt: *"//' | sed 's/T.*//' | tr -d '"')
+            TODAY=$(date -u +%Y-%m-%d)
+            # Skip paid articles
+            PAID=$(grep '^isPaid:' "$f" | head -1 | grep -c 'true' || true)
+            # Skip noindex articles
+            NOINDEX=$(grep '^noindex:' "$f" | head -1 | grep -c 'true' || true)
+
+            if [ -n "$SLUG" ] && [ "$PAID" = "0" ] && [ "$NOINDEX" = "0" ]; then
+              if [[ "$PUB" <= "$TODAY" ]]; then
+                if [ -z "$URLS" ]; then
+                  URLS="\"https://destinysolver.com/articles/$SLUG\""
+                else
+                  URLS="$URLS,\"https://destinysolver.com/articles/$SLUG\""
+                fi
+              fi
+            fi
+          done
+
+          echo "urls=[$URLS]" >> $GITHUB_OUTPUT
+          echo "Found URLs: [$URLS]"
+
+      - name: Ping IndexNow
+        if: steps.slugs.outputs.urls != '[]' && steps.slugs.outputs.urls != ''
+        run: |
+          PAYLOAD=$(cat <<EOF
+          {
+            "host": "destinysolver.com",
+            "key": "89a823e9a77b875b3fea063c5a24ff64",
+            "keyLocation": "https://destinysolver.com/89a823e9a77b875b3fea063c5a24ff64.txt",
+            "urlList": ${{ steps.slugs.outputs.urls }}
+          }
+          EOF
+          )
+          echo "Payload: $PAYLOAD"
+          HTTP=$(curl -s -o /tmp/response.txt -w "%{http_code}" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$PAYLOAD")
+          cat /tmp/response.txt
+          echo "HTTP $HTTP"
+          if [ "$HTTP" != "200" ] && [ "$HTTP" != "202" ]; then
+            echo "Warning: IndexNow returned HTTP $HTTP"
+          fi
