@@ -21,41 +21,23 @@ const webApplicationJsonLd = {
   author: { '@type': 'Person', name: '陳卓賢', url: `${SITE_URL}/about` },
 }
 
+const faq = [
+  { q: '六爻需要輸入出生時間嗎？', a: '不需要。六爻以起卦時刻與卦象為準，不需要任何出生資料，所問之事方為主角。' },
+  { q: '本人未曾搖過卦，如何入門？', a: '準備三枚相同的硬幣，心中默想一事，雙手覆著硬幣搖勻後擲於桌上，記錄背面的數量；重複六次，按先後次序由初爻錄至上爻。不便使用硬幣者，可使用「線上模擬搖卦」。' },
+  { q: '什麼是世應？', a: '世爻代表自身（問事人），應爻代表對方或所問之事的另一方。工具按京房八宮構造法自動標出世應位置。' },
+  { q: '什麼是伏神？', a: '當卦中六親不齊（例如問財但卦中無財爻），須至本宮首卦找回所缺的六親，稱為伏神。資料包將列明伏神干支、伏於哪一爻之下、飛神為何。' },
+  { q: '將資料包貼給 AI 之後，AI 會否隨意補充？', a: '資料包附有使用規則：以資料包為唯一卦面事實、不得重新裝卦、未列出的資料須直接說明。若 AI 輸出的卦面與資料包不一致，以資料包為準。' },
+  { q: '此工具需要付費嗎？', a: '不需要。六爻排盤與 AI 資料包全部免費，免登入、免安裝。' },
+]
+
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Q1　六爻需要輸入出生時間嗎？',
-      acceptedAnswer: { '@type': 'Answer', text: '不需要。六爻以起卦時刻與卦象為準，不需要任何出生資料，所問之事方為主角。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q2　本人未曾搖過卦，如何入門？',
-      acceptedAnswer: { '@type': 'Answer', text: '準備三枚相同的硬幣，心中默想一事，雙手覆著硬幣搖勻後擲於桌上，記錄背面的數量；重複六次，按先後次序由初爻錄至上爻。不便使用硬幣者，可使用「線上模擬搖卦」。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q3　什麼是世應？',
-      acceptedAnswer: { '@type': 'Answer', text: '世爻代表自身（問事人），應爻代表對方或所問之事的另一方。工具按京房八宮構造法自動標出世應位置。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q4　什麼是伏神？',
-      acceptedAnswer: { '@type': 'Answer', text: '當卦中六親不齊（例如問財但卦中無財爻），須至本宮首卦找回所缺的六親，稱為伏神。資料包將列明伏神干支、伏於哪一爻之下、飛神為何。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q5　將資料包貼給 AI 之後，AI 會否隨意補充？',
-      acceptedAnswer: { '@type': 'Answer', text: '資料包附有使用規則：以資料包為唯一卦面事實、不得重新裝卦、未列出的資料須直接說明。若 AI 輸出的卦面與資料包不一致，以資料包為準。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q6　此工具需要付費嗎？',
-      acceptedAnswer: { '@type': 'Answer', text: '不需要。六爻排盤與 AI 資料包全部免費，免登入、免安裝。' },
-    },
-  ],
+  mainEntity: faq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
 }
 
 const howToJsonLd = {
@@ -88,6 +70,26 @@ export default function LiuyaoPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <LiuyaoTool />
+      <section className="max-w-3xl mx-auto px-4 mt-16 pb-20 space-y-10">
+        <div>
+          <h2 className="text-[#2B241C] text-xl font-bold mb-4">六爻排盤怎麼用</h2>
+          <p className="text-[#5A5247] text-sm leading-relaxed">
+            六爻是中國傳統占卜系統，以三枚銅錢搖擲六次排出六爻卦象，不需要出生時間，只需心中默想一件具體之事，起卦時刻便是卦的基礎。本工具採用京房納甲法，自動將六十四卦配上天干地支，排出六親（父母、兄弟、官鬼、妻財、子孫）與六獸（青龍、朱雀、勾陳、螣蛇、白虎、玄武），並標注世應、旬空、月破及伏神。排好卦後，複製 AI 解讀資料包，貼至 ChatGPT、Claude 或 Gemini，即可獲得按六爻框架連讀的深度解析，全程不需出生資料、不需命理知識。
+          </p>
+        </div>
+        <div>
+          <h2 className="text-[#2B241C] text-xl font-bold mb-6">常見問題</h2>
+          <div className="space-y-4">
+            {faq.map((item, i) => (
+              <div key={i} className="bg-[#F4EEE1] rounded-lg p-6">
+                <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-2">Q{i + 1}</p>
+                <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
+                <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   )
 }

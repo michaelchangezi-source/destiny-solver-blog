@@ -23,6 +23,6 @@ User-agent: CCBot
 Allow: /
 
 # AI assistant content discovery
-LLMs-TXT: https://www.destinysolver.com/llms.txt
+LLMs-TXT: https://destinysolver.com/llms.txt
 
-Sitemap: https://www.destinysolver.com/sitemap.xml
+Sitemap: https://destinysolver.com/sitemap.xml

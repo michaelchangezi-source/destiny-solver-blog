@@ -21,7 +21,7 @@ import remarkHtml from 'remark-html'
 import { PERSON, PERSON_ID, PUBLISHER } from '@/lib/site'
 import { linkGlossaryTerms } from '@/lib/glossary'
 
-const BASE_URL = 'https://www.destinysolver.com'
+const BASE_URL = 'https://destinysolver.com'
 
 /** 清除 Markdown 行內格式，還原為純文字 */
 function stripMarkdown(text: string): string {
@@ -256,17 +256,17 @@ export default async function ArticlePage({ params }: Props) {
     headline: article.title,
     description: article.description || article.excerpt,
     image: article.coverImage
-      ? [`https://www.destinysolver.com${article.coverImage}`]
-      : ['https://www.destinysolver.com/images/og-default.png'],
+      ? [`https://destinysolver.com${article.coverImage}`]
+      : ['https://destinysolver.com/images/og-default.png'],
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
-    url: `https://www.destinysolver.com/articles/${article.slug}`,
+    url: `https://destinysolver.com/articles/${article.slug}`,
     inLanguage: 'zh-TW',
     author: { '@id': PERSON_ID },
     publisher: PUBLISHER,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.destinysolver.com/articles/${article.slug}`,
+      '@id': `https://destinysolver.com/articles/${article.slug}`,
     },
     keywords: article.tags.join(', '),
     articleSection: article.category,

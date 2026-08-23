@@ -21,41 +21,23 @@ const webApplicationJsonLd = {
   author: { '@type': 'Person', name: '陳卓賢', url: `${SITE_URL}/about` },
 }
 
+const faq = [
+  { q: '塔羅與雷諾曼有何分別？', a: '塔羅著重原型與心理歷程，適合探索「如何面對此事」；雷諾曼著重具體事象與組合連讀，適合詢問日常實事。兩套系統讀法各異，本站兩個工具均備。' },
+  { q: '本人有實體塔羅牌，是否可以使用？', a: '可以。選擇「錄入實體抽牌」，按抽出先後逐張點選，再於名單中切換正逆位，工具將按您的結果排陣並生成資料包。' },
+  { q: '凱爾特十字是什麼？', a: '凱爾特十字（Celtic Cross）是最經典的十張牌陣：現況、挑戰、根源、過去、目標、未來、自身態度、外在環境、希望與恐懼、可能結果，適合全面審視一件事時使用。' },
+  { q: '一定要使用逆位嗎？', a: '不一定。逆位增加細節，同時亦增加複雜度，初學者可於抽牌前關閉「使用逆位」，全部以正位論。' },
+  { q: '將資料包貼給 AI 之後，AI 會否隨意恐嚇？', a: '資料包附有使用規則：不得恐嚇、不得斷言生死、牌面反映的是當下能量而非命定，每個判斷須標明牌面依據。若 AI 輸出的牌與資料包不一致，以資料包為準。' },
+  { q: '此工具需要付費嗎？', a: '不需要。塔羅占卜與 AI 資料包全部免費，免登入、免安裝。' },
+]
+
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Q1　塔羅與雷諾曼有何分別？',
-      acceptedAnswer: { '@type': 'Answer', text: '塔羅著重原型與心理歷程，適合探索「如何面對此事」；雷諾曼著重具體事象與組合連讀，適合詢問日常實事。兩套系統讀法各異，本站兩個工具均備。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q2　本人有實體塔羅牌，是否可以使用？',
-      acceptedAnswer: { '@type': 'Answer', text: '可以。選擇「錄入實體抽牌」，按抽出先後逐張點選，再於名單中切換正逆位，工具將按您的結果排陣並生成資料包。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q3　凱爾特十字是什麼？',
-      acceptedAnswer: { '@type': 'Answer', text: '凱爾特十字（Celtic Cross）是最經典的十張牌陣：現況、挑戰、根源、過去、目標、未來、自身態度、外在環境、希望與恐懼、可能結果，適合全面審視一件事時使用。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q4　一定要使用逆位嗎？',
-      acceptedAnswer: { '@type': 'Answer', text: '不一定。逆位增加細節，同時亦增加複雜度，初學者可於抽牌前關閉「使用逆位」，全部以正位論。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q5　將資料包貼給 AI 之後，AI 會否隨意恐嚇？',
-      acceptedAnswer: { '@type': 'Answer', text: '資料包附有使用規則：不得恐嚇、不得斷言生死、牌面反映的是當下能量而非命定，每個判斷須標明牌面依據。若 AI 輸出的牌與資料包不一致，以資料包為準。' },
-    },
-    {
-      '@type': 'Question',
-      name: 'Q6　此工具需要付費嗎？',
-      acceptedAnswer: { '@type': 'Answer', text: '不需要。塔羅占卜與 AI 資料包全部免費，免登入、免安裝。' },
-    },
-  ],
+  mainEntity: faq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
 }
 
 const howToJsonLd = {
@@ -88,6 +70,26 @@ export default function TarotPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <TarotTool />
+      <section className="max-w-3xl mx-auto px-4 mt-16 pb-20 space-y-10">
+        <div>
+          <h2 className="text-[#2B241C] text-xl font-bold mb-4">塔羅牌占卜怎麼玩</h2>
+          <p className="text-[#5A5247] text-sm leading-relaxed">
+            塔羅牌是一套 78 張圖像系統，分為大阿爾克納（22 張原型牌）與小阿爾克納（56 張日常情境牌）。使用時先確立一個具體的問題或處境，選擇適合的牌陣，洗牌後依序翻出對應位置的牌。每個位置有其意義，牌與位置的結合便是解讀的起點。正位代表牌義的直接顯現，逆位（倒轉）則往往指向能量受阻或需要內化的一面。本工具提供五種牌陣，從單張快問快答到凱爾特十字十牌全局，適合不同深度的提問需求，亦可直接使用實體牌錄入結果，配合 AI 資料包深入解讀。
+          </p>
+        </div>
+        <div>
+          <h2 className="text-[#2B241C] text-xl font-bold mb-6">常見問題</h2>
+          <div className="space-y-4">
+            {faq.map((item, i) => (
+              <div key={i} className="bg-[#F4EEE1] rounded-lg p-6">
+                <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-2">Q{i + 1}</p>
+                <h3 className="text-[#2B241C] font-semibold mb-3">{item.q}</h3>
+                <p className="text-[#6B6155] text-sm leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   )
 }
