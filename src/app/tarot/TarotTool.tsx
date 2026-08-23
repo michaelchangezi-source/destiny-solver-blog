@@ -89,13 +89,13 @@ const html = `
 <!-- ═══ SECTION:HEADER ═══ -->
 <div class="eyebrow">FREE TOOL</div>
 <h1>免費塔羅占卜</h1>
-<p class="lead">78 張韋特塔羅，支援正逆位。靜心寫低問題，揀牌陣抽牌（或錄入你實體抽嘅牌），再一鍵複製 AI 解讀資料包，貼去 ChatGPT／Claude／Gemini 深入解讀。</p>
+<p class="lead">78 張韋特塔羅，支援正逆位。靜心寫下問題，選擇牌陣抽牌（或錄入您的實體牌），再一鍵複製 AI 解讀資料包，貼至 ChatGPT／Claude／Gemini 深入解讀。</p>
 
 <!-- ═══ SECTION:FORM ═══ -->
 <section class="card" id="formCard">
   <h2>開始占卜</h2>
   <label for="q">我的問題（選填；單張指引可以留空）</label>
-  <textarea id="q" maxlength="300" placeholder="例：同而家嘅伴侶行落去，關係會點發展？"></textarea>
+  <textarea id="q" maxlength="300" placeholder="例：繼續與目前的伴侶走下去，關係將如何發展？"></textarea>
   <div class="row2" id="abRow" style="display:none">
     <div><label for="optA">選項 A</label><input type="text" id="optA" maxlength="60" placeholder="例：留喺現職"></div>
     <div><label for="optB">選項 B</label><input type="text" id="optB" maxlength="60" placeholder="例：接受新 offer"></div>
@@ -111,13 +111,13 @@ const html = `
     <label style="margin:0;display:inline-flex;align-items:center;gap:6px"><input type="checkbox" id="useRev" checked style="width:auto">使用逆位（線上抽牌）</label>
   </div>
   <div id="manualArea" style="display:none">
-    <p class="hint" style="margin:4px 0 0">用你自己副牌抽好之後，按抽出先後喺下面逐張點選；點選後可以喺下面名單撳「正／逆」切換方向。</p>
+    <p class="hint" style="margin:4px 0 0">請用您的實體牌抽好後，按抽出先後順序逐張點選；點選後可在下方名單切換「正／逆」方向。</p>
     <div class="pickgrid" id="pickGrid"></div>
     <div class="pickedlist" id="pickedList"></div>
-    <div class="inline"><button type="button" class="btn-ghost" id="pickReset">重新揀過</button>　<span class="hint" id="pickStatus"></span></div>
+    <div class="inline"><button type="button" class="btn-ghost" id="pickReset">重新選過</button>　<span class="hint" id="pickStatus"></span></div>
   </div>
   <button type="button" class="btn-main" id="drawBtn">抽牌</button>
-  <p class="hint" style="margin:10px 0 0">線上抽牌用加密隨機數洗牌，正逆位各半機會。一事一問，同一問題唔好短時間內反覆抽。</p>
+  <p class="hint" style="margin:10px 0 0">線上抽牌採用加密隨機數洗牌，正逆位各半機會。一事一問，同一問題不宜短時間內反覆抽牌。</p>
 </section>
 
 <!-- ═══ SECTION:CHART ═══ -->
@@ -131,22 +131,22 @@ const html = `
 <!-- ═══ SECTION:AI-PANEL ═══ -->
 <section class="card" id="aiCard" style="display:none" aria-labelledby="ai-title">
   <h2 id="ai-title">交給 AI 解讀</h2>
-  <p class="lead" style="margin-bottom:10px">牌抽好，下一步係問對問題。揀一個方向，複製去你慣用嘅 ChatGPT／Claude／Gemini，佢就會照呢一鋪牌答你。免費、免登入。</p>
+  <p class="lead" style="margin-bottom:10px">牌抽好後，下一步是問對問題。選擇一個方向，複製至您慣用的 ChatGPT／Claude／Gemini，它將依照這一鋪牌為您解讀。免費、免登入。</p>
   <div class="chips" role="radiogroup" aria-label="解讀方向" id="chips"></div>
   <p class="blurb" id="blurb"></p>
-  <div class="warn" id="freeWarn">請先喺上面「我的問題」寫低你想問乜，先可以用自由提問。</div>
+  <div class="warn" id="freeWarn">請先在上方「我的問題」欄位寫下您想詢問的事項，才能使用自由提問。</div>
   <div class="btns">
     <button type="button" class="btn-copy" id="copyAll">複製 Prompt＋資料包</button>
     <button type="button" class="btn-copy2" id="copyPack">只複製資料包</button>
   </div>
-  <details><summary>預覽將會複製嘅全文</summary><pre id="preview"></pre></details>
+  <details><summary>預覽將要複製的全文</summary><pre id="preview"></pre></details>
   <div class="links">貼上去：<a href="https://chatgpt.com/" target="_blank" rel="noopener">開 ChatGPT ↗</a><a href="https://claude.ai/new" target="_blank" rel="noopener">開 Claude ↗</a><a href="https://gemini.google.com/app" target="_blank" rel="noopener">開 Gemini ↗</a></div>
-  <div class="privacy">資料包同「重開此局」連結含你嘅問題同抽牌結果，請只分享畀你信任嘅人或 AI 服務。</div>
+  <div class="privacy">資料包及「重開此局」連結含有您的問題與抽牌結果，請僅分享給您信任的人或 AI 服務。</div>
 </section>
 
 <!-- ═══ SECTION:CONSULT-BRIDGE ═══ -->
 <div style="margin:8px 0 16px;padding:14px 16px;background:rgba(178,62,38,.06);border:1px solid rgba(178,62,38,.18);border-radius:12px;font-size:14px;color:#5A5247;line-height:1.7">
-  牌卡幫你照一件事，命盤先睇到成盤人生。想由一事睇到格局，<a href="/consultation" style="color:#b23e26;font-weight:600">預約八字深度諮詢 →</a>
+  牌卡聚焦一件事，命盤才能看見整盤人生。若想從一件事看到格局，<a href="/consultation" style="color:#b23e26;font-weight:600">預約八字深度諮詢 →</a>
 </div>
 
 <!-- ═══ SECTION:BIANJIE ═══ -->
@@ -155,10 +155,10 @@ const html = `
     <summary>占卜口徑與邊界（供核對）</summary>
     <div style="font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.9">
       <p style="margin:0 0 6px">・牌組：韋特（Rider–Waite–Smith）系統 78 張：大阿爾克那 22 張＋小阿爾克那 56 張（權杖火、聖杯水、寶劍風、錢幣土）。<br>
-      ・逆位口徑：逆位＝該牌能量受阻、內化、延遲或過度，唔係簡單「意思相反」；具體點讀由解讀層按問題脈絡判斷。可以喺抽牌前關閉逆位。<br>
-      ・抽牌：線上抽牌用瀏覽器加密隨機數（crypto.getRandomValues）洗牌，正逆位各半機會；手動錄入以你實體抽出嘅先後同方向為準。<br>
-      ・讀法口徑：位置意義行先（每個牌陣位置代表乜，資料包會列明），一鋪牌讀成連貫故事，唔逐張獨立背牌義。<br>
-      ・邊界：本工具唔出吉凶斷語、唔計時間應期；判斷交畀你同你信任嘅解讀者。</p>
+      ・逆位口徑：逆位＝該牌能量受阻、內化、延遲或過度，並非簡單「意思相反」；具體解讀由解讀層按問題脈絡判斷。可在抽牌前關閉逆位。<br>
+      ・抽牌：線上抽牌採用瀏覽器加密隨機數（crypto.getRandomValues）洗牌，正逆位各半機會；手動錄入以您的實體牌抽出先後與方向為準。<br>
+      ・讀法口徑：位置意義為先（每個牌陣位置代表什麼，資料包均會列明），一鋪牌讀成連貫故事，不逐張獨立背誦牌義。<br>
+      ・邊界：本工具不出吉凶斷語、不計時間應期；判斷交由您與您信任的解讀者決定。</p>
     </div>
   </details>
 </section>
@@ -181,8 +181,8 @@ const html = `
 </section>
 
 <footer>
-  占卜結果屬自我反思參考，不構成醫療、法律、財務等專業意見；最終決定權永遠喺你手上。<br>
-  命運解決師 陳卓賢 · destinysolver.com ｜ <a href="https://www.destinysolver.com/consultation" style="color:var(--cinnabar)">預約深度諮詢</a><br>
+  占卜結果屬自我反思參考，不構成醫療、法律、財務等專業意見；最終決定權在於您自己。<br>
+  命運解決師 陳卓賢 · destinysolver.com ｜ <a href="https://destinysolver.com/consultation" style="color:var(--cinnabar)">預約深度諮詢</a><br>
   © 2026 命運解決師 陳卓賢．本頁文案、資料包格式（ds-*-pack）、prompt 設計與介面均為原創作品，受版權保護；歡迎分享連結，未經授權請勿複製轉載。
 </footer>
 </div>

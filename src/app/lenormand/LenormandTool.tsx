@@ -91,13 +91,13 @@ const html = `
 <!-- ═══ SECTION:HEADER ═══ -->
 <div class="eyebrow">FREE TOOL</div>
 <h1>免費雷諾曼占卜</h1>
-<p class="lead">36 張 Petit Lenormand，問日常、問走向、問抉擇。靜心寫低問題，揀牌陣抽牌（或錄入你實體抽嘅牌），再一鍵複製 AI 解讀資料包，貼去 ChatGPT／Claude／Gemini 深入連讀。</p>
+<p class="lead">36 張 Petit Lenormand，問日常、問走向、問抉擇。靜心寫下問題，選擇牌陣抽牌（或錄入您的實體牌），再一鍵複製 AI 解讀資料包，貼至 ChatGPT／Claude／Gemini 深入連讀。</p>
 
 <!-- ═══ SECTION:FORM ═══ -->
 <section class="card" id="formCard">
   <h2>開始占卜</h2>
   <label for="q">我的問題（選填；每日一張可以留空）</label>
-  <textarea id="q" maxlength="300" placeholder="例：如果我留喺而家間公司，下半年會點發展？"></textarea>
+  <textarea id="q" maxlength="300" placeholder="例：若繼續留在目前的公司，下半年將如何發展？"></textarea>
   <div class="row2" id="abRow" style="display:none">
     <div><label for="optA">選項 A</label><input type="text" id="optA" maxlength="60" placeholder="例：留喺現職"></div>
     <div><label for="optB">選項 B</label><input type="text" id="optB" maxlength="60" placeholder="例：接受新 offer"></div>
@@ -114,12 +114,12 @@ const html = `
     <button type="button" id="modeManual">錄入實體抽牌</button>
   </div>
   <div id="manualArea" style="display:none">
-    <p class="hint" style="margin:4px 0 0">用你自己副牌抽好之後，按抽出先後喺下面逐張點選。大藍圖（36 張）唔支援手動錄入。</p>
+    <p class="hint" style="margin:4px 0 0">請用您的實體牌抽好後，按抽出先後順序逐張點選。大藍圖（36 張）不支援手動錄入。</p>
     <div class="pickgrid" id="pickGrid"></div>
-    <div class="inline"><button type="button" class="btn-ghost" id="pickReset">重新揀過</button>　<span class="hint" id="pickStatus"></span></div>
+    <div class="inline"><button type="button" class="btn-ghost" id="pickReset">重新選過</button>　<span class="hint" id="pickStatus"></span></div>
   </div>
   <button type="button" class="btn-main" id="drawBtn">抽牌</button>
-  <p class="hint" style="margin:10px 0 0">線上抽牌用加密隨機數洗牌；雷諾曼傳統唔用逆位，本工具全部正位論。一事一問，同一問題唔好短時間內反覆抽。</p>
+  <p class="hint" style="margin:10px 0 0">線上抽牌採用加密隨機數洗牌；雷諾曼傳統不用逆位，本工具全部以正位論。一事一問，同一問題不宜短時間內反覆抽牌。</p>
 </section>
 
 <!-- ═══ SECTION:CHART ═══ -->
@@ -133,22 +133,22 @@ const html = `
 <!-- ═══ SECTION:AI-PANEL ═══ -->
 <section class="card" id="aiCard" style="display:none" aria-labelledby="ai-title">
   <h2 id="ai-title">交給 AI 解讀</h2>
-  <p class="lead" style="margin-bottom:10px">牌抽好，下一步係問對問題。揀一個方向，複製去你慣用嘅 ChatGPT／Claude／Gemini，佢就會照呢一鋪牌答你。免費、免登入。</p>
+  <p class="lead" style="margin-bottom:10px">牌抽好後，下一步是問對問題。選擇一個方向，複製至您慣用的 ChatGPT／Claude／Gemini，它將依照這一鋪牌為您解讀。免費、免登入。</p>
   <div class="chips" role="radiogroup" aria-label="解讀方向" id="chips"></div>
   <p class="blurb" id="blurb"></p>
-  <div class="warn" id="freeWarn">請先喺上面「我的問題」寫低你想問乜，先可以用自由提問。</div>
+  <div class="warn" id="freeWarn">請先在上方「我的問題」欄位寫下您想詢問的事項，才能使用自由提問。</div>
   <div class="btns">
     <button type="button" class="btn-copy" id="copyAll">複製 Prompt＋資料包</button>
     <button type="button" class="btn-copy2" id="copyPack">只複製資料包</button>
   </div>
-  <details><summary>預覽將會複製嘅全文</summary><pre id="preview"></pre></details>
+  <details><summary>預覽將要複製的全文</summary><pre id="preview"></pre></details>
   <div class="links">貼上去：<a href="https://chatgpt.com/" target="_blank" rel="noopener">開 ChatGPT ↗</a><a href="https://claude.ai/new" target="_blank" rel="noopener">開 Claude ↗</a><a href="https://gemini.google.com/app" target="_blank" rel="noopener">開 Gemini ↗</a></div>
-  <div class="privacy">資料包同「重開此局」連結含你嘅問題同抽牌結果，請只分享畀你信任嘅人或 AI 服務。</div>
+  <div class="privacy">資料包及「重開此局」連結含有您的問題與抽牌結果，請僅分享給您信任的人或 AI 服務。</div>
 </section>
 
 <!-- ═══ SECTION:CONSULT-BRIDGE ═══ -->
 <div style="margin:8px 0 16px;padding:14px 16px;background:rgba(178,62,38,.06);border:1px solid rgba(178,62,38,.18);border-radius:12px;font-size:14px;color:#5A5247;line-height:1.7">
-  牌卡幫你照一件事，命盤先睇到成盤人生。想由一事睇到格局，<a href="/consultation" style="color:#b23e26;font-weight:600">預約八字深度諮詢 →</a>
+  牌卡聚焦一件事，命盤才能看見整盤人生。若想從一件事看到格局，<a href="/consultation" style="color:#b23e26;font-weight:600">預約八字深度諮詢 →</a>
 </div>
 
 <!-- ═══ SECTION:BIANJIE ═══ -->
@@ -157,10 +157,10 @@ const html = `
     <summary>占卜口徑與邊界（供核對）</summary>
     <div style="font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.9">
       <p style="margin:0 0 6px">・牌組：Petit Lenormand 36 張，每張附傳統撲克對應；全部正位論，不用逆位（雷諾曼傳統）。<br>
-      ・讀法口徑：組合行先，相鄰嘅牌會改寫對方嘅意思，唔逐張獨立解；資料包附每張牌嘅傳統關鍵詞做提示，組合意義由解讀層判斷。<br>
+      ・讀法口徑：組合為先，相鄰的牌會改寫對方的意思，不逐張獨立解讀；資料包附有每張牌的傳統關鍵詞作提示，組合意義由解讀層判斷。<br>
       ・抽牌：線上抽牌用瀏覽器加密隨機數（crypto.getRandomValues）洗牌；手動錄入以你實體抽出嘅先後順序為準。<br>
       ・大藍圖：36 張全鋪，9×4 排列；宮位（House）以標準 1–36 牌序對應。<br>
-      ・邊界：本工具唔出吉凶斷語、唔計時間應期；判斷交畀你同你信任嘅解讀者。</p>
+      ・邊界：本工具不出吉凶斷語、不計時間應期；判斷交由您與您信任的解讀者決定。</p>
     </div>
   </details>
 </section>
@@ -183,8 +183,8 @@ const html = `
 </section>
 
 <footer>
-  占卜結果屬自我反思參考，不構成醫療、法律、財務等專業意見；最終決定權永遠喺你手上。<br>
-  命運解決師 陳卓賢 · destinysolver.com ｜ <a href="https://www.destinysolver.com/consultation" style="color:var(--cinnabar)">預約深度諮詢</a><br>
+  占卜結果屬自我反思參考，不構成醫療、法律、財務等專業意見；最終決定權在於您自己。<br>
+  命運解決師 陳卓賢 · destinysolver.com ｜ <a href="https://destinysolver.com/consultation" style="color:var(--cinnabar)">預約深度諮詢</a><br>
   © 2026 命運解決師 陳卓賢．本頁文案、資料包格式（ds-*-pack）、prompt 設計與介面均為原創作品，受版權保護；歡迎分享連結，未經授權請勿複製轉載。
 </footer>
 </div>

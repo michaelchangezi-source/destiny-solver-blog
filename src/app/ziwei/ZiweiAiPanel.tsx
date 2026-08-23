@@ -126,7 +126,7 @@ export default function ZiweiAiPanel({ result }: Props) {
         ))}
       </div>
 
-      <p className="text-xs text-[#6B665C]">資料包含生日資料，請只分享畀你信任嘅 AI 服務。</p>
+      <p className="text-xs text-[#6B665C]">資料包含生日資料，請僅分享給您信任的 AI 服務。</p>
     </section>
   )
 }

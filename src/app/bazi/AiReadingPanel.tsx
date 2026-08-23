@@ -50,9 +50,9 @@ export default function AiReadingPanel({ result, form, currentYear, articles = [
       : undefined
     const articleItems = articles.slice(0, 5).map((a) => ({
       title: a.title,
-      url: `https://www.destinysolver.com/articles/${a.slug}`,
+      url: `https://destinysolver.com/articles/${a.slug}`,
     }))
-    const permalink = typeof window !== 'undefined' ? window.location.href : 'https://www.destinysolver.com/bazi'
+    const permalink = typeof window !== 'undefined' ? window.location.href : 'https://destinysolver.com/bazi'
     const today = new Date()
     const generatedOn = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`
 
@@ -120,7 +120,7 @@ export default function AiReadingPanel({ result, form, currentYear, articles = [
       <div>
         <h2 id="ai-panel-title" className="text-lg font-bold text-[#2B2A28]">交給 AI 解讀</h2>
         <p className="text-sm text-[#6B665C] mt-1">
-          排好盤，下一步係問對問題。揀一個方向，複製去你慣用嘅 ChatGPT、Claude、Gemini，佢就會照呢張盤答你。免費、免登入。
+          排好盤，下一步是問對問題。選擇一個方向，複製至您慣用的 ChatGPT、Claude、Gemini，它將依照這張盤為您解讀。免費、免登入。
         </p>
         {form.timeMode === 'unknown' && (
           <p className="text-xs text-[#6B665C] mt-2">
@@ -161,7 +161,7 @@ export default function AiReadingPanel({ result, form, currentYear, articles = [
           id="ai-question"
           maxLength={300}
           rows={2}
-          placeholder="例：我想知今年轉工係咪好時機"
+          placeholder="例：我想知道今年換工作是否好時機"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           className="w-full border border-[#E3DBC9] rounded-xl px-3 py-2 text-sm bg-white resize-y focus:outline-none focus:border-[#B23E26]/50"
@@ -190,7 +190,7 @@ export default function AiReadingPanel({ result, form, currentYear, articles = [
               </button>
             </div>
             {freeAndEmpty && (
-              <p className="text-xs text-[#8B3A2F] text-center">請先寫低你想問乜</p>
+              <p className="text-xs text-[#8B3A2F] text-center">請先寫下您想詢問的事項</p>
             )}
           </div>
         )
@@ -237,7 +237,7 @@ export default function AiReadingPanel({ result, form, currentYear, articles = [
 
       {/* Privacy note */}
       <p className="text-xs text-[#6B665C]">
-        連結與資料包含出生資料，請只分享畀你信任嘅人或 AI 服務。
+        連結與資料包含出生資料，請僅分享給您信任的人或 AI 服務。
       </p>
     </section>
   )

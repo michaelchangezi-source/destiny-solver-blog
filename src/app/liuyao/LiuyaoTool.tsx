@@ -85,13 +85,13 @@ const html = `
 <!-- ═══ SECTION:HEADER ═══ -->
 <div class="eyebrow">FREE TOOL</div>
 <h1>免費六爻排盤</h1>
-<p class="lead">有件事諗嚟諗去都未有答案？靜心搖一卦，一事一問。親手搖卦後錄入結果（或用線上起卦），即時排出本卦變卦、納甲六親、六獸世應同旬空月破，並可一鍵複製 AI 解讀資料包，貼去 ChatGPT／Claude／Gemini 深入分析。</p>
+<p class="lead">有事情思量再三卻仍未有答案？靜心搖一卦，一事一問。親手搖卦後錄入結果（或用線上起卦），即時排出本卦變卦、納甲六親、六獸世應與旬空月破，並可一鍵複製 AI 解讀資料包，貼至 ChatGPT／Claude／Gemini 深入分析。</p>
 
 <!-- ═══ SECTION:FORM ═══ -->
 <section class="card" id="formCard">
   <h2>起卦</h2>
   <label for="q">所問之事（選填，一事一卦，越具體越好）</label>
-  <textarea id="q" maxlength="300" placeholder="例：而家份工做落去，年底前有冇轉機？"></textarea>
+  <textarea id="q" maxlength="300" placeholder="例：目前的工作若繼續做下去，年底前有沒有轉機？"></textarea>
   <label>起卦方式</label>
   <div class="mode">
     <button type="button" id="modeManual" class="on">錄入實體搖卦</button>
@@ -102,7 +102,7 @@ const html = `
     <div id="lineRows"></div>
   </div>
   <div id="onlineArea" style="display:none">
-    <p class="hint" style="margin:4px 0 8px">靜心默念所問之事，撳六次「搖卦」。線上起卦用加密隨機數模擬三錢；如你重視親手搖卦嘅儀式感，請用實體硬幣搖完再錄入。</p>
+    <p class="hint" style="margin:4px 0 8px">靜心默念所問之事，按六次「搖卦」按鈕。線上起卦採用加密隨機數模擬三錢；若您重視親手搖卦的儀式感，請用實體硬幣搖完再錄入。</p>
     <div class="tossArea">
       <div class="coins" id="coinShow"></div>
       <button type="button" class="btn-ghost" id="tossBtn" style="min-width:160px">搖卦（第 1 次／共 6 次）</button>
@@ -112,12 +112,12 @@ const html = `
   </div>
   <div class="row2">
     <div>
-      <label for="dt">起卦時刻（以搖完最後一次嗰刻為準，預設當下）</label>
+      <label for="dt">起卦時刻（以搖完最後一次的時刻為準，預設為當下）</label>
       <input type="datetime-local" id="dt">
     </div>
     <div>
       <label>&nbsp;</label>
-      <button type="button" class="btn-ghost" id="nowBtn">用而家呢一刻</button>
+      <button type="button" class="btn-ghost" id="nowBtn">使用現在時刻</button>
     </div>
   </div>
   <button type="button" class="btn-main" id="castBtn">裝卦排盤</button>
@@ -134,28 +134,28 @@ const html = `
     <div class="hexcol" id="bianCol"><h3 id="bianTitle"></h3><div id="bianLines"></div></div>
   </div>
   <div id="fushenBox" style="margin-top:10px;font-size:13.5px"></div>
-  <p class="hint" style="margin-top:10px">卦圖畀你核對；要畀 AI 分析，請用下面面板複製資料包。動爻以硃紅色標示（○＝陽動、✕＝陰動）。</p>
+  <p class="hint" style="margin-top:10px">卦圖供您核對；如需 AI 分析，請用下方面板複製資料包。動爻以硃紅色標示（○＝陽動、✕＝陰動）。</p>
 </section>
 
 <!-- ═══ SECTION:AI-PANEL ═══ -->
 <section class="card" id="aiCard" style="display:none" aria-labelledby="ai-title">
   <h2 id="ai-title">交給 AI 解讀</h2>
-  <p class="lead" style="margin-bottom:10px">卦排好，下一步係問對問題。揀一個方向，複製去你慣用嘅 ChatGPT／Claude／Gemini，佢就會照呢支卦答你。免費、免登入。</p>
+  <p class="lead" style="margin-bottom:10px">卦排好後，下一步是問對問題。選擇一個方向，複製至您慣用的 ChatGPT／Claude／Gemini，它將依照這支卦為您解讀。免費、免登入。</p>
   <div class="chips" role="radiogroup" aria-label="解讀方向" id="chips"></div>
   <p class="blurb" id="blurb"></p>
-  <div class="warn" id="freeWarn">請先喺上面「所問之事」寫低你想問乜，先可以用自由提問。</div>
+  <div class="warn" id="freeWarn">請先在上方「所問之事」欄位寫下您想詢問的事項，才能使用自由提問。</div>
   <div class="btns">
     <button type="button" class="btn-copy" id="copyAll">複製 Prompt＋資料包</button>
     <button type="button" class="btn-copy2" id="copyPack">只複製資料包</button>
   </div>
-  <details><summary>預覽將會複製嘅全文</summary><pre id="preview"></pre></details>
+  <details><summary>預覽將要複製的全文</summary><pre id="preview"></pre></details>
   <div class="links">貼上去：<a href="https://chatgpt.com/" target="_blank" rel="noopener">開 ChatGPT ↗</a><a href="https://claude.ai/new" target="_blank" rel="noopener">開 Claude ↗</a><a href="https://gemini.google.com/app" target="_blank" rel="noopener">開 Gemini ↗</a></div>
-  <div class="privacy">資料包同「重開此卦」連結含你嘅問事同起卦時刻，請只分享畀你信任嘅人或 AI 服務。</div>
+  <div class="privacy">資料包及「重開此卦」連結含有您的問事與起卦時刻，請僅分享給您信任的人或 AI 服務。</div>
 </section>
 
 <!-- ═══ SECTION:CONSULT-BRIDGE ═══ -->
 <div style="margin:8px 0 16px;padding:14px 16px;background:rgba(178,62,38,.06);border:1px solid rgba(178,62,38,.18);border-radius:12px;font-size:14px;color:#5A5247;line-height:1.7">
-  六爻問一事，八字看一生。事情背後想睇埋自己嘅格局同時機，<a href="/consultation" style="color:#b23e26;font-weight:600">預約八字深度諮詢 →</a>
+  六爻問一事，八字看一生。若想從事情背後看清自己的格局與時機，<a href="/consultation" style="color:#b23e26;font-weight:600">預約八字深度諮詢 →</a>
 </div>
 
 <!-- ═══ SECTION:BIANJIE ═══ -->
@@ -168,7 +168,7 @@ const html = `
       ・裝卦：京房納甲；八宮世應以構造法排（首卦世上爻、一至五世逐爻變、遊魂四爻復變、歸魂內卦復原）；六親以本卦宮五行為「我」；六獸以日干起（甲乙青龍、丙丁朱雀、戊勾陳、己螣蛇、庚辛白虎、壬癸玄武）；變爻六親以本卦宮論。<br>
       ・曆法：香港時間（UTC+8）；月建取節氣月支；日辰 23:00 換日（早子時）；旬空按日柱；月破＝月建所沖之支、日沖＝日辰所沖之支（暗動定沖散由解讀層判斷）；節氣時刻以天文算法計算，與天文台公佈誤差一分鐘內。<br>
       ・伏神：六親不全時於本宮首卦尋伏，同六親多爻全列。<br>
-      ・邊界：不出卦身、胎養、星煞；不出吉凶斷語。判斷交畀你同你信任嘅解讀者。</p>
+      ・邊界：不出卦身、胎養、星煞；不出吉凶斷語。判斷交由您與您信任的解讀者決定。</p>
     </div>
   </details>
 </section>
@@ -191,8 +191,8 @@ const html = `
 </section>
 
 <footer>
-  本工具只出可核對嘅卦面結構，唔出吉凶斷語；解讀屬命理參考，不構成專業意見。<br>
-  命運解決師 陳卓賢 · destinysolver.com ｜ <a href="https://www.destinysolver.com/consultation" style="color:var(--cinnabar)">預約深度諮詢</a><br>
+  本工具只輸出可核對的卦面結構，不出吉凶斷語；解讀屬命理參考，不構成專業意見。<br>
+  命運解決師 陳卓賢 · destinysolver.com ｜ <a href="https://destinysolver.com/consultation" style="color:var(--cinnabar)">預約深度諮詢</a><br>
   © 2026 命運解決師 陳卓賢．本頁文案、資料包格式（ds-*-pack）、prompt 設計與介面均為原創作品，受版權保護；歡迎分享連結，未經授權請勿複製轉載。
 </footer>
 </div>
