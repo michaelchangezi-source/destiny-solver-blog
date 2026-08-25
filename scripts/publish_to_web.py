@@ -430,6 +430,52 @@ def main():
         sys.exit(1)
     print(f"封面重複偵測通過：本批次 {len(slugs)} 張封面全部唯一。")
 
+    # 出文前 checker 3：封面圖來源吻合驗證（2026-08-26 加）
+    # 病因：manifest 的 cover_file 若填咗舊批次的 slide_01 路徑，shutil.copyfile
+    # 照複製，checker 1/2 睇唔出（存在且唔重複），但圖文不符。
+    # 此 checker 比對 COVERS_DIR/{slug}.jpg 與 manifest 原始 cover_file 的 MD5。
+    cover_mismatch = []
+    for entry, slug in zip(entries, slugs):
+        cover_src = str(entry.get("cover_file", ""))
+        if not cover_src or cover_src.startswith("http://") or cover_src.startswith("https://"):
+            continue  # URL 來源跳過（無本機檔可比）
+        src_path = Path(cover_src)
+        dest_path = COVERS_DIR / f"{slug}.jpg"
+        if src_path.exists() and dest_path.exists():
+            if _md5(src_path) != _md5(dest_path):
+                cover_mismatch.append((slug, cover_src))
+    if cover_mismatch:
+        print("\n[中止] 封面圖來源吻合驗證失敗，唔會 push：")
+        for slug, src in cover_mismatch:
+            print(f"       {slug}.jpg 與來源 {src} 內容唔吻合")
+            print(f"       （複製出錯，或 manifest 的 cover_file 填咗舊批次圖）")
+        sys.exit(1)
+    print(f"封面來源吻合驗證通過：本批次 {len(slugs)} 張封面與 manifest 來源一致。")
+
+    # 出文前 checker 4：跨批次封面圖重複掃描（2026-08-26 加）
+    # 病因（2026-08-26 真實案例）：post-20260826-03.jpg 被複製咗 post-20260815-03 的圖，
+    # 導致網站上兩篇文章共用同一封面，checker 2 對批次內唔重複，但跨批次睇唔到。
+    # 此 checker 把本批次所有封面 hash 逐一與 COVERS_DIR 全部現有封面比對。
+    existing_covers: dict[str, str] = {}  # hash → existing filename
+    if COVERS_DIR.exists():
+        for f in COVERS_DIR.glob("*.jpg"):
+            if f.stem not in slugs:  # 排除本批次自己（已由 checker 2 處理）
+                existing_covers[_md5(f)] = f.name
+    cross_dups = []
+    for slug in slugs:
+        cover_path = COVERS_DIR / f"{slug}.jpg"
+        if cover_path.exists():
+            h = _md5(cover_path)
+            if h in existing_covers:
+                cross_dups.append((slug, existing_covers[h]))
+    if cross_dups:
+        print("\n[中止] 本批次封面與現有封面重複，唔會 push：")
+        for new_slug, old_file in cross_dups:
+            print(f"       {new_slug}.jpg 內容與舊封面 {old_file} 完全相同")
+        print("\n       請確認 manifest 的 cover_file 路徑正確指向今週的 slide_01.jpg。")
+        sys.exit(1)
+    print(f"跨批次封面唯一性通過：本批次 {len(slugs)} 張封面與全站現有封面均不重複。")
+
     if args.no_push:
         print(f"完成（--no-push）：已生成 {len(written)} 篇，未 push。")
         return
