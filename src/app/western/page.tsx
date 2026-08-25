@@ -38,7 +38,7 @@ const faq = [
 const webApplicationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: '免費西洋占星排盤 — 命運解決師',
+  name: '免費西洋占星排盤｜命運解決師 陳卓賢',
   url: `${SITE_URL}/western`,
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'Any',

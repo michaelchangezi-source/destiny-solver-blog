@@ -75,6 +75,7 @@ export function GET(): Response {
 
 ### 其他
 
+- [免費排盤工具比較指南](${BASE_URL}/tools-guide)：2026 年免費線上排盤工具合集與比較
 - [日運能量](${BASE_URL}/daily)：每日流日五行分析
 - [預約諮詢](${BASE_URL}/consultation)：一對一命盤深度解讀
 

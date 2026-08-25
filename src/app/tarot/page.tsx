@@ -76,6 +76,9 @@ export default function TarotPage() {
           <p className="text-[#5A5247] text-sm leading-relaxed">
             塔羅牌是一套 78 張圖像系統，分為大阿爾克納（22 張原型牌）與小阿爾克納（56 張日常情境牌）。使用時先確立一個具體的問題或處境，選擇適合的牌陣，洗牌後依序翻出對應位置的牌。每個位置有其意義，牌與位置的結合便是解讀的起點。正位代表牌義的直接顯現，逆位（倒轉）則往往指向能量受阻或需要內化的一面。本工具提供五種牌陣，從單張快問快答到凱爾特十字十牌全局，適合不同深度的提問需求，亦可直接使用實體牌錄入結果，配合 AI 資料包深入解讀。
           </p>
+          <p className="text-[#5A5247] text-sm leading-relaxed mt-3">
+            想比較坊間工具？<a href="/tools-guide" className="text-[#B23E26] hover:underline">睇 2026 免費排盤工具合集 →</a>
+          </p>
         </div>
         <div>
           <h2 className="text-[#2B241C] text-xl font-bold mb-6">常見問題</h2>

@@ -3,7 +3,7 @@ import { buildMetadata } from '@/lib/metadata'
 import { SITE_URL } from '@/lib/site'
 
 export const metadata = buildMetadata({
-  title: '免費算命工具箱｜八字六爻奇門塔羅紫微西洋｜命運解決師 陳卓賢',
+  title: '免費算命工具箱｜八字六爻奇門塔羅紫微西洋',
   description: '八個免費命理工具一站齊備：四柱八字、八字合盤、六爻占卜、奇門遁甲、紫微斗數、西洋占星、塔羅占卜、雷諾曼占卜。排準可核對，占卜類工具支援複製 AI 解讀資料包。免登入免安裝。',
   path: '/tools',
 })
@@ -254,6 +254,9 @@ export default function ToolsPage() {
                 </p>
               </div>
             </div>
+            <p className="text-sm text-[#6B6155] leading-relaxed mt-4">
+              想比較坊間工具？<Link href="/tools-guide" className="text-[#B23E26] hover:underline">睇 2026 免費排盤工具合集 →</Link>
+            </p>
           </div>
         </section>
 

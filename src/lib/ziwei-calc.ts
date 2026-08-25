@@ -282,7 +282,12 @@ function getShenDz(lm: number, hi: number): number {
 }
 
 function getZiweiDz(d: number, ju: number): number {
-  return (6 + Math.floor((d - 1) / ju)) % 12
+  const q = Math.ceil(d / ju)
+  const r = q * ju - d
+  const base = (1 + q) % 12          // 寅(2)起順數q格：(2+q-1)%12=(1+q)%12
+  return r % 2 === 0
+    ? (base + r) % 12
+    : ((base - r) % 12 + 12) % 12
 }
 
 function calcMainStars(zDz: number): Record<number, string[]> {

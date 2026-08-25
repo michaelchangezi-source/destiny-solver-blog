@@ -99,6 +99,10 @@ export default function Header() {
               排盤工具 <span className="text-[10px] text-[#6B6155]">▾</span>
             </Link>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[color:var(--border-card)] rounded-lg p-2.5 flex flex-col gap-0.5 w-[180px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
+              <Link href="/tools" className="px-3.5 py-2 rounded-lg text-[13.5px] font-semibold text-[#B23E26] whitespace-nowrap hover:bg-[#F4EEE1] transition-colors">
+                所有工具總覽
+              </Link>
+              <div className="border-t border-[#2B241C]/10 my-0.5" />
               <Link href="/bazi" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
                 四柱八字
               </Link>
@@ -125,6 +129,10 @@ export default function Header() {
               占卜工具 <span className="text-[10px] text-[#6B6155]">▾</span>
             </Link>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity duration-150 absolute top-full left-1/2 -translate-x-1/2 z-[60] bg-[#FFFFFF] border border-[color:var(--border-card)] rounded-lg p-2.5 flex flex-col gap-0.5 w-[180px] shadow-[0_28px_70px_-16px_rgba(43,36,28,0.45)]">
+              <Link href="/tools" className="px-3.5 py-2 rounded-lg text-[13.5px] font-semibold text-[#B23E26] whitespace-nowrap hover:bg-[#F4EEE1] transition-colors">
+                所有工具總覽
+              </Link>
+              <div className="border-t border-[#2B241C]/10 my-0.5" />
               <Link href="/liuyao" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
                 六爻占卜
               </Link>
@@ -213,6 +221,9 @@ export default function Header() {
 
           <span className="text-base tracking-wide text-[#5A5247] font-semibold">排盤工具</span>
           <div className="flex flex-col gap-2 pl-3">
+            <Link href="/tools" onClick={() => setOpen(false)} className="text-[13px] font-semibold text-[#B23E26] hover:underline transition-colors">
+              所有工具總覽 →
+            </Link>
             <Link href="/bazi" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
               四柱八字
             </Link>
@@ -229,6 +240,9 @@ export default function Header() {
 
           <span className="text-base tracking-wide text-[#5A5247] font-semibold">占卜工具</span>
           <div className="flex flex-col gap-2 pl-3">
+            <Link href="/tools" onClick={() => setOpen(false)} className="text-[13px] font-semibold text-[#B23E26] hover:underline transition-colors">
+              所有工具總覽 →
+            </Link>
             <Link href="/liuyao" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
               六爻占卜
             </Link>

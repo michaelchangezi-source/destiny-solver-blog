@@ -76,6 +76,9 @@ export default function LenormandPage() {
           <p className="text-[#5A5247] text-sm leading-relaxed">
             雷諾曼（Lenormand）是一套 36 張的占卜牌系統，源自 19 世紀歐洲，以具體的日常圖像（騎士、房屋、樹木、花束等）組合連讀，而非塔羅的心理原型敍事。雷諾曼的核心讀法是「組合」：兩張或以上的牌放在一起，意義由圖像之間的連結決定，而非逐張獨立解讀。本工具提供六種牌陣，從每日單張快速提示到大藍圖 36 張全局覽視，適合問日常具體事務，如感情進展、工作安排、居住搬遷等。抽牌後複製 AI 資料包，貼至 ChatGPT、Claude 或 Gemini，AI 會按雷諾曼組合連讀邏輯解析，全程免費免登入。
           </p>
+          <p className="text-[#5A5247] text-sm leading-relaxed mt-3">
+            想比較坊間工具？<a href="/tools-guide" className="text-[#B23E26] hover:underline">睇 2026 免費排盤工具合集 →</a>
+          </p>
         </div>
         <div>
           <h2 className="text-[#2B241C] text-xl font-bold mb-6">常見問題</h2>

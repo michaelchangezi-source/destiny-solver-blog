@@ -76,6 +76,9 @@ export default function QimenPage() {
           <p className="text-[#5A5247] text-sm leading-relaxed">
             奇門遁甲是中國古代術數之一，以時間為軸，將九宮格與天干地支、八門（休生傷杜景死驚開）、九星（天蓬天芮天沖天輔天禽天心天柱天任天英）、九神（值符騰蛇太陰六合白虎玄武九地九天）組合成一個立體的時空分析系統。起局不需要出生資料，只需要起局時刻，由工具自動計算局數、陰陽遁、拆補三元，排出九宮盤面。奇門主要用於判斷當下局勢與行動方向，適合問一件具體的事在此刻的走向、機會方位與行動時機，而非長期命盤分析。排出盤後，複製 AI 解讀資料包，貼至 ChatGPT、Claude 或 Gemini 獲得深度解析。
           </p>
+          <p className="text-[#5A5247] text-sm leading-relaxed mt-3">
+            想比較坊間工具？<a href="/tools-guide" className="text-[#B23E26] hover:underline">睇 2026 免費排盤工具合集 →</a>
+          </p>
         </div>
         <div>
           <h2 className="text-[#2B241C] text-xl font-bold mb-6">常見問題</h2>

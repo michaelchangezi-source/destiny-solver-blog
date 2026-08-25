@@ -76,6 +76,9 @@ export default function LiuyaoPage() {
           <p className="text-[#5A5247] text-sm leading-relaxed">
             六爻是中國傳統占卜系統，以三枚銅錢搖擲六次排出六爻卦象，不需要出生時間，只需心中默想一件具體之事，起卦時刻便是卦的基礎。本工具採用京房納甲法，自動將六十四卦配上天干地支，排出六親（父母、兄弟、官鬼、妻財、子孫）與六獸（青龍、朱雀、勾陳、螣蛇、白虎、玄武），並標注世應、旬空、月破及伏神。排好卦後，複製 AI 解讀資料包，貼至 ChatGPT、Claude 或 Gemini，即可獲得按六爻框架連讀的深度解析，全程不需出生資料、不需命理知識。
           </p>
+          <p className="text-[#5A5247] text-sm leading-relaxed mt-3">
+            想比較坊間工具？<a href="/tools-guide" className="text-[#B23E26] hover:underline">睇 2026 免費排盤工具合集 →</a>
+          </p>
         </div>
         <div>
           <h2 className="text-[#2B241C] text-xl font-bold mb-6">常見問題</h2>

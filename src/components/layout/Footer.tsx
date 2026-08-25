@@ -40,6 +40,7 @@ export default function Footer() {
             <h2 className="text-[#3A332A] text-sm font-semibold mb-4 tracking-wide">快速連結</h2>
             <ul className="space-y-2">
               {[
+                { href: '/tools', label: '免費工具總覽' },
                 { href: '/articles', label: '搜尋文章' },
                 { href: '/categories', label: '學習路徑' },
                 { href: '/about', label: '關於我' },

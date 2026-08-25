@@ -38,7 +38,7 @@ const faq = [
 const webApplicationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: '免費紫微斗數排盤 — 命運解決師',
+  name: '免費紫微斗數排盤｜命運解決師 陳卓賢',
   url: `${SITE_URL}/ziwei`,
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'Any',
