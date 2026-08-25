@@ -6,7 +6,7 @@ description: "屬豬 2027 亥未半合木局：拱合太歲為什麼是隱性好
 category: "大運流年"
 tags: ["屬豬 2027", "丁未年", "合太歲", "生肖運勢", "八字命理"]
 coverImage: "/images/covers/zodiac-pig.jpg"
-publishedAt: "2026-08-25T09:00:00+08:00"
+publishedAt: "2026-09-20T11:00:00+08:00"
 isPaid: false
 ---
 

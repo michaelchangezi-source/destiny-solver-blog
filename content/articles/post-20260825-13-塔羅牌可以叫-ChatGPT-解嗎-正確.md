@@ -6,7 +6,7 @@ description: "AI 逐張背牌義不懂連成故事：牌陣位置、正逆位怎
 category: "占卜問事"
 tags: ["塔羅 AI 解牌", "ChatGPT 解塔羅", "塔羅牌陣", "AI 占卜", "免費塔羅"]
 coverImage: "/images/covers/post-20260825-13.jpg"
-publishedAt: "2026-08-25T08:00:00+08:00"
+publishedAt: "2026-09-06T11:00:00+08:00"
 isPaid: false
 ---
 

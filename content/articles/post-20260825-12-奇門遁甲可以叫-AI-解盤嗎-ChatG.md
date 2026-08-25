@@ -6,7 +6,7 @@ description: "AI 自行起局經常錯節氣錯三元：正確做法是工具起
 category: "占卜問事"
 tags: ["奇門 AI 解盤", "ChatGPT 解奇門", "奇門資料包", "AI 占卜", "免費排盤"]
 coverImage: "/images/covers/post-20260825-12.jpg"
-publishedAt: "2026-08-25T08:00:00+08:00"
+publishedAt: "2026-09-05T11:00:00+08:00"
 isPaid: false
 ---
 

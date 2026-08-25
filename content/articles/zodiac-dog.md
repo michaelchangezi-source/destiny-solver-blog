@@ -6,7 +6,7 @@ description: "屬狗 2027 戌未相刑：刑太歲是什麼意思、糾纏與舊
 category: "大運流年"
 tags: ["屬狗 2027", "丁未年", "刑太歲", "生肖運勢", "八字命理"]
 coverImage: "/images/covers/zodiac-dog.jpg"
-publishedAt: "2026-08-25T09:00:00+08:00"
+publishedAt: "2026-09-19T11:00:00+08:00"
 isPaid: false
 ---
 

@@ -6,7 +6,7 @@ description: "犯太歲不是靈異事件：值沖刑害破的干支原理、202
 category: "大運流年"
 tags: ["犯太歲", "沖太歲", "刑太歲", "丁未年", "太歲原理"]
 coverImage: "/images/covers/fan-taisui.jpg"
-publishedAt: "2026-08-25T09:00:00+08:00"
+publishedAt: "2026-09-22T11:00:00+08:00"
 isPaid: false
 ---
 

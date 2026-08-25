@@ -6,7 +6,7 @@ description: "AI 不會幫你搖卦，也經常裝錯卦：正確分工是親手
 category: "占卜問事"
 tags: ["六爻 AI 解卦", "ChatGPT 解卦", "六爻資料包", "AI 占卜", "免費排盤"]
 coverImage: "/images/covers/post-20260825-06.jpg"
-publishedAt: "2026-08-25T08:00:00+08:00"
+publishedAt: "2026-08-30T11:00:00+08:00"
 isPaid: false
 ---
 

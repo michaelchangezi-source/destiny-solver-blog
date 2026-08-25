@@ -6,7 +6,7 @@ description: "屬雞 2027 不犯太歲：未土生酉金，專業與手藝發揮
 category: "大運流年"
 tags: ["屬雞 2027", "丁未年", "生肖運勢", "八字命理", "受生"]
 coverImage: "/images/covers/zodiac-rooster.jpg"
-publishedAt: "2026-08-25T09:00:00+08:00"
+publishedAt: "2026-09-18T11:00:00+08:00"
 isPaid: false
 ---
 

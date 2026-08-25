@@ -6,7 +6,7 @@ description: "屬龍 2027 不犯太歲：辰未比和土重，為什麼今年宜
 category: "大運流年"
 tags: ["屬龍 2027", "丁未年", "生肖運勢", "八字命理", "守成"]
 coverImage: "/images/covers/zodiac-dragon.jpg"
-publishedAt: "2026-08-25T09:00:00+08:00"
+publishedAt: "2026-09-13T11:00:00+08:00"
 isPaid: false
 ---
 

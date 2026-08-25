@@ -6,7 +6,7 @@ description: "屬羊 2027 本命年：值太歲是什麼意思、為什麼不用
 category: "大運流年"
 tags: ["屬羊 2027", "丁未年", "值太歲", "本命年", "八字命理"]
 coverImage: "/images/covers/zodiac-goat.jpg"
-publishedAt: "2026-08-25T09:00:00+08:00"
+publishedAt: "2026-09-16T11:00:00+08:00"
 isPaid: false
 ---
 
