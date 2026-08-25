@@ -42,6 +42,7 @@ export type Category =
   | '事業財運'
   | '健康命理'
   | '風水地理'
+  | '占卜問事'
 
 // 中文分類 → ASCII slug（用於 URL，避免中文字符造成 404）
 export const CATEGORY_SLUGS: Record<string, string> = {
@@ -52,6 +53,7 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   '實戰斷命': 'readings',
   '大運流年': 'dayun',
   '感情格局': 'relationships',
+  '占卜問事': 'divination',
   '事業財運': 'career',
   '健康命理': 'health',
   '風水地理': 'fengshui',
@@ -74,6 +76,7 @@ export const CATEGORY_COLORS: Record<string, string> = {
   '事業財運': 'bg-white/10 text-white/80 border border-white/20',
   '健康命理': 'bg-white/10 text-white/80 border border-white/20',
   '風水地理': 'bg-white/10 text-white/80 border border-white/20',
+  '占卜問事': 'bg-white/10 text-white/80 border border-white/20',
 }
 
 // 分類 → 五行屬性 → 收斂過嘅大地色系強調色（C1 分類視覺線索）。
@@ -99,6 +102,7 @@ export const CATEGORY_ELEMENT: Record<string, string> = {
   '事業財運': '金',
   '健康命理': '木',
   '風水地理': '土',
+  '占卜問事': '水',
 }
 
 // 取分類強調色（HEX）；未知分類回退品牌朱砂。
@@ -118,6 +122,7 @@ export const CATEGORY_GLYPHS: Record<string, string> = {
   '事業財運': '財',
   '健康命理': '壽',
   '風水地理': '風',
+  '占卜問事': '占',
 }
 
 // 概念路徑：每個分類的「基礎概念」（先讀）同「進階延伸」（後讀），
@@ -133,6 +138,7 @@ export const CONCEPT_PATH: Record<string, { foundations: string[]; advanced: str
   '事業財運': { foundations: ['十神應用', '大運流年'], advanced: ['實戰斷命'] },
   '健康命理': { foundations: ['八字基礎', '十神應用'], advanced: [] },
   '風水地理': { foundations: ['八字基礎'], advanced: [] },
+  '占卜問事': { foundations: [], advanced: [] },
 }
 
 // Category display order (01-10)
@@ -147,4 +153,5 @@ export const CATEGORY_ORDER: string[] = [
   '事業財運',
   '健康命理',
   '風水地理',
+  '占卜問事',
 ]
