@@ -9,7 +9,7 @@ coverImage: "/images/covers/topic-27.jpg"
 publishedAt: "2024-07-01T00:00:00Z"
 order: 27
 isPaid: false
-noindex: true
+noindex: false
 ---
 
 ### 主題 27：五行與十神疾病：健康、傷災與生死應期的判斷

@@ -64,6 +64,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/about`, lastModified: new Date('2025-09-15'), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/consultation`, lastModified: new Date('2025-09-15'), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/bazi`, lastModified: new Date('2025-11-01'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/ziwei`, lastModified: new Date('2026-08-26'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/western`, lastModified: new Date('2026-08-26'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/liuyao`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/qimen`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/tarot`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },

@@ -104,10 +104,10 @@ export function getTopicArticles(): ArticleMeta[] {
     })
 }
 
-// 每週自動發佈的「最新文章」（slug 以 post- 開頭），按發佈時間新到舊排序
+// 每週自動發佈的「最新文章」（slug 以 post- 或 zodiac 開頭），按發佈時間新到舊排序
 export function getLatestArticles(limit?: number): ArticleMeta[] {
   const latest = getAllArticles()
-    .filter((a) => a.slug.startsWith('post-'))
+    .filter((a) => a.slug.startsWith('post-') || a.slug.startsWith('zodiac'))
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
   return limit ? latest.slice(0, limit) : latest
 }

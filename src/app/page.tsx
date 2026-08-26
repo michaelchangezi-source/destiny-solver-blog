@@ -331,6 +331,9 @@ export default function HomePage() {
             </div>
           </Link>
         </div>
+        <p className="text-[#5A5247] text-sm mt-5 leading-relaxed">
+          想比較坊間工具？<Link href="/tools-guide" className="text-[#B23E26] hover:underline">睇 2026 免費排盤工具合集 →</Link>
+        </p>
       </section>
 
       {/* ── 最新文章 ── */}
