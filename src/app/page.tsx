@@ -372,7 +372,7 @@ export default function HomePage() {
                       {article.category}
                     </span>
                     <h3 className={`text-[#2B241C] font-bold leading-snug mt-2 mb-1.5 group-hover:text-[#B23E26] transition-colors line-clamp-2 ${
-                      i === 0 ? 'font-serif text-xl sm:text-2xl' : 'text-base'
+                      i === 0 ? 'text-xl sm:text-2xl' : 'text-base'
                     }`}>
                       {article.title}
                     </h3>
