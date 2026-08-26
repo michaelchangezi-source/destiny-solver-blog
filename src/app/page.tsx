@@ -349,6 +349,7 @@ export default function HomePage() {
                 全部最新
               </Link>
             </div>
+            <style>{`@media(min-width:640px){.article-thumb-grid{grid-template-columns:160px 1fr}}`}</style>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10">
               {latestArticles.map((article, i) => (
                 <Link
@@ -357,12 +358,15 @@ export default function HomePage() {
                   className={`group grid gap-4 sm:gap-5 py-5 ${
                     i === 0
                       ? 'lg:col-span-2 grid-cols-[108px_1fr] sm:grid-cols-[minmax(260px,0.45fr)_1fr] border-t-2 border-[#2B241C]'
-                      : 'grid-cols-[108px_1fr] sm:grid-cols-[132px_1fr] border-t border-[color:var(--border-card)]'
+                      : 'grid-cols-[108px_1fr] article-thumb-grid border-t border-[color:var(--border-card)]'
                   }`}
                 >
-                  <div className={`relative overflow-hidden bg-[#161310] ${i === 0 ? 'min-h-[108px] sm:min-h-[220px]' : 'min-h-[108px]'}`}>
+                  <div className={`relative overflow-hidden bg-[#161310] ${i === 0 ? 'min-h-[108px] sm:min-h-[220px]' : 'aspect-[3/4]'}`}>
                     {article.coverImage ? (
-                      <Image src={article.coverImage} alt={article.title} fill sizes={i === 0 ? '(max-width: 640px) 108px, 45vw' : '132px'} className="object-cover" style={{ objectPosition: 'center 38%' }} />
+                      <>
+                        <Image src={article.coverImage} alt={article.title} fill sizes={i === 0 ? '(max-width: 640px) 108px, 45vw' : '160px'} className={`object-cover ${i > 0 ? 'scale-[1.15]' : ''}`} style={{ objectPosition: i === 0 ? 'center 38%' : 'center 45%' }} />
+                        {i > 0 && <div className="absolute inset-0 bg-gradient-to-t from-[#161310]/60 via-[#161310]/20 to-[#161310]/40" />}
+                      </>
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-[#2B241C] to-[#161310]" />
                     )}
