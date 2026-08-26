@@ -6,7 +6,7 @@ description: "屬牛 2027 丑未沖太歲：轉工搬遷離合怎樣應對、庫
 category: "大運流年"
 tags: ["屬牛 2027", "丁未年", "沖太歲", "生肖運勢", "八字命理"]
 coverImage: "/images/covers/zodiac-ox.jpg"
-publishedAt: "2026-09-10T11:00:00+08:00"
+publishedAt: "2026-08-26T09:00:00+08:00"
 isPaid: false
 ---
 

@@ -6,7 +6,7 @@ description: "屬馬 2027 午未六合：行完 2026 本命年之後怎樣落實
 category: "大運流年"
 tags: ["屬馬 2027", "丁未年", "六合太歲", "生肖運勢", "八字命理"]
 coverImage: "/images/covers/zodiac-horse.jpg"
-publishedAt: "2026-09-15T11:00:00+08:00"
+publishedAt: "2026-08-26T09:00:00+08:00"
 isPaid: false
 ---
 

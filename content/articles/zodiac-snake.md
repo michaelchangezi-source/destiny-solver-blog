@@ -6,7 +6,7 @@ description: "屬蛇 2027 不犯太歲：巳火生未土屬洩秀之年，表現
 category: "大運流年"
 tags: ["屬蛇 2027", "丁未年", "生肖運勢", "八字命理", "洩秀"]
 coverImage: "/images/covers/zodiac-snake.jpg"
-publishedAt: "2026-09-14T11:00:00+08:00"
+publishedAt: "2026-08-26T09:00:00+08:00"
 isPaid: false
 ---
 

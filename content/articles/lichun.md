@@ -6,7 +6,7 @@ description: "過年還是立春？八字年界的正確答案、立春前後出
 category: "大運流年"
 tags: ["立春 八字", "八字年界", "生肖年界", "干支曆", "八字入門"]
 coverImage: "/images/covers/lichun.jpg"
-publishedAt: "2026-09-21T11:00:00+08:00"
+publishedAt: "2026-08-26T09:00:00+08:00"
 isPaid: false
 ---
 

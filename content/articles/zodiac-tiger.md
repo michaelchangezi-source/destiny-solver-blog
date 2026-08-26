@@ -6,7 +6,7 @@ description: "屬虎 2027 不犯太歲：寅木剋未土成財象，求財怎樣
 category: "大運流年"
 tags: ["屬虎 2027", "丁未年", "生肖運勢", "八字命理", "財象"]
 coverImage: "/images/covers/zodiac-tiger.jpg"
-publishedAt: "2026-09-11T11:00:00+08:00"
+publishedAt: "2026-08-26T09:00:00+08:00"
 isPaid: false
 ---
 
