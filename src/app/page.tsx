@@ -361,11 +361,11 @@ export default function HomePage() {
                       : 'grid-cols-[108px_1fr] article-thumb-grid border-t border-[color:var(--border-card)]'
                   }`}
                 >
-                  <div className={`relative overflow-hidden bg-[#161310] ${i === 0 ? 'min-h-[108px] sm:min-h-[220px]' : 'aspect-[3/4]'}`}>
+                  <div className={`relative overflow-hidden bg-[#161310] ${i === 0 ? 'min-h-[108px] sm:min-h-[220px]' : ''}`} style={i > 0 ? { aspectRatio: '1/1' } : undefined}>
                     {article.coverImage ? (
                       <>
-                        <Image src={article.coverImage} alt={article.title} fill sizes={i === 0 ? '(max-width: 640px) 108px, 45vw' : '160px'} className={`object-cover ${i > 0 ? 'scale-[1.15]' : ''}`} style={{ objectPosition: i === 0 ? 'center 38%' : 'center 45%' }} />
-                        {i > 0 && <div className="absolute inset-0 bg-gradient-to-t from-[#161310]/60 via-[#161310]/20 to-[#161310]/40" />}
+                        <Image src={article.coverImage} alt={article.title} fill sizes={i === 0 ? '(max-width: 640px) 108px, 45vw' : '160px'} className="object-cover" style={{ objectPosition: i === 0 ? 'center 38%' : 'center 40%', transform: i > 0 ? 'scale(1.5)' : undefined }} />
+                        {i > 0 && <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(22,19,16,0.7), transparent 40%, rgba(22,19,16,0.5))' }} />}
                       </>
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-[#2B241C] to-[#161310]" />
