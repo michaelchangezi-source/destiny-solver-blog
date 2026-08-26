@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import { preload } from 'react-dom'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Clock } from 'lucide-react'
 import { getAllArticles, getLatestArticles, getTopicArticles } from '@/lib/articles'
 import { SITE_URL } from '@/lib/site'
 import { CRITICAL_FONTS } from '@/lib/font-preload'
 import { analyzeDays, ELEMENT_COLOR } from '@/lib/bazi-daily'
 import { getSolarTermOnDate } from '@/lib/bazi-calc'
-import LatestCard from '@/components/blog/LatestCard'
+import { formatDate } from '@/lib/utils'
 import InkFlowHero from '@/components/InkFlowHero'
 import HomeAnimations from '@/components/HomeAnimations'
 import PricingTiers, { CONSULTATION_PRICE } from '@/components/home/PricingTiers'
@@ -104,7 +104,7 @@ export default function HomePage() {
       />
 
       {/* ── Threads（social proof，數字放大做主角）── */}
-      <section className="reveal border-y border-[#B23E26]/15 bg-[#F4EEE1] py-10">
+      <section className="border-y border-[#B23E26]/15 bg-[#F4EEE1] py-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
             <div className="relative w-16 h-16 flex-shrink-0 rounded-full overflow-hidden ring-1 ring-[#B23E26]/30">
@@ -137,10 +137,10 @@ export default function HomePage() {
       </section>
 
       {/* ── 免費排盤工具四格 ── */}
-      <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
-            <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">FREE TOOLS</p>
+            <p className="text-[#B23E26] text-xs font-serif font-semibold tracking-widest mb-1">排盤</p>
             <h2 className="font-serif text-[#2B241C] text-2xl font-bold">免費排盤工具</h2>
           </div>
           <Link href="/tools" className="text-sm text-[#B23E26] font-semibold hover:underline whitespace-nowrap">
@@ -250,10 +250,10 @@ export default function HomePage() {
       </section>
 
       {/* ── 免費占卜工具四格（AI 資料包）── */}
-      <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
-            <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">DIVINATION TOOLS</p>
+            <p className="text-[#B23E26] text-xs font-serif font-semibold tracking-widest mb-1">占問</p>
             <h2 className="font-serif text-[#2B241C] text-2xl font-bold">免費占卜工具</h2>
           </div>
           <Link href="/tools" className="text-sm text-[#B23E26] font-semibold hover:underline whitespace-nowrap">
@@ -336,39 +336,72 @@ export default function HomePage() {
         </p>
       </section>
 
-      {/* ── 最新文章 ── */}
+      {/* ── 最新文章（editorial list，去卡片化）── */}
       {latestArticles.length > 0 && (
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-          <div className="reveal flex items-end justify-between mb-8">
-            <div>
-              <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LATEST</p>
-              <h2 className="font-serif text-[#2B241C] text-2xl font-bold">最新文章</h2>
+        <section className="border-y border-[color:var(--border-card)] bg-[#FBF7EE]">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <p className="text-[#B23E26] text-xs font-serif font-semibold tracking-widest mb-1">近作</p>
+                <h2 className="font-serif text-[#2B241C] text-2xl font-bold">最新文章</h2>
+              </div>
+              <Link href="/latest" className="border-b border-[#B23E26] text-[#B23E26] text-sm font-bold whitespace-nowrap">
+                全部最新
+              </Link>
             </div>
-            <Link href="/latest" className="text-[#8A8071] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-1">
-              全部最新 <ArrowRight size={13} />
-            </Link>
-          </div>
-          <div className="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestArticles.map((article) => (
-              <LatestCard key={article.slug} article={article} />
-            ))}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10">
+              {latestArticles.map((article, i) => (
+                <Link
+                  key={article.slug}
+                  href={`/articles/${article.slug}`}
+                  className={`group grid gap-4 sm:gap-5 py-5 ${
+                    i === 0
+                      ? 'lg:col-span-2 grid-cols-[108px_1fr] sm:grid-cols-[minmax(260px,0.45fr)_1fr] border-t-2 border-[#2B241C]'
+                      : 'grid-cols-[108px_1fr] sm:grid-cols-[132px_1fr] border-t border-[color:var(--border-card)]'
+                  }`}
+                >
+                  <div className={`relative overflow-hidden bg-[#161310] ${i === 0 ? 'min-h-[108px] sm:min-h-[220px]' : 'min-h-[108px]'}`}>
+                    {article.coverImage ? (
+                      <Image src={article.coverImage} alt={article.title} fill sizes={i === 0 ? '(max-width: 640px) 108px, 45vw' : '132px'} className="object-cover" style={{ objectPosition: 'center 38%' }} />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#2B241C] to-[#161310]" />
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <span className="inline-flex border border-[#B23E26]/35 rounded-full px-2.5 py-0.5 text-[#B23E26] text-[11px] font-bold tracking-[0.08em]">
+                      {article.category}
+                    </span>
+                    <h3 className={`text-[#2B241C] font-bold leading-snug mt-2 mb-1.5 group-hover:text-[#B23E26] transition-colors line-clamp-2 ${
+                      i === 0 ? 'font-serif text-xl sm:text-2xl' : 'text-base'
+                    }`}>
+                      {article.title}
+                    </h3>
+                    <p className="text-[#6B6155] text-sm leading-relaxed line-clamp-2 hidden sm:block">{article.excerpt}</p>
+                    <div className="flex items-center gap-3 text-[#6B6155] text-xs mt-3">
+                      <span className="flex items-center gap-1"><Clock size={11} />{article.readingTime}</span>
+                      <span>{formatDate(article.publishedAt)}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       )}
 
-      {/* ── 系統學八字（精選 topic 教學）── */}
+      {/* ── 系統學八字（目錄式列表）── */}
       {featuredTopics.length > 0 && (
-        <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-12">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">LEARN</p>
+              <p className="text-[#B23E26] text-xs font-serif font-semibold tracking-widest mb-1">入門</p>
               <h2 className="font-serif text-[#2B241C] text-2xl font-bold">系統學八字</h2>
             </div>
-            <Link href="/latest#教學" className="text-[#8A8071] hover:text-[#B23E26] text-sm transition-colors flex items-center gap-1">
-              全部教學 <ArrowRight size={13} />
+            <Link href="/latest#教學" className="border-b border-[#B23E26] text-[#B23E26] text-sm font-bold whitespace-nowrap">
+              全部教學
             </Link>
           </div>
-          <div className="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-11 border-t-2 border-[#2B241C]">
             {featuredTopics.map((topic, index) => {
               if (!topic) return null
               const num = String(index + 1).padStart(2, '0')
@@ -376,17 +409,14 @@ export default function HomePage() {
                 <Link
                   key={topic.slug}
                   href={`/articles/${topic.slug}`}
-                  className="group flex gap-3 rounded-lg border border-[color:var(--border-card)] bg-[#FBF7EE] hover:border-[#B23E26]/40 hover:shadow-[0_2px_12px_rgba(178,62,38,0.08)] p-4 transition-all duration-200"
+                  className="group grid grid-cols-[46px_1fr_auto] items-center gap-3.5 border-b border-[color:var(--border-card)] py-4 transition-colors"
                 >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-md bg-[#B23E26]/[0.08] flex items-center justify-center mt-0.5">
-                    <span className="text-[#B23E26] text-xs font-bold font-serif">{num}</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[10px] text-[#B23E26] font-semibold tracking-widest mb-1 truncate">{topic.category}</p>
-                    <p className="text-[#2B241C] text-sm font-semibold leading-snug line-clamp-2 group-hover:text-[#B23E26] transition-colors">
-                      {topic.title}
-                    </p>
-                  </div>
+                  <span className="text-[#B23E26] font-serif text-xl font-bold">{num}</span>
+                  <span className="min-w-0">
+                    <span className="text-[#6B6155] text-[10px] tracking-widest block">{topic.category}</span>
+                    <span className="text-[#2B241C] text-sm font-semibold leading-snug line-clamp-2 group-hover:text-[#B23E26] transition-colors block">{topic.title}</span>
+                  </span>
+                  <span className="text-[#6B6155] group-hover:text-[#B23E26] transition-colors" aria-hidden="true">→</span>
                 </Link>
               )
             })}
@@ -395,9 +425,9 @@ export default function HomePage() {
       )}
 
       {/* ── 諮詢方案（P2-1：三層定價上首頁，做價格錨定）── */}
-      <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="text-center mb-10">
-          <p className="text-[#B23E26] text-xs font-semibold tracking-widest mb-1">PRICING</p>
+          <p className="text-[#B23E26] text-xs font-serif font-semibold tracking-widest mb-1">諮詢</p>
           <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-3">命理諮詢方案</h2>
           <p className="text-[#6B6155] text-sm leading-relaxed max-w-lg mx-auto">
             透過命盤分析，協助你看清方向，做出更適合自己的決策。
@@ -415,7 +445,7 @@ export default function HomePage() {
       </section>
 
       {/* ── 自我篩選（P2-2：適合／未必適合雙欄對照）── */}
-      <section className="reveal border-y border-[#2B241C]/10 bg-[#F4EEE1] py-16">
+      <section className="border-y border-[#2B241C]/10 bg-[#F4EEE1] py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <h2 className="font-serif text-[#2B241C] text-2xl font-bold mb-3">這個諮詢適合你嗎？</h2>
@@ -428,7 +458,7 @@ export default function HomePage() {
       </section>
 
       {/* ── 明文承諾（P2-3）── */}
-      <section className="reveal max-w-6xl mx-auto px-4 sm:px-6 py-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="text-center mb-10">
           <h2 className="font-serif text-[#2B241C] text-2xl font-bold">我的三個承諾</h2>
         </div>
@@ -436,7 +466,7 @@ export default function HomePage() {
       </section>
 
       {/* ── 常見問題（P3-4：與上方 homeFaqJsonLd 逐字一致，供 AI 摘要引用）── */}
-      <section className="reveal border-t border-[#2B241C]/10 bg-[#F4EEE1] py-16">
+      <section className="border-t border-[#2B241C]/10 bg-[#F4EEE1] py-16">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd) }}

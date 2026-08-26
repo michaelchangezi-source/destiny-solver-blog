@@ -19,6 +19,11 @@
   --border-card: rgba(43, 36, 28, 0.14);
   --shadow-card: 0 1px 2px rgba(43, 36, 28, .04), 0 4px 12px rgba(43, 36, 28, .06);
   --shadow-lift: 0 2px 4px rgba(43, 36, 28, .06), 0 12px 28px rgba(43, 36, 28, .10);
+  --radius-tool: 18px;
+  --radius-action: 8px;
+  --radius-surface: 2px;
+  --radius-pill: 999px;
+  --shadow-focus: 0 12px 30px rgb(43 36 28 / 8%);
   /* ── 字型策略（2026-08-07 重寫，見 scripts/build_font_subset.py 檔頭）──
      內文：完全用系統 CJK 字，零下載。iOS/macOS 落 PingFang TC、Windows 落微軟正黑、
      Android 本身就係 Noto Sans CJK，三邊觀感同原本 Noto Sans TC 幾乎一致，

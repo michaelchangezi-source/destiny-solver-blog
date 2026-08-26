@@ -1,6 +1,5 @@
 import { ShieldCheck } from 'lucide-react'
 
-// 明文承諾（P2-3）。三條，維持站主拍板的範圍，不增不減。
 const commitments = [
   {
     title: '不用恐嚇成交',
@@ -18,11 +17,13 @@ const commitments = [
 
 export default function Commitments() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-      {commitments.map((item) => (
+    <div className="grid grid-cols-1 sm:grid-cols-3 border-t-2 border-[#2B241C]">
+      {commitments.map((item, i) => (
         <div
           key={item.title}
-          className="bg-[#FFFFFF] border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-lg p-7"
+          className={`py-7 sm:px-7 first:sm:pl-0 last:sm:pr-0 ${
+            i > 0 ? 'border-t sm:border-t-0 sm:border-l border-[color:var(--border-card)]' : ''
+          }`}
         >
           <ShieldCheck size={22} className="text-[#B23E26] mb-4" />
           <h3 className="text-[#2B241C] font-bold mb-3">{item.title}</h3>

@@ -2,22 +2,24 @@ import { CheckCircle, XCircle } from 'lucide-react'
 
 export const CONSULTATION_PRICE = '800'
 
-function PricingCard({ label, price, suffix, items, exclusion }: {
+function PricingCard({ label, price, suffix, items, exclusion, recommended, className = '' }: {
   label: string
   price: string
   suffix: string
   items: string[]
   exclusion?: string
+  recommended?: boolean
+  className?: string
 }) {
   return (
-    <div className="relative bg-[#FFFFFF] rounded-lg p-7 flex flex-col text-left overflow-hidden shadow-[var(--shadow-card)] border border-[color:var(--border-card)]">
-      <p className="text-[#B23E26] text-xs font-semibold tracking-[0.25em] uppercase mb-3">
+    <div className={`relative py-7 sm:px-7 first:sm:pl-0 last:sm:pr-0 ${recommended ? 'shadow-[inset_0_4px_0_#B23E26]' : ''} ${className}`}>
+      <p className="text-[#B23E26] text-xs font-semibold tracking-[0.15em] mb-3">
         {label}
       </p>
-      <p className="font-serif text-[#B23E26] text-4xl font-black mb-5">
-        <span className="text-xl font-bold text-[#6B6155] align-top mr-1">HK$</span>
+      <p className="font-serif text-[#B23E26] text-4xl font-black mb-5 leading-none">
+        <span className="text-base font-bold text-[#6B6155] mr-1">HK$</span>
         {Number(price).toLocaleString('en-US')}
-        <span className="text-xl font-bold text-[#6B6155] ml-1">{suffix}</span>
+        {suffix && <span className="text-base font-bold text-[#6B6155] ml-1">{suffix}</span>}
       </p>
       <ul className="space-y-2.5">
         {items.map((item) => (
@@ -39,7 +41,7 @@ function PricingCard({ label, price, suffix, items, exclusion }: {
 
 export default function PricingTiers() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-3 max-w-5xl mx-auto border-y-2 border-[#2B241C]">
       <PricingCard
         label="人生定位分析報告"
         price="500"
@@ -52,12 +54,15 @@ export default function PricingTiers() {
         price={CONSULTATION_PRICE}
         suffix="起"
         items={['命格整體分析', '性格與能力分析', '大運趨勢解析', '事業、財運、感情發展方向', '自選 1 條問題作深入分析', '每多一項問題，需另加 HK$400', 'PDF 完整分析報告', '一對一線上諮詢']}
+        recommended
+        className="border-t sm:border-t-0 sm:border-l border-[color:var(--border-card)]"
       />
       <PricingCard
         label="雙人關係分析"
         price="2800"
         suffix=""
         items={['雙方命盤交叉分析', '關係互動模式', '性格互補與磨合重點', '關係中的優勢與風險', '未來重要時間節點分析', 'PDF 完整分析報告', '一對一深入解說']}
+        className="border-t sm:border-t-0 sm:border-l border-[color:var(--border-card)]"
       />
     </div>
   )

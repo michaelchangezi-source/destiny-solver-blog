@@ -72,7 +72,7 @@ const faq = [
   },
   {
     q: '諮詢以什麼形式進行？',
-    a: '可以透過 Threads / IG 私訊、Email 或 WhatsApp 進行。',
+    a: '可以透過 Threads / IG 私訊或 Email 進行。',
   },
   {
     q: '如果你說的跟我的感受不符，怎麼辦？',
@@ -110,7 +110,7 @@ const wontAccept = [
 //   · 改期政策：可否改期、需提前多久
 //   · 可否追問：諮詢後多長時間內可以追問、次數限制
 const serviceDetails = [
-  { label: '諮詢形式', value: '透過 Threads / IG 私訊、Email 或 WhatsApp 進行' },
+  { label: '諮詢形式', value: '透過 Threads / IG 私訊或 Email 進行' },
   { label: '諮詢語言', value: '廣東話 / 中文' },
   { label: '回覆時間', value: '工作日 24 小時內' },
   { label: '交付物', value: '' },
@@ -255,7 +255,7 @@ export default function ConsultationPage() {
             { step: '01', title: '發送訊息', desc: '透過 Threads / IG 私訊或 Email 聯絡，說明你希望諮詢的方向' },
             { step: '02', title: '確認資料', desc: '提供出生年月日及出生時間（以確認八字命盤）' },
             { step: '03', title: '安排時間', desc: '雙方確認合適的諮詢日期與時間' },
-            { step: '04', title: '開始解讀', desc: '透過 Threads / IG 私訊、Email 或 WhatsApp 進行深度命盤解讀' },
+            { step: '04', title: '開始解讀', desc: '透過 Threads / IG 私訊或 Email 進行深度命盤解讀' },
           ].map((item) => (
             <div key={item.step} className="flex gap-5 items-start">
               <span className="text-[#B23E26] text-2xl font-bold w-10 flex-shrink-0">{item.step}</span>
