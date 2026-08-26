@@ -71,7 +71,7 @@ export default function HomePage() {
   }
 
   const articles = getAllArticles()
-  const latestArticles = getLatestArticles(6)
+  const latestArticles = getLatestArticles(7)
   const allTopics = getTopicArticles()
   const featuredTopics = allTopics.slice(0, 8)
 
