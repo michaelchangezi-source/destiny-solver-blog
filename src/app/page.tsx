@@ -171,23 +171,6 @@ export default function HomePage() {
               <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">排出四柱、格局、大運流年</p>
             </div>
           </Link>
-          {/* 八字合盤 — 雙環線稿 */}
-          <Link href="/compat" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#7A5230] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
-            <svg aria-hidden="true" className="pointer-events-none absolute -right-8 -top-4 opacity-[0.15]" width="130" height="110" viewBox="0 0 130 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="55" r="42" stroke="white" strokeWidth="1.5"/>
-              <circle cx="80" cy="55" r="42" stroke="white" strokeWidth="1.5"/>
-              <circle cx="50" cy="55" r="28" stroke="white" strokeWidth="0.75"/>
-              <circle cx="80" cy="55" r="28" stroke="white" strokeWidth="0.75"/>
-              <circle cx="50" cy="55" r="5" stroke="white" strokeWidth="1"/>
-              <circle cx="80" cy="55" r="5" stroke="white" strokeWidth="1"/>
-            </svg>
-            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">合</span>
-            <div className="relative mt-8">
-              <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Compatibility</p>
-              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">八字合盤</h3>
-              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">分析雙方干支合沖刑害</p>
-            </div>
-          </Link>
           {/* 紫微斗數 — 北斗七星線稿 */}
           <Link href="/ziwei" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#2B4A6B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute right-2 top-2 opacity-[0.18]" width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -244,6 +227,26 @@ export default function HomePage() {
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Western</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">西洋占星</h3>
               <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">行星星座位置、上升點及相位</p>
+            </div>
+          </Link>
+          {/* 印度占星 — 曼荼羅線稿 */}
+          <Link href="/vedic" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#6B4A2B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+            <svg aria-hidden="true" className="pointer-events-none absolute -right-5 -top-5 opacity-[0.14]" width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="65" cy="65" r="60" stroke="white" strokeWidth="1.5"/>
+              <circle cx="65" cy="65" r="42" stroke="white" strokeWidth="1"/>
+              <rect x="24" y="24" width="82" height="82" stroke="white" strokeWidth="1"/>
+              <rect x="39" y="39" width="52" height="52" stroke="white" strokeWidth="0.75"/>
+              <line x1="65" y1="5" x2="65" y2="125" stroke="white" strokeWidth="0.5"/>
+              <line x1="5" y1="65" x2="125" y2="65" stroke="white" strokeWidth="0.5"/>
+              <line x1="24" y1="24" x2="106" y2="106" stroke="white" strokeWidth="0.5"/>
+              <line x1="106" y1="24" x2="24" y2="106" stroke="white" strokeWidth="0.5"/>
+              <circle cx="65" cy="65" r="6" stroke="white" strokeWidth="1"/>
+            </svg>
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">吠</span>
+            <div className="relative mt-8">
+              <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Vedic</p>
+              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">印度占星排盤</h3>
+              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">九曜、二十七宿、十六分盤與大運</p>
             </div>
           </Link>
         </div>

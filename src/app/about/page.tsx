@@ -456,10 +456,10 @@ export default function AboutPage() {
             <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">免費八字排盤</h3>
             <p className="text-[#6B6155] text-sm leading-relaxed">輸入出生年月日時，即時算出四柱命盤、日主十神、藏干及十個大運。</p>
           </a>
-          <a href="/compat" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
-            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">八字合盤</p>
-            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">八字合盤分析</h3>
-            <p className="text-[#6B6155] text-sm leading-relaxed">輸入兩人生日，即時分析雙方天干五合、地支六合、三合、六沖、六害、相破、三刑互動，並顯示現行大運對對方命盤的引動。</p>
+          <a href="/vedic" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
+            <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">印度占星</p>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">印度占星排盤</h3>
+            <p className="text-[#6B6155] text-sm leading-relaxed">以 Lahiri 恆星黃道計算九曜、二十七宿、D1 至 D60 十六分盤及 Vimshottari 大運。</p>
           </a>
           <a href="/ziwei" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
             <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">紫微斗數</p>

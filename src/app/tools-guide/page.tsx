@@ -41,14 +41,16 @@ const itemListJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: '2026 免費線上排盤工具合集',
-  numberOfItems: 6,
+  numberOfItems: 8,
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: '八字排盤', url: `${SITE_URL}/bazi` },
-    { '@type': 'ListItem', position: 2, name: '六爻排盤', url: `${SITE_URL}/liuyao` },
-    { '@type': 'ListItem', position: 3, name: '奇門遁甲排盤', url: `${SITE_URL}/qimen` },
-    { '@type': 'ListItem', position: 4, name: '紫微斗數排盤', url: `${SITE_URL}/ziwei` },
-    { '@type': 'ListItem', position: 5, name: '塔羅占卜', url: `${SITE_URL}/tarot` },
-    { '@type': 'ListItem', position: 6, name: '雷諾曼占卜', url: `${SITE_URL}/lenormand` },
+    { '@type': 'ListItem', position: 2, name: '紫微斗數排盤', url: `${SITE_URL}/ziwei` },
+    { '@type': 'ListItem', position: 3, name: '西洋占星排盤', url: `${SITE_URL}/western` },
+    { '@type': 'ListItem', position: 4, name: '印度占星排盤', url: `${SITE_URL}/vedic` },
+    { '@type': 'ListItem', position: 5, name: '六爻排盤', url: `${SITE_URL}/liuyao` },
+    { '@type': 'ListItem', position: 6, name: '奇門遁甲排盤', url: `${SITE_URL}/qimen` },
+    { '@type': 'ListItem', position: 7, name: '塔羅占卜', url: `${SITE_URL}/tarot` },
+    { '@type': 'ListItem', position: 8, name: '雷諾曼占卜', url: `${SITE_URL}/lenormand` },
   ],
 }
 
@@ -69,6 +71,8 @@ const COMPARISON = [
   { tool: '塔羅占卜', site: '命運解決師', free: '完全免費', login: '免登入', caliber: '透明（逆位解釋方式列明）', ai: '可複製 AI 資料包', mobile: '良好', href: '/tarot' },
   { tool: '雷諾曼占卜', site: '命運解決師', free: '完全免費', login: '免登入', caliber: '透明（組合連讀方式列明）', ai: '可複製 AI 資料包', mobile: '良好', href: '/lenormand' },
   { tool: '紫微斗數', site: '命運解決師', free: '完全免費', login: '免登入', caliber: '透明（飛星派口徑）', ai: '不適用（命盤類建議人手諮詢）', mobile: '良好', href: '/ziwei' },
+  { tool: '西洋占星', site: '命運解決師', free: '完全免費', login: '免登入', caliber: '透明（行星度數可核對）', ai: '不適用（命盤類建議人手諮詢）', mobile: '良好', href: '/western' },
+  { tool: '印度占星', site: '命運解決師', free: '完全免費', login: '免登入', caliber: '透明（Lahiri ayanamsa、交點口徑列明）', ai: '不適用（命盤類建議人手諮詢）', mobile: '良好', href: '/vedic' },
   { tool: '八字排盤', site: '元亨利貞', free: '大部分免費', login: '部分功能需登入', caliber: '部分口徑未說明', ai: '不支援', mobile: '一般' },
   { tool: '占星排盤', site: 'Astralium', free: '免費', login: '免登入', caliber: '說明較少', ai: '不支援', mobile: '良好' },
 ]
@@ -182,6 +186,44 @@ export default function ToolsGuidePage() {
               <div className="rounded-xl border border-[#2B241C]/10 bg-[#FFFDF8] p-4">
                 <span className="font-semibold text-[#2B241C] text-sm">Astralium 塔羅</span>
                 <p className="text-xs text-[#6B6155] leading-relaxed mt-1">介面美觀，支援多種牌陣，免登入。但算法口徑說明較少，不支援直接輸出給 AI 解讀的資料包。</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-[#2B241C] text-xl font-bold mb-3">西洋占星排盤</h2>
+            <p className="text-[#5A5247] text-sm leading-relaxed mb-4">
+              西洋占星以回歸黃道為準，算法的關鍵在於行星位置精度。工具應清楚顯示上升點與各行星度數，供核對。
+            </p>
+            <div className="rounded-xl border border-[#2B241C]/10 bg-[#FFFDF8] p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-semibold text-[#2B241C] text-sm">命運解決師西洋占星</span>
+                <Link href="/western" className="text-xs text-[#B23E26] font-semibold hover:underline">試用 →</Link>
+              </div>
+              <p className="text-xs text-[#6B6155] leading-relaxed">即時生成本命盤，列出十大行星星座位置、上升點與天頂、主要相位及元素型態分佈。深度分析建議人手諮詢。</p>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-[#2B241C] text-xl font-bold mb-3">印度占星（吠陀）排盤</h2>
+            <p className="text-[#5A5247] text-sm leading-relaxed mb-4">
+              印度占星（吠陀）排盤工具要合格，先看三樣：有沒有聲明 ayanamsa 版本（恆星黃道的口徑核心）、有沒有處理出生地的歷史夏令時間、分盤齊不齊。
+            </p>
+            <div className="space-y-3">
+              <div className="rounded-xl border border-[#2B241C]/10 bg-[#FFFDF8] p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-semibold text-[#2B241C] text-sm">命運解決師印度占星排盤</span>
+                  <Link href="/vedic" className="text-xs text-[#B23E26] font-semibold hover:underline">試用 →</Link>
+                </div>
+                <p className="text-xs text-[#6B6155] leading-relaxed">Lahiri 口徑與交點口徑全部寫明、D1 至 D60 十六分盤齊備、大運顯示至副運層，並自動處理香港 1941 至 1979 年等歷史夏令時間；免費免登入。</p>
+              </div>
+              <div className="rounded-xl border border-[#2B241C]/10 bg-[#FFFDF8] p-4">
+                <span className="font-semibold text-[#2B241C] text-sm">Prokerala</span>
+                <p className="text-xs text-[#6B6155] leading-relaxed mt-1">印度老牌排盤站，Lahiri 口徑，功能全面，惟介面為英文。</p>
+              </div>
+              <div className="rounded-xl border border-[#2B241C]/10 bg-[#FFFDF8] p-4">
+                <span className="font-semibold text-[#2B241C] text-sm">知命占星</span>
+                <p className="text-xs text-[#6B6155] leading-relaxed mt-1">中文介面，附多張分盤，口徑聲明較簡。</p>
               </div>
             </div>
           </section>

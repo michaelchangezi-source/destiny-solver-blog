@@ -70,7 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/qimen`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/tarot`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/lenormand`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/compat`, lastModified: new Date('2025-12-01'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/vedic`, lastModified: new Date('2026-08-27'), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${BASE_URL}/tools`, lastModified: new Date('2026-08-21'), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE_URL}/tools-guide`, lastModified: new Date('2026-08-21'), changeFrequency: 'yearly', priority: 0.8 },
     { url: `${BASE_URL}/daily`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },

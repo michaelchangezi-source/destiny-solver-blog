@@ -4,7 +4,7 @@ import { SITE_URL } from '@/lib/site'
 
 export const metadata = buildMetadata({
   title: '免費算命工具箱｜八字六爻奇門塔羅紫微西洋',
-  description: '八個免費命理工具一站齊備：四柱八字、八字合盤、六爻占卜、奇門遁甲、紫微斗數、西洋占星、塔羅占卜、雷諾曼占卜。排準可核對，占卜類工具支援複製 AI 解讀資料包。免登入免安裝。',
+  description: '八個免費命理工具一站齊備：四柱八字、紫微斗數、西洋占星、印度占星、六爻占卜、奇門遁甲、塔羅占卜、雷諾曼占卜。排準可核對，占卜類工具支援複製 AI 解讀資料包。免登入免安裝。',
   path: '/tools',
 })
 
@@ -49,14 +49,14 @@ const itemListJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: '免費命理排盤與占卜工具箱｜命運解決師 陳卓賢',
-  description: '八個免費命理工具一站齊備：四柱八字、八字合盤、六爻占卜、奇門遁甲、紫微斗數、西洋占星、塔羅占卜、雷諾曼占卜。占卜類工具支援複製 AI 解讀資料包，免登入、免安裝。',
+  description: '八個免費命理工具一站齊備：四柱八字、紫微斗數、西洋占星、印度占星、六爻占卜、奇門遁甲、塔羅占卜、雷諾曼占卜。占卜類工具支援複製 AI 解讀資料包，免登入、免安裝。',
   url: `${SITE_URL}/tools`,
   numberOfItems: 8,
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: '四柱八字排盤', url: `${SITE_URL}/bazi`, description: '免費八字排盤工具，即時算出四柱命盤、十神、藏干及大運。' },
-    { '@type': 'ListItem', position: 2, name: '八字合婚配對', url: `${SITE_URL}/compat`, description: '免費八字合婚配對工具，輸入兩人生辰即時對照雙方四柱八字的合婚關係。' },
-    { '@type': 'ListItem', position: 3, name: '紫微斗數排盤', url: `${SITE_URL}/ziwei`, description: '免費紫微斗數排盤（飛星派），即時排出十二宮命盤、主星強度與大限。' },
-    { '@type': 'ListItem', position: 4, name: '西洋占星排盤', url: `${SITE_URL}/western`, description: '免費西洋占星排盤，即時生成本命盤，列出十大行星星座與宮位。' },
+    { '@type': 'ListItem', position: 2, name: '紫微斗數排盤', url: `${SITE_URL}/ziwei`, description: '免費紫微斗數排盤（飛星派），即時排出十二宮命盤、主星強度與大限。' },
+    { '@type': 'ListItem', position: 3, name: '西洋占星排盤', url: `${SITE_URL}/western`, description: '免費西洋占星排盤，即時生成本命盤，列出十大行星星座與宮位。' },
+    { '@type': 'ListItem', position: 4, name: '印度占星排盤', url: `${SITE_URL}/vedic`, description: '免費印度占星（吠陀占星）排盤，以 Lahiri 恆星黃道計算九曜、二十七宿、十六分盤及 Vimshottari 大運。' },
     { '@type': 'ListItem', position: 5, name: '六爻占卜排盤', url: `${SITE_URL}/liuyao`, description: '免費六爻占卜排盤，線上起卦問事，附 AI 解讀資料包，可複製給 ChatGPT、Claude 或 Gemini 解讀。' },
     { '@type': 'ListItem', position: 6, name: '奇門遁甲占卜排盤', url: `${SITE_URL}/qimen`, description: '免費奇門遁甲占卜排盤，線上起局問事，附 AI 解讀資料包，可複製給 ChatGPT、Claude 或 Gemini 解讀。' },
     { '@type': 'ListItem', position: 7, name: '塔羅占卜', url: `${SITE_URL}/tarot`, description: '免費線上塔羅占卜，78 張韋特塔羅、五種牌陣，附 AI 解讀資料包。' },
@@ -83,14 +83,6 @@ const PAIPAN_TOOLS = [
     desc: '免費八字排盤工具，即時算出四柱命盤、十神、藏干及大運。支援真太陽時校正、神煞查詢、流年流月時間軸。',
   },
   {
-    href: '/compat',
-    label: 'Compat',
-    name: '八字合婚配對',
-    char: '合',
-    bg: 'bg-[#7A3A26]',
-    desc: '免費八字合婚配對工具，輸入兩人生辰即時對照雙方四柱八字，分析合婚關係與干支互動。',
-  },
-  {
     href: '/ziwei',
     label: 'Ziwei',
     name: '紫微斗數',
@@ -105,6 +97,14 @@ const PAIPAN_TOOLS = [
     char: '星',
     bg: 'bg-[#2B4A5C]',
     desc: '免費西洋占星排盤，輸入出生資料即時生成本命盤，列出十大行星星座與宮位，並顯示主要相位。',
+  },
+  {
+    href: '/vedic',
+    label: 'Vedic',
+    name: '印度占星',
+    char: '吠',
+    bg: 'bg-[#6B4A2B]',
+    desc: '免費印度占星（吠陀占星）排盤，以 Lahiri 恆星黃道計算九曜、二十七宿、十六分盤（D1 至 D60）及 Vimshottari 大運。',
   },
 ]
 

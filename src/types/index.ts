@@ -43,6 +43,7 @@ export type Category =
   | '健康命理'
   | '風水地理'
   | '占卜問事'
+  | '占星'
 
 // 中文分類 → ASCII slug（用於 URL，避免中文字符造成 404）
 export const CATEGORY_SLUGS: Record<string, string> = {
@@ -57,6 +58,7 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   '事業財運': 'career',
   '健康命理': 'health',
   '風水地理': 'fengshui',
+  '占星': 'astrology',
 }
 
 // ASCII slug → 中文分類（用於頁面顯示）
@@ -77,6 +79,7 @@ export const CATEGORY_COLORS: Record<string, string> = {
   '健康命理': 'bg-white/10 text-white/80 border border-white/20',
   '風水地理': 'bg-white/10 text-white/80 border border-white/20',
   '占卜問事': 'bg-white/10 text-white/80 border border-white/20',
+  '占星': 'bg-white/10 text-white/80 border border-white/20',
 }
 
 // 分類 → 五行屬性 → 收斂過嘅大地色系強調色（C1 分類視覺線索）。
@@ -103,6 +106,7 @@ export const CATEGORY_ELEMENT: Record<string, string> = {
   '健康命理': '木',
   '風水地理': '土',
   '占卜問事': '水',
+  '占星': '火',
 }
 
 // 取分類強調色（HEX）；未知分類回退品牌朱砂。
@@ -123,6 +127,7 @@ export const CATEGORY_GLYPHS: Record<string, string> = {
   '健康命理': '壽',
   '風水地理': '風',
   '占卜問事': '占',
+  '占星': '星',
 }
 
 // 概念路徑：每個分類的「基礎概念」（先讀）同「進階延伸」（後讀），
@@ -139,6 +144,7 @@ export const CONCEPT_PATH: Record<string, { foundations: string[]; advanced: str
   '健康命理': { foundations: ['八字基礎', '十神應用'], advanced: [] },
   '風水地理': { foundations: ['八字基礎'], advanced: [] },
   '占卜問事': { foundations: [], advanced: [] },
+  '占星': { foundations: [], advanced: [] },
 }
 
 // Category display order (01-10)
@@ -154,4 +160,5 @@ export const CATEGORY_ORDER: string[] = [
   '健康命理',
   '風水地理',
   '占卜問事',
+  '占星',
 ]
