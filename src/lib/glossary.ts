@@ -1302,7 +1302,7 @@ export function getGlossaryTerm(slug: string): GlossaryTerm | null {
 }
 
 const CATEGORY_SLUG_OVERRIDES: Record<string, Record<string, string>> = {
-  '占星': { dayun: 'vimshottari' },
+  '占星知識': { dayun: 'vimshottari' },
 }
 
 /**
