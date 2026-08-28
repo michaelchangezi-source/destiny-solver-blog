@@ -167,7 +167,7 @@ export default function HomePage() {
             <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">命</span>
             <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Bazi</p>
-              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">八字排盤</h3>
+              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">四柱八字</h3>
               <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">排出四柱、格局、大運流年</p>
             </div>
           </Link>
@@ -245,7 +245,7 @@ export default function HomePage() {
             <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">印</span>
             <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Vedic</p>
-              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">印度占星排盤</h3>
+              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">印度占星</h3>
               <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">九曜、二十七宿、十六分盤與大運</p>
             </div>
           </Link>
@@ -280,7 +280,7 @@ export default function HomePage() {
             <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">卦</span>
             <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Liuyao</p>
-              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">六爻排盤</h3>
+              <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">六爻占卜</h3>
               <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">納甲六親、六獸、句空，附 AI 資料包</p>
             </div>
           </Link>

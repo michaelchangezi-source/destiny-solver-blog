@@ -453,7 +453,7 @@ export default function AboutPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <a href="/bazi" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
             <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">八字命理</p>
-            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">免費八字排盤</h3>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">四柱八字排盤</h3>
             <p className="text-[#6B6155] text-sm leading-relaxed">輸入出生年月日時，即時算出四柱命盤、日主十神、藏干及十個大運。</p>
           </a>
           <a href="/vedic" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
@@ -481,7 +481,7 @@ export default function AboutPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <a href="/liuyao" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
             <p className="text-[10px] text-[#B23E26] tracking-[0.25em] mb-2">六爻占卜</p>
-            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">六爻排盤</h3>
+            <h3 className="text-[#2B241C] font-bold text-base mb-2 group-hover:text-[#B23E26] transition-colors">六爻占卜</h3>
             <p className="text-[#6B6155] text-sm leading-relaxed">親手搖卦錄入或線上起卦，即時排出本卦變卦、納甲六親、六獸世應、旬空月破伏神。</p>
           </a>
           <a href="/qimen" className="block border border-[color:var(--border-card)] shadow-[var(--shadow-card)] rounded-md p-6 hover:border-[#B23E26]/40 transition-colors group">
