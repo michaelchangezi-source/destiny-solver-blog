@@ -113,7 +113,7 @@ export default function Header() {
                 西洋占星
               </Link>
               <Link href="/vedic" className="px-3.5 py-2 rounded-lg text-[13.5px] text-[#2B241C] whitespace-nowrap hover:bg-[#F4EEE1] hover:text-[#B23E26] transition-colors">
-                印度占星排盤
+                印度占星
               </Link>
             </div>
           </div>
@@ -234,7 +234,7 @@ export default function Header() {
               西洋占星
             </Link>
             <Link href="/vedic" onClick={() => setOpen(false)} className="text-[13px] text-[#6B6155] hover:text-[#B23E26] transition-colors">
-              印度占星排盤
+              印度占星
             </Link>
           </div>
 
