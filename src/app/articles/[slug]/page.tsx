@@ -201,9 +201,9 @@ function normalizeHeadings(html: string): string {
   })
 }
 
-async function markdownToHtml(markdown: string): Promise<string> {
+async function markdownToHtml(markdown: string, category?: string): Promise<string> {
   const result = await remark().use(remarkGfm).use(remarkHtml, { sanitize: false }).process(markdown)
-  return linkGlossaryTerms(normalizeHeadings(result.toString()))
+  return linkGlossaryTerms(normalizeHeadings(result.toString()), category)
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -217,7 +217,7 @@ export default async function ArticlePage({ params }: Props) {
   const { faqs: faqPairs, cleanedMarkdown } = article.noindex
     ? { faqs: [] as Array<{ question: string; answer: string }>, cleanedMarkdown: article.content }
     : extractFaqPairs(article.content)
-  const html = await markdownToHtml(cleanedMarkdown)
+  const html = await markdownToHtml(cleanedMarkdown, article.category)
   const related = getRelatedArticles(slug, article.category, 3)
   const { prev, next } = getAdjacentArticles(slug)
 

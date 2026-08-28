@@ -1301,12 +1301,16 @@ export function getGlossaryTerm(slug: string): GlossaryTerm | null {
   return GLOSSARY_TERMS.find((t) => t.slug === slug) ?? null
 }
 
+const CATEGORY_SLUG_OVERRIDES: Record<string, Record<string, string>> = {
+  '占星': { dayun: 'vimshottari' },
+}
+
 /**
  * Post-process article HTML: wrap the first occurrence of each glossary term
  * (outside existing <a> tags) with a /glossary/{slug} link.
  * Terms are sorted longest-first to avoid partial sub-term matches.
  */
-export function linkGlossaryTerms(html: string): string {
+export function linkGlossaryTerms(html: string, category?: string): string {
   const terms = [...GLOSSARY_TERMS].sort((a, b) => b.term.length - a.term.length)
   const linked = new Set<string>()
   let inAnchor = 0
@@ -1319,15 +1323,16 @@ export function linkGlossaryTerms(html: string): string {
 
     let text = match
     for (const { term, slug } of terms) {
-      if (linked.has(slug)) continue
+      const target = (category && CATEGORY_SLUG_OVERRIDES[category]?.[slug]) || slug
+      if (linked.has(target)) continue
       const idx = text.indexOf(term)
       if (idx === -1) continue
-      linked.add(slug)
+      linked.add(target)
       text =
         text.slice(0, idx) +
-        `<a href="/glossary/${slug}" class="glossary-link">${term}</a>` +
+        `<a href="/glossary/${target}" class="glossary-link">${term}</a>` +
         text.slice(idx + term.length)
-      break // one replacement per text node keeps complexity low
+      break
     }
     return text
   })
