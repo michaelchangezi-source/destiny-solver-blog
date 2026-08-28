@@ -5,7 +5,7 @@ excerpt: "D9 九分盤是印度占星第一分盤：怎樣切出來、為什麼�
 description: "D9 九分盤是印度占星第一分盤：怎樣切出來、為什麼看婚姻與內在力量、和宿步的關係、出生時間誤差的影響，附 D10 D24 簡介。"
 category: "占星"
 tags: ["Navamsa", "D9", "分盤", "Varga", "印度占星", "婚姻", "Vargottama"]
-coverImage: "/images/covers/post-20260828-09.jpg"
+coverImage: "/images/covers/post-20260828-09-v2.jpg"
 publishedAt: "2026-08-28T00:00:00+08:00"
 isPaid: false
 ---

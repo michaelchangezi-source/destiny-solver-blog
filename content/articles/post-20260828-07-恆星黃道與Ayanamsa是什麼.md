@@ -5,7 +5,7 @@ excerpt: "恆星黃道和回歸黃道相差約 24 度：Ayanamsa 是什麼、Lah
 description: "恆星黃道和回歸黃道相差約 24 度：Ayanamsa 是什麼、Lahiri 是什麼標準、為什麼約八成人在印度占星盤太陽星座會退後一個。"
 category: "占星"
 tags: ["恆星黃道", "Ayanamsa", "Lahiri", "回歸黃道", "歲差", "印度占星"]
-coverImage: "/images/covers/post-20260828-07.jpg"
+coverImage: "/images/covers/post-20260828-07-v2.jpg"
 publishedAt: "2026-08-28T00:00:00+08:00"
 isPaid: false
 ---

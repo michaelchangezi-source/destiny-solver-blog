@@ -5,7 +5,7 @@ excerpt: "印度占星把黃道分成二十七宿，每宿 13°20′ 再分四�
 description: "印度占星把黃道分成二十七宿，每宿 13°20′ 再分四步：月宿決定性情底色與大運起點，漢譯宿名對照與查法一篇看懂。"
 category: "占星"
 tags: ["二十七宿", "Nakshatra", "月宿", "印度占星", "Pada", "宿曜經"]
-coverImage: "/images/covers/post-20260828-08.jpg"
+coverImage: "/images/covers/post-20260828-08-v2.jpg"
 publishedAt: "2026-08-28T00:00:00+08:00"
 isPaid: false
 ---

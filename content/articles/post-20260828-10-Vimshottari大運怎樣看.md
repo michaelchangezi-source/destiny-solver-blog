@@ -5,7 +5,7 @@ excerpt: "印度占星最通用的大運系統：起點由月宿決定、九曜�
 description: "印度占星最通用的大運系統：起點由月宿決定、九曜輪值年數表、大運與副運怎樣讀，和八字大運有什麼分別。"
 category: "占星"
 tags: ["Vimshottari", "大運", "Dasha", "印度占星", "月宿", "副運"]
-coverImage: "/images/covers/post-20260828-10.jpg"
+coverImage: "/images/covers/post-20260828-10-v2.jpg"
 publishedAt: "2026-08-28T00:00:00+08:00"
 isPaid: false
 ---
