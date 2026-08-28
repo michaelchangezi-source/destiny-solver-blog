@@ -1,0 +1,26 @@
+name: Daily Rebuild — Publish Scheduled Articles
+
+# Trigger a Vercel redeploy every day at HK 10:00 (UTC 02:00)
+# so articles with publishedAt <= today become visible automatically.
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # UTC 02:00 = HK 10:00
+  workflow_dispatch:        # allow manual trigger
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump rebuild timestamp
+        run: |
+          echo "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > content/.last-rebuilt
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add content/.last-rebuilt
+          git commit -m "chore: daily rebuild $(date -u +%Y-%m-%d)" || echo "Nothing to commit"
+          git push
