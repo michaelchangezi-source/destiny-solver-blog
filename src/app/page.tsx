@@ -242,7 +242,7 @@ export default function HomePage() {
               <line x1="106" y1="24" x2="24" y2="106" stroke="white" strokeWidth="0.5"/>
               <circle cx="65" cy="65" r="6" stroke="white" strokeWidth="1"/>
             </svg>
-            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">吠</span>
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">印</span>
             <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Vedic</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">印度占星排盤</h3>

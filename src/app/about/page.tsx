@@ -186,7 +186,7 @@ export default function AboutPage() {
           <div className="border-l border-[#2B241C]/10 pl-6">
             <p className="text-[#B23E26] text-xs font-semibold tracking-[0.25em] uppercase mb-3">起點</p>
             <p className="text-[#5A5247] leading-relaxed text-[15px]">
-              在投入命理研究之前，我曾任職香港財經媒體逾十年，先後於《明報》及《經濟日報》擔任編輯，
+              在全力投入命理研究之前，我曾任職香港財經媒體逾十年，先後於《明報》及《經濟日報》擔任編輯，
               並持續為《資本雜誌》撰寫專欄，亦主編超過七十本書籍，涵蓋財經、商管與科普領域。
               個人著作共七本，橫跨投資、科技與產業趨勢，其中《投資理財超入門！》獲
               2022年度香港誠品書店年度暢銷書 TOP100，《22世紀不再七不思議之科技經濟與產業趨勢》

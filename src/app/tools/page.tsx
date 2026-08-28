@@ -102,7 +102,7 @@ const PAIPAN_TOOLS = [
     href: '/vedic',
     label: 'Vedic',
     name: '印度占星',
-    char: '吠',
+    char: '印',
     bg: 'bg-[#6B4A2B]',
     desc: '免費印度占星（吠陀占星）排盤，以 Lahiri 恆星黃道計算九曜、二十七宿、十六分盤（D1 至 D60）及 Vimshottari 大運。',
   },
