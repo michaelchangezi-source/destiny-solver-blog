@@ -294,7 +294,7 @@ export default function HomePage() {
               <line x1="5" y1="72" x2="105" y2="72" stroke="white" strokeWidth="1"/>
               <circle cx="55" cy="55" r="11" stroke="white" strokeWidth="1.5"/>
             </svg>
-            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">局</span>
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">奇</span>
             <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Qimen</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">奇門遁甲</h3>
@@ -308,7 +308,7 @@ export default function HomePage() {
               <rect x="22" y="14" width="50" height="75" rx="4" stroke="white" strokeWidth="1.5"/>
               <rect x="36" y="18" width="50" height="75" rx="4" stroke="white" strokeWidth="1.5" transform="rotate(10 61 55)"/>
             </svg>
-            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">牌</span>
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">塔</span>
             <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Tarot</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">塔羅占卜</h3>
@@ -326,7 +326,7 @@ export default function HomePage() {
               <circle cx="60" cy="114" r="2.5" fill="white"/>
               <circle cx="6" cy="60" r="2.5" fill="white"/>
             </svg>
-            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">占</span>
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">雷</span>
             <div className="relative mt-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Lenormand</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">雷諾曼占卜</h3>
