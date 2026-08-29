@@ -124,8 +124,13 @@ function extractFaqPairs(markdown: string): {
   const keptFaqs = faqs.slice(0, 6) // 每篇最多 6 個 FAQ
   const keptRanges = faqRanges.slice(0, 6)
   const removeSet = new Set<number>()
-  for (const [start, end] of keptRanges) {
-    for (let k = start; k < end; k++) removeSet.add(k)
+  for (let i = 0; i < keptRanges.length; i++) {
+    const [start, end] = keptRanges[i]
+    // ## 層標題的段落保留在正文（避免正文被掏空），只移除 ###+ 的專屬 FAQ 段落
+    const headingLevel = lines[start].match(/^(#{2,6})/)?.[1].length ?? 3
+    if (headingLevel >= 3) {
+      for (let k = start; k < end; k++) removeSet.add(k)
+    }
   }
   const cleanedMarkdown = lines.filter((_, idx) => !removeSet.has(idx)).join('\n')
 
