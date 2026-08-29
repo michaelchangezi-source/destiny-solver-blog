@@ -371,9 +371,26 @@ export default async function ArticlePage({ params }: Props) {
         {article.title}
       </h1>
 
-      {/* 本文重點解答 — 置 H1 之後，便於搜尋引擎抓取 FAQ 結構 */}
+      {article.excerpt && (
+        <p id="article-lead" className="text-[#6B6155] text-lg leading-relaxed mb-8 pb-8 border-b border-[#2B241C]/10">
+          {article.excerpt}
+        </p>
+      )}
+
+      {/* 分享 */}
+      <div className="mb-8">
+        <ShareButtons url={`${BASE_URL}/articles/${article.slug}`} title={article.title} />
+      </div>
+
+      {/* Body */}
+      <div id="article-content">
+        {article.category === '健康命理' && <HealthDisclaimer />}
+        <ArticleBody html={html} />
+      </div>
+
+      {/* 本文重點解答 — 正文後，FAQ JSON-LD schema 與位置無關，UX 更自然 */}
       {faqPairs.length > 0 && (
-        <section aria-label="本文重點解答" className="mt-4 mb-8">
+        <section aria-label="本文重點解答" className="mt-10 mb-2">
           {/* Header */}
           <div className="flex items-center gap-3 mb-4">
             <span className="w-1 h-7 rounded-full bg-[#B23E26] shrink-0" aria-hidden="true" />
@@ -413,23 +430,6 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         </section>
       )}
-
-      {article.excerpt && (
-        <p id="article-lead" className="text-[#6B6155] text-lg leading-relaxed mb-8 pb-8 border-b border-[#2B241C]/10">
-          {article.excerpt}
-        </p>
-      )}
-
-      {/* 分享 */}
-      <div className="mb-8">
-        <ShareButtons url={`${BASE_URL}/articles/${article.slug}`} title={article.title} />
-      </div>
-
-      {/* Body */}
-      <div id="article-content">
-        {article.category === '健康命理' && <HealthDisclaimer />}
-        <ArticleBody html={html} />
-      </div>
 
       {/* 用你的命盤看這篇 */}
       <div className="mt-10 flex items-center gap-4 rounded border border-[#2B241C]/10 bg-[#FBF7EE] px-5 py-4">
