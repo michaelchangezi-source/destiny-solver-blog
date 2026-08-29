@@ -1,6 +1,9 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizeCss: true, // inline critical CSS, defer rest — removes render-blocking CSS chunk
+  },
   images: {
     remotePatterns: [],
     formats: ['image/webp', 'image/avif'],
