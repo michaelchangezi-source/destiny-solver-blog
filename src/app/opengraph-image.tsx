@@ -7,26 +7,23 @@ export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 // 品牌 token
-const BG = '#F4EEE1'
-const SURFACE = '#FBF7EE'
-const INK = '#2B241C'
+const BG = '#1C1612'
+const INK = '#F7F1E5'
 const CINNABAR = '#B23E26'
 const DEEP = '#96321E'
-const PAPER = '#F7F1E5'
-const MUTED = '#6B6155'
-const FAINT = '#6B6155'
+const MUTED = 'rgba(247,241,229,0.55)'
+const ACCENT = '#F5A623'
 
 // 圖內出現的所有文字（用來向 Google Fonts 取最小子集）
 const TITLE = '命運解決師'
+const NAME = '陳卓賢'
 const SUB = '八字命理深度解析'
 const LATIN = 'DESTINY · SOLVER'
 const DOMAIN = 'destinysolver.com'
-const SUBSET = Array.from(new Set((TITLE + SUB + LATIN + DOMAIN + '命').split(''))).join('')
-
-const AVATAR_URL = 'https://destinysolver.com/images/avatar.png'
+const DECO = '命運'
+const SUBSET = Array.from(new Set((TITLE + NAME + SUB + LATIN + DOMAIN + DECO).split(''))).join('')
 
 export default async function OpengraphImage() {
-  // 字型載入失敗（例如離線 build）時，退回拉丁字版面，確保 build 不中斷。
   let serif900: ArrayBuffer | null = null
   let serif400: ArrayBuffer | null = null
   try {
@@ -41,7 +38,6 @@ export default async function OpengraphImage() {
 
   const hasFont = !!serif900 && !!serif400
 
-  // 字型載入失敗（極少數情況，如離線 build）：退回純品牌色塊，無文字，確保 build 不中斷。
   if (!hasFont) {
     return new ImageResponse(
       (
@@ -50,20 +46,10 @@ export default async function OpengraphImage() {
             width: '100%',
             height: '100%',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             backgroundColor: BG,
           }}
         >
-          <div
-            style={{
-              width: 240,
-              height: 240,
-              borderRadius: 24,
-              backgroundColor: CINNABAR,
-              boxShadow: `0 24px 60px -24px ${DEEP}`,
-            }}
-          />
+          <div style={{ width: 8, height: '100%', backgroundColor: CINNABAR }} />
         </div>
       ),
       { ...size }
@@ -77,113 +63,203 @@ export default async function OpengraphImage() {
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
           position: 'relative',
           backgroundColor: BG,
           fontFamily: 'serif',
+          overflow: 'hidden',
         }}
       >
-        {/* 宣紙質感邊框 */}
+        {/* 左側朱砂紅條 */}
         <div
           style={{
             position: 'absolute',
-            top: 36,
-            left: 36,
-            right: 36,
-            bottom: 36,
-            border: `2px solid rgba(178,62,38,0.30)`,
-            borderRadius: 12,
+            top: 0,
+            left: 0,
+            width: 10,
+            height: '100%',
+            backgroundColor: CINNABAR,
           }}
         />
-        {/* 巨大「命」浮水印 */}
+
+        {/* 右側大字浮水印「命運」直排 */}
         <div
           style={{
             position: 'absolute',
-            right: 60,
-            bottom: -60,
-            fontSize: 520,
-            fontWeight: 900,
-            color: 'rgba(43,36,28,0.04)',
-            lineHeight: 1,
+            right: 48,
+            top: 0,
+            bottom: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: 0,
           }}
         >
-          {hasFont ? '命' : ''}
+          {'命運'.split('').map((ch, i) => (
+            <span
+              key={i}
+              style={{
+                fontSize: 280,
+                fontWeight: 900,
+                color: 'rgba(247,241,229,0.04)',
+                lineHeight: 0.92,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {ch}
+            </span>
+          ))}
         </div>
 
-        {/* 主體：公仔頭像 + 文字 */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 56 }}>
-          {/* 圓形頭像 */}
+        {/* 主內容區 */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 64,
+            right: 340,
+            bottom: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            paddingLeft: 32,
+          }}
+        >
+          {/* 頂部標籤 */}
           <div
             style={{
               display: 'flex',
-              width: 220,
-              height: 220,
-              borderRadius: 110,
-              overflow: 'hidden',
-              border: `5px solid rgba(178,62,38,0.35)`,
-              boxShadow: `0 20px 50px -20px ${DEEP}`,
-              flexShrink: 0,
+              alignItems: 'center',
+              gap: 12,
+              marginBottom: 36,
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={AVATAR_URL} width={220} height={220} alt="" style={{ objectFit: 'cover' }} />
+            <div
+              style={{
+                width: 36,
+                height: 2,
+                backgroundColor: CINNABAR,
+                borderRadius: 1,
+              }}
+            />
+            <span
+              style={{
+                fontSize: 20,
+                fontWeight: 400,
+                color: CINNABAR,
+                letterSpacing: 6,
+              }}
+            >
+              {LATIN}
+            </span>
           </div>
 
-          {/* 文字塊 */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: 92, fontWeight: 900, color: INK, lineHeight: 1.1 }}>
-              {hasFont ? TITLE : 'Destiny Solver'}
-            </span>
-            <span style={{ fontSize: 38, fontWeight: 400, color: MUTED, marginTop: 14 }}>
-              {hasFont ? SUB : 'BaZi astrology, in depth'}
+          {/* 主標題 */}
+          <span
+            style={{
+              fontSize: 110,
+              fontWeight: 900,
+              color: INK,
+              lineHeight: 1.0,
+              letterSpacing: '0.02em',
+            }}
+          >
+            {TITLE}
+          </span>
+
+          {/* 分隔線 + 作者名 */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 20,
+              marginTop: 24,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 36,
+                fontWeight: 400,
+                color: ACCENT,
+                letterSpacing: '0.1em',
+              }}
+            >
+              {NAME}
             </span>
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 16,
-                marginTop: 26,
+                width: 1,
+                height: 30,
+                backgroundColor: 'rgba(247,241,229,0.25)',
+              }}
+            />
+            <span
+              style={{
+                fontSize: 28,
+                fontWeight: 400,
+                color: MUTED,
+                letterSpacing: '0.05em',
               }}
             >
-              <div style={{ width: 56, height: 3, backgroundColor: CINNABAR, borderRadius: 2 }} />
-              <span
-                style={{
-                  fontSize: 22,
-                  fontWeight: 400,
-                  color: CINNABAR,
-                  letterSpacing: 6,
-                }}
-              >
-                {LATIN}
-              </span>
-            </div>
+              {SUB}
+            </span>
+          </div>
+
+          {/* 網址 */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginTop: 52,
+              gap: 10,
+            }}
+          >
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: 3,
+                backgroundColor: CINNABAR,
+              }}
+            />
+            <span
+              style={{
+                fontSize: 22,
+                fontWeight: 400,
+                color: 'rgba(247,241,229,0.40)',
+                letterSpacing: 1,
+              }}
+            >
+              {DOMAIN}
+            </span>
           </div>
         </div>
 
-        {/* 網址 */}
+        {/* 右下角裝飾方塊 */}
         <div
           style={{
             position: 'absolute',
-            bottom: 70,
-            display: 'flex',
-            backgroundColor: SURFACE,
-            border: '1px solid rgba(43,36,28,0.10)',
-            borderRadius: 999,
-            padding: '8px 22px',
+            right: 0,
+            bottom: 0,
+            width: 180,
+            height: 180,
+            backgroundColor: CINNABAR,
+            opacity: 0.08,
           }}
-        >
-          <span style={{ fontSize: 22, fontWeight: 400, color: FAINT, letterSpacing: 1 }}>
-            {DOMAIN}
-          </span>
-        </div>
+        />
+        <div
+          style={{
+            position: 'absolute',
+            right: 24,
+            bottom: 24,
+            width: 80,
+            height: 80,
+            border: `2px solid rgba(178,62,38,0.30)`,
+          }}
+        />
       </div>
     ),
     {
       ...size,
-      // 注意：不可傳 []（空陣列屬 truthy，會停用 next/og 內建的 fallback
-      // 字型，令 Satori 連無文字排版都拋「No fonts are loaded」）。
       fonts: hasFont
         ? [
             { name: 'serif', data: serif900!, weight: 900 as const, style: 'normal' as const },
