@@ -244,6 +244,9 @@ def build_article(entry: dict, seq: int, date_str: str) -> Path:
     raw = body_file.read_text(encoding="utf-8")
     raw = strip_frontmatter(raw)
     excerpt, body = parse_body(raw, title)
+    # CommonMark 不渲染緊鄰 CJK 的 **...**，原字輸出；在入庫前統一剝除
+    body   = re.sub(r'\*\*(.*?)\*\*', r'\1', body,   flags=re.DOTALL)
+    excerpt = re.sub(r'\*\*(.*?)\*\*', r'\1', excerpt, flags=re.DOTALL)
     description = make_seo_description(body, title, category)
     excerpt = make_excerpt(excerpt)
 
