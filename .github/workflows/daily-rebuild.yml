@@ -1,11 +1,11 @@
 name: Daily Rebuild — Publish Scheduled Articles
 
-# Trigger a Vercel redeploy every day at HK 10:00 (UTC 02:00)
-# so articles with publishedAt <= today become visible automatically.
+# Trigger a Vercel redeploy every day at HK 16:00 (UTC 08:00)
+# so articles with publishedAt <= today (up to 16:00 HKT) become visible automatically.
 
 on:
   schedule:
-    - cron: '0 2 * * *'   # UTC 02:00 = HK 10:00
+    - cron: '0 8 * * *'   # UTC 08:00 = HK 16:00
   workflow_dispatch:        # allow manual trigger
 
 jobs:
