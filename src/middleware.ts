@@ -5,7 +5,7 @@ import { verifySessionToken, COOKIE_NAME } from '@/lib/admin-auth'
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  if (pathname === '/admin') return NextResponse.next()
+  if (pathname === '/admin' || pathname === '/api/admin/auth') return NextResponse.next()
 
   const token = request.cookies.get(COOKIE_NAME)?.value
   if (!token || !(await verifySessionToken(token))) {
