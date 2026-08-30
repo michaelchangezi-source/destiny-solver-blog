@@ -31,6 +31,9 @@ const nextConfig: NextConfig = {
       { source: '/articles/topic-14', destination: '/articles/topic-07', permanent: true },
       { source: '/articles/topic-18', destination: '/articles/topic-08', permanent: true },
       { source: '/articles/topic-36', destination: '/articles/topic-30', permanent: true },
+      // 舊中文 category slug（Google 仍有索引）→ 現行英文 slug，消除 5xx
+      { source: '/categories/基礎知識', destination: '/categories/basics', permanent: true },
+      { source: '/categories/職場現象', destination: '/categories/career', permanent: true },
     ]
   },
 
