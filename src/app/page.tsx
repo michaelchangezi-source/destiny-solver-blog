@@ -265,7 +265,7 @@ export default function HomePage() {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {/* 六爻排盤 — 六爻線稿 */}
-          <Link href="/liuyao" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3A326B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/liuyao" className="group relative flex flex-col rounded-2xl px-6 pt-6 pb-[88px] sm:px-8 sm:pt-8 sm:pb-[100px] bg-[#3A326B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute right-3 top-4 opacity-[0.18]" width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <line x1="4" y1="8" x2="68" y2="8" stroke="white" strokeWidth="4" strokeLinecap="round"/>
               <line x1="4" y1="22" x2="68" y2="22" stroke="white" strokeWidth="4" strokeLinecap="round"/>
@@ -277,15 +277,15 @@ export default function HomePage() {
               <line x1="4" y1="82" x2="30" y2="82" stroke="white" strokeWidth="4" strokeLinecap="round"/>
               <line x1="42" y1="82" x2="68" y2="82" stroke="white" strokeWidth="4" strokeLinecap="round"/>
             </svg>
-            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">卦</span>
-            <div className="relative mt-8">
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none">卦</span>
+            <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 right-6 sm:right-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Liuyao</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">六爻占卜</h3>
-              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">納甲六親、六獸、句空，附 AI 資料包</p>
+              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block line-clamp-1">納甲六親、六獸、句空，附 AI 資料包</p>
             </div>
           </Link>
           {/* 奇門遁甲 — 九宮格線稿 */}
-          <Link href="/qimen" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#2C4E5C] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/qimen" className="group relative flex flex-col rounded-2xl px-6 pt-6 pb-[88px] sm:px-8 sm:pt-8 sm:pb-[100px] bg-[#2C4E5C] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute -right-3 -top-3 opacity-[0.17]" width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="5" y="5" width="100" height="100" stroke="white" strokeWidth="1.5"/>
               <line x1="38" y1="5" x2="38" y2="105" stroke="white" strokeWidth="1"/>
@@ -294,29 +294,29 @@ export default function HomePage() {
               <line x1="5" y1="72" x2="105" y2="72" stroke="white" strokeWidth="1"/>
               <circle cx="55" cy="55" r="11" stroke="white" strokeWidth="1.5"/>
             </svg>
-            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">奇</span>
-            <div className="relative mt-8">
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none">奇</span>
+            <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 right-6 sm:right-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Qimen</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">奇門遁甲</h3>
-              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">九宮天地盤、八門星神，附 AI 資料包</p>
+              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block line-clamp-1">九宮天地盤、八門星神，附 AI 資料包</p>
             </div>
           </Link>
           {/* 塔羅占卜 — 三張牌線稿 */}
-          <Link href="/tarot" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#5C3554] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/tarot" className="group relative flex flex-col rounded-2xl px-6 pt-6 pb-[88px] sm:px-8 sm:pt-8 sm:pb-[100px] bg-[#5C3554] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute right-0 top-2 opacity-[0.16]" width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="6" y="20" width="50" height="75" rx="4" stroke="white" strokeWidth="1.5" transform="rotate(-10 31 57)"/>
               <rect x="22" y="14" width="50" height="75" rx="4" stroke="white" strokeWidth="1.5"/>
               <rect x="36" y="18" width="50" height="75" rx="4" stroke="white" strokeWidth="1.5" transform="rotate(10 61 55)"/>
             </svg>
-            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">塔</span>
-            <div className="relative mt-8">
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none">塔</span>
+            <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 right-6 sm:right-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Tarot</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">塔羅占卜</h3>
-              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">78 張韋特牌、五種牌陣，附 AI 資料包</p>
+              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block line-clamp-1">78 張韋特牌、五種牌陣，附 AI 資料包</p>
             </div>
           </Link>
           {/* 雷諾曼占卜 — 菱形線稿 */}
-          <Link href="/lenormand" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3D5840] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/lenormand" className="group relative flex flex-col rounded-2xl px-6 pt-6 pb-[88px] sm:px-8 sm:pt-8 sm:pb-[100px] bg-[#3D5840] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute -right-4 -top-4 opacity-[0.17]" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M60 6 L114 60 L60 114 L6 60 Z" stroke="white" strokeWidth="1.5"/>
               <path d="M60 26 L94 60 L60 94 L26 60 Z" stroke="white" strokeWidth="1"/>
@@ -326,11 +326,11 @@ export default function HomePage() {
               <circle cx="60" cy="114" r="2.5" fill="white"/>
               <circle cx="6" cy="60" r="2.5" fill="white"/>
             </svg>
-            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none mb-auto">雷</span>
-            <div className="relative mt-8">
+            <span className="relative font-serif font-black text-5xl sm:text-6xl text-[#FBF7EE] leading-none">雷</span>
+            <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 right-6 sm:right-8">
               <p className="text-[#FBF7EE]/60 text-[10px] tracking-[0.25em] uppercase mb-1">Lenormand</p>
               <h3 className="text-[#FBF7EE] font-bold text-base sm:text-lg leading-snug">雷諾曼占卜</h3>
-              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block">36 張 Lenormand、六種牌陣，附 AI 資料包</p>
+              <p className="text-[#FBF7EE]/70 text-xs mt-1.5 leading-relaxed hidden sm:block line-clamp-1">36 張 Lenormand、六種牌陣，附 AI 資料包</p>
             </div>
           </Link>
         </div>
