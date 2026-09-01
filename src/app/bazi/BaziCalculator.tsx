@@ -774,19 +774,48 @@ export default function BaziCalculator({ articlesByElement = {}, articlesByCateg
             />
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label htmlFor="bazi-hour" className="text-[10px] text-[#B23E26] tracking-widest">出生時辰</label>
-            <select
-              id="bazi-hour"
-              value={form.hour}
-              onChange={e => setForm(f => ({ ...f, hour: e.target.value }))}
-              className="bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
-            >
-              {HOUR_OPTIONS.map(opt => (
-                <option key={opt.value} value={opt.value} className="bg-[#F4EEE1]">{opt.label}</option>
-              ))}
-            </select>
-          </div>
+          {form.timeMode !== 'exact' && (
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="bazi-hour" className="text-[10px] text-[#B23E26] tracking-widest">出生時辰</label>
+              <select
+                id="bazi-hour"
+                value={form.hour}
+                onChange={e => setForm(f => ({ ...f, hour: e.target.value }))}
+                className="bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
+              >
+                {HOUR_OPTIONS.map(opt => (
+                  <option key={opt.value} value={opt.value} className="bg-[#F4EEE1]">{opt.label}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {form.timeMode === 'exact' && (
+            <>
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="bazi-h24" className="text-[10px] text-[#B23E26] tracking-widest">時</label>
+                <input
+                  id="bazi-h24"
+                  type="number" min="0" max="23" placeholder="0-23"
+                  value={form.h24}
+                  onChange={e => setForm(f => ({ ...f, h24: e.target.value }))}
+                  onKeyDown={e => e.key === 'Enter' && handleCalculate()}
+                  className="w-16 bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="bazi-min" className="text-[10px] text-[#B23E26] tracking-widest">分</label>
+                <input
+                  id="bazi-min"
+                  type="number" min="0" max="59" placeholder="0-59"
+                  value={form.min}
+                  onChange={e => setForm(f => ({ ...f, min: e.target.value }))}
+                  onKeyDown={e => e.key === 'Enter' && handleCalculate()}
+                  className="w-16 bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-sm outline-none focus:border-[#B23E26]/60 transition-colors"
+                />
+              </div>
+            </>
+          )}
 
           <div className="flex flex-col gap-1.5">
             <label id="bazi-gender-label" className="text-[10px] text-[#B23E26] tracking-widest">性別</label>
@@ -808,6 +837,92 @@ export default function BaziCalculator({ articlesByElement = {}, articlesByCateg
             </div>
           </div>
         </div>
+
+        {/* 進階時間選項 */}
+        <details className="text-sm">
+          <summary className="cursor-pointer text-[#8A8071] text-xs tracking-wider hover:text-[#B23E26] transition-colors select-none">
+            進階時間選項
+          </summary>
+          <div className="mt-3 space-y-3 p-4 rounded-lg bg-[#2B241C]/[0.03] border border-[#2B241C]/10">
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="text-[10px] text-[#8A8071] tracking-wider shrink-0">時間輸入：</span>
+              {([['branch', '時辰'], ['exact', '精確時分']] as const).map(([val, label]) => (
+                <button
+                  key={val}
+                  type="button"
+                  onClick={() => setForm(f => ({ ...f, timeMode: val }))}
+                  className={`px-3 py-1 rounded-full text-xs border transition-colors ${
+                    form.timeMode === val
+                      ? 'bg-[#B23E26] border-[#B23E26] text-[#F7F1E5] font-bold'
+                      : 'bg-[#2B241C]/[0.05] border-[#2B241C]/15 text-[#5A5247] hover:border-[#B23E26]/50'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            {form.timeMode === 'exact' && (
+              <>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={form.trueSolar === '1'}
+                    onChange={e => setForm(f => ({ ...f, trueSolar: e.target.checked ? '1' : '0' }))}
+                    className="accent-[#B23E26]"
+                  />
+                  <span className="text-xs text-[#5A5247]">啟用真太陽時校正</span>
+                </label>
+
+                {form.trueSolar === '1' && (
+                  <div className="flex items-end gap-3 flex-wrap">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] text-[#8A8071]">出生地</span>
+                      <select
+                        value={form.place}
+                        onChange={e => setForm(f => ({ ...f, place: e.target.value }))}
+                        className="bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-xs outline-none focus:border-[#B23E26]/60 transition-colors"
+                      >
+                        {PLACES.map(p => (
+                          <option key={p.key} value={p.key} className="bg-[#F4EEE1]">{p.label}</option>
+                        ))}
+                      </select>
+                    </div>
+                    {form.place === 'CUSTOM' && (
+                      <div className="flex flex-col gap-1">
+                        <span className="text-[10px] text-[#8A8071]">經度（東經正、西經負）</span>
+                        <input
+                          type="number" step="0.01"
+                          value={form.customLon}
+                          onChange={e => setForm(f => ({ ...f, customLon: e.target.value }))}
+                          className="w-24 bg-[#2B241C]/[0.05] border border-[#2B241C]/15 text-[#2B241C] rounded-lg px-3 py-2 text-xs outline-none focus:border-[#B23E26]/60 transition-colors"
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] text-[#8A8071] shrink-0">子時換日：</span>
+                  {([['23', '23:00 起換日'], ['00', '00:00 起換日']] as const).map(([val, label]) => (
+                    <button
+                      key={val}
+                      type="button"
+                      onClick={() => setForm(f => ({ ...f, zishi: val }))}
+                      className={`px-3 py-1 rounded-full text-xs border transition-colors ${
+                        form.zishi === val
+                          ? 'bg-[#B23E26] border-[#B23E26] text-[#F7F1E5] font-bold'
+                          : 'bg-[#2B241C]/[0.05] border-[#2B241C]/15 text-[#5A5247] hover:border-[#B23E26]/50'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </details>
 
         {error && <p id="bazi-error" aria-live="polite" className="text-red-400 text-sm">{error}</p>}
 
@@ -853,6 +968,43 @@ export default function BaziCalculator({ articlesByElement = {}, articlesByCateg
               </button>
             ))}
           </div>
+
+          {/* 真太陽時校正結果 */}
+          {result.solarTime && (
+            <div className={`rounded-lg border p-4 text-xs leading-relaxed ${
+              result.solarTime.hourPillarChanged
+                ? 'border-[#B23E26]/40 bg-[#B23E26]/[0.05]'
+                : 'border-[#2B241C]/15 bg-[#2B241C]/[0.03]'
+            }`}>
+              <p className="font-bold text-[#B23E26] mb-2">真太陽時校正</p>
+              <div className="flex flex-wrap gap-x-6 gap-y-1 text-[#5A5247]">
+                <span>鐘錶時間 {result.solarTime.originalTime} → 真太陽時 {result.solarTime.correctedTime}</span>
+                <span>經度修正 {result.solarTime.lonOffsetMin >= 0 ? '+' : ''}{result.solarTime.lonOffsetMin.toFixed(1)} 分鐘</span>
+                <span>均時差 {result.solarTime.eotMin >= 0 ? '+' : ''}{result.solarTime.eotMin.toFixed(1)} 分鐘</span>
+                <span>合計 {result.solarTime.totalOffsetMin >= 0 ? '+' : ''}{result.solarTime.totalOffsetMin.toFixed(1)} 分鐘</span>
+              </div>
+              {result.solarTime.hourPillarChanged && (
+                <p className="mt-2 text-[#B23E26] font-bold">
+                  時柱改變：{result.solarTime.originalHourPillar} → {result.solarTime.correctedHourPillar}
+                </p>
+              )}
+              {!result.solarTime.hourPillarChanged && (
+                <p className="mt-1 text-[#8A8071]">校正後時柱不變（{result.solarTime.correctedHourPillar}）</p>
+              )}
+            </div>
+          )}
+
+          {/* 早子時兩派對照 */}
+          {result.zishi && (
+            <div className="rounded-lg border border-[#2B241C]/15 bg-[#2B241C]/[0.03] p-4 text-xs leading-relaxed text-[#5A5247]">
+              <p className="font-bold text-[#B23E26] mb-2">早子時（23:00 後）兩派對照</p>
+              <div className="flex gap-6">
+                <span>23:00 換日派：日柱 {result.zishi.dayPillar23}、時柱 {result.zishi.hourPillar23}</span>
+                <span>00:00 換日派：日柱 {result.zishi.dayPillar00}、時柱 {result.zishi.hourPillar00}</span>
+              </div>
+              <p className="mt-1 text-[#8A8071]">目前採用：{result.zishi.mode === '23' ? '23:00' : '00:00'} 換日</p>
+            </div>
+          )}
 
           {/* 四柱 */}
           <section>
