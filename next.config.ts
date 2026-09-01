@@ -58,13 +58,6 @@ const nextConfig: NextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
-      {
-        // fonts.css 唔帶雜湊，設一星期快取。
-        source: '/fonts.css',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' },
-        ],
-      },
     ]
   },
 }
