@@ -1,9 +1,11 @@
 'use client'
 
-import { useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import InkRippleMotif from './InkRippleMotif'
+
+const InkRippleMotif = dynamic(() => import('./InkRippleMotif'), { ssr: false })
 
 export type HeroToday = {
   stem: string
@@ -35,8 +37,16 @@ const FALLBACK: HeroToday = {
  */
 export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday }) {
   const burstRef = useRef<((xPct: number, yPct: number) => void) | null>(null)
+  const [showEffects, setShowEffects] = useState(false)
   const yi = (today.yi || []).slice(0, 3)
   const buYi = (today.buYi || []).slice(0, 2)
+
+  useEffect(() => {
+    setShowEffects(
+      window.matchMedia('(min-width: 768px)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+  }, [])
 
   const handleRippleReady = useCallback((burstAt: (xPct: number, yPct: number) => void) => {
     burstRef.current = burstAt
@@ -47,7 +57,6 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
     const xPct = (e.clientX - rect.left) / rect.width
     const yPct = (e.clientY - rect.top) / rect.height
     burstRef.current?.(xPct, yPct)
-    // 唔 preventDefault：連結／按鈕照常導航
   }, [])
 
   return (
@@ -55,7 +64,7 @@ export default function InkFlowHero({ today = FALLBACK }: { today?: HeroToday })
       onClick={handleHeroClick}
       className="ink-flow-hero relative w-full overflow-hidden bg-[#F7F5EE] text-[#2B241C] border-b border-[#2B241C]/10"
     >
-      <InkRippleMotif onReady={handleRippleReady} />
+      {showEffects && <InkRippleMotif onReady={handleRippleReady} />}
 
       {/* 右下角小型描邊裝飾（取代舊 44vw 巨型水印） */}
       <div className="pointer-events-none absolute -right-6 -bottom-10 select-none">

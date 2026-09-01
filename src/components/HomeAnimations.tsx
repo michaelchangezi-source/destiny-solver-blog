@@ -1,16 +1,23 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 
-// ssr: false 必須在 Client Component 內使用（不能直接在 Server Component page.tsx 宣告）
 const HomeMotion = dynamic(() => import('./HomeMotion'), { ssr: false })
 const InkFlowHeroAnim = dynamic(() => import('./InkFlowHeroAnim'), { ssr: false })
 
-/**
- * 首頁動畫層統一入口（Client Component wrapper）。
- * 延遲載入所有 GSAP 相關代碼，mobile 不會下載 GSAP bundle。
- */
 export default function HomeAnimations() {
+  const [animate, setAnimate] = useState(false)
+
+  useEffect(() => {
+    const ok =
+      window.matchMedia('(min-width: 768px)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (ok) setAnimate(true)
+  }, [])
+
+  if (!animate) return null
+
   return (
     <>
       <HomeMotion />
