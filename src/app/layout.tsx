@@ -86,6 +86,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="zh-TW">
       <head>
+        <link rel="preload" href="/fonts.css" as="style" />
+        {/* eslint-disable-next-line @next/next/no-before-interactive-script-component */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='/fonts.css';document.head.appendChild(l);}())`,
+          }}
+        />
+        <noscript dangerouslySetInnerHTML={{ __html: '<link rel="stylesheet" href="/fonts.css">' }} />
         <link rel="alternate" type="text/plain" href="/llms.txt" />
         <script
           type="application/ld+json"
