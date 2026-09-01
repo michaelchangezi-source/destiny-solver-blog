@@ -224,11 +224,32 @@ def clean_stale_for_slug(slug: str) -> None:
     自動刪除，結果同一 slug（如 post-20260815-05）在 content/articles 和
     public/images/covers 同時存在多個版本，網站顯示時出現重複文章。
     此函式於每篇寫入前先刪舊，確保一個 slug 只對應一個檔案。
+
+    ⚠️ 2026-09-01 教訓：舊版只清 `{slug}-*.md`（有標題後綴的格式），
+    不清 `{slug}.md`（無後綴格式，由其他流程生成的文章，如實戰斷命系列）。
+    結果兩個不同內容的文章共用同一 slug，網站出現重複且封面錯亂。
+    修正：若 `{slug}.md` 存在且其 frontmatter slug 欄位與目標 slug 相同，
+    則一併刪除；若 slug 不符（即另一套流程的文章），則中止並報錯，
+    避免靜默覆蓋不屬於本 script 管理的文章。
     """
     if ARTICLES_DIR.exists():
         for old in ARTICLES_DIR.glob(f"{slug}-*.md"):
             old.unlink()
             print(f"  [clean] 刪舊殘留：{old.name}")
+        # 亦檢查無後綴版本（{slug}.md）
+        exact = ARTICLES_DIR / f"{slug}.md"
+        if exact.exists():
+            raw = exact.read_text(encoding="utf-8", errors="replace")
+            # 只有當該檔案的 slug 欄位與目標 slug 相同時才刪除
+            if f'slug: "{slug}"' in raw:
+                exact.unlink()
+                print(f"  [clean] 刪舊殘留（無後綴）：{exact.name}")
+            else:
+                raise SystemExit(
+                    f"[中止] slug 衝突：{exact.name} 已存在，\n"
+                    f"       但其 frontmatter slug 不是 {slug}（屬於其他流程管理的文章）。\n"
+                    f"       請先將該檔案改為其他 slug，或修改 manifest 使用不同日期／序號。"
+                )
     old_cover = COVERS_DIR / f"{slug}.jpg"
     if old_cover.exists():
         old_cover.unlink()
