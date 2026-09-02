@@ -143,13 +143,13 @@ export default function HomePage() {
             <p className="text-[#B23E26] text-xs font-serif font-semibold tracking-widest mb-1">排盤</p>
             <h2 className="font-serif text-[#2B241C] text-2xl font-bold">免費排盤工具</h2>
           </div>
-          <Link href="/tools" className="text-sm text-[#B23E26] font-semibold hover:underline whitespace-nowrap">
+          <Link href="/tools" prefetch={false} className="text-sm text-[#B23E26] font-semibold hover:underline whitespace-nowrap">
             查看全部工具 →
           </Link>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {/* 八字排盤 — 羅盤線稿 */}
-          <Link href="/bazi" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#B23E26] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/bazi" prefetch={false} className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#B23E26] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute -right-5 -top-5 opacity-[0.14]" width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="65" cy="65" r="60" stroke="white" strokeWidth="1.5"/>
               <circle cx="65" cy="65" r="46" stroke="white" strokeWidth="1"/>
@@ -172,7 +172,7 @@ export default function HomePage() {
             </div>
           </Link>
           {/* 紫微斗數 — 北斗七星線稿 */}
-          <Link href="/ziwei" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#2B4A6B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/ziwei" prefetch={false} className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#2B4A6B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute right-2 top-2 opacity-[0.18]" width="110" height="90" viewBox="0 0 110 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <line x1="10" y1="72" x2="30" y2="68" stroke="white" strokeWidth="1" strokeLinecap="round"/>
               <line x1="30" y1="68" x2="52" y2="62" stroke="white" strokeWidth="1" strokeLinecap="round"/>
@@ -199,7 +199,7 @@ export default function HomePage() {
             </div>
           </Link>
           {/* 西洋占星 — 十二宮星盤線稿 */}
-          <Link href="/western" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3D6B5C] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/western" prefetch={false} className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3D6B5C] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute -right-5 -top-5 opacity-[0.14]" width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="65" cy="65" r="60" stroke="white" strokeWidth="1.5"/>
               <circle cx="65" cy="65" r="46" stroke="white" strokeWidth="1"/>
@@ -230,7 +230,7 @@ export default function HomePage() {
             </div>
           </Link>
           {/* 印度占星 — 曼荼羅線稿 */}
-          <Link href="/vedic" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#6B4A2B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/vedic" prefetch={false} className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#6B4A2B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute -right-5 -top-5 opacity-[0.14]" width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="65" cy="65" r="60" stroke="white" strokeWidth="1.5"/>
               <circle cx="65" cy="65" r="42" stroke="white" strokeWidth="1"/>
@@ -259,13 +259,13 @@ export default function HomePage() {
             <p className="text-[#B23E26] text-xs font-serif font-semibold tracking-widest mb-1">占問</p>
             <h2 className="font-serif text-[#2B241C] text-2xl font-bold">免費占卜工具</h2>
           </div>
-          <Link href="/tools" className="text-sm text-[#B23E26] font-semibold hover:underline whitespace-nowrap">
+          <Link href="/tools" prefetch={false} className="text-sm text-[#B23E26] font-semibold hover:underline whitespace-nowrap">
             查看全部工具 →
           </Link>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {/* 六爻排盤 — 六爻線稿 */}
-          <Link href="/liuyao" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3A326B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/liuyao" prefetch={false} className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3A326B] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute right-3 top-4 opacity-[0.18]" width="72" height="90" viewBox="0 0 72 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <line x1="4" y1="8" x2="68" y2="8" stroke="white" strokeWidth="4" strokeLinecap="round"/>
               <line x1="4" y1="22" x2="68" y2="22" stroke="white" strokeWidth="4" strokeLinecap="round"/>
@@ -285,7 +285,7 @@ export default function HomePage() {
             </div>
           </Link>
           {/* 奇門遁甲 — 九宮格線稿 */}
-          <Link href="/qimen" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#2C4E5C] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/qimen" prefetch={false} className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#2C4E5C] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute -right-3 -top-3 opacity-[0.17]" width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="5" y="5" width="100" height="100" stroke="white" strokeWidth="1.5"/>
               <line x1="38" y1="5" x2="38" y2="105" stroke="white" strokeWidth="1"/>
@@ -302,7 +302,7 @@ export default function HomePage() {
             </div>
           </Link>
           {/* 塔羅占卜 — 三張牌線稿 */}
-          <Link href="/tarot" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#5C3554] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/tarot" prefetch={false} className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#5C3554] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute right-0 top-2 opacity-[0.16]" width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="6" y="20" width="50" height="75" rx="4" stroke="white" strokeWidth="1.5" transform="rotate(-10 31 57)"/>
               <rect x="22" y="14" width="50" height="75" rx="4" stroke="white" strokeWidth="1.5"/>
@@ -316,7 +316,7 @@ export default function HomePage() {
             </div>
           </Link>
           {/* 雷諾曼占卜 — 菱形線稿 */}
-          <Link href="/lenormand" className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3D5840] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
+          <Link href="/lenormand" prefetch={false} className="group relative flex flex-col rounded-2xl p-6 sm:p-8 bg-[#3D5840] hover:brightness-95 transition-[filter,transform] duration-200 active:scale-[0.98] overflow-hidden">
             <svg aria-hidden="true" className="pointer-events-none absolute -right-4 -top-4 opacity-[0.17]" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M60 6 L114 60 L60 114 L6 60 Z" stroke="white" strokeWidth="1.5"/>
               <path d="M60 26 L94 60 L60 94 L26 60 Z" stroke="white" strokeWidth="1"/>
@@ -335,7 +335,7 @@ export default function HomePage() {
           </Link>
         </div>
         <p className="text-[#5A5247] text-sm mt-5 leading-relaxed">
-          想比較坊間工具？<Link href="/tools-guide" className="text-[#B23E26] hover:underline">睇 2026 免費排盤工具合集 →</Link>
+          想比較坊間工具？<Link href="/tools-guide" prefetch={false} className="text-[#B23E26] hover:underline">睇 2026 免費排盤工具合集 →</Link>
         </p>
       </section>
 
