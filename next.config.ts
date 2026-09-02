@@ -21,16 +21,17 @@ const nextConfig: NextConfig = {
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'destiny-solver-blog.vercel.app' }],
-        destination: 'https://destinysolver.com/:path*',
+        destination: 'https://www.destinysolver.com/:path*',
         permanent: true,
       },
       // P0-3（2026-08-06 審核）：內容重疊嘅教學文合併，舊 slug 301 去合併後嘅目標文章
       { source: '/articles/topic-14', destination: '/articles/topic-07', permanent: true },
       { source: '/articles/topic-18', destination: '/articles/topic-08', permanent: true },
       { source: '/articles/topic-36', destination: '/articles/topic-30', permanent: true },
-      // 舊中文 category slug（Google 仍有索引）→ 現行英文 slug，消除 5xx
+      // 舊中文 category slug（Google 仍有索引）→ 現行英文 slug，消除 404/5xx
       { source: '/categories/基礎知識', destination: '/categories/basics', permanent: true },
       { source: '/categories/職場現象', destination: '/categories/career', permanent: true },
+      { source: '/categories/占星', destination: '/categories/astrology', permanent: true },
     ]
   },
 

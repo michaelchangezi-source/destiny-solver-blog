@@ -21,7 +21,7 @@ import remarkHtml from 'remark-html'
 import { PERSON, PERSON_ID, PUBLISHER } from '@/lib/site'
 import { linkGlossaryTerms } from '@/lib/glossary'
 
-const BASE_URL = 'https://destinysolver.com'
+const BASE_URL = 'https://www.destinysolver.com'
 
 /** 清除 Markdown 行內格式，還原為純文字 */
 function stripMarkdown(text: string): string {

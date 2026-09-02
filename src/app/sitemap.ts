@@ -2,8 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getAllArticles } from '@/lib/articles'
 import { CATEGORY_SLUGS } from '@/types'
 import { GLOSSARY_TERMS } from '@/lib/glossary'
-
-const BASE_URL = 'https://destinysolver.com'
+import { SITE_URL } from '@/lib/site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // P0-1: 過濾未來日期文章，避免把尚未發佈的 URL 寫進 sitemap
@@ -16,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const categories = [...new Set(articles.map((a) => a.category))]
 
   const articleUrls: MetadataRoute.Sitemap = articles.map((a) => ({
-    url: `${BASE_URL}/articles/${a.slug}`,
+    url: `${SITE_URL}/articles/${a.slug}`,
     // 用 updatedAt（無 frontmatter 覆寫時本身 fallback 去 publishedAt），
     // 與 Article schema 的 dateModified 一致，改舊文即反映真實更新日
     lastModified: new Date(a.updatedAt),
@@ -31,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const catArticles = articles.filter((a) => a.category === cat)
       const latestMs = Math.max(...catArticles.map((a) => new Date(a.publishedAt).getTime()))
       return {
-        url: `${BASE_URL}/categories/${CATEGORY_SLUGS[cat]}`,
+        url: `${SITE_URL}/categories/${CATEGORY_SLUGS[cat]}`,
         lastModified: new Date(latestMs),
         changeFrequency: 'weekly',
         priority: 0.6,
@@ -40,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // P0-2: 詞彙術語頁是靜態內容，略去 lastModified 避免 build 時間戳重複
   const glossaryTermUrls: MetadataRoute.Sitemap = GLOSSARY_TERMS.map((t) => ({
-    url: `${BASE_URL}/glossary/${t.slug}`,
+    url: `${SITE_URL}/glossary/${t.slug}`,
     changeFrequency: 'monthly',
     priority: 0.7,
   }))
@@ -55,29 +54,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     // 列表頁：跟最新文章日期走
-    { url: BASE_URL, lastModified: listPageDate, changeFrequency: 'weekly', priority: 1 },
-    { url: `${BASE_URL}/categories`, lastModified: listPageDate, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/latest`, lastModified: listPageDate, changeFrequency: 'daily', priority: 0.7 },
-    { url: `${BASE_URL}/articles`, lastModified: listPageDate, changeFrequency: 'daily', priority: 0.7 },
+    { url: SITE_URL, lastModified: listPageDate, changeFrequency: 'weekly', priority: 1 },
+    { url: `${SITE_URL}/categories`, lastModified: listPageDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${SITE_URL}/latest`, lastModified: listPageDate, changeFrequency: 'daily', priority: 0.7 },
+    { url: `${SITE_URL}/articles`, lastModified: listPageDate, changeFrequency: 'daily', priority: 0.7 },
     // 內容相對穩定嘅頁：保留固定歷史日期，避免 build 時間戳重複
-    { url: `${BASE_URL}/glossary`, lastModified: new Date('2025-10-01'), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/about`, lastModified: new Date('2025-09-15'), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE_URL}/consultation`, lastModified: new Date('2025-09-15'), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/bazi`, lastModified: new Date('2025-11-01'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/ziwei`, lastModified: new Date('2026-08-26'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/western`, lastModified: new Date('2026-08-26'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/liuyao`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/qimen`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/tarot`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/lenormand`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/vedic`, lastModified: new Date('2026-08-27'), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/tools`, lastModified: new Date('2026-08-21'), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${BASE_URL}/tools-guide`, lastModified: new Date('2026-08-21'), changeFrequency: 'yearly', priority: 0.8 },
-    { url: `${BASE_URL}/daily`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
-    { url: `${BASE_URL}/daily/me`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
-    { url: `${BASE_URL}/privacy`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE_URL}/terms`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE_URL}/disclaimer`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/glossary`, lastModified: new Date('2025-10-01'), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/about`, lastModified: new Date('2025-09-15'), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${SITE_URL}/consultation`, lastModified: new Date('2025-09-15'), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/bazi`, lastModified: new Date('2025-11-01'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${SITE_URL}/ziwei`, lastModified: new Date('2026-08-26'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${SITE_URL}/western`, lastModified: new Date('2026-08-26'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${SITE_URL}/liuyao`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${SITE_URL}/qimen`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${SITE_URL}/tarot`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${SITE_URL}/lenormand`, lastModified: new Date('2026-08-21'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${SITE_URL}/vedic`, lastModified: new Date('2026-08-27'), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${SITE_URL}/tools`, lastModified: new Date('2026-08-21'), changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/tools-guide`, lastModified: new Date('2026-08-21'), changeFrequency: 'yearly', priority: 0.8 },
+    { url: `${SITE_URL}/daily`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${SITE_URL}/daily/me`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${SITE_URL}/privacy`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/terms`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${SITE_URL}/disclaimer`, lastModified: new Date('2026-08-06'), changeFrequency: 'yearly', priority: 0.3 },
     ...articleUrls,
     ...categoryUrls,
     ...glossaryTermUrls,
