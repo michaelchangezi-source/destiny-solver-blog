@@ -14,7 +14,7 @@ import PricingTiers, { CONSULTATION_PRICE } from '@/components/home/PricingTiers
 import SelfQualification from '@/components/home/SelfQualification'
 import Commitments from '@/components/home/Commitments'
 
-export const revalidate = 300
+export const revalidate = 3600
 
 // P3-4（2026-08-07 審核）：首頁本身只有 WebSite + Person schema，冇 FAQPage。
 // 首頁係品牌詞入口，加 FAQ 係搶 AI Overview／AI 摘要最抵嘅一步。

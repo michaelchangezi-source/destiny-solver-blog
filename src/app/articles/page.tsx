@@ -9,7 +9,7 @@ export const metadata = buildMetadata({
   path: '/articles',
 })
 
-export const revalidate = 300
+export const revalidate = 3600
 
 interface Props {
   searchParams: Promise<{ q?: string }>
