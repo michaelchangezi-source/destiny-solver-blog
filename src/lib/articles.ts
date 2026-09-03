@@ -61,7 +61,7 @@ export function getArticleBySlug(slug: string): Article | null {
     content,
     category: data.category ?? '八字基礎',
     tags: data.tags ?? [],
-    coverImage: data.coverImage ?? '/images/covers/default.png',
+    coverImage: data.coverImage || '',
     publishedAt: data.publishedAt ?? new Date().toISOString(),
     updatedAt: data.updatedAt ?? data.publishedAt ?? new Date().toISOString(),
     readingTime: stats.text,

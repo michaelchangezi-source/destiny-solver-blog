@@ -173,13 +173,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: [`${BASE_URL}/about`],
       section: article.category,
       tags: article.tags,
-      images: [{ url: article.coverImage }],
+      ...(article.coverImage ? { images: [{ url: article.coverImage }] } : {}),
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: metaDescription,
-      images: [article.coverImage],
+      ...(article.coverImage ? { images: [article.coverImage] } : {}),
     },
   }
 }
@@ -261,17 +261,17 @@ export default async function ArticlePage({ params }: Props) {
     headline: article.title,
     description: article.description || article.excerpt,
     image: article.coverImage
-      ? [`https://destinysolver.com${article.coverImage}`]
-      : ['https://destinysolver.com/images/og-default.png'],
+      ? [`https://www.destinysolver.com${article.coverImage}`]
+      : [`https://www.destinysolver.com/opengraph-image`],
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
-    url: `https://destinysolver.com/articles/${article.slug}`,
+    url: `https://www.destinysolver.com/articles/${article.slug}`,
     inLanguage: 'zh-TW',
     author: { '@id': PERSON_ID },
     publisher: PUBLISHER,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://destinysolver.com/articles/${article.slug}`,
+      '@id': `https://www.destinysolver.com/articles/${article.slug}`,
     },
     keywords: article.tags.join(', '),
     articleSection: article.category,
